@@ -20,4 +20,5 @@ class Car:
 
     @fuel_consumption.setter
     def fuel_consumption(self, fuel_consumption: Union[int, float]):
-        self._fuel_consumption = fuel_consumption if fuel_consumption >= 0 else 0
+        self._fuel_consumption =\
+            fuel_consumption if fuel_consumption >= 0 else 0

@@ -87,7 +87,8 @@ class Customer:
                     self.go_home()
                     return
         else:
-            print(f"{self.name} doesn't have enough money to make purchase in any shop")
+            print(f"{self.name} doesn't"
+                  f" have enough money to make purchase in any shop")
             return
 
     def calculate_ride(self, shop: Shop, fuel_price: Union[int, float]):
@@ -96,13 +97,16 @@ class Customer:
         home_x = self.location[0]
         home_y = self.location[1]
 
-        destination = round(sqrt(((shop_x - home_x) ** 2) + ((shop_y - home_y) ** 2)), 2)
+        destination = round(sqrt(
+            ((shop_x - home_x) ** 2) + ((shop_y - home_y) ** 2)), 2)
         destination = round(destination * 100, 3) / 100
 
-        fuel_consumption = round(round(self.car.fuel_consumption * 100, 2) / 10000, 3)
+        fuel_consumption = round(round(
+            self.car.fuel_consumption * 100, 2) / 10000, 3)
         fuel_price = round(round(fuel_price * 100, 2) / 100, 3)
 
-        litres = round(destination * round(fuel_consumption * fuel_price, 2), 2)
+        litres = round(destination * round(
+            fuel_consumption * fuel_price, 2), 2)
         cost = round(round(litres * 2 * 100, 2) / 100, 2)
 
         return cost
@@ -112,7 +116,8 @@ class Customer:
         products = ("milk", "bread", "butter")
         counter = 0
         for product in products:
-            cost_for_each = self.product_cart[product] * shop.products[counter].price
+            cost_for_each =\
+                self.product_cart[product] * shop.products[counter].price
             counter += 1
             total_amount.append(cost_for_each)
 
