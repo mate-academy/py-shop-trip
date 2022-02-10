@@ -10,7 +10,7 @@ from app.main import shop_trip
 
 def test_shop_trip_output(monkeypatch):
     datetime_mock = MagicMock(wrap=datetime.datetime)
-    datetime_mock.now.return_value = datetime.datetime(2020, 3, 11, 13, 15, 34)
+    datetime_mock.now.return_value = datetime.datetime(2022, 3, 11, 13, 15, 34)
     monkeypatch.setattr(datetime, "datetime", datetime_mock)
 
     f = StringIO()
@@ -33,7 +33,6 @@ You have bought:
 5 butters for 12.5 dollars
 Total cost is 26.5 dollars
 See you again!
-
 Bob rides home
 Bob now has 26.76 dollars
 
