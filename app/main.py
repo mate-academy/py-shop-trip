@@ -39,8 +39,9 @@ def trip_to_shop(customer, shop, fuel_price):
     customer_x, customer_y, = customer["location"]
     shop_x, shop_y, = shop["location"]
     consumption = customer["car"]["fuel_consumption"]
-    distance = round(sqrt((customer_x - shop_x) ** 2 +
-                          (customer_y - shop_y) ** 2), 2)
+    x_diff = customer_x - shop_x
+    y_diff = customer_y - shop_y
+    distance = round(sqrt(x_diff ** 2 + y_diff ** 2), 2)
     fuel_cost = round((fuel_price * consumption) / 100, 2)
     cost_for_road = round(distance * fuel_cost, 2)
     cost_for_products = 0
