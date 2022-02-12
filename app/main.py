@@ -16,7 +16,7 @@ def fuel_cost(home: list, shop: list, fuel_consumption):
 
 
 def products_cost(products: dict, prices: dict):
-    return round(sum(products[key] * prices[key] for key in products), 2)
+    return sum(products[key] * prices[key] for key in products)
 
 
 def print_receipt(name, products: dict, prices: dict):
@@ -33,8 +33,7 @@ def print_receipt(name, products: dict, prices: dict):
 def shop_trip():
     for customer in CUSTOMERS:
         print(f"{customer['name']} has {customer['money']} dollars")
-        min_cost = 100
-        cheapest_shop = 0
+        costs = []
         shop_number = 0
         for i in range(3):
             fuel = fuel_cost(customer['location'],
@@ -45,14 +44,13 @@ def shop_trip():
             cost_trip = fuel * 2 + purchases
             print(f"{customer['name']}'s trip to the {SHOPS[i]['name']} "
                   f"costs {round(cost_trip, 2)} ")
-            if cost_trip < min_cost:
-                min_cost = cost_trip
-                cheapest_shop = SHOPS[i]['name']
-                shop_number = i
+            costs.append(cost_trip)
+        min_cost = min(costs)
         if min_cost <= customer['money']:
-            print(f"{customer['name']} rides to {cheapest_shop}\n")
+            print(f"{customer['name']} rides to "
+                  f"{SHOPS[costs.index(min_cost)]['name']}\n")
             home = customer['location']
-            customer['location'] = SHOPS[shop_number]['location']
+            customer['location'] = SHOPS[costs.index(min_cost)]['location']
             print_receipt(customer['name'],
                           customer['product_cart'],
                           SHOPS[shop_number]['products'])
