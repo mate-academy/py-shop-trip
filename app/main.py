@@ -2,7 +2,7 @@ import datetime
 import json
 
 
-with open("app/config.json") as file:
+with open("config.json") as file:
     trip_info = json.load(file)
 
 FUEL_PRICE = trip_info["FUEL_PRICE"]
@@ -51,12 +51,15 @@ def shop_trip():
                 shop_number = i
         if min_cost <= customer['money']:
             print(f"{customer['name']} rides to {cheapest_shop}\n")
+            home = customer['location']
+            customer['location'] = SHOPS[shop_number]['location']
             print_receipt(customer['name'],
                           customer['product_cart'],
                           SHOPS[shop_number]['products'])
             print(f"{customer['name']} rides home\n"
                   f"{customer['name']} now has "
                   f"{customer['money'] - min_cost} dollars\n")
+            customer['location'] = home
         else:
             print(f"{customer['name']} doesn't have "
                   f"enough money to make purchase in any shop")
