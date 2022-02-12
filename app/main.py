@@ -34,7 +34,6 @@ def shop_trip():
     for customer in CUSTOMERS:
         print(f"{customer['name']} has {customer['money']} dollars")
         costs = []
-        shop_number = 0
         for i in range(3):
             fuel = fuel_cost(customer['location'],
                              SHOPS[i]['location'],
@@ -53,7 +52,7 @@ def shop_trip():
             customer['location'] = SHOPS[costs.index(min_cost)]['location']
             print_receipt(customer['name'],
                           customer['product_cart'],
-                          SHOPS[shop_number]['products'])
+                          SHOPS[costs.index(min_cost)]['products'])
             print(f"{customer['name']} rides home\n"
                   f"{customer['name']} now has "
                   f"{customer['money'] - min_cost} dollars\n")
