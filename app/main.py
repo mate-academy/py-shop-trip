@@ -2,7 +2,7 @@ import datetime
 import json
 
 
-with open("config.json") as file:
+with open("app/config.json") as file:
     trip_info = json.load(file)
 
 FUEL_PRICE = trip_info["FUEL_PRICE"]
@@ -11,8 +11,10 @@ SHOPS = trip_info["shops"]
 
 
 def fuel_cost(home: list, shop: list, fuel_consumption):
-    distance = ((home[0] - shop[0]) ** 2 + (home[1] - shop[1]) ** 2) ** 0.5
-    return round(fuel_consumption * distance / 100 * FUEL_PRICE, 2)
+    distance = \
+        round(((home[0] - shop[0]) ** 2 + (home[1] - shop[1]) ** 2) ** 0.5, 2)
+    fuel_per_km = round(fuel_consumption * FUEL_PRICE / 100, 2)
+    return round(fuel_per_km * distance, 2)
 
 
 def products_cost(products: dict, prices: dict):
