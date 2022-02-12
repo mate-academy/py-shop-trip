@@ -2,7 +2,7 @@ import datetime
 import json
 
 
-with open("config.json") as file:
+with open("app/config.json") as file:
     trip_info = json.load(file)
 
 FUEL_PRICE = trip_info["FUEL_PRICE"]
