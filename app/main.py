@@ -64,4 +64,5 @@ def shop_trip():
                   f"enough money to make purchase in any shop")
 
 
-shop_trip()
+if __name__ == '__main__':
+    shop_trip()
