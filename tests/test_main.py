@@ -20,12 +20,12 @@ def test_shop_trip_output(monkeypatch):
 
     output = f.getvalue()
     out = '''Bob has 55 dollars
-Bob's trip to the Outskirts Shop costs 28.24
-Bob's trip to the Shop '24/7' costs 31.52
-Bob's trip to the Central Shop costs 39.34
+Bob's trip to the Outskirts Shop costs 28.21
+Bob's trip to the Shop '24/7' costs 31.48
+Bob's trip to the Central Shop costs 39.28
 Bob rides to Outskirts Shop
 
-Date: 11/03/2022 13:15:34
+Date: 11/03/2020 13:15:34
 Thanks, Bob, for you purchase!
 You have bought: 
 4 milks for 12 dollars
@@ -35,15 +35,15 @@ Total cost is 26.5 dollars
 See you again!
 
 Bob rides home
-Bob now has 26.76 dollars
+Bob now has 26.79 dollars
 
 Alex has 41 dollars
-Alex's trip to the Outskirts Shop costs 17.18
-Alex's trip to the Shop '24/7' costs 15.96
+Alex's trip to the Outskirts Shop costs 17.14
+Alex's trip to the Shop '24/7' costs 15.95
 Alex's trip to the Central Shop costs 17.98
 Alex rides to Shop '24/7'
 
-Date: 11/03/2022 13:15:34
+Date: 11/03/2020 13:15:34
 Thanks, Alex, for you purchase!
 You have bought: 
 2 milks for 4 dollars
@@ -51,13 +51,14 @@ You have bought:
 2 butters for 6.4 dollars
 Total cost is 13.4 dollars
 See you again!
+
 Alex rides home
-Alex now has 25.04 dollars
+Alex now has 25.05 dollars
 
 Monica has 12 dollars
-Monica's trip to the Outskirts Shop costs 15.64
-Monica's trip to the Shop '24/7' costs 16.8
-Monica's trip to the Central Shop costs 22.52
+Monica's trip to the Outskirts Shop costs 15.65
+Monica's trip to the Shop '24/7' costs 16.84
+Monica's trip to the Central Shop costs 22.58
 Monica doesn't have enough money to make purchase in any shop
 '''
     assert output == out
