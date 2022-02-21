@@ -11,18 +11,17 @@ def shop_trip():
     shops = users_data["shops"]
     for customer in customers:
         print(f"{customer['name']} has {customer['money']} dollars")
-        lst = []
+        all_trip_costs = []
         for shop in shops:
             trip_coast = trip_to_shop(customer, shop, fuel_price)
             print(f"{customer['name']}'s trip to the "
                   f"{shop['name']} costs {trip_coast[0]}")
-            lst.append(trip_coast)
-        min_costs, chosen_shop = min(lst)
+            all_trip_costs.append(trip_coast)
+        min_costs, chosen_shop = min(all_trip_costs)
         if customer['money'] > min_costs:
-            print(f"{customer['name']} rides to {chosen_shop['name']}")
+            print(f"{customer['name']} rides to {chosen_shop['name']}\n")
             home = customer['location']
             customer['location'] = chosen_shop["location"]
-            print()
             shop_prints_purchase_receipt(customer, chosen_shop)
             print(f"{customer['name']} rides home")
             customer['location'] = home
