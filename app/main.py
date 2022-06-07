@@ -4,7 +4,7 @@ from app.customers import Customer
 from app.shops import Shop
 
 
-FILE_NAME = "../app/config.json"
+FILE_NAME = "app/config.json"
 
 
 def shop_trip():
@@ -19,7 +19,8 @@ def shop_trip():
             left_money = customer.pay_for_trip(trip_costs)
             print(f'{customer.name} now has {left_money} dollars\n')
         else:
-            print(f"{customer.name} doesn't have enough money to make purchase in any shop")
+            print(f"{customer.name} doesn't have enough "
+                  f"money to make purchase in any shop")
 
 
 def get_customer_shop(customer: Customer, shops: list[Shop]):
@@ -44,7 +45,10 @@ def create_shops_and_customers(file_name: str):
 
     fuel_price = config_data["FUEL_PRICE"]
     shops = [Shop(item) for item in config_data["shops"]]
-    customers = [Customer(item, fuel_price) for item in config_data["customers"]]
+    customers = [
+        Customer(item, fuel_price)
+        for item in config_data["customers"]
+    ]
 
     return shops, customers
 
