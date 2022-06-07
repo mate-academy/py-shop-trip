@@ -5,9 +5,9 @@ from app.classes.Car import Car
 
 
 def shop_trip():
-    with open("../app/config.json", "r") as f:
+    with open("app/config.json", "r") as f:
         file = json.load(f)
-
+    FUEL_PRICE = file["FUEL_PRICE"]
     customers = []
     shops = []
     for customer in file["customers"]:
@@ -17,7 +17,8 @@ def shop_trip():
                                   customer["money"],
                                   Car(customer["car"]["brand"],
                                       customer["car"]["fuel_consumption"]
-                                      )
+                                      ),
+                                  FUEL_PRICE
                                   )
                          )
 

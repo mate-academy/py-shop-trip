@@ -1,23 +1,24 @@
-import json
 from dataclasses import dataclass
 from math import sqrt
 from datetime import datetime
 
-with open("../app/config.json", "r") as f:
-    file = json.load(f)
 
-FUEL_PRICE = file["FUEL_PRICE"]
-
-
-@dataclass()
+@dataclass
 class Customer:
-    def __init__(self, name, product_cart, home_location, money, car):
+    def __init__(self,
+                 name,
+                 product_cart,
+                 home_location,
+                 money,
+                 car,
+                 fuel_price):
         self.name = name
         self.product_cart = product_cart
         self.home_location = home_location
         self.money = money
         self.car = car
         self.location = home_location
+        self.fuel_price = fuel_price
 
     def trip_cost(self, shop):
         x_1 = self.location[0]
@@ -25,7 +26,7 @@ class Customer:
         y_1 = self.location[1]
         y_2 = shop.location[1]
         distance_to_shop = sqrt((x_2 - x_1) ** 2 + (y_2 - y_1) ** 2)
-        fuel_price_per_100 = self.car.fuel_consumption * FUEL_PRICE
+        fuel_price_per_100 = self.car.fuel_consumption * self.fuel_price
         trip_coast = 2 * distance_to_shop * fuel_price_per_100 / 100
         shoping_cost = 0
         for product in self.product_cart:
