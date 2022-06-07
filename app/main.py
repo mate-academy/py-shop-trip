@@ -23,7 +23,7 @@ def shop_trip():
                   f"money to make purchase in any shop")
 
 
-def get_customer_shop(customer: Customer, shops: list[Shop]):
+def get_customer_shop(customer: Customer, shops: list):
     print(f"{customer.name} has {customer.money} dollars")
 
     shops_cost = {}
