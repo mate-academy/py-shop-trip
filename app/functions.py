@@ -8,7 +8,7 @@ def read_info_from_json():
     list_of_customers = []
     list_of_shops = []
 
-    with open("../app/config.json") as f:
+    with open("../py-shop-trip/app/config.json") as f:
         data = json.load(f)
 
     for customer in data["customers"]:
