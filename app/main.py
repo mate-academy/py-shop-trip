@@ -30,29 +30,32 @@ def print_receipt(prod_cart: dict, prod_shop: dict, name: str):
     )
     for prod, quan in prod_cart.items():
         print(f'{quan} {prod}s for {quan * prod_shop[prod]} dollars')
-    print(f'Total cost is {products_cost(prod_cart, prod_shop)} dollars\nSee you again!\n')
+    print(f'Total cost is {products_cost(prod_cart, prod_shop)} '
+          f'dollars\nSee you again!\n')
 
 
 def shop_trip():
-
     for human in customers:
         money = human['money']
         print(f"{human['name']} has {money} dollars")
         totals = []
         for shop in shops:
-            total_cost = fuel_cost(human["location"],
-                                   shop["location"],
-                                   human["car"]["fuel_consumption"]) + \
-                         products_cost(human["product_cart"], shop["products"])
+            total_cost = fuel_cost(
+                human["location"],
+                shop["location"],
+                human["car"]["fuel_consumption"])\
+                + products_cost(human["product_cart"], shop["products"])
             totals.append(total_cost)
-            print(f"{human['name']}'s trip to the {shop['name']} costs {total_cost}")
+            print(f"{human['name']}'s trip to "
+                  f"the {shop['name']} costs {total_cost}")
 
         if min(totals) > money:
-            print(f"{human['name']} doesn't have enough money to make purchase in any shop")
+            print(f"{human['name']} doesn't have enough "
+                  f"money to make purchase in any shop")
         else:
             best = shops[totals.index(min(totals))]['name']
             products = shops[totals.index(min(totals))]['products']
             print(f"{human['name']} rides to {best}")
             print_receipt(human["product_cart"], products, human['name'])
-            print(f"{human['name']} rides home\n{human['name']} now has {money - min(totals)} dollars\n")
-
+            print(f"{human['name']} rides home\n{human['name']} "
+                  f"now has {money - min(totals)} dollars\n")
