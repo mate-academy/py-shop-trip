@@ -1,5 +1,5 @@
 class Distance:
-    def __init__(self, start: list[int], end: list[int]):
+    def __init__(self, start: list, end: list):
         self._start = start
         self._end = end
 
