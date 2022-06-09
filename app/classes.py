@@ -10,9 +10,10 @@ class Customer:
                  location: list,
                  money: int,
                  car: dict):
+        self.home = location
         self.name = name
         self.product_cart = product_cart
-        self.location = location
+        self.location = self.home
         self.money = money
         self.car = car
 
@@ -57,6 +58,7 @@ class Customer:
             best_shop.purchase(self)
             self.money -= min_cost
             self.coming_home()
+            self.location = self.home
         else:
             print(f"{self.name} doesn't have enough "
                   f"money to make purchase in any shop")
