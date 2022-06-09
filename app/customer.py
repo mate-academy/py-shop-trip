@@ -7,7 +7,7 @@ from app.shop import Shop
 class Customer:
     fuel_price = GasStation(2.4)
 
-    def __init__(self, name: str, products_cart: dict, location: list[int], money: int, car: Car):
+    def __init__(self, name: str, products_cart: dict, location: list, money: int, car: Car):
         self.name = name
         self.products_card = products_cart
         self.location = location
@@ -32,7 +32,7 @@ class Customer:
         self.total_amount_for_trip = self.calc_coast_for_all_in_product_cart(shop) + 2 * self.calc_cost_fuel_for_go_to_shop(shop)
         return round(self.total_amount_for_trip, 2)
 
-    def change_location(self, new_location_coords: list[int]):
+    def change_location(self, new_location_coords: list):
         self.location = new_location_coords
 
     def to_buy(self, amount):
