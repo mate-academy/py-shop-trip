@@ -53,6 +53,7 @@ class Customer:
 
         if self.money > min_cost:
             print(f"{self.name} rides to {best_shop.name}\n")
+            self.location = best_shop.location
             best_shop.purchase(self)
             self.money -= min_cost
             self.coming_home()
