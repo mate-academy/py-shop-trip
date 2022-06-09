@@ -1,6 +1,4 @@
-# import math
 import json
-# from datetime import datetime
 from app.which_shop import Shop, WhichShop
 
 
