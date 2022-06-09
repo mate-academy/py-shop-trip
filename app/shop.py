@@ -2,13 +2,10 @@ import datetime
 
 
 class Shop:
-    def __init__(self, shop_info):
+    def __init__(self, shop_info: dict):
         self.name = shop_info["name"]
         self.location = shop_info["location"]
         self.products = shop_info["products"]
-
-    def __repr__(self):
-        return self.name
 
     def sell_products(self, customer):
         bill_time = datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S")

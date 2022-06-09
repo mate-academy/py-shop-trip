@@ -1,57 +1,46 @@
 import json
 
-from app.customers import Customer
-from app.shops import Shop
+from app.customer import Customer
+from app.shop import Shop
 
 
 FILE_NAME = "app/config.json"
 
 
 def shop_trip():
-    shops, customers = create_shops_and_customers(FILE_NAME)
+    fuel_price, shops, customers = create_shops_and_customers(FILE_NAME)
 
     for customer in customers:
-        chosen_shop, trip_costs = get_customer_shop(customer, shops)
-        if chosen_shop is not None:
-            print(f"{customer.name} rides to {chosen_shop}\n")
-            chosen_shop.sell_products(customer)
-            print(f"{customer.name} rides home")
-            left_money = customer.pay_for_trip(trip_costs)
-            print(f'{customer.name} now has {left_money} dollars\n')
-        else:
+        chosen_shop, trip_costs = customer.get_customer_shop(shops, fuel_price)
+        if chosen_shop is None:
             print(f"{customer.name} doesn't have enough "
                   f"money to make purchase in any shop")
+        else:
+            make_ride(customer, chosen_shop, trip_costs)
 
 
-def get_customer_shop(customer: Customer, shops: list):
-    print(f"{customer.name} has {customer.money} dollars")
-
-    shops_cost = {}
-    for shop in shops:
-        costs = customer.trip_costs(shop)
-        print(f"{customer.name}'s trip to the {shop.name} costs {costs}")
-        shops_cost[costs] = shop
-    shops_cost = dict(sorted(shops_cost.items()))
-
-    for costs, shop in shops_cost.items():
-        if costs <= customer.money:
-            return shop, costs
-    return None, None
-
-
-def create_shops_and_customers(file_name: str):
+def create_shops_and_customers(file_name: str) -> tuple:
     with open(file_name) as file:
         config_data = json.load(file)
 
     fuel_price = config_data["FUEL_PRICE"]
-    shops = [Shop(item) for item in config_data["shops"]]
+    shops = [
+        Shop(shop_data)
+        for shop_data in config_data["shops"]
+    ]
     customers = [
-        Customer(item, fuel_price)
-        for item in config_data["customers"]
+        Customer(user_data)
+        for user_data in config_data["customers"]
     ]
 
-    return shops, customers
+    return fuel_price, shops, customers
 
 
-if __name__ == '__main__':
-    shop_trip()
+def make_ride(customer: Customer, shop: Shop, trip_costs: float):
+    print(f"{customer.name} rides to {shop.name}\n")
+    customer.ride_to_shop(shop)
+    shop.sell_products(customer)
+    print(f"{customer.name} rides home")
+    customer.pay_for_trip(trip_costs)
+    customer.ride_to_home()
+    print(f'{customer.name} now has {customer.money} dollars\n')
