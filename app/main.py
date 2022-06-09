@@ -2,7 +2,7 @@ import datetime
 import json
 import math
 
-with open('app\config.json', 'r') as f:
+with open('app/config.json', 'r') as f:
     data = json.load(f)
     fuel_price = data["FUEL_PRICE"]
     customers = data['customers']
