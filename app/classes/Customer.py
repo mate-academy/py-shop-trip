@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 from math import sqrt
-from datetime import datetime
+import datetime
 
 
 @dataclass
@@ -45,7 +45,7 @@ class Customer:
 
     def go_to_shop(self, shop):
         print(f"{self.name} rides to {shop.name}\n")
-        now = datetime.now()
+        now = datetime.datetime.now()
         date_time = now.strftime("%d/%m/%Y %H:%M:%S")
         self.location = shop.location
 
