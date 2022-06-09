@@ -29,8 +29,7 @@ class Customer:
 
     def calc_total_amount_cost_for_trip_to_shop(self, shop: Shop):
 
-        self.total_amount_for_trip = self.calc_coast_for_all_in_product_cart(shop) + \
-                                     2 * self.calc_cost_fuel_for_go_to_shop(shop)
+        self.total_amount_for_trip = self.calc_coast_for_all_in_product_cart(shop) + 2 * self.calc_cost_fuel_for_go_to_shop(shop)
         return round(self.total_amount_for_trip, 2)
 
     def change_location(self, new_location_coords: list[int]):
