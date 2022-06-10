@@ -4,7 +4,12 @@ import datetime
 
 class Shop:
 
-    def __init__(self, customer, shop, dct):
+    def __init__(
+            self,
+            customer: dict,
+            shop: dict,
+            dct: dict
+    ):
         self._customer = customer
         self._shop = shop
         self._dct = dct
@@ -41,12 +46,12 @@ class WhichShop(Shop):
     def __init__(
             self,
             costs: list,
-            _customer: dict,
+            customer: dict,
             shop_name: dict,
-            shop: dict = None,
-            dct: dict = None
+            shop: dict,
+            dct: dict
     ):
-        super().__init__(_customer, shop, dct)
+        super().__init__(customer, shop, dct)
         self._shop_name = shop_name
         self._costs = costs
 
@@ -62,13 +67,13 @@ class WhichShop(Shop):
             now = datetime.datetime.now()
             name = names[prices.index(min(prices))]
             print(f"{self._customer['name']} rides to {name}")
+
+        def receipt():
             print(
                 f"\nDate: {now.strftime('%d/%m/%Y %H:%M:%S')}\n"
                 f"Thanks, {self._customer['name']}, for you purchase!\n"
                 f"You have bought: "
             )
-
-        def receipt():
             customer_list = list(self._customer["product_cart"].values())
             products_name = list(self._customer["product_cart"])
             shop = list(self._dct["shops"])
@@ -83,9 +88,9 @@ class WhichShop(Shop):
                               f" {products_name[j]}s for "
                               f"{customer_list[j] * cost[j]} dollars")
             print(f"Total cost is {sum_} dollars\n"
-                  f"See you again!\n\n"
-                  f"{self._customer['name']} rides home\n"
-                  f"{self._customer['name']} now has "
-                  f"{self._customer['money'] - min(self._costs)} dollars\n")
+                  f"See you again!\n")
 
         receipt()
+        print(f"{self._customer['name']} rides home\n"
+              f"{self._customer['name']} now has "
+              f"{self._customer['money'] - min(self._costs)} dollars\n")

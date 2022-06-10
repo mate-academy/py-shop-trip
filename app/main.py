@@ -1,9 +1,12 @@
 import json
+
+from pathlib import Path
 from app.which_shop import Shop, WhichShop
 
 
 def shop_trip():
-    with open("app/config.json") as file:
+    base_dir = Path(__file__).resolve().parent
+    with open(base_dir / "config.json") as file:
         dct = json.load(file)
         for customer in dct["customers"]:
             shops = {}
