@@ -31,4 +31,3 @@ class Shop:
         print(f"Total cost is {result} dollars\n"
               f"See you again!\n")
         return result
-

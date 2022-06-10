@@ -3,7 +3,11 @@ from app.shop import Shop
 
 
 class Customer:
-    def __init__(self, name: str, product_cart: dict, location: list[int, int], money: int, car: Car):
+    def __init__(self,
+                 name: str,
+                 product_cart: dict,
+                 location: list[int, int],
+                 money: int, car: Car):
         self.name = name
         self.product_cart = product_cart
         self.location_x = location[0]
@@ -11,13 +15,10 @@ class Customer:
         self.money = money
         self.car = car
 
-    def change_location(self, new_location_x: int, new_location_y: int):
-        self.location_x = new_location_x
-        self.location_y = new_location_y
-
     def count_trip_price(self, shop: Shop, fuel_price: float):
-        distance = ((self.location_x - shop.location_x) ** 2 +
-                    (self.location_y - shop.location_y) ** 2) ** 0.5
+        x_difference = self.location_x - shop.location_x
+        y_difference = self.location_y - shop.location_y
+        distance = (x_difference ** 2 + y_difference ** 2) ** 0.5
 
         price_for_1km = (self.car.fuel_consumption / 100) * fuel_price
 
@@ -33,7 +34,9 @@ class Customer:
         return result
 
     def total_price(self, shop: Shop, fuel_price: float):
-        return self.count_trip_price(shop, fuel_price) * 2 + self.count_purchase_price(shop)
+        total_trip_price = self.count_trip_price(shop, fuel_price) * 2
+        total_purchase_price = self.count_purchase_price(shop)
+        return total_trip_price + total_purchase_price
 
     def choose_cheapest_trip(self, shops_list: list[Shop], fuel_price):
         result = None
@@ -43,14 +46,16 @@ class Customer:
 
         for shop in shops_list:
             total_price = self.total_price(shop, fuel_price)
-            print(f"{self.name}'s trip to the {shop.name} costs {round(total_price, 2)}")
+            print(f"{self.name}'s trip to the "
+                  f"{shop.name} costs {round(total_price, 2)}")
 
             if total_price < best_price:
                 result = shop
                 best_price = total_price
 
         if result is None:
-            print(f"{self.name} doesn't have enough money to make purchase in any shop")
+            print(f"{self.name} doesn't have "
+                  f"enough money to make purchase in any shop")
         else:
             print(f"{self.name} rides to {result.name}\n")
 
@@ -62,3 +67,7 @@ class Customer:
 
     def pay(self, price: float):
         self.money -= price
+
+    def change_location(self, new_location_x: int, new_location_y: int):
+        self.location_x = new_location_x
+        self.location_y = new_location_y

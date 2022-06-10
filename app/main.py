@@ -49,7 +49,8 @@ def shop_visit(customer: Customer, shop: Shop, fuel_price):
 
 
 def shop_trip():
-    with open("D:\\python projects\\py-shop-trip\\app\\config.json", "r") as file_data:
+    with open("D:\\python projects\\py-shop-trip\\app\\config.json",
+              "r") as file_data:
         file_data = json.load(file_data)
 
         fuel_price = file_data["FUEL_PRICE"]
@@ -57,7 +58,8 @@ def shop_trip():
         shops_list = create_shops_list(file_data["shops"])
 
     for current_customer in customers_list:
-        current_shop = current_customer.choose_cheapest_trip(shops_list, fuel_price)
+        current_shop = current_customer.choose_cheapest_trip(shops_list,
+                                                             fuel_price)
         if current_shop is not None:
             shop_visit(current_customer, current_shop, fuel_price)
 
