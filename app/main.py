@@ -14,8 +14,10 @@ def create_instance_customers(story: dict):
             products_cart=customer["product_cart"],
             location=customer["location"],
             money=customer["money"],
-            car=Car(brand=customer["car"]["brand"],
-                    fuel_consumption=customer["car"]["fuel_consumption"])
+            car=Car(
+                brand=customer["car"]["brand"],
+                fuel_consumption=customer["car"]["fuel_consumption"]
+            )
         )
         for customer in story["customers"]
     ]
