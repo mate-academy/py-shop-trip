@@ -18,7 +18,7 @@ def shop_trip():
         )
         if not shop:
             continue
-        print(f"Date: 11/03/2020 13:15:34")
+        print("Date: 11/03/2020 13:15:34")
         print(f"Thanks, {customer['name']}, for you purchase!")
         bought_products(customer["product_cart"], shop["products"])
 
