@@ -49,8 +49,7 @@ def shop_visit(customer: Customer, shop: Shop, fuel_price):
 
 
 def shop_trip():
-    with open("D:\\python projects\\py-shop-trip\\app\\config.json",
-              "r") as file_data:
+    with open("app/config.json", "r") as file_data:
         file_data = json.load(file_data)
 
         fuel_price = file_data["FUEL_PRICE"]
