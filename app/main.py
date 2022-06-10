@@ -34,8 +34,8 @@ def parse_json_file():
 def cost_of_the_trip(
         fuel_price: int,
         fuel_consumption: int,
-        customer_location: list[int],
-        shop_location: list[int],
+        customer_location: list,
+        shop_location: list,
         customer_products_needed: dict,
         shop_products_prices: dict,
 ):
@@ -119,7 +119,3 @@ def shop_trip():
         else:
             print(f"{customer.name} doesn't have enough money"
                   f" to make purchase in any shop")
-
-
-if __name__ == "__main__":
-    shop_trip()
