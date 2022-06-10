@@ -1,10 +1,13 @@
 from json import load
+from pathlib import Path
 
 from app.car import Car, GasStation
 from app.customer import Customer
 from app.shop import Shop
 
-FILE_NAME = "app/config.json"
+
+BASE_DIR = Path(__file__).resolve().parent
+FILE_NAME = "config.json"
 
 
 def create_instance_customers(story: dict):
@@ -37,7 +40,7 @@ def create_instance_shops(story: dict):
 
 
 def shop_trip():
-    with open(FILE_NAME, "r") as config_file:
+    with open(BASE_DIR / FILE_NAME, "r") as config_file:
         story = load(config_file)
     gas_station = GasStation(story["FUEL_PRICE"])
     customers = create_instance_customers(story)
