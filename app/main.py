@@ -38,7 +38,8 @@ def shop_trip():
             print(f"{customer['name']} now has {left_money} dollars")
 
         else:
-            print(f"{customer['name']} doesn't have enough money to make purchase in any shop")
+            print(f"{customer['name']} doesn't have "
+                  f"enough money to make purchase in any shop")
 
         if int(customers.index(customer)) < len(customers) - 1:
             print()
@@ -63,7 +64,7 @@ def trip_to_shop(customer, shop, fuel_price):
         for product_sell in shop["products"]:
             if product_buy == product_sell:
                 price_for_products += customer["product_cart"][product_buy] * \
-                                      shop["products"][product_sell]
+                    shop["products"][product_sell]
 
     trip_coast = round(cost_for_road * 2 + price_for_products, 2)
 
