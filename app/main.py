@@ -2,6 +2,9 @@ import json
 
 from app.customer import Customer
 from app.shop import Shop
+from pathlib import Path
+
+BASE_DIR = Path(__file__).resolve().parent
 
 
 def shop_trip():
@@ -20,8 +23,9 @@ def shop_trip():
 
 
 def create_customer_and_shop():
-    with open("app/config.json", "r") as file:
+    with open(BASE_DIR / "config.json", "r") as file:
         data = json.load(file)
+
     fuel_price: float = data["FUEL_PRICE"]
     customers: list = data["customers"]
     shops: list = data["shops"]
