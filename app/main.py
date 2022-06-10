@@ -23,6 +23,20 @@ class Shop:
         self.products_dict = data["products"]
         self.trip_costs = None
 
+    def sell(self, customer_name: str):
+        date = datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S")
+        print(f"Date: {date}")
+        print(f"Thanks, {customer_name}, for you purchase!")
+
+        print("You have bought: ")
+        has_bought = self.trip_costs["products"].items()
+        for product, (amount, cost) in has_bought:
+            print(f"{amount} {product}s for {cost} dollars")
+        products_cost = self.trip_costs['total_product_cost']
+        print(f"Total cost is {products_cost} dollars")
+
+        print("See you again!\n")
+
 
 def parse_json_file():
     with open(BASE_DIR / "config.json", "r") as f:
@@ -99,17 +113,7 @@ def shop_trip():
         if chosen_shop is not None:
             print(f"{customer.name} rides to {chosen_shop.name}\n")
 
-            date = datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S")
-
-            print(f"Date: {date}")
-            print(f"Thanks, {customer.name}, for you purchase!")
-            print("You have bought: ")
-            has_bought = chosen_shop.trip_costs["products"].items()
-            for product, (amount, cost) in has_bought:
-                print(f"{amount} {product}s for {cost} dollars")
-            products_cost = chosen_shop.trip_costs['total_product_cost']
-            print(f"Total cost is {products_cost} dollars")
-            print("See you again!\n")
+            chosen_shop.sell(customer.name)
 
             print(f"{customer.name} rides home")
             spent_money = round(chosen_shop.trip_costs["the_whole_cost"], 2)
