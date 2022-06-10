@@ -18,7 +18,7 @@ def shop_trip():
         costs_table = cost_of_trip_to_shops(customer, shops, fuel_price)
         for shop, total_cost in costs_table.items():
             print(f"{customer['name']}'s trip to the {shop} "
-                  f"costs {round(total_cost, 2)}")
+                  f"costs {total_cost:.2f}")
 
         # print: for what shop customer will drive if he has enough money
         best_shop = min(costs_table, key=costs_table.get)
@@ -34,9 +34,9 @@ def shop_trip():
 
             # trip home
             customer["location"] = home_location
-            money_ = round(customer["money"] - costs_table[best_shop], 2)
+            money_ = customer["money"] - costs_table[best_shop]
             print(f'{customer["name"]} rides home\n'
-                  f'{customer["name"]} now has {money_} dollars\n')
+                  f'{customer["name"]} now has {money_:.2f} dollars\n')
         # if customer doesn't have enough money for purchase
         else:
             print(f"{customer['name']} doesn't have "
