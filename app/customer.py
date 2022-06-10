@@ -6,7 +6,7 @@ class Customer:
     def __init__(self,
                  name: str,
                  product_cart: dict,
-                 location: list[int, int],
+                 location: list,
                  money: int, car: Car):
         self.name = name
         self.product_cart = product_cart

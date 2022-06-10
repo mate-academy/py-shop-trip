@@ -2,7 +2,7 @@ import datetime
 
 
 class Shop:
-    def __init__(self, name: str, location: list[int, int], products: dict):
+    def __init__(self, name: str, location: list, products: dict):
         self.name = name
         self.location_x = location[0]
         self.location_y = location[1]
