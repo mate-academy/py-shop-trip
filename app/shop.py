@@ -1,3 +1,6 @@
+import datetime
+
+
 class Shop:
 
     def __init__(self, name: str, location: list, products: dict):
@@ -6,10 +9,11 @@ class Shop:
         self.products = products
 
     def print_purchase(self, customer):
-        print("\nDate: 11/03/2020 13:15:34")
+        data = datetime.datetime.now().strftime('%d/%m/%Y %H:%M:%S')
+        print(f"\nDate: {data}")
         print(f"Thanks, {customer.name}, for you purchase!")
         print("You have bought: ")
-        for product, value in customer.products_card.items():
-            print(f"{value} {product}s for {self.products[product] * value} dollars")
-        print(f"Total cost is {customer.calc_coast_for_all_in_product_cart(self)} dollars")
+        for prod, val in customer.products_card.items():
+            print(f"{val} {prod}s for {self.products[prod] * val} dollars")
+        print(f"Total cost is {customer.coast_prod_cart(self)} dollars")
         print("See you again!\n")
