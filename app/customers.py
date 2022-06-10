@@ -2,7 +2,6 @@ import json
 import datetime
 from pathlib import Path
 from decimal import Decimal
-from dataclasses import dataclass
 
 from app.shops import shops
 
