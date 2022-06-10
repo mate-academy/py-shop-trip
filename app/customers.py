@@ -7,13 +7,14 @@ from dataclasses import dataclass
 from app.shops import shops
 
 
-@dataclass
 class Customer:
-    name: str
-    product_cart: dict
-    location: list
-    money: int
-    car: dict
+    def __init__(self, name, product_cart, location, money, car):
+        self.name = name
+        self.product_cart = product_cart
+        self.location = location
+        self.money = money
+        self.car = car
+        self.home = self.location
 
     def get_trip_cost(self, shop):
         distance = sum(
@@ -43,7 +44,7 @@ class Customer:
                   f"costs {self.get_trip_cost(shop)}")
         return cheapest_shop, cheapest_trip
 
-    def go_to_cheapest_shop(self, shop):
+    def go_to_cheapest_shop(self, shop, cost_of_trip):
         print(f"{self.name} rides to {shop.name}\n")
         print(f"Date: {datetime.datetime.now().strftime('%d/%m/%Y %H:%M:%S')}")
         print(f"Thanks, {self.name}, for you purchase!\n"
@@ -55,7 +56,15 @@ class Customer:
             products_cost += product_cost
         print(f"Total cost is {products_cost} dollars")
         print("See you again!\n")
+        self.money -= cost_of_trip
+        self.location = shop.location
+
+    def go_home(self):
         print(f"{self.name} rides home")
+        self.location = self.home
+        print(f"{self.name} now has "
+              f"{self.money} "
+              f"dollars\n")
 
 
 path = Path(__file__).resolve().parent

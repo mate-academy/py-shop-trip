@@ -9,10 +9,8 @@ def shop_trip():
             print(f"{customer.name} doesn't have enough"
                   f" money to make purchase in any shop")
             continue
-        customer.go_to_cheapest_shop(cheapest_shop)
-        print(f"{customer.name} now has "
-              f"{customer.money - cheapest_trip} "
-              f"dollars\n")
+        customer.go_to_cheapest_shop(cheapest_shop, cheapest_trip)
+        customer.go_home()
 
 
 if __name__ == "__main__":
