@@ -54,7 +54,7 @@ class Customer:
             print(f"{amount} {product}s for {product_cost} dollars")
             products_cost += product_cost
         print(f"Total cost is {products_cost} dollars")
-        print(f"See you again!\n")
+        print("See you again!\n")
         print(f"{self.name} rides home")
 
 
