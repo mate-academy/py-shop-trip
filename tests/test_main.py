@@ -33,7 +33,6 @@ You have bought:
 5 butters for 12.5 dollars
 Total cost is 26.5 dollars
 See you again!
-
 Bob rides home
 Bob now has 26.79 dollars
 
