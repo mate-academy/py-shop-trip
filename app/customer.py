@@ -38,7 +38,7 @@ class Customer:
         total_purchase_price = self.count_purchase_price(shop)
         return total_trip_price + total_purchase_price
 
-    def choose_cheapest_trip(self, shops_list: list[Shop], fuel_price):
+    def choose_cheapest_trip(self, shops_list: list, fuel_price):
         result = None
         best_price = self.money
 
