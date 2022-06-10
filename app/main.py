@@ -4,7 +4,7 @@ from shop.shop import Shop
 
 
 def shop_trip():
-    all_data = JSONData("config.json")
+    all_data = JSONData("app/config.json")
     customers_list = [Customer(field) for field in all_data.data["customers"]]
     shop_list = [Shop(field) for field in all_data.data["shops"]]
     for customer in customers_list:
