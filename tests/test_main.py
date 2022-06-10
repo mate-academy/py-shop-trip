@@ -4,7 +4,6 @@ from contextlib import redirect_stdout
 from io import StringIO
 from unittest.mock import MagicMock
 
-
 from app.main import shop_trip
 
 
@@ -62,4 +61,3 @@ Monica's trip to the Central Shop costs 22.58
 Monica doesn't have enough money to make purchase in any shop
 '''
     assert output == out
-
