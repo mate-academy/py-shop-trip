@@ -119,3 +119,7 @@ def shop_trip():
         else:
             print(f"{customer.name} doesn't have enough money"
                   f" to make purchase in any shop")
+
+
+if __name__ == "__main__":
+    shop_trip()
