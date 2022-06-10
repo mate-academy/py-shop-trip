@@ -25,5 +25,3 @@ def shop_trip():
         else:
             print(f"{customer.name} doesn't have enough "
                   f"money to make purchase in any shop")
-
-# shop_trip()
