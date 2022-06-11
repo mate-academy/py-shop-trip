@@ -2,6 +2,7 @@ import json
 import datetime
 from pathlib import Path
 from decimal import Decimal
+from math import dist
 
 from app.shops import shops
 
@@ -13,14 +14,10 @@ class Customer:
         self.location = location
         self.money = money
         self.car = car
-        self.home = self.location
+        self.home = location
 
     def get_trip_cost(self, shop):
-        distance = sum(
-            [(x - y) ** 2 for x, y in zip(
-                shop.location,
-                self.location
-            )]) ** 0.5
+        distance = dist(shop.location, self.location)
 
         fuel_cost = round(
             distance * fuel_prise / 100 * self.car["fuel_consumption"] * 2,
