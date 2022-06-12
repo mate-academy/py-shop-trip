@@ -30,11 +30,11 @@ class Customer:
             total += shop.calculate_prices(product[0], product[1])
         return total
 
-    def find_cheapest_trip(self, shops: dict, FUEL_PRICE: float):
+    def find_cheapest_trip(self, shops: dict, fuel_price: float):
         prices_trips = {}
         cheapest_shop = {}
         for shop in shops:
-            trip_price = round(self.calculate_trip_price(shop, FUEL_PRICE), 2)
+            trip_price = round(self.calculate_trip_price(shop, fuel_price), 2)
             print(f"{self.name}'s trip to the {shop.name} "
                   f"costs {trip_price}")
             prices_trips[shop] = trip_price
