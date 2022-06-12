@@ -5,7 +5,7 @@ from app.customer import Customer
 from pathlib import Path
 
 BASE_DIR = Path(__file__).resolve().parent
-print(BASE_DIR)
+
 
 def shop_trip():
     with open(BASE_DIR / "config.json", "r") as config:
@@ -58,5 +58,3 @@ def shop_trip():
                 variants_for_shoping[smallest_price]["bill"],
                 variants_for_shoping[smallest_price]["name"]
             )
-
-shop_trip()

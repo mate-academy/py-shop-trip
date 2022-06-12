@@ -1,6 +1,5 @@
 import math
 import datetime
-from decimal import Decimal
 
 
 class Customer:
