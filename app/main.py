@@ -2,14 +2,12 @@ import json
 import math
 import datetime
 
-with open("app/config.json") as json_input:
-    data = json.load(json_input)
-FUEL_PRICE = data["FUEL_PRICE"]
-
 
 def shop_trip():
     with open("app/config.json") as json_input_file:
         data = json.load(json_input_file)
+    global FUEL_PRICE
+    FUEL_PRICE = data["FUEL_PRICE"]
     shops = data["shops"]
     for customer in data["customers"]:
         riding_to_the_store(customer, shops)
