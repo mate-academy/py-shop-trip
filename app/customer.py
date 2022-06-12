@@ -16,10 +16,7 @@ class Customer:
         self.car = car
 
     def calculate_fuel_price(self, shop_location: list, fuel_price: float):
-        distance = math.sqrt(
-            ((shop_location[0] - self.location[0]) ** 2) /
-            + ((shop_location[1] - self.location[1]) ** 2)
-        )
+        distance = math.dist(shop_location, self.location)
 
         one_km_fuel_consumption = self.car["fuel_consumption"] / 100
         return round(distance * one_km_fuel_consumption * fuel_price * 2, 2)
