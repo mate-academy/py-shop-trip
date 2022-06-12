@@ -52,7 +52,7 @@ def food_expenses(need_to_buy: dict, price: dict) -> (int, float):
 
     return money_to_pay
 
-ap
+
 def trip_price(customer: Customer, distance: float) -> float:
     return round(
         distance * 2 * (customer.car["fuel_consumption"] / 100 * FUEL_PRICE),
