@@ -1,7 +1,10 @@
 import json
 import math
 import datetime
-FUEL_PRICE = 2.4
+
+with open("app/config.json") as json_input:
+    data = json.load(json_input)
+FUEL_PRICE = data["FUEL_PRICE"]
 
 
 def shop_trip():
@@ -40,12 +43,11 @@ def riding_to_the_store(customer: dict, shops: list):
         cost_of_purchases.append(cost)
         stores[shop_name] = cost
         print(f"{name}'s trip to the {shop_name} costs {cost}")
-    max_cost = max(cost_of_purchases)
     cheapest_store = min(stores, key=stores.get)
     for shop in shops:
         if shop["name"] == cheapest_store:
             cheapest_store = shop
-    if money >= max_cost:
+    if money >= min(cost_of_purchases):
         print(f"{name} rides to {cheapest_store['name']}\n")
         purchase_in_the_store(customer, cheapest_store)
     else:
