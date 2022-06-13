@@ -5,8 +5,8 @@ import datetime
 
 def shop_trip():
 
-    with open("app/config.json") as f:
-        dict_shopping = json.load(f)
+    with open("app/config.json") as file_open:
+        dict_shopping = json.load(file_open)
 
     fuel_price = dict_shopping["FUEL_PRICE"]
     customers_list = dict_shopping["customers"]
