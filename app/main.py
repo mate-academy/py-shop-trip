@@ -4,8 +4,8 @@ import datetime
 
 
 def shop_trip():
-    with open("app/config.json", "r") as f:
-        data = json.load(f)
+    with open("app/config.json", "r") as data_file:
+        data = json.load(data_file)
 
     customers = data["customers"]
     shops = data["shops"]
