@@ -15,13 +15,10 @@ class Customer:
         self.location = location
         self.money = money
         self.car = car
+        self.home = location
 
     def calc_fuel_to_location(self, location: list) -> float:
-        x1 = self.location[0]
-        y1 = self.location[1]
-        x2 = location[0]
-        y2 = location[1]
-        distance = math.sqrt((x1 - x2)**2 + (y1 - y2)**2)
+        distance = math.dist(self.location, location)
         return self.car["fuel_consumption"] / 100 * distance
 
     def calc_shop_visit_cost(self, shops_list: list, fuel_price: float):
@@ -47,7 +44,9 @@ class Customer:
                   f"to make purchase in any shop")
         else:
             print(f"{self.name} rides to {cheapest_shop.name}\n")
+            self.location = cheapest_shop.location
             cheapest_shop.print_receipt(self)
             money_left = self.money - shop_visit_costs[cheapest_shop]
             print(f"{self.name} rides home")
+            self.location = self.home
             print(f"{self.name} now has {money_left} dollars\n")
