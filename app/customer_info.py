@@ -23,7 +23,8 @@ def get_info(customer: dict, data):
         result_dict["result_strings"].append(string)
         result_dict["shop_and_price"][shop["name"]] = price_to_shop
         result_dict["has_enough_money"].append(
-            customer["money"] > price_to_shop)
+            customer["money"] > price_to_shop
+        )
 
     if not any(result_dict["has_enough_money"]):
         result_dict["has_enough_money"] = False
