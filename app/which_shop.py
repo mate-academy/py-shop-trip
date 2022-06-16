@@ -2,24 +2,68 @@ from app.distance import Distance
 import datetime
 
 
-class Shop:
+class Customer:
+    def __init__(self, customer: dict, costs = None, all_info: dict = None):
+        self.customer = customer
+        self.all_info = all_info
+        self.costs = costs
 
+    def price_for_1_km(self):
+        consumption = self.customer["car"]["fuel_consumption"]
+        return consumption / 100 * self.all_info["FUEL_PRICE"]
+
+    def which_shop(self, shop_name: dict):
+        prices = list(shop_name.values())
+        names = list(shop_name)
+        res = [True if self.customer["money"] < i else False for i in prices]
+        if all(res):
+            print(f"{self.customer['name']} doesn't have enough "
+                  f"money to make purchase in any shop")
+            return
+        else:
+            name = names[prices.index(min(prices))]
+            print(f"{self.customer['name']} rides to {name}")
+
+            def print_receipt():
+                now = datetime.datetime.now()
+                print(
+                    f"\nDate: {now.strftime('%d/%m/%Y %H:%M:%S')}\n"
+                    f"Thanks, {self.customer['name']}, for you purchase!\n"
+                    f"You have bought: "
+                )
+                customer_list = list(self.customer["product_cart"].values())
+                products_name = list(self.customer["product_cart"])
+                shop = list(self.all_info["shops"])
+                sum_ = 0
+
+                for i in range(len(customer_list)):
+                    if name in list(shop[i].values()):
+                        for j in range(len(list(shop[i]['products'].values()))):
+                            cost = list(shop[i]['products'].values())
+                            sum_ += customer_list[j] * cost[j]
+                            print(f"{customer_list[j]}"
+                                  f" {products_name[j]}s for "
+                                  f"{customer_list[j] * cost[j]} dollars")
+                print(f"Total cost is {sum_} dollars\n"
+                      f"See you again!\n")
+
+            print_receipt()
+            print(f"{self.customer['name']} rides home\n"
+                  f"{self.customer['name']} now has "
+                  f"{self.customer['money'] - min(self.costs)} dollars\n")
+
+
+class Shop:
     def __init__(
             self,
-            customer: dict,
             shop: dict,
             dct: dict
     ):
-        self._customer = customer
         self._shop = shop
-        self._dct = dct
+        self.dct = dct
 
-    def price_for_1_km(self):
-        consumption = self._customer["car"]["fuel_consumption"]
-        return consumption / 100 * self._dct["FUEL_PRICE"]
-
-    def cart_price_list(self):
-        customer_list = list(self._customer["product_cart"].values())
+    def cart_price_list(self, customer):
+        customer_list = list(customer["product_cart"].values())
         shop_price_list = list(self._shop["products"].values())
         result = sum(
             [
@@ -29,68 +73,14 @@ class Shop:
         )
         return result
 
-    def trip_cost(self):
+    def trip_cost(self, customer):
         distance = Distance(
-            self._customer["location"],
+            customer["location"],
             self._shop["location"]
         ).distance()
 
-        final_price = Shop.cart_price_list(self)
-        price_for_1_km = Shop.price_for_1_km(self)
+        final_price = Shop.cart_price_list(self, customer)
+        price_for_1_km = Customer(customer, all_info=self.dct).price_for_1_km()
         result = final_price + distance * price_for_1_km * 2
 
         return round(result, 2)
-
-
-class WhichShop(Shop):
-    def __init__(
-            self,
-            costs: list,
-            customer: dict,
-            shop_name: dict,
-            shop: dict,
-            dct: dict
-    ):
-        super().__init__(customer, shop, dct)
-        self._shop_name = shop_name
-        self._costs = costs
-
-    def which_shop(self):
-        prices = list(self._shop_name.values())
-        names = list(self._shop_name)
-        res = [True if self._customer["money"] < i else False for i in prices]
-        if all(res):
-            print(f"{self._customer['name']} doesn't have enough "
-                  f"money to make purchase in any shop")
-            return
-        else:
-            now = datetime.datetime.now()
-            name = names[prices.index(min(prices))]
-            print(f"{self._customer['name']} rides to {name}")
-
-        def receipt():
-            print(
-                f"\nDate: {now.strftime('%d/%m/%Y %H:%M:%S')}\n"
-                f"Thanks, {self._customer['name']}, for you purchase!\n"
-                f"You have bought: "
-            )
-            customer_list = list(self._customer["product_cart"].values())
-            products_name = list(self._customer["product_cart"])
-            shop = list(self._dct["shops"])
-            sum_ = 0
-
-            for i in range(len(customer_list)):
-                if name in list(shop[i].values()):
-                    for j in range(len(list(shop[i]['products'].values()))):
-                        cost = list(shop[i]['products'].values())
-                        sum_ += customer_list[j] * cost[j]
-                        print(f"{customer_list[j]}"
-                              f" {products_name[j]}s for "
-                              f"{customer_list[j] * cost[j]} dollars")
-            print(f"Total cost is {sum_} dollars\n"
-                  f"See you again!\n")
-
-        receipt()
-        print(f"{self._customer['name']} rides home\n"
-              f"{self._customer['name']} now has "
-              f"{self._customer['money'] - min(self._costs)} dollars\n")
