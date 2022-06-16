@@ -3,7 +3,12 @@ import datetime
 
 
 class Customer:
-    def __init__(self, customer: dict, costs = None, all_info: dict = None):
+    def __init__(
+            self,
+            customer: dict,
+            costs: dict = None,
+            all_info: dict = None
+    ):
         self.customer = customer
         self.all_info = all_info
         self.costs = costs
@@ -38,7 +43,9 @@ class Customer:
 
                 for i in range(len(customer_list)):
                     if name in list(shop[i].values()):
-                        for j in range(len(list(shop[i]['products'].values()))):
+                        for j in range(
+                                len(list(shop[i]['products'].values()))
+                        ):
                             cost = list(shop[i]['products'].values())
                             sum_ += customer_list[j] * cost[j]
                             print(f"{customer_list[j]}"
