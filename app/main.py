@@ -8,16 +8,19 @@ def calculate_distance(coord1: list, coord2: list):
 
 def shop_trip():
     config_json_content = {}
-    with open('app/config.json')as file:
+    with open("app/config.json")as file:
         data = json.load(file)
         config_json_content.update(data)
 
     fuel_price = config_json_content["FUEL_PRICE"]
     shops = []
     customers = []
+
     customers += (config_json_content["customers"])
     shops += (config_json_content["shops"])
+
     shop_list_each_name_each_store = []
+
     for name in range(len(customers)):
         sum_for_name_for_each_store = []
         for shop in range(len(shops)):
