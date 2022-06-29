@@ -14,6 +14,7 @@ class Customer:
         self.location = location
         self.money = money
         self.car = car
+        self.home = self.location
 
     def calculate_fuel_price(self, shop_location: list, fuel_price: float):
         distance = math.dist(shop_location, self.location)
@@ -42,7 +43,9 @@ class Customer:
 
     def go_to_shop_trip(self, shop: Shop, cost: float):
         print(f"{self.name} rides to {shop.name}\n")
+        self.location = shop.location
         shop.purchase(self.name, self.products.items())
         self.money -= cost
         print(f"{self.name} rides home")
+        self.location = self.home
         print(f"{self.name} now has {self.money} dollars\n")
