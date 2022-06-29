@@ -39,8 +39,8 @@ def shop_trip():
 
     for person in range(len(customers)):
         budget = customers[person]["money"]
-        food = customers[person]['product_cart']
-        name = customers[person]['name']
+        food = customers[person]["product_cart"]
+        name = customers[person]["name"]
         print(f"{name} "
               f"has {customers[person]['money']} dollars")
         print(f"{name}'s trip to the Outskirts Shop "
