@@ -4,8 +4,8 @@ import math
 
 
 def shop_trip():
-    with open('config.json', 'r') as f:
-        shop_data = json.load(f)
+    with open('app/config.json', 'r') as file:
+        shop_data = json.load(file)
     fuel_prise = shop_data['FUEL_PRICE']
     customers = shop_data['customers']
     shops = shop_data['shops']
