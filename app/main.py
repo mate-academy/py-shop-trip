@@ -9,11 +9,14 @@ def shop_trip():
     fuel_prise = shop_data['FUEL_PRICE']
     customers = shop_data['customers']
     shops = shop_data['shops']
+
     total_cost = {}
     dict_product = {}
 
     for customer in customers:
-        print(f"{customer['name']} has {customer['money']} dollars")
+        name = customer['name']
+        money = customer['money']
+        print(f"{name} has {money} dollars")
 
         for shop in shops:
             distance = math.dist(customer["location"], shop["location"])
@@ -26,33 +29,33 @@ def shop_trip():
                 for key, values in shop["products"].items()}
 
             costs_shop = round(2 * cost_trip + sum(product_cost.values()), 2)
-            print(f"{customer['name']}'s trip to the {shop['name']} \
-            costs {costs_shop}")
-
             dict_product[shop['name']] = {"product": product_cost}
             total_cost[shop['name']] = costs_shop
 
-        cheap_shop = min(total_cost, key=total_cost.get)
+            print(f"{name}'s trip to the {shop['name']} costs {costs_shop}")
 
-        if customer['money'] < min(total_cost.values()):
-            print(f"{customer['name']} doesn't have enough money \
-            to make purchase in any shop")
-            break
+        if customer['money'] >= min(total_cost.values()):
+            cheap_shop = min(total_cost, key=total_cost.get)
+            print(f"{name} rides to {cheap_shop}\n")
 
-        print(f"{customer['name']} rides to {cheap_shop}\n")
+            time_now = datetime.datetime.now()
+            time = time_now.strftime("%d/%m/%Y %H:%M:%S")
+            print(
+                f"Date: {time}\n"
+                f"Thanks, {name}, for you purchase!\n"
+                f"You have bought:"
+            )
 
-        time_now = datetime.datetime.now()
-        time = time_now.strftime("%d/%m/%Y %H:%M:%S")
-        print(f"Date: {time}\n"
-              f"Thanks, {customer['name']}, for you purchase!\n"
-              f"You have bought:")
-        for key, values in dict_product[cheap_shop]['product'].items():
-            print(f"{key} for {values }dollars")
+            for key, values in dict_product[cheap_shop]['product'].items():
+                print(f"{key} for {values} dollars")
 
-        print(
-            f"Total cost is {sum(dict_product[cheap_shop]['product'].values())}\
-             dollars\n"
-            f"See you again!\n\n"
-            f"{customer['name']} rides home\n"
-            f"{customer['name']} now has \
-            {customer['money'] - total_cost[cheap_shop]} dollars\n")
+            cost_product = sum(dict_product[cheap_shop]['product'].values())
+            print(
+                f"Total cost is {cost_product} dollars\n"
+                f"See you again!\n\n"
+                f"{name} rides home\n"
+                f"{name} now has {money - total_cost[cheap_shop]} dollars\n")
+        else:
+            print(
+                f"{name} doesn't have enough "
+                f"money to make purchase in any shop\n")
