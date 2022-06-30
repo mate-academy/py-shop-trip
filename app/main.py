@@ -58,4 +58,4 @@ def shop_trip():
         else:
             print(
                 f"{name} doesn't have enough "
-                f"money to make purchase in any shop\n")
+                f"money to make purchase in any shop")
