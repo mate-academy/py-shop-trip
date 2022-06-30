@@ -43,7 +43,7 @@ def shop_trip():
             print(
                 f"Date: {time}\n"
                 f"Thanks, {name}, for you purchase!\n"
-                f"You have bought:"
+                f"You have bought: "
             )
 
             for key, values in dict_product[cheap_shop]['product'].items():
