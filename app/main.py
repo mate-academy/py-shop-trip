@@ -4,7 +4,7 @@ from math import sqrt
 
 
 def shop_trip():
-    with open("../app/config.json") as cfg:
+    with open("config.json") as cfg:
         data = json.load(cfg)
     fuel_price = data["FUEL_PRICE"]
     customers = data["customers"]
