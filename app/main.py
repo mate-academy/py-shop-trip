@@ -95,4 +95,5 @@ def shop_trip():
             print()
 
 
-shop_trip()
+if __name__ == "__main__":
+    shop_trip()
