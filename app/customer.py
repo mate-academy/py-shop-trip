@@ -30,7 +30,9 @@ class Customer:
         x_customer = self.location[0]
         y_shop = other.location[1]
         y_customer = self.location[1]
-        return round(((x_shop - x_customer) ** 2) + ((y_shop - y_customer) ** 2) * 2, 2)
+        x = x_shop - x_customer
+        y = y_shop - y_customer
+        return round((((x ** 2) + (y ** 2)) ** 0.5) * 2, 2)
 
     def has_money(self):
         print(f"{self.name} has {self.money} dollars")
@@ -39,7 +41,10 @@ class Customer:
         total_groc = 0
         for key in self.product_cart.keys():
             total_groc += self.product_cart[key] * other.products[key]
-        total = round(total_groc + (self.distant(other) * self.car["fuel_consumption"] * self.fuel) / 100, 2)
+            distant = self.distant(other)
+            fuel_cost_1_km = self.car["fuel_consumption"] * self.fuel / 100
+            fuel_cost = distant * fuel_cost_1_km
+        total = round(total_groc + fuel_cost, 2)
         return total
 
     def to_shop(self, other):
@@ -51,7 +56,3 @@ class Customer:
 
     def remain_money(self, other):
         return f"{self.name} now has {self.money - self.cost(other)} dollars"
-
-
-
-

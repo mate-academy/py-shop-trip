@@ -1,6 +1,6 @@
 import json
+import datetime
 from dataclasses import dataclass
-from datetime import datetime
 
 
 @dataclass()
@@ -21,16 +21,18 @@ class Shop:
             return lst_shop
 
     def print_bill(self, other):
-        now = datetime.now()
+        now = datetime.datetime.now()
         total_milk = other.product_cart['milk'] * self.products['milk']
         total_bread = other.product_cart['bread'] * self.products['bread']
         total_butter = other.product_cart['butter'] * self.products['butter']
         total_product = total_milk + total_bread + total_butter
-        return f"""Date: {now.strftime('%Y/%m/%d %H:%M:%S')}  
-Thanks, {other.name}, for you purchase!  
-You have bought: 
-{other.product_cart['milk']} milks for {total_milk} dollars  
-{other.product_cart['bread']} breads for {total_bread} dollars  
-{other.product_cart['butter']} butters for {total_butter} dollars  
-Total cost is {total_product} dollars  
-See you again!"""
+        print("Date:", now.strftime("%d/%m/%Y %H:%M:%S"))
+        print(f"Thanks, {other.name}, for you purchase!")
+        print("You have bought: ")
+        print(f"{other.product_cart['milk']} milks for {total_milk} dollars")
+        print(f"{other.product_cart['bread']} "
+              f"breads for {total_bread} dollars")
+        print(f"{other.product_cart['butter']} "
+              f"butters for {total_butter} dollars")
+        print(f"Total cost is {total_product} dollars")
+        print("See you again!")
