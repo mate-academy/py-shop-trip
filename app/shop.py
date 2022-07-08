@@ -45,6 +45,3 @@ class Shop:
         shopping_cost = self.shopping(customer)
         self.total_cost = travel_cost + shopping_cost
         return self.total_cost
-
-    def __lt__(self, other):
-        return self.total_cost < other.total_cost

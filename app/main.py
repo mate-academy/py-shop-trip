@@ -25,7 +25,7 @@ def shop_trip():
             cost_of_trip = shop.cost_of_trip(customer_obj, data['FUEL_PRICE'])
             print(f"{customer_obj.name}'s trip to the {shop.name}"
                   f" costs {cost_of_trip}")
-            if shop < cheapest_shop:
+            if shop.total_cost < cheapest_shop.total_cost:
                 cheapest_shop = shop
         if customer_obj.money >= cheapest_shop.total_cost:
             print(f"{customer_obj.name} rides to {cheapest_shop.name}\n\n"
