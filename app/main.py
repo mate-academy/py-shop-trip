@@ -28,7 +28,7 @@ class Shop:
 
 
 def shop_trip():
-    with open("config.json", "r") as info_file:
+    with open("app/config.json", "r") as info_file:
         info = json.load(info_file)
 
     customers = [Customer(
