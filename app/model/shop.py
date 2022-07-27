@@ -1,6 +1,6 @@
 import dataclasses
 import math
-from datetime import datetime
+import datetime
 
 
 @dataclasses.dataclass
@@ -24,7 +24,7 @@ class Shop:
         return round(total_cost, 2)
 
     def visit_cheapest_shop(self, customer_name, customer_cart):
-        time_now = datetime.now().strftime("%d/%m/%Y %H:%M:%S")
+        time_now = datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S")
         print(f"Date: {time_now}")
         print(f"Thanks, {customer_name}, for you purchase!")
         print("You have bought: ")
