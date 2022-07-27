@@ -26,7 +26,7 @@ class Shop:
     def visit_cheapest_shop(self, customer_name, customer_cart):
         time_now = datetime.now().strftime("%Y/%m/%d %H:%M:%S")
         print(f"Date: {time_now}")
-        print(f"Thanks, {customer_name} for you purchase!")
+        print(f"Thanks, {customer_name}, for you purchase!")
         print("You have bought:")
         total_cost = 0
         for key, value in customer_cart.items():
