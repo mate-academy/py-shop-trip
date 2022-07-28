@@ -11,11 +11,12 @@ class Customer:
 
     def go_shopping(self, fuel_price: float, shops: dict):
         print(f"{self.name} has {self.money} dollars")
-        options = {shop.name: shop.calculate_shopping_cost(self.location,
-                                                           self.product_cart,
-                                                           self.car,
-                                                           fuel_price)
-                   for shop in shops.values()}
+        options = {}
+        for shop in shops.values():
+            options[shop.name] = shop.get_shopping_cost(self.location,
+                                                        self.product_cart,
+                                                        self.car,
+                                                        fuel_price)
         for key, value in options.items():
             print(f"{self.name}'s trip to the {key} costs {value}")
 

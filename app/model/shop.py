@@ -9,17 +9,17 @@ class Shop:
     loc: list
     products: dict
 
-    def calculate_shopping_cost(self,
-                                customer_loc: list,
-                                customer_shopping_cart: dict,
-                                customer_car: dict,
-                                fuel_price: float):
+    def get_shopping_cost(self,
+                          customer_loc: list,
+                          customer_shopping_cart: dict,
+                          customer_car: dict,
+                          fuel_price: float):
         total_cost = 0
         for key, value in customer_shopping_cart.items():
             total_cost += value * self.products[key]
         distance = math.hypot(customer_loc[0] - self.loc[0],
                               customer_loc[1] - self.loc[1])
-        fuel_needed = (distance * customer_car['fuel_consumption'] / 100)
+        fuel_needed = (distance * customer_car["fuel_consumption"] / 100)
         total_cost += fuel_needed * fuel_price * 2
         return round(total_cost, 2)
 
