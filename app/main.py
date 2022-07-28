@@ -70,6 +70,3 @@ def shop_trip():
 
         purchase_receipt(user, prices_list, products_count, lower_price)
         customer_go_home(money)
-
-
-shop_trip()
