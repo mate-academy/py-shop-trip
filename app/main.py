@@ -5,7 +5,7 @@ from app.Shop import Shop
 
 
 def shop_trip():
-    with open("config.json") as file:
+    with open("app/config.json", "r") as file:
         data = json.load(file)
         shop_list = []
         for shop in data['shops']:
