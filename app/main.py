@@ -36,7 +36,7 @@ def customer_go_home(balance):
 
 
 def shop_trip():
-    with open("config.json", "r") as file:
+    with open("app/config.json", "r") as file:
         shopping = json.load(file)
         fuel_price = shopping["FUEL_PRICE"]
         for customer in shopping["customers"]:
