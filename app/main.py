@@ -16,57 +16,57 @@ def check_shop(name, has_money, prices, shops):
 
 
 def purchase_receipt(name, product, number_of_product, price):
-    current = datetime.datetime.today()
+    current = datetime.datetime.now()
     lowest_shop = price.index(min(price))
     product = product[lowest_shop]
     number_of_product = number_of_product[lowest_shop]
-    print(f'Date: {current.strftime("%Y/%m/%d %H:%M:%S")}')
+    print(f'Date: {current.strftime("%d/%m/%Y %H:%M:%S")}')
     print(f"Thanks, {name}, for you purchase!")
-    print("You have bought:")
+    print("You have bought: ")
     print(f"""{product[0]} milks for {number_of_product[0]} dollars
 {product[1]} breads for {number_of_product[1]} dollars
-{product[2]} butters for {number_of_product[2]} butters""")
-    print(f"""Total cost is {price[lowest_shop]} dollars
+{product[2]} butters for {number_of_product[2]} dollars""")
+    print(f"""Total cost is {sum(number_of_product)} dollars
 See you again!""")
 
 
 def customer_go_home(balance):
     print(f"\n{balance[0]} rides home")
-    print(f"{balance[0]} now has {balance[2] - balance[1]} dollars \n")
+    print(f"{balance[0]} now has {balance[2] - balance[1]} dollars\n")
 
 
 def shop_trip():
-    with open("config.json", "rb") as file:
+    with open("config.json", "r") as file:
         shopping = json.load(file)
         fuel_price = shopping["FUEL_PRICE"]
-    for customer in shopping["customers"]:
-        shops_name = []
-        user = customer["name"]
-        fuel_consumption = customer["car"]["fuel_consumption"]
-        prices_list = []
-        products_count = []
-        lower_price = []
+        for customer in shopping["customers"]:
+            shops = []
+            user = customer["name"]
+            fuel_consumption = customer["car"]["fuel_consumption"]
+            prices_list = []
+            products_count = []
+            lower_price = []
 
-        for shop in shopping["shops"]:
-            shop_price = [value for value in shop["products"].values()]
-            purchase = [value for value in customer["product_cart"].values()]
-            cost_products = [shop_price[i] * purchase[i] for i in range(3)]
-            prices_list.append(purchase)
-            products_count.append(cost_products)
-            sum_of_products = sum(cost_products)
+            for shop in shopping["shops"]:
+                shop_price = [value for value in shop["products"].values()]
+                order = [value for value in customer["product_cart"].values()]
+                cost_products = [shop_price[i] * order[i] for i in range(3)]
+                prices_list.append(order)
+                products_count.append(cost_products)
+                sum_of_products = sum(cost_products)
 
-            user_loc = (shop["location"][0] - customer["location"][0]) ** 2
-            shop_loc = (shop["location"][1] - customer["location"][1]) ** 2
-            distance = (user_loc + shop_loc) ** 0.5
-            consumption = (fuel_consumption / 100 * fuel_price) * 2
-            transport_price = sum([sum_of_products, distance * consumption])
-            lower_price.append(round(transport_price, 2))
-            shops_name.append(shop["name"])
+                user_loc = (shop["location"][0] - customer["location"][0]) ** 2
+                shop_loc = (shop["location"][1] - customer["location"][1]) ** 2
+                distance = (user_loc + shop_loc) ** 0.5
+                consumption = (fuel_consumption / 100 * fuel_price) * 2
+                transport = sum([sum_of_products, distance * consumption])
+                lower_price.append(round(transport, 2))
+                shops.append(shop["name"])
 
-        money = check_shop(user, customer["money"], lower_price, shops_name)
+            money = check_shop(user, customer["money"], lower_price, shops)
 
-        if not money:
-            return
+            if not money:
+                return
 
-        purchase_receipt(user, prices_list, products_count, lower_price)
-        customer_go_home(money)
+            purchase_receipt(user, prices_list, products_count, lower_price)
+            customer_go_home(money)
