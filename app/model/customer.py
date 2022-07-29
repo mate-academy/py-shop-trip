@@ -17,8 +17,8 @@ class Customer:
                                                         self.product_cart,
                                                         self.car,
                                                         fuel_price)
-        for key, value in options.items():
-            print(f"{self.name}'s trip to the {key} costs {value}")
+        for shop_name, trip_cost in options.items():
+            print(f"{self.name}'s trip to the {shop_name} costs {trip_cost}")
 
         if self.money < min(options.values()):
             print((f"{self.name} doesn't "

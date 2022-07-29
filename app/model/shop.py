@@ -15,8 +15,8 @@ class Shop:
                           customer_car: dict,
                           fuel_price: float):
         total_cost = 0
-        for key, value in customer_shopping_cart.items():
-            total_cost += value * self.products[key]
+        for product, qty in customer_shopping_cart.items():
+            total_cost += qty * self.products[product]
         distance = math.hypot(customer_loc[0] - self.loc[0],
                               customer_loc[1] - self.loc[1])
         fuel_needed = (distance * customer_car["fuel_consumption"] / 100)
