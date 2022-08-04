@@ -1,5 +1,5 @@
 import json
-from datetime import datetime
+import datetime
 
 
 def shop_trip():
@@ -40,8 +40,8 @@ def shop_trip():
                     f"enough money to make purchase in any shop"
         else:
             text += f"{customer['name']} rides to {cheapest_trip[0]}\n"
-            current = datetime.now()
-            timestamp = current.strftime("%Y/%m/%d %H:%M:%S")
+            current = datetime.datetime.now()
+            timestamp = current.strftime("%d/%m/%Y %H:%M:%S")
             text += f"\nDate: {timestamp}\n" \
                     f"Thanks, {customer['name']}, for you purchase!\n" \
                     f"You have bought: \n"
