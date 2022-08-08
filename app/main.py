@@ -3,8 +3,8 @@ import datetime
 
 
 def shop_trip():
-    with open("app/config.json", "r") as f:
-        data = json.load(f)
+    with open("app/config.json", "r") as info:
+        data = json.load(info)
     fuel_price = data["FUEL_PRICE"]
     customers = data["customers"]
     shops = data["shops"]
@@ -19,8 +19,8 @@ def shop_trip():
             fuel_need = customer["car"]["fuel_consumption"] / 50 * distance
             fuel_costs = fuel_need * fuel_price
             product_costs = sum(
-                customer["product_cart"][key] * shop["products"][key]
-                for key in shop["products"])
+                customer["product_cart"][product] * shop["products"][product]
+                for product in shop["products"])
             total_costs = fuel_costs + product_costs
             text += f"{customer['name']}'s trip to the {shop['name']} " \
                     f"costs {round(total_costs, 2)}\n"
@@ -45,10 +45,10 @@ def shop_trip():
                     f"Thanks, {customer['name']}, for you purchase!\n" \
                     f"You have bought: \n"
             i = 3
-            for key in customer["product_cart"]:
+            for product in customer["product_cart"]:
                 purchase_cost = \
-                    customer["product_cart"][key] * cheapest_trip[i]
-                text += f"{customer['product_cart'][key]} {key}s " \
+                    customer["product_cart"][product] * cheapest_trip[i]
+                text += f"{customer['product_cart'][product]} {product}s " \
                         f"for {purchase_cost} dollars\n"
                 i += 1
             text += f"Total cost is {cheapest_trip[2]} dollars\n" \
