@@ -2,8 +2,11 @@ import datetime
 import json
 
 from app.calc_dist import dist_from_customer, calculate_cost_of_ride
-from app.calc_purchases \
-    import calc_purchases, shop_products, print_bought_products
+
+from app.calc_purchases import \
+    calc_purchases,\
+    shop_products,\
+    print_bought_products
 
 
 def shop_trip():
@@ -39,13 +42,15 @@ def shop_trip():
                 f"{customer['name']}'s "
                 f"trip to the {shop['name']} costs {cost_of_trip}")
 
-        lowest_cost_of_trip = sorted(list(result.values()))
+        ls_with_values_of_each_trip = sorted(list(result.values()))
 
-        name_of_shop_to_visit = [k for k, v in result.items()
-                                 if v == lowest_cost_of_trip[0]]
+        ls_with_name_of_cheapest_trp_shop = \
+            [k for k, v in result.items()
+             if v == ls_with_values_of_each_trip[0]]
 
-        if lowest_cost_of_trip[0] <= customer["money"]:
-            print(f"{customer['name']} rides to {name_of_shop_to_visit[0]}\n")
+        if ls_with_values_of_each_trip[0] <= customer["money"]:
+            print(f"{customer['name']} "
+                  f"rides to {ls_with_name_of_cheapest_trp_shop[0]}\n")
 
             now = datetime.datetime.now()
             date_to_print = now.strftime("%d/%m/%Y %H:%M:%S")
@@ -53,11 +58,12 @@ def shop_trip():
             print(f"Date: {date_to_print}")
             print(f"Thanks, {customer['name']}, for you purchase!")
 
-            dict_of_products = shop_products(shops, name_of_shop_to_visit[0])
+            dict_of_products =\
+                shop_products(shops, ls_with_name_of_cheapest_trp_shop[0])
             print_bought_products(customer["product_cart"], dict_of_products)
 
             print(f"{customer['name']} rides home")
-            rest_of_money = customer["money"] - lowest_cost_of_trip[0]
+            rest_of_money = customer["money"] - ls_with_values_of_each_trip[0]
             print(f"{customer['name']} now has {rest_of_money} dollars\n")
         else:
             print(f"{customer['name']} "

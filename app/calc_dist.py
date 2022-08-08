@@ -1,7 +1,5 @@
 def dist_from_customer(cus_x, cus_y, shop_x, shop_y):
-    xx = cus_x - shop_x
-    yy = cus_y - shop_y
-    dist = (xx ** 2 + yy ** 2) ** 0.5
+    dist = ((cus_x - shop_x) ** 2 + (cus_y - shop_y) ** 2) ** 0.5
     return round(dist, 3)
 
 
