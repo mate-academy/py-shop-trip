@@ -3,10 +3,11 @@ import json
 
 from app.calc_dist import dist_from_customer, calculate_cost_of_ride
 
-from app.calc_purchases import \
-    calc_purchases,\
-    shop_products,\
+from app.calc_purchases import (
+    calc_purchases,
+    shop_products,
     print_bought_products
+)
 
 
 def shop_trip():
@@ -45,8 +46,8 @@ def shop_trip():
         ls_with_values_of_each_trip = sorted(list(result.values()))
 
         ls_with_name_of_cheapest_trp_shop = \
-            [k for k, v in result.items()
-             if v == ls_with_values_of_each_trip[0]]
+            [shop_name for shop_name, price in result.items()
+             if price == ls_with_values_of_each_trip[0]]
 
         if ls_with_values_of_each_trip[0] <= customer["money"]:
             print(f"{customer['name']} "
