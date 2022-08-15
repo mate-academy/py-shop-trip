@@ -109,12 +109,9 @@ def shop_trip():
             f.write(content)
 
     with open("content.txt", "r") as f:
-        result = f.read()
+        print(f.read())
 
     os.remove("content.txt")
 
-    with open("result.txt", "w") as f:
-        f.write(result)
 
-    with open("result.txt", "r") as f:
-        print(f.read())
+print(shop_trip())
