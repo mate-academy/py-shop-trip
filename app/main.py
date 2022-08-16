@@ -6,7 +6,7 @@ from app.shops.shop import Shop
 
 
 def get_info_from_json():
-    with open("config.json", "r") as json_file:
+    with open("app/config.json", "r") as json_file:
         purchases_info = json.load(json_file)
     return purchases_info
 
