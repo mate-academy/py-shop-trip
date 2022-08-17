@@ -1,10 +1,10 @@
-from app.data import shop_list
+from app.data import shops_list
 
 
 class Shop:
-    def __init__(self, name, loc, prices):
+    def __init__(self, name, location, prices):
         self.name = name
-        self.loc = loc
+        self.location = location
         self.prices = prices
 
 
@@ -14,5 +14,5 @@ shops = [
         shop["location"],
         list(shop["products"].values())
     )
-    for shop in shop_list
+    for shop in shops_list
 ]

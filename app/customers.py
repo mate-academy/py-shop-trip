@@ -1,52 +1,51 @@
-from app.data import cust_list, fuel_price
+from app.data import customers_list, fuel_price
 
 
 class Customer:
     def __init__(
             self,
             name,
-            prod_cart,
-            loc,
+            product_cart,
+            location,
             money,
-            fuel_cons
+            fuel_consumption
     ):
         self.name = name
-        self.prod_cart = prod_cart
-        self.loc = loc
+        self.product_cart = product_cart
+        self.location = location
         self.money = money,
-        self.fuel_cons = fuel_cons
+        self.fuel_consumption = fuel_consumption
 
-    def dist(self, shop):
-        return (
-            (self.loc[0] - shop.loc[0]) ** 2 + (self.loc[1] - shop.loc[1]) ** 2
-        ) ** 0.5
+    def distance(self, shop):
+        a = self.location
+        b = shop.location
+        return ((a[0] - b[0]) ** 2 + (a[1] - b[1]) ** 2) ** 0.5
 
     def riding(self, shop):
-        return round(
-            self.fuel_cons / 100 * self.dist(shop) * fuel_price * 2, 2
-        )
+        a = self.fuel_consumption
+        return round(a / 100 * self.distance(shop) * fuel_price * 2, 2)
 
     def shopping(self, shop):
-        prods = list(self.prod_cart.keys())
-        prods_count = list(self.prod_cart.values())
-        pc = prods_count  # --> flake8 max-line-length = 79
-        prods_costs = [prod * shop.prices[i] for i, prod in enumerate(pc)]
-        shopping_cost = sum(prods_costs)
+        products = list(self.product_cart.keys())
+        products_count = list(self.product_cart.values())
+        products_costs = [count * shop.prices[i]
+                          for i, count in enumerate(products_count)]
+        shopping_cost = sum(products_costs)
         total_cost = shopping_cost + self.riding(shop)
 
         return [
             self.name,
             self.money[0],
             shop.name,
-            prods_count,
-            prods,
-            prods_costs,
+            products_count,
+            products,
+            products_costs,
             shopping_cost,
             total_cost
         ]
 
 
-custs = [
+customers = [
     Customer(
         customer["name"],
         customer["product_cart"],
@@ -54,5 +53,5 @@ custs = [
         customer["money"],
         customer["car"]["fuel_consumption"]
     )
-    for customer in cust_list
+    for customer in customers_list
 ]
