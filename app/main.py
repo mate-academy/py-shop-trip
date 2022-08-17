@@ -24,7 +24,7 @@ def shop_trip():
             with open(f"{shopping[0]}.txt", "a") as f:
                 f.write(f"{shopping[0]}'s trip "
                         f"to the {shopping[2]} costs {shopping[7]}\n")
-            if shopping[7] == min(shopping[-1] for shopping in customer_shop):
+            if shopping[7] == min(shopping[7] for shopping in customer_shop):
                 chippest_shoppings.append(shopping)
 
     for shopping in chippest_shoppings:
