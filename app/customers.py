@@ -22,8 +22,8 @@ class Customer:
         return ((a[0] - b[0]) ** 2 + (a[1] - b[1]) ** 2) ** 0.5
 
     def riding(self, shop):
-        a = self.fuel_consumption
-        return round(a / 100 * self.distance(shop) * fuel_price * 2, 2)
+        fuel_km = self.fuel_consumption / 100
+        return round(fuel_km * self.distance(shop) * fuel_price * 2, 2)
 
     def shopping(self, shop):
         products = list(self.product_cart.keys())
