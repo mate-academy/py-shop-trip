@@ -9,7 +9,7 @@ def shop_trip():
     date = date[2] + "/" + date[1] + "/" + date[0]
     time = str(now.time()).split(".")
     time = time[0]
-    with open("config.json", "r") as info:
+    with open("app/config.json", "r") as info:
         information = json.load(info)
     FUEL_PRICE = information['FUEL_PRICE']
     customers = information["customers"]
