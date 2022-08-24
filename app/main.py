@@ -1,6 +1,6 @@
 import json
 from math import sqrt
-from datetime import datetime
+import datetime
 
 
 def shop_trip():
@@ -51,7 +51,7 @@ def cost_of_fuel(person, shop, info):
 
 def print_check(person, name_shop, min_list_cost):
     print(f"{person['name']} rides to {name_shop}\n\n"
-          f"Date: {datetime.now().strftime('%d/%m/%Y %H:%M:%S')}\n"
+          f"Date: {datetime.datetime.now().strftime('%d/%m/%Y %H:%M:%S')}\n"
           f"Thanks, {person['name']}, for you purchase!\n"
           f"You have bought: \n"
           f"{person['product_cart']['milk']} milks"
