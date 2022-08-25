@@ -4,8 +4,8 @@ import datetime
 
 
 def shop_trip():
-    with open("app/config.json") as f:
-        info = json.load(f)
+    with open("app/config.json") as information:
+        info = json.load(information)
     for person in info["customers"]:
         print(f"{person['name']} has {person['money']} dollars")
         min_ = 1000000
