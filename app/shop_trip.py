@@ -15,8 +15,8 @@ class ShopTrip:
 
     @staticmethod
     def load_data_from_json(file_name: str) -> dict:
-        with open(file_name, "r") as f:
-            return json.load(f)
+        with open(file_name, "r") as file_data:
+            return json.load(file_data)
 
     def cost_trip(self, customer, shop) -> float:
         dist_x = abs(shop["location"][0] - customer["location"][0])
@@ -52,8 +52,7 @@ class ShopTrip:
                   f"doesn't have enough money to make purchase in any shop")
             return
 
-        print(f"{customer['name']} rides to {best_shop['name']}")
-        print()
+        print(f"{customer['name']} rides to {best_shop['name']}\n")
         print(f"Date: {datetime.datetime.now().strftime('%d/%m/%Y %H:%M:%S')}")
         print(f"Thanks, {customer['name']}, for you purchase!")
         print("You have bought: ")
@@ -61,12 +60,10 @@ class ShopTrip:
             print(f"{product_num} {product}s for "
                   f"{product_num * best_shop['products'][product]} dollars")
         print(f"Total cost is {self.cost_buy(customer, best_shop)} dollars")
-        print("See you again!")
-        print()
+        print("See you again!\n")
         print(f"{customer['name']} rides home")
         print(f"{customer['name']} now has "
-              f"{customer['money'] - min_cost} dollars")
-        print()
+              f"{customer['money'] - min_cost} dollars\n")
 
     def all_customers_trip(self):
         for customer in self.customers:
