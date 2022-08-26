@@ -5,7 +5,7 @@ import datetime
 class ShopTrip:
     def __init__(self, file_name):
         self.data = self.load_data_from_json(file_name)
-        self.fuel_price = self.data['FUEL_PRICE']
+        self.fuel_price = self.data["FUEL_PRICE"]
         self.customers = []
         self.shops = []
         for customer in self.data["customers"]:
