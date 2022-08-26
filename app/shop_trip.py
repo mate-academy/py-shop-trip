@@ -1,5 +1,5 @@
 import json
-from time import localtime, strftime
+import datetime
 
 
 class ShopTrip:
@@ -19,8 +19,8 @@ class ShopTrip:
             return json.load(f)
 
     def cost_trip(self, customer, shop) -> float:
-        dist_x = abs(shop['location'][0] - customer['location'][0])
-        dist_y = abs(shop['location'][1] - customer['location'][1])
+        dist_x = abs(shop["location"][0] - customer["location"][0])
+        dist_y = abs(shop["location"][1] - customer["location"][1])
         distance = (dist_x ** 2 + dist_y ** 2) ** 0.5 * 2
         fuel_consumption = customer["car"]["fuel_consumption"]
         fuel_price_1_km = self.fuel_price * fuel_consumption / 100
@@ -54,7 +54,7 @@ class ShopTrip:
 
         print(f"{customer['name']} rides to {best_shop['name']}")
         print()
-        print(f"Date: {strftime('%Y/%m/%d %H:%M:%S', localtime())}")
+        print(f"Date: {datetime.datetime.now().strftime('%d/%m/%Y %H:%M:%S')}")
         print(f"Thanks, {customer['name']}, for you purchase!")
         print("You have bought: ")
         for product, product_num in customer["product_cart"].items():
