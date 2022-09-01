@@ -54,7 +54,6 @@ def shop_trip():
                     shop.check_shop(custom)
                     full_shopping = \
                         shop.full_amount_shopping(custom, petrol)
-
                     count = custom.remainder_money(full_shopping)
                     coast_ = shop.total_coast(custom)
                     print(f"Total cost is {coast_} dollars")
