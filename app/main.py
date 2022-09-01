@@ -12,7 +12,6 @@ def shop_trip():
     petrol = file["FUEL_PRICE"]
 
     for customer_ in data_customers:
-        permission = []
         custom = Customer(customer_["name"],
                           customer_["product_cart"],
                           customer_["location"],
@@ -63,6 +62,5 @@ def shop_trip():
                     print(f"{customer_['name']} now"
                           f" has {count} dollars\n")
         else:
-
             print(f"{customer_['name']} doesn't have"
                   f" enough money to make purchase in any shop")

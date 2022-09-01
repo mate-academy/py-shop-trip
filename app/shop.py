@@ -9,7 +9,6 @@ class Shop:
         coast = 0
 
         for key, value in self.products.items():
-
             coast += value * customer.product_cart[key]
 
         full_coast = round(customer.distance(
@@ -18,7 +17,6 @@ class Shop:
         return full_coast
 
     def check_shop(self, customer):
-        coast = 0
         """check - complete information about each purchase"""
         check = ""
         for key, value in self.products.items():

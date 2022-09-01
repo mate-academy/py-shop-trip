@@ -1,4 +1,3 @@
-
 class Customer:
 
     def __init__(self, name, product_cart, location, money, car):
@@ -17,5 +16,4 @@ class Customer:
         return distance
 
     def remainder_money(self, other):
-        
         return self.money - other
