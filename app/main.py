@@ -4,68 +4,73 @@ from math import sqrt, inf
 
 
 class Car:
-    brand: str
-    fuel_consumption_one_km: float
+    def __init__(self, brand, fuel):
+        self.brand = brand
+        self.fuel_consumption_one_km = fuel
 
-    def from_dict(self, data):
-        self.brand = data["brand"]
-        self.fuel_consumption_one_km = data["fuel_consumption"] / 100
+    @staticmethod
+    def from_dict(data):
+        car = Car(
+            data["brand"],
+            data["fuel_consumption"] / 100
+        )
 
-        return self
-
-
-class Product:
-    milk: int = 0
-    bread: int = 0
-    butter: int = 0
-
-    def from_dict(self, data):
-        self.milk = data["milk"]
-        self.bread = data["bread"]
-        self.butter = data["butter"]
-        return self
-
-    def __mul__(self, other):
-        sum_milk = self.milk * other.milk
-        sum_bread = self.bread * other.bread
-        sum_butter = self.butter * other.butter
-        return sum_milk + sum_bread + sum_butter
-
-    def getattr(self, item):
-        return self.__getattribute__(item)
+        return car
 
 
 class Customer:
-    name: str
-    location: []
-    money: int
-    car: Car
-    product_cart: Product()
+    def __init__(self,
+                 name: str,
+                 location: list,
+                 money: float,
+                 car: Car,
+                 product_cart: dict):
+        self.name = name
+        self.location = location
+        self.money = money
+        self.car = car
+        self.product_cart = product_cart
 
-    def from_dict(self, data):
-        self.name = data["name"]
-        self.location = data["location"]
-        self.money = data["money"]
-        self.car = Car().from_dict(data["car"])
-        self.product_cart = Product().from_dict(data["product_cart"])
-        return self
+    @staticmethod
+    def from_dict(data):
+        customer = Customer(
+            data["name"],
+            data["location"],
+            data["money"],
+            Car.from_dict(data["car"]),
+            data["product_cart"])
+        return customer
 
 
 class Shop:
-    name: str
-    location: []
-    products: Product
+    def __init__(self,
+                 name: str,
+                 location: list,
+                 products: dict):
+        self.name = name
+        self.location = location
+        self.products = products
 
-    def from_dict(self, data):
-        self.name = data["name"]
-        self.location = data["location"]
-        self.products = Product().from_dict(data["products"])
-        return self
+    @staticmethod
+    def from_dict(data):
+        shop = Shop(data["name"],
+                    data["location"],
+                    data["products"]
+                    )
+        return shop
 
 
 with open("app/config.json") as f:
     INCOME_DATA = json.load(f)
 FUEL_PRICE = INCOME_DATA["FUEL_PRICE"]
+
+
+def calculate_visit(shop: Shop, customer: Customer):
+    res = 0
+    for key, value in customer.product_cart.items():
+        if key in shop.products:
+            res += value * shop.products[key]
+    return res
 
 
 def get_distance_round_trip(coord_from, coord_to):
@@ -79,14 +84,11 @@ def shop_trip():
     customers = []
     shops = []
     for item in INCOME_DATA["customers"]:
-        try:
-            customer = Customer().from_dict(item)
-            customers.append(customer)
-        except Exception as e:
-            print(item)
-            print(e)
+        customer = Customer.from_dict(item)
+        customers.append(customer)
+
     for item in INCOME_DATA["shops"]:
-        shops.append(Shop().from_dict(item))
+        shops.append(Shop.from_dict(item))
     has_output = False
     for customer in customers:
         min_cost = inf
@@ -99,7 +101,7 @@ def shop_trip():
         for shop in shops:
             distance = get_distance_round_trip(customer.location,
                                                shop.location)
-            cost = customer.product_cart * shop.products
+            cost = calculate_visit(shop, customer)
             car = customer.car
             fuel_cost = FUEL_PRICE * car.fuel_consumption_one_km * distance
             cost_with_fuel = round(cost + fuel_cost, 2)
@@ -122,9 +124,9 @@ def shop_trip():
         print("You have bought: ")
         product_cart = customer.product_cart
         shop_price = best_shop.products
-        for attr in ["milk", "bread", "butter"]:
-            print(f"{product_cart.getattr(attr)} {attr}s for "
-                  f"{product_cart.getattr(attr) * shop_price.getattr(attr)} "
+        for key, value in product_cart.items():
+            print(f"{value} {key}s for "
+                  f"{value * shop_price[key]} "
                   f"dollars")
         print(f"Total cost is {round(min_cost - mem_fuel_cost, 2)} dollars")
         print("See you again!\n")
