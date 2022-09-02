@@ -19,7 +19,7 @@ def shop_trip():
                           customer_["car"])
 
         custom.have_money()
-        coast_shops = {}
+        cost_shops = {}
         for shop_ in data_shops:
 
             shop = Shop(shop_["name"],
@@ -27,14 +27,14 @@ def shop_trip():
                         shop_["products"])
             a = shop.full_amount_shopping(custom, petrol)
 
-            coast_shops[shop_["name"]] = a
+            cost_shops[shop_["name"]] = a
 
             print(f"{customer_['name']}'s trip"
                   f" to the {shop_['name']} costs {str(a)}")
 
-        if min(coast_shops.values()) <= customer_["money"]:
-            item_ = ["", min(coast_shops.values())]
-            for key, value in coast_shops.items():
+        if min(cost_shops.values()) <= customer_["money"]:
+            item_ = ["", min(cost_shops.values())]
+            for key, value in cost_shops.items():
                 if value <= item_[1]:
                     item_ = [key, value]
 
@@ -50,12 +50,12 @@ def shop_trip():
                                 shop_["location"],
                                 shop_["products"])
 
-                    shop.check_shop(custom)
+                    shop.bill_shop(custom)
                     full_shopping = \
                         shop.full_amount_shopping(custom, petrol)
                     count = custom.remainder_money(full_shopping)
-                    coast_ = shop.total_coast(custom)
-                    print(f"Total cost is {coast_} dollars")
+                    cost_ = shop.total_cost(custom)
+                    print(f"Total cost is {cost_} dollars")
                     print("See you again!\n")
 
                     print(f"{customer_['name']} rides home")

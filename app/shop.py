@@ -6,27 +6,27 @@ class Shop:
         self.products = products
 
     def full_amount_shopping(self, customer, petrol):
-        coast = 0
+        cost = 0
 
         for key, value in self.products.items():
-            coast += value * customer.product_cart[key]
+            cost += value * customer.product_cart[key]
 
-        full_coast = round(customer.distance(
+        full_cost = round(customer.distance(
             self.location) * 2 / 100 * customer.car[
-            "fuel_consumption"] * petrol + coast, 2)
-        return full_coast
+            "fuel_consumption"] * petrol + cost, 2)
+        return full_cost
 
-    def check_shop(self, customer):
+    def bill_shop(self, customer):
         """check - complete information about each purchase"""
-        check = ""
+        bill = ""
         for key, value in self.products.items():
-            coast = value * customer.product_cart[key]
-            check += f"{customer.product_cart[key]}" \
-                     f" {key}s for {coast} dollars\n"
-        print(check[:-1])
+            cost = value * customer.product_cart[key]
+            bill += f"{customer.product_cart[key]}" \
+                    f" {key}s for {cost} dollars\n"
+        print(bill[:-1])
 
-    def total_coast(self, customer):
-        coast = 0
+    def total_cost(self, customer):
+        cost = 0
         for key, value in self.products.items():
-            coast += value * customer.product_cart[key]
-        return coast
+            cost += value * customer.product_cart[key]
+        return cost

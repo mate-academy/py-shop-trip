@@ -8,7 +8,6 @@ class Customer:
         self.car = car
 
     def have_money(self):
-
         print(f"{self.name} has {self.money} dollars")
 
     def distance(self, other):
