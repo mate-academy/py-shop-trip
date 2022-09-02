@@ -12,9 +12,10 @@ class Customer:
         print(f"{self.name} has {self.money} dollars")
 
     def distance(self, other):
-        distance = (
-                (self.location[0] - other[0]) ** 2 + (
-                 self.location[1] - other[1]) ** 2) ** 0.5
+        distance = ((self.location[0] - other[0]
+                     ) ** 2 + (
+                self.location[1] - other[1]
+                               ) ** 2) ** 0.5
         return distance
 
     def remainder_money(self, other):
