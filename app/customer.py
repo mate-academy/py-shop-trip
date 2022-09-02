@@ -16,4 +16,5 @@ class Customer:
         return distance
 
     def remainder_money(self, other):
+        # remainder
         return self.money - other
