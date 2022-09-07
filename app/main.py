@@ -63,7 +63,7 @@ def go_to_shop(shop_price_list, user, shop, res):
     else:
         print(f"{user['name']} rides to {shop}\n")
         user["location"] = shop_location
-        print(f'Date: {datetime.datetime.now().strftime("%d/%m/%y %H:%M:%S")}')
+        print(f'Date: {datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S")}')
         print(f"Thanks, {user['name']}, for you purchase!")
         print("You have bought: ")
         for product, count in user["product_cart"].items():
