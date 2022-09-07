@@ -6,34 +6,40 @@ def shop_trip():
     with open("app/config.json") as file:
         file_data = json.load(file)
     fuel_price = file_data["FUEL_PRICE"]
-    res = {}
+    res_dict = {}
     shop_price_list = {}
     for user in file_data["customers"]:
         name = user["name"]
-        res[name] = {}
+        res_dict[name] = {}
 
         for shop in file_data["shops"]:
             calc_trip_cost = calc_cost_trip(user, shop, fuel_price)
             shop_name = shop["name"]
-            res[name][shop_name] = calc_trip_cost
+            res_dict[name][shop_name] = calc_trip_cost
 
-        shop_min_cost = min(res[name], key=res[name].get)
+        shop_min_cost = min(res_dict[name], key=res_dict[name].get)
 
         for shop in file_data["shops"]:
             if shop["name"] == shop_min_cost:
                 shop_price_list = shop["products"]
 
-        go_to_shop(shop_price_list, user, shop_min_cost, res)
-        res.clear()
+        go_to_shop(shop_price_list, user, shop_min_cost, res_dict)
+        res_dict.clear()
 
 
 def calc_cost_trip(user, shop, fuel_price):
-    distance = (((user["location"][0] - shop["location"][0]) ** 2) +
-                ((user["location"][1] - shop["location"][1]) ** 2)) ** 0.5
+    x_diff = user["location"][0] - shop["location"][0]
+    y_diff = user["location"][1] - shop["location"][1]
+    distance = ((x_diff ** 2) + (y_diff ** 2)) ** 0.5
     shop_location = shop["location"]
     fuel_consumption = user["car"]["fuel_consumption"]
     travel_cost = distance * fuel_price * fuel_consumption / 100 * 2
-    product_cost = sum([shop['products'][key] * value for key, value in user["product_cart"].items()])
+    product_cost = sum(
+        [
+            shop['products'][key] * value
+            for key, value in user["product_cart"].items()
+        ]
+    )
     total_cost = round(product_cost + travel_cost, 2)
     return [total_cost, shop_location]
 
@@ -52,7 +58,8 @@ def go_to_shop(shop_price_list, user, shop, res):
                 total_cost = val[0]
             print(f"{user['name']}'s trip to the {key} costs {val[0]}")
     if money < total_cost:
-        print(f"{user['name']} doesn't have enough money to make purchase in any shop")
+        print(f"{user['name']} doesn't have enough money"
+              f" to make purchase in any shop")
     else:
         print(f"{user['name']} rides to {shop}\n")
         user["location"] = shop_location
