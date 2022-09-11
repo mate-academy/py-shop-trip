@@ -24,8 +24,8 @@ def product_calculation_print(count_milk: int,
     }
 
     print(f'{count_milk} milks for {total_amount["milk"]} dollars')
-    print(f'{count_bread} milks for {total_amount["bread"]} dollars')
-    print(f'{count_butter} milks for {total_amount["butter"]} dollars')
+    print(f'{count_bread} breads for {total_amount["bread"]} dollars')
+    print(f'{count_butter} butters for {total_amount["butter"]} dollars')
 
     milk = total_amount["milk"]
     bread = total_amount["bread"]
