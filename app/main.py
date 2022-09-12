@@ -5,7 +5,7 @@ from app.shop import Shop
 def shop_trip():
     fuel_price = Customer.information["FUEL_PRICE"]
     for customer in Customer.information["customers"]:
-        food_and_trip_price = 9999999999999
+        food_and_trip_price = 0
         shop_name = None
         trip_price = 0
         bought_products = []
@@ -35,7 +35,7 @@ def shop_trip():
             all_butter_price = butter_price * butter_amount
             total_price += all_milk_price + all_bread_price + all_butter_price
             Shop.total_shop_price(name, current_shop_name, total_price)
-            if total_price < food_and_trip_price:
+            if total_price < food_and_trip_price or food_and_trip_price == 0:
                 bought_products.clear()
                 food_and_trip_price = total_price
                 shop_name = current_shop_name

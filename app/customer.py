@@ -22,9 +22,8 @@ class Customer:
                        money: (int, float), total_cost: (int, float)):
         if money >= total_cost:
             print(f"{name} rides to {shops_name}")
-        else:
-            print(f"{name} doesn't have enough money "
-                  f"to make purchase in any shop")
+            return
+        print(f"{name} doesn't have enough money to make purchase in any shop")
 
     @staticmethod
     def person_money(name, money):

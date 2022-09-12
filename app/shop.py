@@ -1,3 +1,6 @@
+import datetime
+
+
 class Shop:
 
     @staticmethod
@@ -10,8 +13,9 @@ class Shop:
 
     @staticmethod
     def bought_products(products: list, name, total_products_price):
+        current_time = datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S")
         print()
-        print("Date: 04/01/2021 12:33:41")
+        print(f"Date: {current_time}")
         print(f"Thanks, {name}, for you purchase!")
         print("You have bought: ")
 
