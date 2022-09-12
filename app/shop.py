@@ -1,4 +1,4 @@
-from datetime import datetime
+import datetime
 from app.product_calculation import product_calculation_print
 from app.movement import trip_to_the_store
 from app.movement import trip_to_the_home
@@ -17,7 +17,7 @@ def purchase(count_milk: int,
     """
     Receipt printing
     """
-    date = datetime(2021, 1, 4, 12, 33, 41).strftime("%d/%m/%Y %H:%M:%S")
+    date = datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S")
     print(f'Date: {date}')
     print(f'Thanks, {customer["name"]}, for you purchase!')
     print("You have bought: ")

@@ -42,7 +42,7 @@ def trip_price(customer,
     """
     Calculation of purchase costs in different shops with a driveway
     """
-    temp_dict = {}
+    dict_of_shopping_and_fare_prices = {}
     for i in range(len(shops)):
         cost = product_calculation(count_milk,
                                    count_bread,
@@ -51,7 +51,8 @@ def trip_price(customer,
 
         cost_plus_fuel = fare[f'fare_to_the_{shops[i]["name"]}'] + cost
 
-        temp_dict[f'{shops[i]["name"]}'] = round(cost_plus_fuel, 2)
+        dict_of_shopping_and_fare_prices[f'{shops[i]["name"]}'] \
+            = round(cost_plus_fuel, 2)
 
         print(f'{customer["name"]}\'s trip to the {shops[i]["name"]} '
               f'costs {round(cost_plus_fuel, 2)}')
@@ -59,15 +60,15 @@ def trip_price(customer,
     """
     Choosing a store at a lower price and the amount of money a person has
     """
-    temp_list = []
-    for value in temp_dict.values():
-        temp_list.append(value)
+    travel_price_list = []
+    for travel_and_shopping_costs in dict_of_shopping_and_fare_prices.values():
+        travel_price_list.append(travel_and_shopping_costs)
 
-    for key, value in temp_dict.items():
-        if value == min(temp_list):
-            result_shop = key
+    for shop_name, cost in dict_of_shopping_and_fare_prices.items():
+        if cost == min(travel_price_list):
+            result_shop = shop_name
 
-    if min(temp_list) < customer["money"]:
+    if min(travel_price_list) < customer["money"]:
         print(f'{customer["name"]} rides to {result_shop}\n')
 
         """
@@ -79,7 +80,7 @@ def trip_price(customer,
 
         for key, value in select_shop.items():
             if key == result_shop:
-                return [shops[value], min(temp_list)]
+                return [shops[value], min(travel_price_list)]
     else:
         print(f'{customer["name"]} doesn\'t have enough money '
               f'to make purchase in any shop')
