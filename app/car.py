@@ -53,7 +53,7 @@ def trip_price(customer,
 
         temp_dict[f'{shops[i]["name"]}'] = round(cost_plus_fuel, 2)
 
-        print(f'{customer["name"]}`s trip to the {shops[i]["name"]} '
+        print(f'{customer["name"]}\'s trip to the {shops[i]["name"]} '
               f'costs {round(cost_plus_fuel, 2)}')
 
     """
@@ -81,5 +81,5 @@ def trip_price(customer,
             if key == result_shop:
                 return [shops[value], min(temp_list)]
     else:
-        print(f'{customer["name"]} doesn`t have enough money '
-              f'to make purchase in any shop\n')
+        print(f'{customer["name"]} doesn\'t have enough money '
+              f'to make purchase in any shop')

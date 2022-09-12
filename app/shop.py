@@ -20,7 +20,7 @@ def purchase(count_milk: int,
     date = datetime(2021, 1, 4, 12, 33, 41).strftime("%d/%m/%Y %H:%M:%S")
     print(f'Date: {date}')
     print(f'Thanks, {customer["name"]}, for you purchase!')
-    print("You have bought:")
+    print("You have bought: ")
     product_calculation_print(count_milk, count_bread, count_butter, shop)
     print("See you again!\n")
 

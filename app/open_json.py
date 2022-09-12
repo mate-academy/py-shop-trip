@@ -1,8 +1,11 @@
 import json
 
 
-with open("config.json") as file:
+with open("app/config.json") as file:
     config_json = json.load(file)
+
+# with open("config.json") as file:
+#     config_json = json.load(file)
 
 """
 There are 3 users in the customers list now
