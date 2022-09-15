@@ -7,8 +7,8 @@ from datetime import datetime
 
 
 def shop_trip():
-    with open("app/config.json") as f:
-        content = json.load(f)
+    with open("app/config.json") as file_shop:
+        content = json.load(file_shop)
 
     for person in content["customers"]:
         customer = Customer(person["name"], person["product_cart"],
@@ -44,8 +44,8 @@ def shop_trip():
         else:
             print(f"{customer.name} rides to {best_store.name}\n")
 
-        date = datetime(2021, 1, 4, 12, 33, 41)
-        time = date.strftime("%d/%m/%Y %H:%M:%S")
+        now = datetime.now()
+        time = now.strftime("%d/%m/%Y %H:%M:%S")
         print(f"Date: {time}\n"
               f"Thanks, {customer.name}, for you purchase!")
         shopping_cart(best_store.products, customer.products)

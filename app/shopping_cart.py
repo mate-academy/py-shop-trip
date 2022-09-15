@@ -1,12 +1,12 @@
 def shopping_cart_count(store_products: dict, customer_list: dict):
     price = 0
-    for key, value in customer_list.items():
-        price += value * store_products[key]
+    for product, quantity in customer_list.items():
+        price += quantity * store_products[product]
     return price
 
 
 def shopping_cart(store_products: dict, customer_list: dict):
     print("You have bought: ")
-    for key, value in customer_list.items():
-        price = value * store_products[key]
-        print(f"{value} {key}s for {price} dollars")
+    for product, quantity in customer_list.items():
+        price = quantity * store_products[product]
+        print(f"{quantity} {product}s for {price} dollars")
