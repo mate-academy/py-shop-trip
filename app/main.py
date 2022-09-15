@@ -7,7 +7,7 @@ from datetime import datetime
 
 
 def shop_trip():
-    with open("config.json") as f:
+    with open("../app/config.json") as f:
         content = json.load(f)
 
     for person in content["customers"]:
@@ -17,7 +17,7 @@ def shop_trip():
 
         print(f"{customer.name} has {customer.money} dollars")
 
-        best_store = ""
+        best_store = None
         best_store_price = 0
         final_cost = 0
 
@@ -30,7 +30,7 @@ def shop_trip():
                                          content["FUEL_PRICE"])
             price_cart = shopping_cart_count(shop.products, customer.products)
             final_price = round(two_way_cost + price_cart, 2)
-            print(f"Bob's trip to the {shop.name} costs {final_price}")
+            print(f"{customer.name}'s trip to the {shop.name} costs {final_price}")
             if final_price < best_store_price or best_store_price == 0:
                 best_store_price = final_price
                 best_store = shop
@@ -38,14 +38,15 @@ def shop_trip():
 
         if customer.money < best_store_price:
             print(f"{customer.name} doesn't have enough "
-                  f"money to make purchase in any shop\n")
+                  f"money to make purchase in any shop")
             continue
         else:
             print(f"{customer.name} rides to {best_store.name}\n")
 
-        now = datetime.now()
-        time = now.strftime("%Y/%m/%d %H:%M:%S")
-        print(time)
+        date = datetime(2021, 1, 4, 12, 33, 41)
+        time = date.strftime("%d/%m/%Y %H:%M:%S")
+        print(f"Date: {time}\n"
+              f"Thanks, {customer.name}, for you purchase!")
         shopping_cart(best_store.products, customer.products)
         print(f"Total cost is {final_cost} dollars\n"
               f"See you again!\n")
