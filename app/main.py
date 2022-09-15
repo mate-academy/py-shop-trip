@@ -7,7 +7,7 @@ from datetime import datetime
 
 
 def shop_trip():
-    with open("../app/config.json") as f:
+    with open("app/config.json") as f:
         content = json.load(f)
 
     for person in content["customers"]:
@@ -30,7 +30,8 @@ def shop_trip():
                                          content["FUEL_PRICE"])
             price_cart = shopping_cart_count(shop.products, customer.products)
             final_price = round(two_way_cost + price_cart, 2)
-            print(f"{customer.name}'s trip to the {shop.name} costs {final_price}")
+            print(f"{customer.name}'s trip to "
+                  f"the {shop.name} costs {final_price}")
             if final_price < best_store_price or best_store_price == 0:
                 best_store_price = final_price
                 best_store = shop
