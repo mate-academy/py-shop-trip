@@ -14,16 +14,17 @@ def cost_calculation(customer, shops, fuel_price):
 
     for shop in shops:
         shop_location = shop.location
+
         distance = math.dist(customer_location, shop_location)
         cost_ride = \
-            2 * distance * fuel_price * fuel_consumption / 100
+            round(2 * distance * fuel_price * fuel_consumption / 100, 2)
 
         product_cost = 0
         for product in customer.product_cart:
             product_cost += \
                 customer.product_cart[product] * shop.products[product]
 
-        total_cost = round(cost_ride + product_cost, 2)
+        total_cost = round((cost_ride + product_cost), 2)
         print(f"{customer.name}'s trip to the {shop.name} "
               f"costs {total_cost}")
 
@@ -33,7 +34,7 @@ def cost_calculation(customer, shops, fuel_price):
             total_cost_products = product_cost
 
     if total_value < customer.money:
-        print(f"{customer.name} rides to {best_shop.name}\n")
+        print(f"{customer.name} rides to {best_shop.name}" + "\n")
 
         current_date = datetime.now().strftime("%d/%m/%Y %H:%M:%S")
 
