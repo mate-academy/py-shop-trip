@@ -3,7 +3,7 @@ from app.distance_shop import distance_shop
 import json
 from app.shops.shop import Shop
 from app.shopping_cart import shopping_cart_count, shopping_cart
-from datetime import datetime
+import datetime
 
 
 def shop_trip():
@@ -44,8 +44,7 @@ def shop_trip():
         else:
             print(f"{customer.name} rides to {best_store.name}\n")
 
-        now = datetime.now()
-        time = now.strftime("%d/%m/%Y %H:%M:%S")
+        time = datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S")
         print(f"Date: {time}\n"
               f"Thanks, {customer.name}, for you purchase!")
         shopping_cart(best_store.products, customer.products)
