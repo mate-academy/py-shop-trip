@@ -6,6 +6,7 @@ class Customer:
                  money: int,
                  car: dict
                  ):
+
         self.name = name
         self.product_cart = product_cart
         self.location = location

@@ -41,6 +41,7 @@ def cost_calculation(customer, shops, fuel_price):
         print(f"Date: {current_date}")
         print(f"Thanks, {customer.name}, for you purchase!")
         print("You have bought: ")
+
         for product, amount in customer.product_cart.items():
             print(f"{amount} {product}s for "
                   f"{amount * best_shop.products[product]} dollars")
