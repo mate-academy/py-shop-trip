@@ -7,7 +7,7 @@ from app.calculation import cost_calculation
 
 def shop_trip():
 
-    with open("app\\config.json", "r") as file:
+    with open("app/config.json", "r") as file:
         current_data = json.load(file)
 
     fuel_price = current_data["FUEL_PRICE"]
