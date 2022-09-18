@@ -1,12 +1,13 @@
 import json
 
-from app.models.customer import Customer
-from app.models.shop import Shop
-from app.models.calculation import cost_calculation
+from app.customer import Customer
+from app.shop import Shop
+from app.calculation import cost_calculation
 
 
 def shop_trip():
-    with open("app/config.json", "r") as file:
+
+    with open("app\\config.json", "r") as file:
         current_data = json.load(file)
 
     fuel_price = current_data["FUEL_PRICE"]

@@ -1,5 +1,5 @@
 import math
-from datetime import datetime
+import datetime
 
 
 def cost_calculation(customer, shops, fuel_price):
@@ -17,7 +17,7 @@ def cost_calculation(customer, shops, fuel_price):
 
         distance = math.dist(customer_location, shop_location)
         cost_ride = \
-            round(2 * distance * fuel_price * fuel_consumption / 100, 2)
+            round(2 * distance * fuel_price * (fuel_consumption / 100), 2)
 
         product_cost = 0
         for product in customer.product_cart:
@@ -36,7 +36,7 @@ def cost_calculation(customer, shops, fuel_price):
     if total_value < customer.money:
         print(f"{customer.name} rides to {best_shop.name}" + "\n")
 
-        current_date = datetime.now().strftime("%d/%m/%Y %H:%M:%S")
+        current_date = datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S")
 
         print(f"Date: {current_date}")
         print(f"Thanks, {customer.name}, for you purchase!")
@@ -49,7 +49,7 @@ def cost_calculation(customer, shops, fuel_price):
               f"See you again!\n")
         print(f"{customer.name} rides home")
         customer.money -= total_value
-        print(f"{customer.name} now has {customer.money} dollars")
+        print(f"{customer.name} now has {customer.money} dollars" + "\n")
     else:
         print(f"{customer.name} doesn't have enough "
               f"money to make purchase in any shop")
