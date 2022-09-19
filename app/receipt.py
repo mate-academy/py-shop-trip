@@ -48,18 +48,11 @@ def print_receipt(customer, shops, fuel_price):
     print("Date:", datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S"))
     print(f"Thanks, {customer.name}, for you purchase!")
     print("You have bought: ")
-    print(f"{milk_amount} milks for "
-          f"{milk_amount * Decimal(str(min_shop_offer.products['milk']))} "
-          "dollars"
-          )
-    print(f"{bread_amount} breads for "
-          f"{bread_amount * Decimal(str(min_shop_offer.products['bread']))} "
-          "dollars"
-          )
-    print(f"{butter_amount} butters for "
-          f"{butter_amount * Decimal(str(min_shop_offer.products['butter']))} "
-          "dollars"
-          )
+    for product, amount in customer.product_cart.items():
+        print(
+            f"{amount} {product}s for "
+            f"{amount * min_shop_offer.products[product]} dollars"
+        )
     print(f"Total cost is {payment[min_shop_offer.name]} dollars")
     print("See you again!" + "\n")
     print(f"{customer.name} rides home")
