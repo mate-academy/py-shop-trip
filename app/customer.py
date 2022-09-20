@@ -15,7 +15,7 @@ class Customer:
     def transportation_cost(self, shop: Shop, fuel_price):
         shop_x, shop_y = shop.location[0], shop.location[1]
         home_x, hone_y = self.location[0], self.location[1]
-        distance = 2 * (round(((home_x - shop_x) ** 2 + (hone_y - shop_y) ** 2) ** 0.5))
+        distance = 2 * (((home_x - shop_x) ** 2 + (hone_y - shop_y) ** 2) ** 0.5)
         transport_cost = decimal.Decimal(self.car_fuel_consumption / 100 * distance * fuel_price)
         return transport_cost
 
@@ -23,7 +23,7 @@ class Customer:
         alternatives = {}
         for shop in Shop.shops.values():
             costs = shop.products_price(self.product_cart) + self.transportation_cost(shop, fuel_price)
-            alternatives[shop.name] = costs
+            alternatives[shop.name] = decimal.Decimal(costs)
             print(f"{self.name}'s trip to the {shop.name} costs {costs}")
         chip_shop_name = min(alternatives, key=alternatives.get)
         if self.money >= alternatives[chip_shop_name]:
@@ -37,7 +37,8 @@ class Customer:
     def buy_products(self, chip_shop_name):
         current_shop = Shop.shops.get(chip_shop_name, 0)
         if isinstance(current_shop, Shop):
-            current_shop.sell_products(self)
+            current_shop.sell_products(self.product_cart, self.name)
+        self.location = current_shop.location
 
     def back_home(self):
         self.location = self.home

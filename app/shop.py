@@ -1,6 +1,5 @@
 import datetime
 import decimal
-from app.customer import Customer
 
 
 class Shop:
@@ -12,20 +11,19 @@ class Shop:
         self.products = products
         Shop.shops[self.name] = self
 
-    def products_price(self, customer: Customer):
+    def products_price(self, products: dict):
         price = 0
-        for product, amt in customer.product_cart.items():
+        for product, amt in products.items():
             price += decimal.Decimal(self.products[product] * amt)
         return price
 
-    def sell_products(self, customer: Customer):
+    def sell_products(self, products: dict, customer_name):
         dt = datetime.datetime.now()
         date_dt = dt.strftime("%d/%m/%Y %H:%M:%S")
         print(f"Date: {date_dt}")
-        print(f"Thanks, {customer.name}, for you purchase!\nYou have bought:")
+        print(f"Thanks, {customer_name}, for you purchase!\nYou have bought:")
         price = 0
-        for product, amt in customer.product_cart.items():
+        for product, amt in products.items():
             print(f"{amt} {product}s for {self.products[product]} dollars")
-            price += self.products[product] * amt
+            price += decimal.Decimal(self.products[product] * amt)
         print(f"Total cost is {price} dollars\nSee you again!")
-        customer.location = self.location
