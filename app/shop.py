@@ -21,9 +21,11 @@ class Shop:
         dt = datetime.datetime.now()
         date_dt = dt.strftime("%d/%m/%Y %H:%M:%S")
         print(f"Date: {date_dt}")
-        print(f"Thanks, {customer_name}, for you purchase!\nYou have bought:")
-        price = 0
+        print(f"Thanks, {customer_name}, for you purchase!")
+        print("You have bought: ")
+        total = 0
         for product, amt in products.items():
-            print(f"{amt} {product}s for {self.products[product]} dollars")
-            price += decimal.Decimal(self.products[product] * amt)
-        print(f"Total cost is {price} dollars\nSee you again!")
+            price = (self.products[product] * amt)
+            total += price
+            print(f"{amt} {product}s for {price} dollars")
+        print(f"Total cost is {total} dollars\nSee you again!\n")
