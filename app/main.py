@@ -1,6 +1,6 @@
 import json
+import datetime
 
-from datetime import datetime
 from app.home import Home
 from app.customer import Customer
 from app.shop import Shop
@@ -8,7 +8,7 @@ from app.init import init_all_class
 
 
 def shop_trip():
-    with open("../app/config.json", "r") as info:
+    with open("app/config.json", "r") as info:
         info_dict = json.load(info)
 
     init_all_class(info_dict)
@@ -49,7 +49,7 @@ def shop_trip():
 
         customer.location = cheapest_shop.location
 
-        print(f"Date: {datetime.now().strftime('%d/%m/%Y %H:%M:%S')}\n"
+        print(f"Date: {datetime.datetime.now().strftime('%d/%m/%Y %H:%M:%S')}\n"
               f"Thanks, {customer.name}, for you purchase!\n"
               f"You have bought: ")
 
