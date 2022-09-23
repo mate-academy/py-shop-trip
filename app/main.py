@@ -1,5 +1,6 @@
 import json
 
+from datetime import datetime
 from app.home import Home
 from app.customer import Customer
 from app.shop import Shop
@@ -48,7 +49,7 @@ def shop_trip():
 
         customer.location = cheapest_shop.location
 
-        print("Date: 04/01/2021 12:33:41\n"
+        print(f"Date: {datetime.now().strftime('%d/%m/%Y %H:%M:%S')}\n"
               f"Thanks, {customer.name}, for you purchase!\n"
               f"You have bought: ")
 
