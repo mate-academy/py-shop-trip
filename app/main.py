@@ -49,7 +49,8 @@ def shop_trip():
 
         customer.location = cheapest_shop.location
 
-        print(f"Date: {datetime.datetime.now().strftime('%d/%m/%Y %H:%M:%S')}\n"
+        print(f"Date: "
+              f"{datetime.datetime.now().strftime('%d/%m/%Y %H:%M:%S')}\n"
               f"Thanks, {customer.name}, for you purchase!\n"
               f"You have bought: ")
 
