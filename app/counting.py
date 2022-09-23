@@ -3,7 +3,7 @@ import math
 
 
 def counting(customer, shops, fuel_price):
-    print(f"{customer.name} has {customer.money} dollars.")
+    print(f"{customer.name} has {customer.money} dollars")
 
     customer_location = customer.location
     fuel_consumption = customer.car["fuel_consumption"]
