@@ -7,7 +7,7 @@ from app.init import init_all_class
 
 
 def shop_trip():
-    with open("config.json", "r") as info:
+    with open("../app/config.json", "r") as info:
         info_dict = json.load(info)
 
     init_all_class(info_dict)
