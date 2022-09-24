@@ -14,7 +14,7 @@ def shop_trip():
     init_all_class(info_dict)
 
     for customer in Customer.customers.values():
-        trip_to_shop = [[], []]
+        trip_to_shop = [[]]
 
         print(f"{customer.name} has {customer.money} dollars")
 
@@ -28,7 +28,6 @@ def shop_trip():
             bread = customer.product_cart["bread"] * shop.products["bread"]
             butter = customer.product_cart["butter"] * shop.products["butter"]
             trip_to_shop[0].append(round(road * 2 + milk + bread + butter, 2))
-            trip_to_shop[1].append(round(road * 2, 2))
             trip_to_shop.append([milk, bread, butter])
 
             print(f"{customer.name}'s trip "
@@ -37,7 +36,7 @@ def shop_trip():
         trip_to_shop.append(["milk", "bread", "butter"])
         cheapest_trip = min(trip_to_shop[0])
         index_min = trip_to_shop[0].index(cheapest_trip)
-        purchase_sum = sum(trip_to_shop[index_min + 2])
+        purchase_sum = sum(trip_to_shop[index_min + 1])
         cheapest_shop = Shop.shops[index_min]
 
         if cheapest_trip > customer.money:
@@ -57,12 +56,12 @@ def shop_trip():
         for i in range(3):
             print(f"{customer.product_cart[trip_to_shop[-1][i]]} "
                   f"{trip_to_shop[-1][i]}s for "
-                  f"{trip_to_shop[index_min + 2][i]} dollars")
+                  f"{trip_to_shop[index_min + 1][i]} dollars")
 
         print(f"Total cost is {purchase_sum} dollars\n"
               f"See you again!\n")
 
-        spent_money = trip_to_shop[1][index_min] + purchase_sum
+        spent_money = trip_to_shop[0][index_min]
         customer.money -= spent_money
 
         print(f"{customer.name} rides home")
