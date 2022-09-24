@@ -61,8 +61,7 @@ def shop_trip():
         print(f"Total cost is {purchase_sum} dollars\n"
               f"See you again!\n")
 
-        spent_money = trip_to_shop[0][index_min]
-        customer.money -= spent_money
+        customer.money -= trip_to_shop[0][index_min]
 
         print(f"{customer.name} rides home")
 
