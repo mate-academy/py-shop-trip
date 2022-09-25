@@ -7,7 +7,7 @@ from app.shop import Shop
 
 def shop_trip():
 
-    with open("config.json", "r") as f:
+    with open("app/config.json", "r") as f:
         data = load(f)
 
     # creating variables from loaded data
