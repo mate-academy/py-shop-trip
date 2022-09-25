@@ -19,7 +19,7 @@ class Shop:
     def print_cash_receipt(self, name, product_cart):
         print("Date:", datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S"))
         print(f"Thanks, {name}, for you purchase!")
-        print("You have bought:")
+        print("You have bought: ")
         for product in product_cart:
             for product_ in self.products:
                 if product == product_:
