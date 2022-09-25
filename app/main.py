@@ -5,7 +5,7 @@ from app.car import Car
 
 
 def shop_trip():
-    with open("config.json", "r") as file:
+    with open("app/config.json", "r") as file:
         data = json.load(file)
         fuel_price = data["FUEL_PRICE"]
         custom_list = [Customer(customer_) for customer_ in data["customers"]]
