@@ -4,7 +4,7 @@ from app.initial import to_init
 
 
 # read information from a file
-with open(r"app\config.json", "r") as file:
+with open("app/config.json", "r") as file:
     data = json.load(file)
 
 # get the price for fuel, the list of users and the list of shops
