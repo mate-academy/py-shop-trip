@@ -3,15 +3,11 @@ import json
 from app.initial import to_init
 
 
-# read information from a file
-with open("app/config.json", "r") as file:
-    data = json.load(file)
-
-# get the price for fuel, the list of users and the list of shops
-fuel_price, list_of_customers, list_of_shops = to_init(data)
-
-
 def shop_trip():
+    with open("app/config.json", "r") as file:
+        data = json.load(file)
+    fuel_price, list_of_customers, list_of_shops = to_init(data)
+
     for customer in list_of_customers:
         customer.get_money_before_trip()
         cost_finally = float("inf")
