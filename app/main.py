@@ -20,15 +20,14 @@ def shop_trip():
 
             for shop in shop_list:
                 product_cost = shop.calculate_cost(customer.product_cart)
-                if product_cost is not None:
-                    distance = dist(customer.location, shop.location)
-                    trip_cost = car.trip_cost(distance, fuel) * 2
+                distance = dist(customer.location, shop.location)
+                trip_cost = car.trip_cost(distance, fuel) * 2
+                total_cost = round(trip_cost + product_cost, 2)
 
-                    total_cost = round(trip_cost + product_cost, 2)
-                    print(f"{customer.name}'s trip to the "
-                          f"{shop.name} costs {total_cost}")
-                    if customer.money > total_cost:
-                        shop_to_choose.append((shop, total_cost))
+                print(f"{customer.name}'s trip to the "
+                      f"{shop.name} costs {total_cost}")
+                if customer.money > total_cost:
+                    shop_to_choose.append((shop, total_cost))
 
             if not shop_to_choose:
                 print(f"{customer.name} doesn't have enough money "
