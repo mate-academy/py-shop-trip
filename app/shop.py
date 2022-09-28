@@ -1,3 +1,6 @@
+import datetime
+
+
 class Shop:
     def __init__(self, shop: dict):
         self.name = shop["name"]
@@ -17,10 +20,7 @@ class Shop:
         return total_cost
 
     def print_purchase_receipt(self, name: str, product_cart: dict) -> None:
-        # time = datetime.now().strftime("%d/%m/%Y %H:%M:%S")
-        # Tests want me to hardcode date from example:(
-
-        print("Date:", "04/01/2021 12:33:41")
+        print(datetime.datetime.now().strftime("Date: %d/%m/20%y %H:%M:%S"))
         print(f"Thanks, {name}, for you purchase!")
         print("You have bought: ")
         for item in product_cart:
