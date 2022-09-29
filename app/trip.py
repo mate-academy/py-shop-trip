@@ -20,9 +20,9 @@ class Calculation:
     def cost_product(self) -> int:
         total_cost = 0
         for product in self.customer.products:
-            list_of_products = self.customer.products[product]
+            product_amount = self.customer.products[product]
             showcase = self.shop.product[product]
-            total_cost += list_of_products * showcase
+            total_cost += product_amount * showcase
         return total_cost
 
     def cost_trip(self) -> float:
