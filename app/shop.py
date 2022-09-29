@@ -21,6 +21,6 @@ class Shop:
         print("You have bought: ")
         for product in product_cart:
             cost = product_cart[product] * self.products[product]
-            print(f"{product_cart[product]} {item}s for {cost} dollars")
+            print(f"{product_cart[product]} {product}s for {cost} dollars")
         print(f"Total cost is {self.calculate_cost(product_cart)} dollars")
         print("See you again!\n")
