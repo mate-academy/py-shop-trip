@@ -5,7 +5,7 @@ from app.car import Car
 from app.shop import Shop
 
 
-def shop_trip():
+def shop_trip() -> None:
 
     with open("app/config.json", "r") as f:
         data = json.load(f)
