@@ -13,7 +13,7 @@ class Customer:
         self.best_shop = None
         self.best_price = None
 
-    def count_distance_to_shop(self, other) -> float:
+    def calculate_distance_to_shop(self, other) -> float:
         new_x = self.location[0] - other.location[0]
         new_y = self.location[-1] - other.location[-1]
         return math.sqrt(new_x ** 2 + new_y ** 2)
@@ -23,7 +23,7 @@ class Customer:
         good_shops = []
         for shop in shops:
             product_cost = shop.calculate_cost(self.product_cart)
-            distance = self.count_distance_to_shop(shop)
+            distance = self.calculate_distance_to_shop(shop)
             trip_cost = car.fuel_cost(distance, fuel_price) * 2
             total_cost = round(trip_cost + product_cost, 2)
 
