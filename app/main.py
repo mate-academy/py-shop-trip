@@ -14,7 +14,11 @@ def open_file() -> tuple[list[Customer], list[Shop], float]:
 
 
 def shop_trip() -> None:
-    customers, shops, fuel = open_file()
+    with open("app/config.json") as f:
+        data = json.load(f)
+    fuel = data["FUEL_PRICE"]
+    customers = [Customer(customer) for customer in data["customers"]]
+    shops = [Shop(shop) for shop in data["shops"]]
     for customer in customers:
         customer.trip_to_shop(shops, fuel)
 
