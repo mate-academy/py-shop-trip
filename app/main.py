@@ -20,9 +20,7 @@ def shop_trip():
         shop_with_min_price = shops[min_price]
         home = visitor.location
         visitor.print_go_to_shop(shop_with_min_price)
-
         shop_with_min_price.print_the_bill(visitor)
-
         visitor.print_go_to_home()
         visitor.location = home
         print(visitor.print_change_balance(shop_with_min_price))
