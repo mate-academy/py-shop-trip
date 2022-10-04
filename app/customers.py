@@ -17,52 +17,38 @@ class Customer:
         with open("app/config.json") as json_file:
             config = json.load(json_file)
 
-        customers = []
-
-        for customer in config["customers"]:
-            customers.append(
-                Customer(
-                    customer["name"],
-                    customer["product_cart"],
-                    customer["location"],
-                    customer["money"],
-                    customer["car"]["fuel_consumption"],
-                    customer["car"]
+            customers = []
+            for customer in config["customers"]:
+                customers.append(
+                    Customer(
+                        customer["name"],
+                        customer["product_cart"],
+                        customer["location"],
+                        customer["money"],
+                        customer["car"]["fuel_consumption"],
+                        customer["car"]
+                    )
                 )
-            )
             return customers
 
     def print_has_money(self):
         print(f"{self.name} has {self.money} dollars")
 
-    def distance(self, other):
-        x = other.location[0] - self.location[0]
-        y = other.location[1] - self.location[1]
+    def distance(self, other_shop):
+        x = other_shop.location[0] - self.location[0]
+        y = other_shop.location[1] - self.location[1]
         distance = (x ** 2 + y ** 2) ** 0.5 * 2
-        return round(distance, 2)
+        correct_distance = round(distance, 2)
+        return correct_distance
 
-    # def total_product_cost(self, other):
-    #     total_product_cost = 0
-    #     for position in self.product_cart.keys():
-    #         total_product_cost += self.product_cart[position] *\
-    #                               other.products[position]
-    #         return total_product_cost
-    #
-    # def total_fuel_cost(self, other):
-    #     cost_of_one_km = self.car["fuel_consumption"] * self.fuel_price / 100
-    #     total_fuel_cost = self.distance(other) * cost_of_one_km
-    #     total_fuel = round(total_fuel_cost, 2)
-    #     return total_fuel
-
-    def total_product_with_fuel_price(self, other_shop):
+    def total_product_fuel_price(self, other_shop):
         total_product_cost = 0
         for position in self.product_cart.keys():
-            total_product_cost += self.product_cart[position] *\
-                                  other_shop.products[position]
-            cost_of_one_km = self.car["fuel_consumption"] * self.fuel_price / 100
-            total_fuel_cost = self.distance(other_shop) * cost_of_one_km
-            total_fuel = round(total_fuel_cost, 2)
-            return total_product_cost + total_fuel
+            total_product_cost +=\
+                self.product_cart[position] * other_shop.products[position]
+        cost_of_one_km = self.car["fuel_consumption"] * self.fuel_price / 100
+        total_fuel_cost = round(self.distance(other_shop) * cost_of_one_km, 2)
+        return total_product_cost + total_fuel_cost
 
     def print_go_to_shop(self, other_shop):
         self.location = other_shop.location
@@ -73,5 +59,5 @@ class Customer:
 
     def print_change_balance(self, other_shop):
         return f"{self.name} now has" \
-               f" {self.money - self.total_product_with_fuel_price(other_shop)}" \
+               f" {self.money - self.total_product_fuel_price(other_shop)}" \
                f" dollars\n"
