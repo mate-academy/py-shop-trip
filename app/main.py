@@ -9,20 +9,20 @@ def shop_trip() -> None:
     with open("app/config.json", "r") as file:
         data = json.load(file)
     Car.fuel_price = data["FUEL_PRICE"]
-    customers_list = [0] * len(data["customers"])
+    customers_list = []
 
-    for i, customer in enumerate(data["customers"]):
-        customers_list[i] = Customer(name=customer["name"],
-                                     product_cart=customer["product_cart"],
-                                     location=customer["location"],
-                                     money=customer["money"],
-                                     car=customer["car"])
+    for customer in data["customers"]:
+        customers_list.append(Customer(name=customer["name"],
+                                       product_cart=customer["product_cart"],
+                                       location=customer["location"],
+                                       money=customer["money"],
+                                       car=customer["car"]))
 
-    shops_list = [0] * len(data["shops"])
-    for i, shop in enumerate(data["shops"]):
-        shops_list[i] = Shop(name=shop["name"],
-                             location=shop["location"],
-                             products=shop["products"])
+    shops_list = []
+    for shop in data["shops"]:
+        shops_list.append(Shop(name=shop["name"],
+                               location=shop["location"],
+                               products=shop["products"]))
 
     for customer in customers_list:
         product_cost = {}

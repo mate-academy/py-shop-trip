@@ -1,4 +1,4 @@
-# from datetime import datetime
+import datetime
 
 
 class Shop:
@@ -20,9 +20,7 @@ class Shop:
         return total
 
     def buy_products(self, customer) -> None:
-        # print(f"Date: {datetime.now().strftime('%d/%m/%Y %H:%M:%S')}")
-        # for test we need const time
-        print("Date: 04/01/2021 12:33:41")
+        print(f"Date: {datetime.datetime.now().strftime('%d/%m/%Y %H:%M:%S')}")
         print(f"Thanks, {customer.name}, for you purchase!")
         print("You have bought: ")
 
