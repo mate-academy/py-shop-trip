@@ -1,10 +1,11 @@
 from datetime import datetime
 
-from app.shop import shops
-from app.customer import customers
+from app.shop import make_instances, open_file
 
 
 def shop_trip():
+    shops = make_instances(open_file("shops"))
+    customers = make_instances(open_file("customers"))
     current = datetime.now()
     current = current.strftime("%d/%m/%y %H:%M:%S")
 
@@ -15,8 +16,8 @@ def shop_trip():
     for human in customers:
         print(f"{human.name} has {human.money} dollars")
         for store in shops:
-            print(f"{human.name}`s trip to the {store.name} "
-                  f"coasts {store.calculate_trip(human)}")
+            print(f"{human.name}'s trip to the {store.name} "
+                  f"costs {store.calculate_trip(human)}")
             if store.calculate_trip(human) < min_:
                 min_ = store.calculate_trip(human)
         if human.money > min_:
@@ -32,17 +33,14 @@ def shop_trip():
                     if prod == product:
                         cost = amt * price
                         total_cost += cost
-                print(f"{amt} {prod} for {cost} dollars")
+                print(f"{amt} {prod}s for {cost} dollars")
                 cost = 0
             print(f"Total cost is {total_cost} dollars")
             print("See you again!\n")
             print(f"{human.name} rides home")
-            print(f"Bob now has "
+            print(f"{human.name} now has "
                   f"{human.money - market.calculate_trip(human)}"
                   f" dollars\n")
         else:
             print(f"{human.name} doesn't have enough "
                   f"money to make purchase in any shop")
-
-
-shop_trip()

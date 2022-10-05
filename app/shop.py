@@ -2,10 +2,19 @@ import json
 
 from app.customer import Customer
 
-with open("config.json", "r") as f:
-    data = json.load(f)
-data_shops = data["shops"]
-fuel = data["FUEL_PRICE"]
+
+def open_file(value):
+    with open("app/config.json", "r") as file_out:
+        data = json.load(file_out)
+    data_shops = data["shops"]
+    fuel = data["FUEL_PRICE"]
+    data_customers = data["customers"]
+    if value == "customers":
+        return data_customers
+    if value == "fuel":
+        return fuel
+    if value == "shops":
+        return data_shops
 
 
 class Shop:
@@ -26,6 +35,7 @@ class Shop:
 
         road *= customer.car["fuel_consumption"]
         road /= 100
+        road *= open_file("fuel")
 
         amount = 0
         for prod, num in customer.product_cart.items():
@@ -37,8 +47,19 @@ class Shop:
         return round(amount, 2)
 
 
-shops = []
-for store in data_shops:
-    shops.append(Shop(store["name"],
-                      store["location"],
-                      store["products"]))
+def make_instances(value):
+    l_instances = []
+    for i in value:
+        if len(i) == 3:
+            for j in value:
+                l_instances.append(Shop(j["name"],
+                                        j["location"],
+                                        j["products"]))
+        if len(i) == 5:
+            for j in value:
+                l_instances.append(Customer(j["name"],
+                                            j["product_cart"],
+                                            j["location"],
+                                            j["money"],
+                                            j["car"],))
+        return l_instances
