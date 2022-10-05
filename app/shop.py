@@ -7,7 +7,7 @@ class Shop:
         self.location = shops["location"]
         self.products = shops["products"]
 
-    def count_products_items(self, product_cart: dict) -> float:
+    def calculate_products_price(self, product_cart: dict) -> float:
         price = 0
 
         for key, value in product_cart.items():

@@ -10,5 +10,5 @@ class Customer:
         self.money = customer["money"]
         self.car = customer["car"]
 
-    def count_distance(self, shop_location: Shop) -> float:
+    def calculate_distance(self, shop_location: Shop) -> float:
         return dist(self.location, shop_location.location)
