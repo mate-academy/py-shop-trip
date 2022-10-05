@@ -21,9 +21,9 @@ def shop_trip() -> None:
         shops_to_go = {}
 
         for shop in shops:
-            distance = customer.count_distance(shop)
+            distance = customer.calculate_distance(shop)
             cost = car.count_cost(distance, data["FUEL_PRICE"]) * 2
-            total_cost = round((shop.count_products_items(
+            total_cost = round((shop.calculate_products_price(
                 customer.product_cart) + cost), 2)
 
             if total_cost <= customer.money:
