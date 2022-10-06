@@ -13,7 +13,7 @@ class Customer:
         self.choosen_shop = None
         self.best_price = None
 
-    def calculate_distance_to_shop(self, other) -> float:
+    def calculate_distance_to_shop(self, other: Shop) -> float:
         return dist(self.location, other.location)
 
     def choose_shop(self, shops: list, fuel_price: float) -> None:
