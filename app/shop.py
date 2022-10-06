@@ -13,7 +13,7 @@ class Shop:
             total_price += product_cart[product] * self.products[product]
         return total_price
 
-    def print_receipt(self, other: Customer) -> None:
+    def print_receipt(self, other: str) -> None:
         print(datetime.datetime.now().strftime("Date: %d/%m/20%y %H:%M:%S"))
 
         print(f"Thanks, {other.name}, for you purchase!")
