@@ -4,7 +4,7 @@ from app.car import Car
 
 
 class Customer:
-    def __init__(self, customers: dict):
+    def __init__(self, customers: dict) -> None:
         self.name = customers["name"]
         self.product_cart = customers["product_cart"]
         self.location = customers["location"]
@@ -13,7 +13,7 @@ class Customer:
         self.choosen_shop = None
         self.best_price = None
 
-    def calculate_distance_to_shop(self, other):
+    def calculate_distance_to_shop(self, other) -> float:
         return dist(self.location, other.location)
 
     def choose_shop(self, shops: list, fuel_price: float) -> None:

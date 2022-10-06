@@ -1,5 +1,5 @@
 class Car:
-    def __init__(self, car: dict):
+    def __init__(self, car: dict) -> None:
         self.fuel_consumption = car["fuel_consumption"]
 
     def road_cost(self, distance: float, fuel_price: float) -> float:
