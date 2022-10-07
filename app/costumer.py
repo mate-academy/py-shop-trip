@@ -4,8 +4,7 @@ class Customer:
                  location: list,
                  money: int,
                  fuel_consumption: float,
-                 product_cart: dict,
-                 ):
+                 product_cart: dict,) -> None:
         self.name = name
         self.location = location
         self.money = money

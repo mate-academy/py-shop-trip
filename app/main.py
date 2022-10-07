@@ -5,7 +5,7 @@ from app.costumer import Customer
 from app.shop import Shop
 
 
-def shop_trip():
+def shop_trip() -> None:
     with open("app/config.json") as file:
         config = json.load(file)
 
@@ -83,7 +83,7 @@ def shop_trip():
                   f"to make purchase in any shop")
         else:
             date = datetime(2021, 1, 4, 12, 33, 41, 51204)
-            money_left = customer.money - customer.best_shop['trip_spends']
+            money_left = customer.money - customer.best_shop["trip_spends"]
             print(f"{customer.name} rides to {cheapest_trip_shop}\n")
             print(f"Date: {date.strftime('%d/%m/%Y %H:%M:%S')}\n"
                   f"Thanks, {customer.name}, for you purchase!\n"
