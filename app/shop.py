@@ -7,16 +7,22 @@ class Shop:
         self.shops = shops
 
     def purchase_cost(self) -> list:
+        """The function returns a list with dictionaries that contain:\n
+        - store name: str\n
+        - individual cost: dict\n
+        - total cost: float
+        """
+
         cost_of_purchases = []
         for shop in self.shops:
-            total_cost, product_cost = 0, {}
+            total_cost, prodact_cost = 0, {}
             for product, amount in self.product_cart.items():
                 cost = shop["products"][product] * amount
-                product_cost[product] = cost
+                prodact_cost[product] = cost
                 total_cost += cost
             cost_of_purchases.append(dict([
                 ("store name", shop["name"]),
-                ("individual cost", product_cost),
+                ("individual cost", prodact_cost),
                 ("total cost", total_cost),
             ]))
         return cost_of_purchases

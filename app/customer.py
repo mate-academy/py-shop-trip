@@ -25,8 +25,8 @@ class Customer:
             print(f"{self.name} rides to {trip['store name']}")
             return True
         else:
-            print(f"{self.name} doesn't "
-                  f"have enough money to make purchase in any shop")
+            print(f"{self.name} doesn't have enough money to make purchase "
+                  f"in any shop")
             return False
 
     def return_home(self, trip: dict) -> None:
