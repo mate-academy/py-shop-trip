@@ -21,7 +21,8 @@ def shop_trip() -> None:
             cost_of_purchases = shop_obj.purchase_cost()
             most_profitable_trip = \
                 car_obj.trip_cost(distance_to_shops, cost_of_purchases)
-            can_make_a_trip = customer_obj.can_make_a_trip(most_profitable_trip)
+            can_make_a_trip = \
+                customer_obj.can_make_a_trip(most_profitable_trip)
 
             if can_make_a_trip:
                 shop_obj.purchase_receipt(customer["name"],
