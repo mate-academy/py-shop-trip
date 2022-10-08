@@ -14,10 +14,9 @@ class Customer:
         self.car = Car(**kwargs["car"])
 
     def trip_cost(self, shop: Shop, fuel_price: float | int):
-        total_cost = 2 * (
-                self.car.fuel_consumption / 100 *
-                dist(self.location, shop.location) *
-                fuel_price)
+        total_cost = 2 * (self.car.fuel_consumption / 100 *
+                          dist(self.location, shop.location) *
+                          fuel_price)
 
         for name, count in self.product_cart.items():
             total_cost += count * shop.products[name]
