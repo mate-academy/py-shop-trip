@@ -19,5 +19,4 @@ def shop_trip() -> None:
                 print(f"{customer.name} rides home")
                 print(f"{customer.name} now "
                       f"has {customer.money - customer.best_price} dollars\n")
-            else:
-                return
+        return
