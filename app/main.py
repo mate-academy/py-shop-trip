@@ -12,8 +12,7 @@ def shop_trip() -> None:
     customers = [Customer(customer) for customer in data["customers"]]
     shops = [Shop(shop) for shop in data["shops"]]
 
-    for i in range(len(customers)):
-        customer = customers[i]
+    for customer in customers:
         car = Car(customer.car)
 
         print(f"{customer.name} has {customer.money} dollars")
