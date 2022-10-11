@@ -19,9 +19,8 @@ class Car:
                   first_point: list[int],
                   last_point: list[int],
                   one_liter_price: float) -> int | float:
-        return round(dist(first_point, last_point)
-                     * self.fuel_consumption
-                     * one_liter_price
-                     * 2
-                     / 100,
+
+        return round(dist(first_point, last_point) * 2
+                     * self.fuel_consumption / 100
+                     * one_liter_price,
                      2)

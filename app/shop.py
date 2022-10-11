@@ -31,11 +31,14 @@ class Shop:
         receipt = f"\nDate: {date}\n"
         receipt += f"Thanks, {name}, for you purchase!\n"
         receipt += "You have bought: \n"
+
         for product, count in products.items():
             count = ceil(count)
             cost = count * self.products[product]
             receipt += f"{count} {product}s for {cost} dollars\n"
             total_cost += round(cost, 2)
+
         receipt += f"Total cost is {total_cost} dollars\n"
         receipt += "See you again!\n"
+
         return [total_cost, receipt]
