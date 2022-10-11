@@ -1,13 +1,14 @@
 from __future__ import annotations
 
-import math
-from dataclasses import dataclass
+from math import dist
 
 
-@dataclass
 class Car:
-    brand: str
-    fuel_consumption: float
+    def __init__(self,
+                 brand: str,
+                 fuel_consumption: float) -> None:
+        self.brand = brand
+        self.fuel_consumption = fuel_consumption
 
     @classmethod
     def from_dict(cls, car: dict) -> Car:
@@ -19,7 +20,7 @@ class Car:
                   last_point: list[int],
                   one_liter_price: float) -> int | float:
         return round(
-            math.dist(first_point, last_point)
+            dist(first_point, last_point)
             * self.fuel_consumption
             * one_liter_price
             * 2

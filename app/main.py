@@ -19,11 +19,11 @@ def shop_trip() -> None:
         choices = {}
         for shop in shops:
             if shop.is_in_stock(person.product_cart):
-                check = shop.check(person.name,
-                                   person.product_cart)
+                receipt = shop.receipt(person.name,
+                                       person.product_cart)
                 choice = {"name": shop.name,
-                          "check": check[1]}
-                cost = check[0]
+                          "receipt": receipt[1]}
+                cost = receipt[0]
                 cost += person.car.fuel_cost(person.location,
                                              shop.location,
                                              fuel_price)
@@ -33,7 +33,7 @@ def shop_trip() -> None:
         if choices.keys():
             profit = min(choices.keys())
             print(f'{person.name} rides to {choices[profit]["name"]}')
-            print(choices[profit]["check"])
+            print(choices[profit]["receipt"])
             person.money -= profit
             print(f"{person.name} rides home")
             print(f"{person.name} now has {person.money} dollars\n")

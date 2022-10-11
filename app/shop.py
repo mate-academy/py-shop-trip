@@ -1,15 +1,17 @@
 from __future__ import annotations
 
 import datetime
-from dataclasses import dataclass
 from math import ceil
 
 
-@dataclass
 class Shop:
-    name: str
-    products: dict[str, float]
-    location: list[int]
+    def __init__(self,
+                 name: str,
+                 products: dict[str, float],
+                 location: list[int]) -> None:
+        self.name = name
+        self.products = products
+        self.location = location
 
     @classmethod
     def from_dict(cls, shop: dict) -> Shop:
@@ -17,23 +19,23 @@ class Shop:
                    products=shop["products"],
                    location=shop["location"])
 
-    def is_in_stock(self, products: dict[str, int]) -> bool:
+    def is_in_stock(self, products: dict[str, float]) -> bool:
         return all([product in self.products.keys()
                     for product, count in products.items()])
 
-    def check(self,
-              name: str,
-              products: dict[str, float]) -> list[float, str]:
+    def receipt(self,
+                name: str,
+                products: dict[str, float]) -> list[float, str]:
         total_cost = 0
         date = datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S")
-        check = f"\nDate: {date}\n"
-        check += f"Thanks, {name}, for you purchase!\n"
-        check += "You have bought: \n"
+        receipt = f"\nDate: {date}\n"
+        receipt += f"Thanks, {name}, for you purchase!\n"
+        receipt += "You have bought: \n"
         for product, count in products.items():
             count = ceil(count)
             cost = count * self.products[product]
-            check += f"{count} {product}s for {cost} dollars\n"
+            receipt += f"{count} {product}s for {cost} dollars\n"
             total_cost += round(cost, 2)
-        check += f"Total cost is {total_cost} dollars\n"
-        check += "See you again!\n"
-        return [total_cost, check]
+        receipt += f"Total cost is {total_cost} dollars\n"
+        receipt += "See you again!\n"
+        return [total_cost, receipt]
