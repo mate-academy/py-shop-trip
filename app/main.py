@@ -1,14 +1,14 @@
+from typing import Any
+
 from app.customer import Customer
 from app.shop import Shop
 
-import os
 import json
 import datetime
 
 
-def shop_trip():
-    
-    with open("py-shop-trip\\app\\config.json") as info_file:
+def shop_trip() -> Any:
+    with open("app/config.json") as info_file:
         info = json.load(info_file)
 
     customers = [Customer(
@@ -28,16 +28,18 @@ def shop_trip():
         shop_to_go = None
         product_price = 0
         for shop in shops:
-            x = (customer.location[0] - shop.location[0]) ** 2
-            y = (customer.location[1] - shop.location[1]) ** 2
-            distance = ((x + y) ** 0.5) * 2
-            fuel_for_trip = (customer.fuel_consumption / 100) * info["FUEL_PRICE"]
+            coordinate_x = (customer.location[0] - shop.location[0]) ** 2
+            coordinate_y = (customer.location[1] - shop.location[1]) ** 2
+            distance = ((coordinate_x + coordinate_y) ** 0.5) * 2
+            division = customer.fuel_consumption / 100
+            fuel_for_trip = division * info["FUEL_PRICE"]
             distance_price = distance * fuel_for_trip
 
             price_for_products = 0
             for product in customer.products:
-                price_for_products += customer.products[product] \
-                                      * shop.products[product]
+                customer_product = customer.products[product]
+                shop_product = shop.products[product]
+                price_for_products += customer_product * shop_product
 
             summary_cost = round(distance_price + price_for_products, 2)
             print(f"{customer.name}'s trip to the "
