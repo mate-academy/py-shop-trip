@@ -20,8 +20,8 @@ class Shop:
                    location=shop["location"])
 
     def is_in_stock(self, products: dict[str, float]) -> bool:
-        return all([product in self.products.keys()
-                    for product, count in products.items()])
+        return all(product in self.products.keys()
+                   for product, count in products.items())
 
     def receipt(self,
                 name: str,
