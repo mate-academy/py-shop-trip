@@ -10,7 +10,7 @@ class Representation:
     def __init__(self, fuel_price: float | int) -> None:
         self.fuel_price = fuel_price
 
-    def print_info(self, customer, shops) -> None:
+    def print_info(self, customer: Customer, shops: list[Shop]) -> None:
         print(f"{customer.name} has {customer.money} dollars")
         self._print_all_trips(customer, shops)
         self._make_purchases(customer, shops)
@@ -34,7 +34,7 @@ class Representation:
         print()
         self._print_bought_products(customer, selected_shop)
 
-    def _print_bought_products(self, customer: Customer, shop: Shop):
+    def _print_bought_products(self, customer: Customer, shop: Shop) -> None:
         date = datetime(2021, 1, 4, 12, 33, 41)
         print(f"Date: {date.strftime('%d/%m/%Y %H:%M:%S')}")
         print(f"Thanks, {customer.name}, for you purchase!")

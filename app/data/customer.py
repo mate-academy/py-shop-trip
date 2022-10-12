@@ -6,14 +6,14 @@ from app.data.shop import Shop
 
 
 class Customer:
-    def __init__(self, **kwargs):
+    def __init__(self, **kwargs) -> None:
         self.name = kwargs["name"]
         self.product_cart = kwargs["product_cart"]
         self.location = kwargs["location"]
         self.money = kwargs["money"]
         self.car = Car(**kwargs["car"])
 
-    def trip_cost(self, shop: Shop, fuel_price: float | int):
+    def trip_cost(self, shop: Shop, fuel_price: float | int) -> float | int:
         total_cost = 2 * (self.car.fuel_consumption / 100 *
                           dist(self.location, shop.location) *
                           fuel_price)

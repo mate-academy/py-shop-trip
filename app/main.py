@@ -1,3 +1,4 @@
+from __future__ import annotations
 from json import load
 
 from app.representation.representation import Representation
@@ -22,6 +23,3 @@ def shop_trip() -> None:
 
     for customer in customers:
         representation.print_info(customer, shops)
-
-
-shop_trip()
