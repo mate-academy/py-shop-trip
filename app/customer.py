@@ -11,13 +11,13 @@ class Customer:
         self.money = money
         self.car = car
 
-    def find_distance(self, shop) -> float:
+    def find_distance(self, shop: object) -> float:
         first_part = (shop.location[0] - self.location[0]) ** 2
         second_part = (shop.location[1] - self.location[1]) ** 2
         distance = math.sqrt(first_part + second_part)
         return distance
 
-    def total_expense(self, fuel_price: int, shop) -> int:
+    def total_expense(self, fuel_price: int, shop: object) -> int:
         one_km_consumption = self.car["fuel_consumption"] / 100
         needed_fuel = self.find_distance(shop) * one_km_consumption
         expense = needed_fuel * fuel_price

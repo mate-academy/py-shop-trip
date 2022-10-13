@@ -8,7 +8,7 @@ class Shop:
         self.location = location
         self.products = products
 
-    def print_receipt(self, customer) -> None:
+    def print_receipt(self, customer: object) -> None:
         milk_quantity = customer.product_cart["milk"]
         bread_quantity = customer.product_cart["bread"]
         butter_quantity = customer.product_cart["butter"]
@@ -29,7 +29,7 @@ class Shop:
         print(f"Total cost is {total} dollars")
         print("See you again!\n")
 
-    def total_groceries_cost(self, customer) -> int:
+    def total_groceries_cost(self, customer: object) -> int:
         milk_quantity = customer.product_cart["milk"]
         bread_quantity = customer.product_cart["bread"]
         butter_quantity = customer.product_cart["butter"]
