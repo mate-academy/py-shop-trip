@@ -5,7 +5,8 @@ from app.customers_shops.customers import Customer
 
 
 def create_customers_shops() -> Any:
-    read_info = json.load(open("app/config.json"))
+    with open("app/config.json") as file:
+        read_info = json.load(file)
     customers = []
     shops = []
     for customer in read_info["customers"]:
