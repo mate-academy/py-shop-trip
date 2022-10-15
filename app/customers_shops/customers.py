@@ -39,9 +39,12 @@ class Customer:
     def purchase(self) -> None:
         best_shop = min(self.shops_price.items(),
                         key=lambda x: x[1]["price"] + x[1]["fuel"] * 2)[0]
-        if self.money >= self.shops_price[best_shop]["price"] +\
+        if self.money < self.shops_price[best_shop]["price"] +\
                 self.shops_price[best_shop]["fuel"] * 2:
-            self.money -= self.shops_price[best_shop]["price"] +\
+            print(f"{self.name} doesn't have enough "
+                  f"money to make purchase in any shop")
+        else:
+            self.money -= self.shops_price[best_shop]["price"] + \
                 self.shops_price[best_shop]["fuel"]
             self.location = self.shops_price[best_shop]["location"]
             print(f"{self.name} rides to {best_shop}\n")
@@ -54,9 +57,6 @@ class Customer:
                   f"{self.shops_price[best_shop]['price']} dollars")
             print("See you again!\n")
             self.ride_home(best_shop)
-        else:
-            print(f"{self.name} doesn't have enough "
-                  f"money to make purchase in any shop")
 
     def ride_home(self, best_shop: str) -> None:
         print(f"{self.name} rides home")
