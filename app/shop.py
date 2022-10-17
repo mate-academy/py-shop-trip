@@ -1,4 +1,4 @@
-from datetime import datetime
+import datetime
 
 
 class Shop:
@@ -19,10 +19,10 @@ class Shop:
         total_bread = bread_quantity * bread_price
         total_butter = butter_quantity * butter_price
         total = total_milk + total_bread + total_butter
-        date = datetime.now().strftime("%d/%m/%Y %H:%M:%S")
+        date = datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S")
         print(f"Date: {date}")
         print(f"Thanks, {customer.name}, for you purchase!")
-        print("You have bought:")
+        print("You have bought: ")
         print(f"{milk_quantity} milks for {total_milk} dollars")
         print(f"{bread_quantity} breads for {total_bread} dollars")
         print(f"{butter_quantity} butters for {total_butter} dollars")

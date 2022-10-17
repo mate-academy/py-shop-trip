@@ -43,7 +43,7 @@ class Customer:
             self.go_home()
             return
         print(f"{self.name} doesn't have enough money to "
-              f"make purchase in any shop\n")
+              f"make purchase in any shop")
 
     def go_home(self) -> None:
         print(f"{self.name} rides home")
