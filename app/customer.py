@@ -30,16 +30,13 @@ class Customer:
 
 
 def make_list_customers(data: dict) -> list:
-    customers = []
-
-    for i, customer in enumerate(data["customers"]):
-        customers.append(
-            Customer(
-                customer["name"],
-                customer["product_cart"],
-                customer["location"],
-                customer["money"],
-                customer["car"]
-            )
+    return [
+        Customer(
+            customer["name"],
+            customer["product_cart"],
+            customer["location"],
+            customer["money"],
+            customer["car"]
         )
-    return customers
+        for customer in data["customers"]
+    ]
