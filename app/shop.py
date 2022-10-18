@@ -55,17 +55,6 @@ class Shop:
 
 
 def make_list_shops(data: dict) -> list:
-    # shops = []
-    #
-    # for shop in data["shops"]:
-    #     shops.append(
-    #         Shop(
-    #             shop["name"],
-    #             shop["location"],
-    #             shop["products"]
-    #         )
-    #     )
-    # return shops
     return [
         Shop(
             shop["name"],
