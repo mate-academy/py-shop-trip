@@ -30,8 +30,7 @@ class Representation:
                   f" to make purchase in any shop")
             return
 
-        print(f"{customer.name} rides to {selected_shop.name}")
-        print()
+        print(f"{customer.name} rides to {selected_shop.name}\n")
         self._print_bought_products(customer, selected_shop)
 
     def _print_bought_products(self, customer: Customer, shop: Shop) -> None:
@@ -46,12 +45,10 @@ class Representation:
             product_cost += count * shop.products[name]
 
         print(f"Total cost is {product_cost} dollars")
-        print("See you again!")
+        print("See you again!\n")
 
         customer.money -= customer.trip_cost(shop, self.fuel_price)
         customer.money = round(customer.money, 2)
 
-        print()
         print(f"{customer.name} rides home")
-        print(f"{customer.name} now has {customer.money} dollars")
-        print()
+        print(f"{customer.name} now has {customer.money} dollars\n")
