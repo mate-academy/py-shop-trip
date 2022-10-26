@@ -1,4 +1,5 @@
 from dataclasses import dataclass
+from app.car import Car
 
 
 @dataclass
@@ -20,7 +21,7 @@ class Customer:
 
         return products_cost, distance_cost + products_cost
 
-    def analysis_of_shops(self, shops: list, car: object) -> list:
+    def analysis_of_shops(self, shops: list, car: Car) -> list:
         can_go = True
         shops_data = {}
 

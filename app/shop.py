@@ -1,6 +1,8 @@
 from dataclasses import dataclass
 import json
 from datetime import datetime
+from app.customer import Customer
+from app.car import Car
 
 
 @dataclass
@@ -9,7 +11,7 @@ class Shop:
     location: list
     products: dict
 
-    def get_receipt(self, customer: object, car: object) -> None:
+    def get_receipt(self, customer: Customer, car: Car) -> None:
         date = datetime(2021, 1, 4, 12, 33, 41)
         timestamp = date.strftime("%d/%m/%Y %H:%M:%S")
         print(f"Date: {timestamp}")
