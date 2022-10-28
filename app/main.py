@@ -22,7 +22,7 @@ def shop_trip() -> None:
 
     for customer in customers:
         print(f"{customer.name} has {customer.money} dollars")
-        total_price = 1_000_000
+        total_price = 100
         shop_to_go = None
         product_price = 0
         for shop in shops:
