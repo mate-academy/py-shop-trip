@@ -6,10 +6,7 @@ from app.car import Car
 
 
 def shop_trip() -> None:
-    with open(
-            "D:/Tanya/Mate_academy/Projects/py-shop-trip/app/config.json",
-            "r"
-    ) as file_config:
+    with open("../app/config.json", "r") as file_config:
         data = json.load(file_config)
         fuel_price: Decimal = Decimal(str(data["FUEL_PRICE"]))
         customers_list: list = [
