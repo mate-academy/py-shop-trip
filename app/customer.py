@@ -10,12 +10,12 @@ from app.shop import Shop
 class Customer:
     name: str
     product_cart: dict
-    location: list[int, int]
+    location: list[int]
     money: Decimal
     car: Car
 
     # calculate distance between customer location and other location
-    def calculate_distance(self, goal_location: list[int, int]) -> float:
+    def calculate_distance(self, goal_location: list[int]) -> float:
         dist_x: int = self.location[0] - goal_location[0]
         dist_y: int = self.location[1] - goal_location[1]
         distance = (dist_x ** 2 + dist_y ** 2) ** 0.5
