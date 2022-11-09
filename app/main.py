@@ -5,13 +5,10 @@ from app.shop import Shop
 
 
 def shop_trip() -> None:
-
     with open("app/config.json", "r") as file:
         data = json.load(file)
-
     shops = [Shop(shop) for shop in data["shops"]]
     customers = [Customer(customer) for customer in data["customers"]]
-
     for customer in customers:
         go_shopping = {}
         car = Car(customer.car)

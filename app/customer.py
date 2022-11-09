@@ -10,9 +10,6 @@ class Customer:
         self.money = customer["money"]
         self.car = customer["car"]
 
-    def calculate_distance_to_shop(self, shop: Shop) -> float:
-        return dist(self.location, shop.location)
-
     def cost_of_products(self, shop: Shop) -> dict:
         return {
             shop.name: {
@@ -26,3 +23,6 @@ class Customer:
             shop: sum(products.values())
             for shop, products in self.cost_of_products(shop).items()
         }
+
+    def calculate_distance_to_shop(self, shop: Shop) -> float:
+        return dist(self.location, shop.location)
