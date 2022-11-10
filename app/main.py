@@ -1,68 +1,43 @@
-import datetime
 import json
-
-from app.customers import Customer
+from app.customer import Customer
+from app.car import Car
 from app.shop import Shop
 
 
 def shop_trip() -> None:
-    with open("app/config.json", "r") as info_file:
-        info = json.load(info_file)
 
-    customers = [Customer(
-        customer["name"],
-        customer["product_cart"],
-        customer["location"],
-        customer["money"],
-        customer["car"]["fuel_consumption"])
-        for customer in info["customers"]]
+    with open("app/config.json", "r") as f:
+        data = json.load(f)
 
-    shops = [Shop(shop["name"], shop["location"], shop["products"])
-             for shop in info["shops"]]
+    customers = [Customer(customer) for customer in data["customers"]]
+    shops = [Shop(shop) for shop in data["shops"]]
 
     for customer in customers:
+        preferred_shops = []
         print(f"{customer.name} has {customer.money} dollars")
-        total_price = 100
-        shop_to_go = None
-        product_price = 0
+        car = Car(customer.car)
+
         for shop in shops:
-            dis_x = (customer.location[0] - shop.location[0]) ** 2
-            dis_y = (customer.location[1] - shop.location[1]) ** 2
-            distance = ((dis_x + dis_y) ** 0.5) * 2
-            fuel_for_trip = (customer.fuel_consumption / 100) *\
-                info["FUEL_PRICE"]
-            distance_price = distance * fuel_for_trip
-
-            price_for_products = 0
-            for product in customer.products:
-                price_for_products += customer.products[product]\
-                    * shop.products[product]
-
-            summary_cost = round(distance_price + price_for_products, 2)
+            product_cost = shop.calculate_costs(customer.product_cart)
+            distance = customer.calculate_distance(shop)
+            trip_cost = car.fuel_costs(distance, data["FUEL_PRICE"]) * 2
+            total_cost = round(trip_cost + product_cost, 2)
             print(f"{customer.name}'s trip to the "
-                  f"{shop.name} costs {summary_cost}")
+                  f"{shop.name} costs {total_cost}")
 
-            if summary_cost < total_price:
-                total_price = summary_cost
-                shop_to_go = shop
-                product_price = price_for_products
+            if customer.money > total_cost:
+                preferred_shops.append((shop, total_cost))
 
-        if total_price < customer.money:
-            print(f"{customer.name} rides to {shop_to_go.name}\n")
-            now_time = datetime.datetime.now()
-            print(f"Date: {now_time.strftime('%d/%m/%Y %H:%M:%S')}")
-            print(f"Thanks, {customer.name}, for you purchase!")
-            print("You have bought: ")
-            for product, amount in customer.products.items():
-                print(
-                    f"{amount} {product}s for "
-                    f"{amount * shop_to_go.products[product]} dollars"
-                )
-            print(f"Total cost is {product_price} dollars")
-            print("See you again!\n")
-            print(f"{customer.name} rides home")
-            customer.money -= total_price
-            print(f"{customer.name} now has {customer.money} dollars\n")
-        else:
-            print(f"{customer.name} doesn't have "
-                  f"enough money to make purchase in any shop")
+        if not preferred_shops:
+            print(f"{customer.name} doesn't have enough money "
+                  f"to make purchase in any shop")
+            break
+
+        grocery, total_cost = sorted(
+            preferred_shops, key=lambda x: x[1]
+        )[0]
+        print(f"{customer.name} rides to {grocery.name}\n")
+        grocery.receipt(customer.name, customer.product_cart)
+        print(f"{customer.name} rides home")
+        print(f"{customer.name} now has "
+              f"{customer.money - total_cost} dollars\n")
