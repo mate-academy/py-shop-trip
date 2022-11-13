@@ -1,5 +1,7 @@
 import math
 import datetime
+from typing import Type
+from app.shop import Shop
 
 
 class Customer:
@@ -22,12 +24,8 @@ class Customer:
             shopping_cost = fuel_price_per_trip + products_cost
             print(f"{self.name}'s trip to the {shop.name} costs "
                   f"{round(shopping_cost, 2)}")
-            if self.best_shop is None:
-                self.best_shop = shop
-                self.best_shop_products_cost = products_cost
-                self.best_shop_shopping_cost = shopping_cost
-
-            if shopping_cost < self.best_shop_shopping_cost:
+            if self.best_shop is None or \
+                    shopping_cost < self.best_shop_shopping_cost:
                 self.best_shop = shop
                 self.best_shop_products_cost = products_cost
                 self.best_shop_shopping_cost = shopping_cost
@@ -58,14 +56,14 @@ class Customer:
             all_products_price += shop.products[product_name] * product_amount
         return all_products_price
 
-    def print_check(self, shop: callable) -> None:
+    def print_check(self, shop: Type[Shop]) -> None:
         print()
         current_time = datetime.datetime.now()
         print(f"Date: {current_time.strftime('%d/%m/%Y %H:%M:%S')}")
         print(f"Thanks, {self.name}, for you purchase!")
         print("You have bought: ")
         product_cost = 0
-        for product_name, product_amount \
+        for (product_name, product_amount)\
                 in self.product_cart.items():
             price_for_one_product_set = round(
                 (self.product_cart[product_name]

@@ -6,6 +6,3 @@ class Shop:
         self.location = shop["location"]
         self.products = shop["products"]
         self.shopping_cost = None
-
-    def add_to_shop_list(self) -> None:
-        Shop.shop_list.append(self)

@@ -7,10 +7,7 @@ def shop_trip() -> None:
     with open("app/config.json") as file:
         full_dict = json.load(file)
 
-    for sh in full_dict["shops"]:
-        shop = Shop(sh)
-        shop.add_to_shop_list()
-    shop_list = Shop.shop_list
+    shop_list = [Shop(shop) for shop in full_dict["shops"]]
 
     for one_customer in full_dict["customers"]:
         buyer = Customer(one_customer)
