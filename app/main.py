@@ -7,7 +7,7 @@ from app.shop import Shop
 def shop_trip() -> None:
     customer_data = []
     shop_data = []
-    with open("config.json", "r") as data_source:
+    with open("app/config.json", "r") as data_source:
         data = json.load(data_source)
         for customer in data["customers"]:
             customer_data.append(Customer(customer))
