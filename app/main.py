@@ -1,7 +1,6 @@
 import json
 
 from app.customer import Customer
-from app.fuel import Fuel
 from app.shop import Shop
 
 
@@ -14,7 +13,8 @@ def shop_trip() -> None:
             customer_data.append(Customer(customer))
         for shop in data["shops"]:
             shop_data.append(Shop(shop))
-        Fuel(data["FUEL_PRICE"])
+        with open("settings.json", "w") as file:
+            json.dump({"Fuel_price": data["FUEL_PRICE"]}, file)
 
     for customer in customer_data:
         print(f"{customer.name} has {customer.money} dollars")
