@@ -1,4 +1,4 @@
-import json
+from app.constant import FUEL_PRICE
 import math
 
 
@@ -14,5 +14,4 @@ class Car:
             (shop_location[0] - customer_location[0]) ** 2
             + (shop_location[1] - customer_location[1]) ** 2
         )
-        return (self.fuel_consumption * distance
-                / 100 * json.load(open("settings.json", "r"))["Fuel_price"])
+        return self.fuel_consumption * distance / 100 * FUEL_PRICE

@@ -13,8 +13,8 @@ def shop_trip() -> None:
             customer_data.append(Customer(customer))
         for shop in data["shops"]:
             shop_data.append(Shop(shop))
-        with open("settings.json", "w") as file:
-            json.dump({"Fuel_price": data["FUEL_PRICE"]}, file)
+        with open("constant.py", "w") as file:
+            file.write(f"FUEL_PRICE = {data['FUEL_PRICE']}")
 
     for customer in customer_data:
         print(f"{customer.name} has {customer.money} dollars")
