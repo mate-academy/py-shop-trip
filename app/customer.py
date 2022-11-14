@@ -34,12 +34,12 @@ class Customer:
             print(f"{self.name} doesn't have "
                   f"enough money to make purchase in any shop")
         else:
-            print(f"{self.name} rides to {self.best_shop.name}")
+            print(f"{self.name} rides to {self.best_shop.name}\n")
             self.print_check(self.best_shop)
 
     def find_fuel_price_to_each_shop(
             self,
-            shop: callable,
+            shop: Type[Shop],
             fuel_price: float
     ) -> float:
 
@@ -50,14 +50,13 @@ class Customer:
 
         return round(fuel_price_per_trip, 2)
 
-    def find_product_cart_price(self, shop: callable) -> float:
+    def find_product_cart_price(self, shop: Type[Shop]) -> float:
         all_products_price = 0
         for product_name, product_amount in self.product_cart.items():
             all_products_price += shop.products[product_name] * product_amount
         return all_products_price
 
     def print_check(self, shop: Type[Shop]) -> None:
-        print()
         current_time = datetime.datetime.now()
         print(f"Date: {current_time.strftime('%d/%m/%Y %H:%M:%S')}")
         print(f"Thanks, {self.name}, for you purchase!")
@@ -72,12 +71,10 @@ class Customer:
                   f"{price_for_one_product_set} dollars")
             product_cost += price_for_one_product_set
         print(f"Total cost is {product_cost} dollars")
-        print("See you again!")
-        print()
+        print("See you again!\n")
         self.returning_home()
 
     def returning_home(self) -> None:
         print(f"{self.name} rides home")
         money_left = round((self.money - self.best_shop_shopping_cost), 2)
-        print(f"{self.name} now has {money_left} dollars")
-        print()
+        print(f"{self.name} now has {money_left} dollars\n")
