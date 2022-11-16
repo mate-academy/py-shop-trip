@@ -1,6 +1,6 @@
 import json
 
-with open("/Users/bythewaters/py-shop-trip/app/config.json", "r") as config:
+with open("app/config.json", "r") as config:
     info_customer = json.load(config)
 
 
