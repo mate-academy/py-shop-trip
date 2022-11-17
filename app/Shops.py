@@ -7,16 +7,20 @@ class Shop(ShopTrip):
     def __init__(self, name: str) -> None:
         super().__init__(name)
         self.total_cost = 0
+        self.customer_location = self.customer_location()[self.name]
 
     def change_location(self) -> None:
-        self.customer_location()[self.name] \
-            = self.shops_location()[ShopTrip.shop]
+        shop_location = self.shops_location()[ShopTrip.shop]
+
+        self.customer_location = shop_location
 
     def purchase(self) -> None:
         for (name_product1,
              num_product) in self.customer_product_cart()[self.name].items():
-            price = \
-                self.shops_price()[ShopTrip.shop][name_product1] * num_product
+
+            product_price = self.shops_price()[ShopTrip.shop][name_product1]
+
+            price = product_price * num_product
 
             self.total_cost += price
 

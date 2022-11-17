@@ -18,8 +18,10 @@ class ShopTrip(Info):
     def cost_meat(self) -> None:
         for (name_product1,
              num_product) in self.customer_product_cart()[self.name].items():
-            price = \
-                self.shops_price()[self.shop_name][name_product1] * num_product
+
+            price_product = self.shops_price()[self.shop_name][name_product1]
+
+            price = price_product * num_product
 
             self.total_cost1[self.shop_name] = price
 
