@@ -35,19 +35,19 @@ class ShopTrip(Info):
                 break
 
     def calculate_cost_trip(self) -> None:
-        for name, location in self.shops_location().items():
-            km_to_the_shop = \
-                sqrt(((location[0]
-                       - self.customer_location()[self.name][0]) ** 2)
-                     + ((location[1]
-                         - self.customer_location()[self.name][1]) ** 2))
+
+        for name, shop_location in self.shops_location().items():
+            x_coord = self.customer_location()[self.name][0]
+            y_coord = self.customer_location()[self.name][1]
+
+            km_to_the_shop = sqrt(((shop_location[0] - x_coord) ** 2)
+                                  + ((shop_location[1] - y_coord) ** 2))
 
             liter_fuel_to_the_shop = (km_to_the_shop
                                       * self.cars_customer()[self.name]) / 100
 
-            price_trip_to_the_shop = \
-                liter_fuel_to_the_shop \
-                * self.info["FUEL_PRICE"]
+            price_trip_to_the_shop = (liter_fuel_to_the_shop
+                                      * self.info["FUEL_PRICE"])
 
             ShopTrip.price_trip = price_trip_to_the_shop * 2
 
