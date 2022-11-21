@@ -1,10 +1,10 @@
 import json
-from app.colculater import colculater
+from app.colculater import calculater
 from app.shops import Shops
 from app.customers import Customers
 
 
-def shop_trip():
+def shop_trip() -> None:
     with open("app/config.json", "r") as file:
         info = json.load(file)
 
@@ -31,4 +31,4 @@ def shop_trip():
             )
         )
     for customer in customers:
-        colculater(customer, shops, fuel_price)
+        calculater(customer, shops, fuel_price)

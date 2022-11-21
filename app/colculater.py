@@ -1,8 +1,12 @@
 import math
 import datetime
 
+from app.customers import Customers
 
-def colculater(customer, shops, fuel_price):
+
+def calculater(customer: Customers,
+               shops: list,
+               fuel_price: float) -> None:
     print(f"{customer.name} has {customer.money} dollars")
 
     customer_location = customer.location
@@ -33,21 +37,23 @@ def colculater(customer, shops, fuel_price):
             product_price = check_product
 
     if total_price < customer.money:
-        print(f"{customer.name} rides to {best_shop} \n")
+        print(f"{customer.name} rides to {best_shop}\n")
 
         date_time = datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S")
         print(f"Date: {date_time}")
         print(f"Thanks, {customer.name}, for you purchase!")
-        print("You have bought: ")
+        print("You have bought:")
+
         for product, amount in customer.product_cart.items():
-            print(f"{amount} {product}s for"
+            print(f"{amount} {product}s for "
                   f"{amount * best_shop.products[product]} dollars")
+
         print(f"Total cost is {product_price} dollars")
-        print("See you again! \n")
+        print("See you again!\n")
 
         print(f"{customer.name} rides home")
         customer.money -= total_price
-        print(f"{customer.name} now has {customer.money} dollars \n")
+        print(f"{customer.name} now has {customer.money} dollars\n")
 
     else:
         print(f"{customer.name} doesn't have enough money "
