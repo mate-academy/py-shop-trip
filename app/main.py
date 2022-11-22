@@ -19,7 +19,7 @@ def shop_trip() -> None:
                 product_cart=customer["product_cart"],
                 location=customer["location"],
                 money=customer["money"],
-                car=customer["car"]
+                car=customer["car"],
             )
         )
     for shop in info["shops"]:
@@ -27,7 +27,7 @@ def shop_trip() -> None:
             Shops(
                 name=shop["name"],
                 location=shop["location"],
-                products=shop["products"]
+                products=shop["products"],
             )
         )
     for customer in customers:

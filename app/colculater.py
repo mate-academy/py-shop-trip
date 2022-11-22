@@ -37,12 +37,12 @@ def calculater(customer: Customers,
             product_price = check_product
 
     if total_price < customer.money:
-        print(f"{customer.name} rides to {best_shop}\n")
+        print(f"{customer.name} rides to {best_shop.name}\n")
 
         date_time = datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S")
         print(f"Date: {date_time}")
         print(f"Thanks, {customer.name}, for you purchase!")
-        print("You have bought:")
+        print("You have bought: ")
 
         for product, amount in customer.product_cart.items():
             print(f"{amount} {product}s for "
