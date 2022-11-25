@@ -6,7 +6,7 @@ class Customer:
         self.money = customers["money"]
         self.car = customers["car"]
 
-    def cost_trip(self, fuel_price: float, shop_location: list):
+    def cost_trip(self, fuel_price: float, shop_location: list) -> float:
         dist_len = ((((self.location[1] - shop_location[1]) ** 2)
                      + ((self.location[0] - shop_location[0]) ** 2)) ** 0.5)
         cost_trip = round((((dist_len * self.car["fuel_consumption"]) / 100)
