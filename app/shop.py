@@ -2,10 +2,10 @@ from app.customer import Customer
 
 
 class Shop:
-    def __init__(self, shops: dict) -> None:
-        self.name = shops["name"]
-        self.location = shops["location"]
-        self.products = shops["products"]
+    def __init__(self, shop: dict) -> None:
+        self.name = shop["name"]
+        self.location = shop["location"]
+        self.products = shop["products"]
 
     def product_customer(self, product_cart: dict) -> float:
         cost_product = 0
