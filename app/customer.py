@@ -21,18 +21,17 @@ class Customer:
                          + (shop_location[1] - self.location[1]) ** 2)
 
     def calculate_road_cost(self, shop: Shop, fuel_price: float) -> float:
-        return round(
-            self.get_distance_to_shop(shop.location)
-            * self.car.fuel_consumption / 100 * fuel_price * 2,
-            2)
+        return round(self.get_distance_to_shop(shop.location)
+                     * self.car.fuel_consumption / 100 * fuel_price * 2,
+                     2)
 
-    def calculate_product_cost(self, shop_price: dict) -> float:
+    def calculate_product_cost(self, shop_price: dict) -> dict:
         total_cost = 0
         product_dict = {}
-        for prod, count in self.product_cart.items():
-            if prod in shop_price:
-                product_dict[prod] = shop_price[prod] * count
-                total_cost += shop_price[prod] * count
+        for product, count in self.product_cart.items():
+            if product in shop_price:
+                product_dict[product] = shop_price[product] * count
+                total_cost += shop_price[product] * count
 
         product_dict["total"] = total_cost
         return product_dict

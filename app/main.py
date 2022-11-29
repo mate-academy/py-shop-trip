@@ -21,7 +21,8 @@ def init_all_inst() -> tuple:
     for _customer in data_dict["customers"]:
         _car = Car(
             brand=_customer["car"]["brand"],
-            fuel_consumption=_customer["car"]["fuel_consumption"])
+            fuel_consumption=_customer["car"]["fuel_consumption"]
+        )
 
         customers.append(Customer(
             name=_customer["name"],
@@ -67,16 +68,17 @@ def shop_trip() -> None:
                   f"purchase in any shop")
             continue
 
-        cur_time = datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S")
+        current_time = datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S")
         print(f"{customer.name} rides to {min_cost_dict['name']}\n")
-        print(f"Date: {cur_time}")
+        print(f"Date: {current_time}")
         print(f"Thanks, {customer.name}, for you purchase!")
         print("You have bought: ")
         products_cost = min_cost_dict["products_cost"]
         for product, count in customer.product_cart.items():
             if product in products_cost:
                 print(
-                    f"{count} {product}s for {products_cost[product]} dollars")
+                    f"{count} {product}s for {products_cost[product]} dollars"
+                )
         print(f"Total cost is {products_cost['total']} dollars\n"
               f"See you again!\n\n"
               f"{customer.name} rides home\n"
