@@ -12,10 +12,7 @@ FUEL_PRICE = 0
 def init_all_inst() -> tuple:
     global FUEL_PRICE
 
-    os.chdir("../")
-    config_path = os.path.join(os.getcwd(), "app", "config.json")
-    with open(config_path, "r") as file:
-    # with open("app/config.json", "r") as file:
+    with open("app/config.json", "r") as file:
         data_dict = json.load(file)
 
     customers = []
