@@ -1,6 +1,5 @@
 import json
 import datetime
-import os
 
 from app.car import Car
 from app.customer import Customer
