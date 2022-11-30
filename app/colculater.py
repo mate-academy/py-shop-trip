@@ -31,7 +31,7 @@ def calculater(customer: Customers,
         print(f"{customer.name}'s trip to the {shop.name} costs {total_cost}")
 
         if total_cost < total_value:
-            total_value= total_cost
+            total_value = total_cost
             best_shop = shop
             product_price = check_product
 
