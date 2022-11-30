@@ -11,7 +11,6 @@ def calculater(customer: Customers,
 
     customer_location = customer.location
     fuel_consumption = customer.car["fuel_consumption"]
-
     total_value = 1_000_000
     best_shop = None
     product_price = 0
@@ -32,7 +31,7 @@ def calculater(customer: Customers,
         print(f"{customer.name}'s trip to the {shop.name} costs {total_cost}")
 
         if total_cost < total_value:
-            total_price = total_cost
+            total_value= total_cost
             best_shop = shop
             product_price = check_product
 
