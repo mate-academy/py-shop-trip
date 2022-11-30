@@ -12,7 +12,7 @@ def calculater(customer: Customers,
     customer_location = customer.location
     fuel_consumption = customer.car["fuel_consumption"]
 
-    total_price = 1_000_000
+    total_value = 1_000_000
     best_shop = None
     product_price = 0
 
@@ -31,12 +31,12 @@ def calculater(customer: Customers,
         total_cost = round((check_product + price_ride), 2)
         print(f"{customer.name}'s trip to the {shop.name} costs {total_cost}")
 
-        if total_cost < total_price:
+        if total_cost < total_value:
             total_price = total_cost
             best_shop = shop
             product_price = check_product
 
-    if total_price < customer.money:
+    if total_value < customer.money:
         print(f"{customer.name} rides to {best_shop.name}\n")
 
         date_time = datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S")
@@ -52,7 +52,7 @@ def calculater(customer: Customers,
         print("See you again!\n")
 
         print(f"{customer.name} rides home")
-        customer.money -= total_price
+        customer.money -= total_value
         print(f"{customer.name} now has {customer.money} dollars\n")
 
     else:
