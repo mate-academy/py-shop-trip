@@ -15,18 +15,18 @@ class Customers:
         self.car = car
 
 
-def create_customer_objects():
+def create_customer_objects() -> list:
     base_dir = Path(__file__).resolve().parent
-    # path = os.path.join(os.getcwd(), "config.json")
 
     with open(base_dir / "config.json", "r") as file:
         data = json.load(file)
         customers = data["customers"]
         customers_list = []
         for customer in customers:
-            customers_list.append(Customers(name=customer["name"],
-                                            product_cart=customer["product_cart"],
-                                            location=customer["location"],
-                                            money=customer["money"],
-                                            car=customer["car"]))
+            customer_obj = Customers(name=customer["name"],
+                                     product_cart=customer["product_cart"],
+                                     location=customer["location"],
+                                     money=customer["money"],
+                                     car=customer["car"])
+            customers_list.append(customer_obj)
     return customers_list

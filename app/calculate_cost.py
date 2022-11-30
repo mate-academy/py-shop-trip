@@ -3,14 +3,13 @@ from math import sqrt
 from pathlib import Path
 
 
-from app.customers import Customers, create_customer_objects
+from app.customers import Customers
 from app.shops import create_shops_objects
 
 
 def calculate_cost_for_customer_for_every_shop(customer: Customers) -> dict:
     shops_ = create_shops_objects()
     base_dir = Path(__file__).resolve().parent
-    # path = os.path.join(os.getcwd(), "config.json")
 
     with open(base_dir / "config.json", "r") as file:
         data = json.load(file)

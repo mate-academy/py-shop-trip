@@ -9,7 +9,7 @@ class Shops:
         self.products = products
 
 
-def create_shops_objects():
+def create_shops_objects() -> list:
     base_dir = Path(__file__).resolve().parent
 
     with open(base_dir / "config.json", "r") as file:

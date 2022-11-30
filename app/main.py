@@ -14,7 +14,8 @@ def shop_trip() -> None:
         for shop, cost in costs.items():
             print(f"{customer.name}'s trip to the {shop} costs {cost}")
         if customer.money < min(list(costs.values())):
-            print(f"{customer.name} doesn't have enough money to make purchase in any shop")
+            print(f"{customer.name} doesn't have enough "
+                  f"money to make purchase in any shop")
             continue
         index = list(costs.values()).index(min(costs.values()))
         shop_to_visit = list(costs.keys())[index]
@@ -22,7 +23,7 @@ def shop_trip() -> None:
         now = datetime.datetime.now()
         now = now.strftime("%d/%m/%Y %H:%M:%S")
         print(f"Date: {now}\nThanks, {customer.name}, for you purchase!")
-        print(f"You have bought:")
+        print("You have bought: ")
         total_cost = 0
         for shop in shops:
             if shop.name == shop_to_visit:
@@ -34,6 +35,3 @@ def shop_trip() -> None:
         moneys_left = customer.money - min(costs.values())
         print(f"{customer.name} rides home\n"
               f"{customer.name} now has {moneys_left} dollars\n")
-
-
-shop_trip()
