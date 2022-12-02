@@ -4,9 +4,11 @@ import datetime
 from app.customers import Customers
 
 
-def calculater(customer: Customers,
-               shops: list,
-               fuel_price: float) -> None:
+def calculater(
+        customer: Customers,
+        shops: list,
+        fuel_price: float
+) -> None:
     print(f"{customer.name} has {customer.money} dollars")
 
     customer_location = customer.location
