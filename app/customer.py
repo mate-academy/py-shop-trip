@@ -13,8 +13,8 @@ class Customers:
     list_of_customers = []
 
     @classmethod
-    def create_customers(cls) -> None:
-        with open("app/config.json") as f:
+    def create_customers(cls, config: str) -> None:
+        with open(config) as f:
             file_ = json.load(f)
         for customer in file_["customers"]:
             cls.list_of_customers.append(Customers(

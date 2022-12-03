@@ -8,16 +8,15 @@ from app.car import price_for_fuel
 @mock.patch("datetime.datetime.now")
 def shop_trip(mocked_time: str) -> None:
     mocked_time.return_value = "04/01/2021 12:33:41"
-    Customers.create_customers()
-    Shop.create_shops()
+    Customers.create_customers("app/config.json")
+    Shop.create_shops("app/config.json")
     for customer in Customers.list_of_customers:
         print(f"{customer.name} has {customer.money} dollars")
         expenses_shop = {}
         for shop in Shop.list_of_shops:
             fuel = price_for_fuel(customer, shop)
             purchase = calculation_of_the_cost_of_purchases(customer, shop)
-            costs = fuel + purchase
-            costs = round(costs, 2)
+            costs = round((fuel + purchase), 2)
             print(f"{customer.name}'s trip to the {shop.name} costs {costs}")
             expenses_shop[costs] = shop.name
         alternative_costs = []

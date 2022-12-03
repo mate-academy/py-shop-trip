@@ -12,8 +12,8 @@ class Shop:
     list_of_shops = []
 
     @classmethod
-    def create_shops(cls) -> None:
-        with open("app/config.json") as f:
+    def create_shops(cls, config: str) -> None:
+        with open(config) as f:
             file_ = json.load(f)
         for shop in file_["shops"]:
             cls.list_of_shops.append(Shop(
