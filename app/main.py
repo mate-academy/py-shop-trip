@@ -1,5 +1,6 @@
 import json
-from app.colculater import calculater
+from app.colculater import Calculater
+
 from app.shops import Shops
 from app.customers import Customers
 
@@ -31,4 +32,5 @@ def shop_trip() -> None:
             )
         )
     for customer in customers:
-        calculater(customer, shops, fuel_price)
+        print(f"{customer.name} has {customer.money} dollars")
+        Calculater(customer, shops, fuel_price).calculate()
