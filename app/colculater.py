@@ -31,10 +31,13 @@ class Calculater:
             check_product = 0
             for product in self.customer.product_cart:
                 check_product += \
-                    self.customer.product_cart[product] * shop.products[product]
+                    self.customer.product_cart[product] \
+                    * shop.products[product]
 
-            total_cost = round((check_product + price_ride), 2)
-            print(f"{self.customer.name}'s trip to the {shop.name} costs {total_cost}")
+            total_cost = \
+                round((check_product + price_ride), 2)
+            print(f"{self.customer.name}'s trip "
+                  f"to the {shop.name} costs {total_cost}")
 
             if total_cost < total_value:
                 total_value = total_cost
@@ -55,10 +58,11 @@ class Calculater:
 
             print(f"Total cost is {product_price} dollars")
             print("See you again!\n")
-
             print(f"{self.customer.name} rides home")
-            self.customer.money -= total_value
-            print(f"{self.customer.name} now has {self.customer.money} dollars\n")
+            self.customer.money -= \
+                total_value
+            print(f"{self.customer.name} now has "
+                  f"{self.customer.money} dollars\n")
 
         else:
             print(f"{self.customer.name} doesn't have enough money "
