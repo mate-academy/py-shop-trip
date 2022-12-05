@@ -12,7 +12,7 @@ def shop_trip() -> None:
                   f"{shop.name} costs {costs_per_shop}")
 
         ride_to_shop = customer.ride_to_shop(shops_data_dictionary)
-        cost_effective_shop = customer.chose_shop(
+        cost_effective_shop = customer.choose_shop(
             shops_data_dictionary
         )
 
@@ -21,7 +21,7 @@ def shop_trip() -> None:
                   f"{cost_effective_shop.name}")
             print()
             customer.customer_purchasing_process(
-                customer.chose_shop(shops_data_dictionary)
+                customer.choose_shop(shops_data_dictionary)
             )
         if ride_to_shop is False:
             print(f"{customer.name} doesn't have "

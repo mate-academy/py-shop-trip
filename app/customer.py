@@ -13,7 +13,7 @@ class Customer:
     money: [float, int]
     car: Car
 
-    def chose_shop(self, shops_data: dict) -> Shop:
+    def choose_shop(self, shops_data: dict) -> Shop:
         shops_costs_for_customer = {
             shop_name: self.shop_visiting_cost(shop_data)
             for shop_name, shop_data in shops_data.items()
@@ -46,7 +46,7 @@ class Customer:
         return cost
 
     def ride_to_shop(self, shops_data: dict) -> bool:
-        if self.money >= self.shop_visiting_cost(self.chose_shop(shops_data)):
+        if self.money >= self.shop_visiting_cost(self.choose_shop(shops_data)):
             return True
         return False
 
