@@ -46,10 +46,11 @@ class Shop:
         total = 0
         for item in data:
             if item["name"] == cheap_shop:
-                for i in item["products"]:
-                    summary = customer.get_count(i) * item["products"][i]
+                for product in item["products"]:
+                    summary = \
+                        customer.get_count(product) * item["products"][product]
                     total += summary
-                    print(f"{customer.get_count(i)} {i}s "
+                    print(f"{customer.get_count(product)} {product}s "
                           f"for {summary} dollars")
                 print(f"Total cost is {total} dollars")
                 print("See you again!\n")

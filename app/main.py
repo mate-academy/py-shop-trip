@@ -7,9 +7,8 @@ with open("app/config.json", "r") as data_customers:
 
 
 def shop_trip() -> None:
-    global shop
-    cheap_shop = {}
     for item in data["customers"]:
+        cheap_shop = {}
         customer = Customer(
             item["name"],
             item["product_cart"],
@@ -55,5 +54,3 @@ def shop_trip() -> None:
                 f"{customer.person_name} now has "
                 f"{customer.person_money - cheap_shop[1]} dollars\n"
             )
-
-        cheap_shop = {}
