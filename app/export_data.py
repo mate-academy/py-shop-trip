@@ -4,7 +4,7 @@ from app.shop import Shop
 from app.car import Car
 
 
-def export_date() -> None:
+def export_data() -> None:
     with open("app/config.json", "r") as file:
         content = json.load(file)
 

@@ -1,12 +1,12 @@
 import datetime
 from app.customer import Customer
 from app.shop import Shop
-from app.export_date import export_date
+from app.export_data import export_data
 
 
 def shop_trip() -> None:
 
-    export_date()
+    export_data()
 
     customers = Customer.customer_list
     shops = Shop.shop_list
