@@ -9,7 +9,7 @@ class Shop:
         self.name = name
         self.location = location
         self.products = products
-        self.__class__.shop_list.append(self)
+        Shop.shop_list.append(self)
 
     def cost_for_fuel(self, home_location: list, car: Car) -> float:
         distance = math.dist(self.location, home_location)

@@ -11,7 +11,7 @@ class Customer:
         self.location = location
         self.money = money
         self.car = car
-        self.__class__.customer_list.append(self)
+        Customer.customer_list.append(self)
 
     def __str__(self) -> str:
         return f"{self.name} has {self.money} dollars"
