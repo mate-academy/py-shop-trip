@@ -9,7 +9,7 @@ with open("app/config.json", "r") as data_customers:
 def shop_trip() -> None:
     for item in data["customers"]:
         cheap_shop = {}
-        customer = Customer(
+        customer_info = (
             item["name"],
             item["product_cart"],
             item["location"],
@@ -17,21 +17,19 @@ def shop_trip() -> None:
             item["car"],
             data["FUEL_PRICE"],
         )
+
+        customer = Customer(*customer_info)
         print(customer.get_info())
         for each_shop in data["shops"]:
             shop = Shop(
                 each_shop["name"],
                 each_shop["location"],
                 each_shop["products"],
-                item["name"],
-                item["product_cart"],
-                item["location"],
-                item["money"],
-                item["car"],
-                data["FUEL_PRICE"],
+                *customer_info,
             )
-            cheap_shop[shop.shop_name] = \
+            cheap_shop[shop.shop_name] = (
                 shop.calculate(customer) + shop.get_fuel_price()
+            )
             print(
                 f"{customer.person_name}'s trip to the "
                 f"{shop.shop_name} costs "

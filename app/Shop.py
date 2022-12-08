@@ -40,7 +40,8 @@ class Shop:
             cost_sum += self.get_product_cost(item) * customer.get_count(item)
         return cost_sum
 
-    def info_buy(self, data: dict,
+    def info_buy(self,
+                 data: dict,
                  cheap_shop: str,
                  customer: Customer) -> None:
         total = 0
@@ -50,7 +51,9 @@ class Shop:
                     summary = \
                         customer.get_count(product) * item["products"][product]
                     total += summary
-                    print(f"{customer.get_count(product)} {product}s "
-                          f"for {summary} dollars")
+                    print(
+                        f"{customer.get_count(product)} {product}s "
+                        f"for {summary} dollars"
+                    )
                 print(f"Total cost is {total} dollars")
                 print("See you again!\n")
