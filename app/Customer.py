@@ -1,7 +1,4 @@
-from app.Car import Car
-
-
-class Customer(Car):
+class Customer:
     def __init__(
         self,
         person_name: str,
@@ -11,7 +8,7 @@ class Customer(Car):
         person_car: dict,
         fuel_price: int,
     ) -> None:
-        super().__init__(fuel_price)
+        self.fuel_price = fuel_price
         self.person_name = person_name
         self.person_cart = person_cart
         self.person_location = person_location
