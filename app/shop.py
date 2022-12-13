@@ -17,6 +17,7 @@ class Shop:
         return total_cost
 
     def purchase_receipt(self, customer: Customer) -> int:
+        customer.location = self.location
         current_date = datetime.datetime.now()
         print(f"Date: {current_date.strftime('%d/%m/%Y %H:%M:%S')}")
         print(f"Thanks, {customer.name}, for you purchase!")
@@ -27,5 +28,5 @@ class Shop:
             print(f"{num} {product}s for {cost} dollars")
             total_cost += cost
         print(f"Total cost is {total_cost} dollars")
-        print("See you again!")
+        print("See you again!\n")
         return total_cost

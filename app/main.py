@@ -1,6 +1,6 @@
 import json
 from app.customer import Customer
-from app.car import distance
+from app.car import car_cost
 from app.shop import Shop
 
 
@@ -10,7 +10,6 @@ def shop_trip() -> None:
         shops = info["shops"]
         customers = info["customers"]
         fuel_price = info["FUEL_PRICE"]
-        shop_dict = {}
         list_of_shops = []
 
         for shop in shops:
@@ -20,7 +19,9 @@ def shop_trip() -> None:
                 products=shop["products"]
             )
             list_of_shops.append(shop)
+
         for data in customers:
+            shop_dict = {}
             customer = Customer(
                 name=data["name"],
                 product_cart=data["product_cart"],
@@ -32,10 +33,8 @@ def shop_trip() -> None:
 
             for shop in list_of_shops:
                 products_cost = shop.cost_of_products(customer)
-                car_cost = customer.car["fuel_consumption"] / 100 * fuel_price
-                shop_distance = distance(customer.location, shop.location)
-                trip_cost = round((2 * shop_distance * car_cost
-                                   + products_cost), 2)
+                car = car_cost(customer, shop, fuel_price)
+                trip_cost = round((car + products_cost), 2)
                 shop_dict[trip_cost] = shop
                 print(f"{customer.name}'s trip to the {shop.name} "
                       f"costs {trip_cost}")
@@ -45,12 +44,6 @@ def shop_trip() -> None:
                 print(f"{customer.name} doesn't have enough "
                       f"money to make purchase in any shop")
             else:
-                customer.money -= min_trip_cost
-                print(f"{customer.name} rides to {suitable_shop.name}")
-                customer.location = suitable_shop.location
-                print()
+                customer.shopping(suitable_shop.name, min_trip_cost)
                 suitable_shop.purchase_receipt(customer)
-                print()
-                print(f"{customer.name} rides home")
-                print(f"{customer.name} now has {customer.money} dollars")
-                print()
+                customer.get_home()
