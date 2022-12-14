@@ -13,7 +13,7 @@ class Customer:
     fuel: float
 
     @classmethod
-    def create_customer(cls, file_name: str) -> list:
+    def create_customers(cls, file_name: str) -> list:
         with open(file_name, "r") as f_json:
             info = json.load(f_json)
             lst = []
