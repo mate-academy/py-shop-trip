@@ -29,7 +29,7 @@ def read_shops(data: dict) -> list[Shop]:
     return shops
 
 
-def shop_trip():
+def shop_trip() -> None:
     with open("config.json") as cfg:
         data = json.load(cfg)
 
@@ -41,8 +41,14 @@ def shop_trip():
         customer.print_money()
         for shop in shops:
             customer.print_costs_trip(shop, fuel_price)
-        customer.ride_to_shop(customer.get_cheaper_shop(shops, fuel_price))
-        print("")
 
-
-shop_trip()
+        cheaper_shop = customer.get_cheaper_shop(shops, fuel_price)
+        if customer.money < customer.calc_trip_price(cheaper_shop, fuel_price):
+            print(
+                f"{customer.name} doesn't have enough money"
+                f" to make purchase in any shop"
+            )
+        else:
+            customer.ride_to_shop(
+                customer.get_cheaper_shop(shops, fuel_price), fuel_price
+            )

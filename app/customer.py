@@ -23,29 +23,45 @@ class Customer:
 
     def print_costs_trip(self, shop: Shop, fuel_price: float) -> None:
         print(
-            f"{self.name} trip to the {shop} costs {self.calc_price(shop, fuel_price)} dollars"
+            f"{self.name}'s trip to the {shop} "
+            f"costs {self.calc_trip_price(shop, fuel_price)}"
         )
 
-    def calc_price(self, shop: Shop, fuel_price: float) -> float:
+    def calc_trip_price(self, shop: Shop, fuel_price: float) -> float:
         products_price = 0
         for product in self.product_cart:
             products_price += (
                 self.product_cart[product] * shop.products[product]
             )
+        path_price = self.calc_path_to_shop_price(shop, fuel_price)
+        return round(products_price + path_price, 2)
+
+    def calc_path_to_shop_price(self, shop: Shop, fuel_price: float) -> float:
         distance_to_shop = sqrt(
             (shop.location[0] - self.location[0]) ** 2
             + (shop.location[1] - self.location[1]) ** 2
         )
+        return round(
+            (
+                ((distance_to_shop * self.car.fuel_consumption) / 100)
+                * fuel_price
+            )
+            * 2,
+            2,
+        )
 
-        return round(products_price + distance_to_shop * fuel_price, 2)
-
-    def get_cheaper_shop(self, shops: list[Shop], fuel_price) -> Shop:
+    def get_cheaper_shop(self, shops: list[Shop], fuel_price: float) -> Shop:
         cheaper_shop = shops[0]
         for shop in shops:
-            if self.calc_price(shop, fuel_price) < self.calc_price(cheaper_shop, fuel_price):
+            if self.calc_trip_price(shop, fuel_price) < self.calc_trip_price(
+                cheaper_shop, fuel_price
+            ):
                 cheaper_shop = shop
         return cheaper_shop
 
-    def ride_to_shop(self, shop) -> None:
-        print(f"Bob rides to {shop}")
+    def ride_to_shop(self, shop: Shop, fuel_price: float) -> None:
+        print(f"{self.name} rides to {shop}\n")
         shop.serve_customer(self)
+        self.money -= self.calc_path_to_shop_price(shop, fuel_price)
+        print(f"{self.name} rides home")
+        print(f"{self.name} now has {self.money} dollars\n")
