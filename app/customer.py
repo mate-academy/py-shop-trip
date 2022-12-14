@@ -20,7 +20,7 @@ class Customers:
         self.car = car
 
     @staticmethod
-    def create_customer(customers: dict) -> list[Customers]:
+    def add_customer(customers: dict) -> list[Customers]:
         customers_list = []
         for customer in customers:
             customer_object = Customers(
@@ -37,12 +37,27 @@ class Customers:
         return customers_list
 
     @staticmethod
-    def count_cost(customer: Customers, shop_list: list[Shops]):
-        result = 0
+    def count_cost(customer: Customers, shop_list: list[Shops], fuel_price: float) -> tuple:
+        products_total_cost = 0
+        min_cost = 100_000
+        cheapest_shop = ""
+        purchase_note = {}
         for shop in shop_list:
             for key in customer.product_cart:
                 if key in shop.products:
-                    result += shop.products[key] * customer.product_cart[key]
-            print(f"{customer.name}'s trip to the {shop.name} costs {result}")
-
+                    one_product_total = shop.products[key] * customer.product_cart[key]
+                    products_total_cost += one_product_total
+                    purchase_note[key] = f"{customer.product_cart[key]} {key}s for {one_product_total} dollars"
+            trip_cost = customer.car.count_trip_cost(
+                customer.location,
+                shop.location,
+                customer.car.fuel_consumption,
+                fuel_price
+            )
+            products_total_cost += trip_cost
+            print(f"{customer.name}'s trip to the {shop.name} costs {round(products_total_cost, 2)}")
+            if products_total_cost < min_cost:
+                min_cost, cheapest_shop = products_total_cost, shop
+            products_total_cost = 0
+        return min_cost, cheapest_shop, purchase_note
 
