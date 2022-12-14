@@ -30,7 +30,7 @@ def read_shops(data: dict) -> list[Shop]:
 
 
 def shop_trip() -> None:
-    with open("config.json") as cfg:
+    with open("app/config.json") as cfg:
         data = json.load(cfg)
 
     customers = read_customers(data)
