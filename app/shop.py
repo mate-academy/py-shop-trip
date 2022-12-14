@@ -36,4 +36,4 @@ class Shop:
         print(f"{other.product_cart['butter']} "
               f"butters for {total_butter} dollars")
         print(f"Total cost is {total_product} dollars")
-        print("See you again!")
+        print("See you again!\n")

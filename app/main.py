@@ -21,10 +21,7 @@ def shop_trip() -> None:
         cheap_shop = shops[index]
         home_location = persona.location
         persona.to_shop(cheap_shop)
-        print("")
         cheap_shop.print_bill(persona)
-        print("")
         persona.to_home()
         persona.location = home_location
         print(persona.remain_money(cheap_shop))
-        print("")

@@ -51,10 +51,10 @@ class Customer:
 
     def to_shop(self, other: Any) -> None:
         self.location = other.location
-        print(f"{self.name} rides to {other.name}")
+        print(f"{self.name} rides to {other.name}\n")
 
     def to_home(self) -> None:
         print(f"{self.name} rides home")
 
     def remain_money(self, other: Any) -> str:
-        return f"{self.name} now has {self.money - self.cost(other)} dollars"
+        return f"{self.name} now has {self.money - self.cost(other)} dollars\n"
