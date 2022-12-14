@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from app.car import Car
+from app.shop import Shops
 
 
 class Customers:
@@ -34,3 +35,14 @@ class Customers:
             )
             customers_list.append(customer_object)
         return customers_list
+
+    @staticmethod
+    def count_cost(customer: Customers, shop_list: list[Shops]):
+        result = 0
+        for shop in shop_list:
+            for key in customer.product_cart:
+                if key in shop.products:
+                    result += shop.products[key] * customer.product_cart[key]
+            print(f"{customer.name}'s trip to the {shop.name} costs {result}")
+
+
