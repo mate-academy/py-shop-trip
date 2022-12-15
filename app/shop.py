@@ -4,7 +4,6 @@ import datetime
 
 
 class Shops:
-    shops_list = []
 
     def __init__(
             self,
@@ -33,11 +32,12 @@ class Shops:
             customer_name: str,
             purchase_note: dict
     ) -> None:
-        print(f"Date: {datetime.datetime.now().strftime('%d/%m/%Y %H:%M:%S')}")
-        print(f"Thanks, {customer_name}, for you purchase!")
-        print("You have bought: ")
-        print(f"{purchase_note['milk']}")
-        print(f"{purchase_note['bread']}")
-        print(f"{purchase_note['butter']}")
-        print(f"Total cost is {purchase_note['total']} dollars")
-        print("See you again!\n")
+        current_time = datetime.datetime.now()
+        print(f"Date: {current_time.strftime('%d/%m/%Y %H:%M:%S')}\n"
+              f"Thanks, {customer_name}, for you purchase!\n"
+              f"You have bought: \n"
+              f"{purchase_note['milk']}\n"
+              f"{purchase_note['bread']}\n"
+              f"{purchase_note['butter']}\n"
+              f"Total cost is {purchase_note['total']} dollars\n"
+              f"See you again!\n")
