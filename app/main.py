@@ -5,28 +5,26 @@ from app.shop import Shop
 
 
 def read_customers(data: dict) -> list[Customer]:
-    customers = []
-    for customer in data["customers"]:
-        customers.append(
-            Customer(
-                customer["name"],
-                customer["product_cart"],
-                customer["location"],
-                customer["money"],
-                Car(
-                    customer["car"]["brand"],
-                    customer["car"]["fuel_consumption"],
-                ),
-            )
+    return [
+        Customer(
+            customer["name"],
+            customer["product_cart"],
+            customer["location"],
+            customer["money"],
+            Car(
+                customer["car"]["brand"],
+                customer["car"]["fuel_consumption"],
+            ),
         )
-    return customers
+        for customer in data["customers"]
+    ]
 
 
 def read_shops(data: dict) -> list[Shop]:
-    shops = []
-    for shop in data["shops"]:
-        shops.append(Shop(shop["name"], shop["location"], shop["products"]))
-    return shops
+    return [
+        Shop(shop["name"], shop["location"], shop["products"])
+        for shop in data["shops"]
+    ]
 
 
 def shop_trip() -> None:

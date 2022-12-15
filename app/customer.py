@@ -28,11 +28,12 @@ class Customer:
         )
 
     def calc_trip_price(self, shop: Shop, fuel_price: float) -> float:
-        products_price = 0
-        for product in self.product_cart:
-            products_price += (
+        products_price = sum(
+            [
                 self.product_cart[product] * shop.products[product]
-            )
+                for product in self.product_cart
+            ]
+        )
         path_price = self.calc_path_to_shop_price(shop, fuel_price)
         return round(products_price + path_price, 2)
 
@@ -41,14 +42,10 @@ class Customer:
             (shop.location[0] - self.location[0]) ** 2
             + (shop.location[1] - self.location[1]) ** 2
         )
-        return round(
-            (
-                ((distance_to_shop * self.car.fuel_consumption) / 100)
-                * fuel_price
-            )
-            * 2,
-            2,
-        )
+        price_to_one_way = (
+            (distance_to_shop * self.car.fuel_consumption) / 100
+        ) * fuel_price
+        return round(price_to_one_way * 2, 2)
 
     def get_cheaper_shop(self, shops: list[Shop], fuel_price: float) -> Shop:
         cheaper_shop = shops[0]
