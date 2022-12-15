@@ -1,3 +1,8 @@
+from __future__ import annotations
+
+import datetime
+
+
 class Shops:
     shops_list = []
 
@@ -12,7 +17,7 @@ class Shops:
         self.products = products
 
     @staticmethod
-    def add_shop(shops: list):
+    def add_shop(shops: list) -> list[Shops]:
         shops_list = []
         for shop in shops:
             new_shop = Shops(
@@ -27,16 +32,12 @@ class Shops:
     def customer_purchase(
             customer_name: str,
             purchase_note: dict
-    ):
-        print(
-            f"Date: \n"
-            f"Thanks, {customer_name}, for you purchase!\n"
-            f"You have bought:\n"
-            f"{purchase_note['milk']}\n"
-            f"{purchase_note['bread']}\n"
-            f"{purchase_note['butter']}\n"
-            f"Total cost is 26.5 dollars See you again!\n"
-            f"\n"
-        )
-
-
+    ) -> None:
+        print(f"Date: {datetime.datetime.now().strftime('%d/%m/%Y %H:%M:%S')}")
+        print(f"Thanks, {customer_name}, for you purchase!")
+        print("You have bought: ")
+        print(f"{purchase_note['milk']}")
+        print(f"{purchase_note['bread']}")
+        print(f"{purchase_note['butter']}")
+        print(f"Total cost is {purchase_note['total']} dollars")
+        print("See you again!\n")

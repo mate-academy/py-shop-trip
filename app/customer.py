@@ -37,27 +37,39 @@ class Customers:
         return customers_list
 
     @staticmethod
-    def count_cost(customer: Customers, shop_list: list[Shops], fuel_price: float) -> tuple:
-        products_total_cost = 0
+    def count_cost(
+            customer: Customers,
+            shop_list: list[Shops],
+            fuel_price: float
+    ) -> tuple:
+        total_cost = 0
         min_cost = 100_000
         cheapest_shop = ""
-        purchase_note = {}
+        purchase_note = {"total": 0}
+        cheapest_purchase = {}
+
         for shop in shop_list:
             for key in customer.product_cart:
-                if key in shop.products:
-                    one_product_total = shop.products[key] * customer.product_cart[key]
-                    products_total_cost += one_product_total
-                    purchase_note[key] = f"{customer.product_cart[key]} {key}s for {one_product_total} dollars"
+                one_product_total = shop.products[key] \
+                    * customer.product_cart[key]
+                total_cost += one_product_total
+                purchase_note[key] = f"{customer.product_cart[key]} " \
+                                     f"{key}s for {one_product_total} dollars"
+
+            purchase_note["total"] = total_cost
             trip_cost = customer.car.count_trip_cost(
                 customer.location,
                 shop.location,
                 customer.car.fuel_consumption,
                 fuel_price
             )
-            products_total_cost += trip_cost
-            print(f"{customer.name}'s trip to the {shop.name} costs {round(products_total_cost, 2)}")
-            if products_total_cost < min_cost:
-                min_cost, cheapest_shop = products_total_cost, shop
-            products_total_cost = 0
-        return min_cost, cheapest_shop, purchase_note
+            total_cost = round(total_cost + trip_cost, 2)
+            print(f"{customer.name}'s trip to the {shop.name} "
+                  f"costs {total_cost}")
 
+            if total_cost < min_cost:
+                min_cost, cheapest_shop, cheapest_purchase = \
+                    total_cost, shop, purchase_note
+            total_cost = 0
+            purchase_note = {}
+        return min_cost, cheapest_shop, cheapest_purchase
