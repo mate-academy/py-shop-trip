@@ -29,11 +29,10 @@ class Customer:
 
     def calc_trip_price(self, shop: Shop, fuel_price: float) -> float:
         products_price = sum(
-            [
-                self.product_cart[product] * shop.products[product]
-                for product in self.product_cart
-            ]
+            self.product_cart[product] * shop.products[product]
+            for product in self.product_cart
         )
+
         path_price = self.calc_path_to_shop_price(shop, fuel_price)
         return round(products_price + path_price, 2)
 
