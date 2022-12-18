@@ -23,15 +23,13 @@ class Shop:
 
     def print_bill(self, other: Any) -> None:
         now = datetime.datetime.now()
-        total_milk = other.product_cart["milk"] * self.products["milk"]
-        total_bread = other.product_cart["bread"] * self.products["bread"]
-        total_butter = other.product_cart["butter"] * self.products["butter"]
-        total_product = total_milk + total_bread + total_butter
+        total_result = 0
         print("Date:", now.strftime("%d/%m/%Y %H:%M:%S"))
         print(f"Thanks, {other.name}, for you purchase!")
         print("You have bought: ")
         for product, count in other.product_cart.items():
             result = other.product_cart[product] * self.products[product]
+            total_result += result
             print(f"{count} {product}s for {result} dollars")
-        print(f"Total cost is {total_product} dollars")
+        print(f"Total cost is {total_result} dollars")
         print("See you again!\n")
