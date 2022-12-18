@@ -30,10 +30,8 @@ class Shop:
         print("Date:", now.strftime("%d/%m/%Y %H:%M:%S"))
         print(f"Thanks, {other.name}, for you purchase!")
         print("You have bought: ")
-        print(f"{other.product_cart['milk']} milks for {total_milk} dollars")
-        print(f"{other.product_cart['bread']} "
-              f"breads for {total_bread} dollars")
-        print(f"{other.product_cart['butter']} "
-              f"butters for {total_butter} dollars")
+        for product, count in other.product_cart.items():
+            result = other.product_cart[product] * self.products[product]
+            print(f"{count} {product}s for {result} dollars")
         print(f"Total cost is {total_product} dollars")
         print("See you again!\n")
