@@ -48,9 +48,9 @@ class Customers:
         purchase_note = {"total": 0}
         cheapest_purchase = {}
 
-        for shop in shop_list:
+        for shop_option in shop_list:
             for key in customer.product_cart:
-                one_product_total = shop.products[key] \
+                one_product_total = shop_option.products[key] \
                     * customer.product_cart[key]
                 total_cost += one_product_total
                 purchase_note[key] = f"{customer.product_cart[key]} " \
@@ -59,17 +59,17 @@ class Customers:
             purchase_note["total"] = total_cost
             trip_cost = customer.car.count_trip_cost(
                 customer.location,
-                shop.location,
+                shop_option.location,
                 customer.car.fuel_consumption,
                 fuel_price
             )
             total_cost = round(total_cost + trip_cost, 2)
-            print(f"{customer.name}'s trip to the {shop.name} "
+            print(f"{customer.name}'s trip to the {shop_option.name} "
                   f"costs {total_cost}")
 
             if total_cost < min_cost:
                 min_cost, cheapest_shop, cheapest_purchase = \
-                    total_cost, shop, purchase_note
+                    total_cost, shop_option, purchase_note
             total_cost = 0
             purchase_note = {}
         return min_cost, cheapest_shop, cheapest_purchase
