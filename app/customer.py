@@ -49,12 +49,13 @@ class Customers:
         cheapest_purchase = {}
 
         for shop_option in shop_list:
-            for key in customer.product_cart:
-                one_product_total = shop_option.products[key] \
-                    * customer.product_cart[key]
+            for product_key in customer.product_cart:
+                one_product_total = shop_option.products[product_key] \
+                    * customer.product_cart[product_key]
                 total_cost += one_product_total
-                purchase_note[key] = f"{customer.product_cart[key]} " \
-                                     f"{key}s for {one_product_total} dollars"
+                purchase_note[product_key] = \
+                    f"{customer.product_cart[product_key]} " \
+                    f"{product_key}s for {one_product_total} dollars"
 
             purchase_note["total"] = total_cost
             trip_cost = customer.car.count_trip_cost(
