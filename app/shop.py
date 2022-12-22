@@ -27,6 +27,23 @@ class Shops:
             shops_list.append(new_shop)
         return shops_list
 
+    def cost_of_products(
+            self,
+            customer_product_cart: dict
+    ) -> tuple:
+        products_total_cost = 0
+        purchase_note = {}
+
+        for product_key in customer_product_cart:
+            one_product_total = self.products[product_key] \
+                * customer_product_cart[product_key]
+            products_total_cost += one_product_total
+            purchase_note[product_key] = \
+                f"{customer_product_cart[product_key]} " \
+                f"{product_key}s for {one_product_total} dollars"
+        purchase_note["total"] = products_total_cost
+        return purchase_note, products_total_cost
+
     @staticmethod
     def customer_purchase(
             customer_name: str,

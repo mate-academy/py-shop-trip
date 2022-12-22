@@ -42,22 +42,14 @@ class Customers:
             shop_list: list[Shops],
             fuel_price: float
     ) -> tuple:
-        total_cost = 0
         min_cost = 100_000
         cheapest_shop = ""
-        purchase_note = {"total": 0}
         cheapest_purchase = {}
 
         for shop_option in shop_list:
-            for product_key in customer.product_cart:
-                one_product_total = shop_option.products[product_key] \
-                    * customer.product_cart[product_key]
-                total_cost += one_product_total
-                purchase_note[product_key] = \
-                    f"{customer.product_cart[product_key]} " \
-                    f"{product_key}s for {one_product_total} dollars"
+            purchase_note, total_cost = \
+                shop_option.cost_of_products(customer.product_cart)
 
-            purchase_note["total"] = total_cost
             trip_cost = customer.car.count_trip_cost(
                 customer.location,
                 shop_option.location,
@@ -71,6 +63,4 @@ class Customers:
             if total_cost < min_cost:
                 min_cost, cheapest_shop, cheapest_purchase = \
                     total_cost, shop_option, purchase_note
-            total_cost = 0
-            purchase_note = {}
         return min_cost, cheapest_shop, cheapest_purchase
