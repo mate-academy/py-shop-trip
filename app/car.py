@@ -11,7 +11,6 @@ class Car:
                                shop_x: int,
                                shop_y: int,
                                fuel_price: float
-                               ) -> int:
-        distance = dist([self.x, self.y], [shop_x,  shop_y])
-        a = ((self.fuel_consumption / 100) * distance * fuel_price) * 2
-        return a
+                               ) -> float:
+        distance = dist([self.x, self.y], [shop_x, shop_y])
+        return ((self.fuel_consumption / 100) * distance * fuel_price) * 2
