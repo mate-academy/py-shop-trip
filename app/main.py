@@ -26,3 +26,5 @@ def shop_trip() -> None:
             customer.go_shopping(shops, Car(
                 customer.location,
                 customer.car["fuel_consumption"]))
+
+shop_trip()

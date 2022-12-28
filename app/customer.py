@@ -21,7 +21,7 @@ class Customer:
             price_trip += shop.calculate_product(product, amount)
         price_trip += car.calculate_price_of_way(shop.location[0],
                                                  shop.location[1], fuel_price)
-        return price_trip
+        return round(price_trip, 2)
 
     def go_shopping(self, shops: list, car: object) -> None:
         print(f"{self.name} has {self.money} dollars")
@@ -60,10 +60,10 @@ class Customer:
             )
             return
 
-        print(f"{self.name} rides to {cheapest_trip['shop'].name}")
+        print(f"{self.name} rides to {cheapest_trip['shop'].name}\n")
 
         cheapest_trip["shop"].buy_products(self.name, self.product_cart)
 
         self.money -= cheapest_trip["cost"]
         print(f"{self.name} rides home")
-        print(f"{self.name} now has {self.money} dollars")
+        print(f"{self.name} now has {self.money} dollars\n")

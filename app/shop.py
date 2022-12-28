@@ -19,16 +19,16 @@ class Shop:
     def buy_products(self, customer: str, required_products: dict) -> int:
         print(datetime.datetime.now().strftime("Date: %d/%m/%Y %H:%M:%S"))
         print(f"Thanks, {customer}, for you purchase!")
-        print("You have bought:")
+        print("You have bought: ")
 
         price_of_products = 0
 
         for product, amount in required_products.items():
             price = self.calculate_product(product, amount)
             price_of_products += price
-            print(f"{amount} {product} for {price} dollars")
+            print(f"{amount} {product}s for {price} dollars")
 
         print(f"Total cost is {price_of_products} dollars")
-        print("See you again")
+        print("See you again!\n")
 
         return price_of_products

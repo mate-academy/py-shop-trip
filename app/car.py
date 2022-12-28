@@ -1,3 +1,6 @@
+from math import dist
+
+
 class Car:
     def __init__(self, location: list, fuel_consumption: float) -> None:
         self.x = location[0]
@@ -9,5 +12,6 @@ class Car:
                                shop_y: int,
                                fuel_price: float
                                ) -> int:
-        distance = (abs(shop_x - self.x) + abs(shop_y - self.y)) * 2
-        return distance * (self.fuel_consumption / 100) * fuel_price
+        distance = dist([self.x, self.y], [shop_x,  shop_y])
+        a = ((self.fuel_consumption / 100) * distance * fuel_price) * 2
+        return a
