@@ -12,44 +12,44 @@ customers = Customer.from_dict(get_customers())
 
 def shop_trip() -> None:
     trip_cost = []
-    for i in range(len(customers)):
+    for i, customer in enumerate(customers):
         trip = []
-        for k in range(len(shops)):
+        for i, shop in enumerate(shops):
             summ = 0
-            x1 = customers[i].location[0]
-            x2 = shops[k].location[0]
-            y1 = customers[i].location[1]
-            y2 = shops[k].location[1]
+            x1 = customer.location[0]
+            x2 = shop.location[0]
+            y1 = customer.location[1]
+            y2 = shop.location[1]
             dist = ((x2 - x1) ** 2 + (y2 - y1) ** 2) ** 0.5
-            for key in shops[k].products:
-                summ += customers[i].cart[key] * shops[k].products[key]
-            fuel_rate = customers[i].car["fuel_consumption"]
+            for key in shop.products:
+                summ += customer.cart[key] * shop.products[key]
+            fuel_rate = customer.car["fuel_consumption"]
             tr = summ + 2 * dist * fuel_price * fuel_rate / 100
             trip.append(round(tr, 2))
         trip_cost.append(trip)
-    for i in range(len(customers)):
-        print(f"{customers[i].name} has {customers[i].money} dollars")
-        for k in range(len(shops)):
-            if min(trip_cost[i]) == trip_cost[i][k]:
-                low = k
-            print(f"{customers[i].name}'s trip to the"
-                  f" {shops[k].name} costs {trip_cost[i][k]}")
-        if customers[i].money < min(trip_cost[i]):
-            print(f"{customers[i].name}"
+    for i, customer in enumerate(customers):
+        print(f"{customer.name} has {customer.money} dollars")
+        for index, shop in enumerate(shops):
+            if min(trip_cost[i]) == trip_cost[i][index]:
+                low = index
+            print(f"{customer.name}'s trip to the"
+                  f" {shop.name} costs {trip_cost[i][index]}")
+        if customer.money < min(trip_cost[i]):
+            print(f"{customer.name}"
                   f" doesn't have enough money to make purchase in any shop")
         else:
-            print(f"{customers[i].name} rides to {shops[low].name}\n")
+            print(f"{customer.name} rides to {shops[low].name}\n")
             print("Date: 04/01/2021 12:33:41")
-            print(f"Thanks, {customers[i].name}, for you purchase!")
+            print(f"Thanks, {customer.name}, for you purchase!")
             print("You have bought: ")
-            milks = customers[i].cart["milk"] * shops[low].products["milk"]
-            breads = customers[i].cart["bread"] * shops[low].products["bread"]
-            but = customers[i].cart["butter"] * shops[low].products["butter"]
-            print(f"{customers[i].cart['milk']} milks for {milks} dollars")
-            print(f"{customers[i].cart['bread']} breads for {breads} dollars")
-            print(f"{customers[i].cart['butter']} butters for {but} dollars")
+            milks = customer.cart["milk"] * shops[low].products["milk"]
+            breads = customer.cart["bread"] * shops[low].products["bread"]
+            but = customer.cart["butter"] * shops[low].products["butter"]
+            print(f"{customer.cart['milk']} milks for {milks} dollars")
+            print(f"{customer.cart['bread']} breads for {breads} dollars")
+            print(f"{customer.cart['butter']} butters for {but} dollars")
             print(f"Total cost is {milks + breads + but} dollars")
             print("See you again!\n")
-            print(f"{customers[i].name} rides home")
-            print(f"{customers[i].name} now has"
-                  f" {customers[i].money - min(trip_cost[i])} dollars\n")
+            print(f"{customer.name} rides home")
+            print(f"{customer.name} now has"
+                  f" {customer.money - min(trip_cost[i])} dollars\n")
