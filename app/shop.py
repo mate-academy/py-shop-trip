@@ -4,19 +4,30 @@ from typing import Dict
 
 
 class Shop:
-    def __init__(self, shop_data: Dict[str, Dict]) -> None:
+    def __init__(
+            self,
+            shop_data: Dict[str, Dict]
+    ) -> None:
         self.name = shop_data["name"]
         self.products = shop_data["products"]
         self.location = shop_data["location"]
 
-    def calculate_product(self, product: str, amount: int) -> float:
+    def calculate_product(
+            self,
+            product: str,
+            amount: int
+    ) -> float:
         if product in self.products:
             return self.products[product] * amount
 
         print("This product is not available in this store")
         return 0
 
-    def buy_products(self, customer: str, required_products: dict) -> int:
+    def buy_products(
+            self,
+            customer: str,
+            required_products: dict
+    ) -> int:
         print(datetime.datetime.now().strftime("Date: %d/%m/%Y %H:%M:%S"))
         print(f"Thanks, {customer}, for you purchase!")
         print("You have bought: ")

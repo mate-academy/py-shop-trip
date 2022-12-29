@@ -1,9 +1,14 @@
-from typing import Dict
+from typing import Dict, List
 from app.shop import Shop
+from app.car import Car
 
 
 class Customer:
-    def __init__(self, data: Dict[str, Dict], fuel_price: float) -> None:
+    def __init__(
+            self,
+            data: Dict[str, Dict],
+            fuel_price: float
+    ) -> None:
         self.name = data["name"]
         self.product_cart = data["product_cart"]
         self.location = data["location"]
@@ -11,11 +16,12 @@ class Customer:
         self.car = data["car"]
         self.fuel_price = fuel_price
 
-    def calculate_price_of_trip(self,
-                                shop: object,
-                                car: object,
-                                fuel_price: float
-                                ) -> int:
+    def calculate_price_of_trip(
+            self,
+            shop: Shop,
+            car: Car,
+            fuel_price: float
+    ) -> int:
         price_trip = 0
         for product, amount in self.product_cart.items():
             price_trip += shop.calculate_product(product, amount)
@@ -23,9 +29,35 @@ class Customer:
                                                  shop.location[1], fuel_price)
         return round(price_trip, 2)
 
-    def go_shopping(self, shops: list, car: object) -> None:
+    def go_shopping(
+            self,
+            shops: List[Shop],
+            car: Car
+    ) -> None:
         print(f"{self.name} has {self.money} dollars")
 
+        cheapest_trip = self.found_cheapest_trip(shops, car)
+
+        if cheapest_trip["shop"] is None:
+            print(
+                f"{self.name} doesn't have enough money"
+                " to make purchase in any shop"
+            )
+            return
+
+        print(f"{self.name} rides to {cheapest_trip['shop'].name}\n")
+
+        cheapest_trip["shop"].buy_products(self.name, self.product_cart)
+
+        self.money -= cheapest_trip["cost"]
+        print(f"{self.name} rides home")
+        print(f"{self.name} now has {self.money} dollars\n")
+
+    def found_cheapest_trip(
+            self,
+            shops: List[Shop],
+            car: Car
+    ) -> Dict:
         cheapest_trip: Dict[str, float | Shop] = {
             "cost": 0.0,
             "shop": None
@@ -53,17 +85,4 @@ class Customer:
                     "shop": shop
                 }
 
-        if cheapest_trip["shop"] is None:
-            print(
-                f"{self.name} doesn't have enough money"
-                " to make purchase in any shop"
-            )
-            return
-
-        print(f"{self.name} rides to {cheapest_trip['shop'].name}\n")
-
-        cheapest_trip["shop"].buy_products(self.name, self.product_cart)
-
-        self.money -= cheapest_trip["cost"]
-        print(f"{self.name} rides home")
-        print(f"{self.name} now has {self.money} dollars\n")
+        return cheapest_trip
