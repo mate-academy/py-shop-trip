@@ -36,6 +36,7 @@ def shop_trip() -> None:
             print(f"{customer.name} rides home\n"
                   f"{customer.name} now has "
                   f"{customer.money - min(prices_in_shops.keys())} dollars\n")
-        else:
-            print(f"{customer.name} doesn't have enough money "
-                  f"to make purchase in any shop")
+            continue
+
+        print(f"{customer.name} doesn't have enough money "
+              f"to make purchase in any shop")
