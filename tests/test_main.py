@@ -1,5 +1,4 @@
 import datetime
-import pytest
 from contextlib import redirect_stdout
 from io import StringIO
 from unittest.mock import MagicMock

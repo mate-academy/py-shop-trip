@@ -1,5 +1,6 @@
 import dataclasses
 import datetime
+from app.shop import Shop
 
 
 @dataclasses.dataclass
@@ -10,7 +11,7 @@ class Customer:
     money: int
     car: dict
 
-    def make_purchases(self, other: object) -> None:
+    def make_purchases(self, other: Shop) -> None:
         print(f"Date: {datetime.datetime.now().strftime('%d/%m/%Y %H:%M:%S')}")
         print(f"Thanks, {self.name}, for you purchase!\nYou have bought: ")
         for product, count in self.product_cart.items():
