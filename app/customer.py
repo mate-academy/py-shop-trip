@@ -1,5 +1,4 @@
 from app.shop import Shop
-from app.car import Car
 import datetime
 
 
@@ -11,10 +10,10 @@ class Customer:
         self.money = customer["money"]
         self.car = customer["car"]
 
-    def fuel_coast_for_trip(self, coast_per_liter: Car, shop: Shop) -> float:
+    def fuel_coast_for_trip(self, coast_per_liter: float, shop: Shop) -> float:
         coast = self.car["fuel_consumption"] \
             * self.distance_to_shop(shop) \
-            * coast_per_liter.fuel_price / 100
+            * coast_per_liter / 100
         return coast
 
     def distance_to_shop(self, shop: Shop) -> float:
@@ -24,34 +23,40 @@ class Customer:
         ) ** 0.5
         return distance
 
-    def coast_of_trip_to_shop(self, shop: Shop, coast_per_liter: Car) -> float:
+    def coast_of_trip_to_shop(
+            self,
+            shop: Shop,
+            coast_per_liter: float
+    ) -> float:
         total_coast = self.fuel_coast_for_trip(coast_per_liter, shop) * 2
-        total_coast += self.product_cart["milk"] * shop.products["milk"]
-        total_coast += self.product_cart["bread"] * shop.products["bread"]
-        total_coast += self.product_cart["butter"] * shop.products["butter"]
+        for product in self.product_cart:
+            total_coast += self.product_cart[product] * shop.products[product]
         return round(total_coast, 2)
 
-    def go_shopping(self, shop: Shop, coast_per_liter: Car) -> None:
+    def go_shopping(self, shop: Shop, coast_per_liter: float) -> None:
         customer_home = self.location.copy()
         print(f"{self.name} rides to {shop.name}")
         spend_money = self.coast_of_trip_to_shop(shop, coast_per_liter)
         print()
         self.location = shop.location
-        data_of_purchase =\
+        data_of_purchase = (
             datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S")
+        )
         print(f"Date: {data_of_purchase}")
         print(f"Thanks, {self.name}, for you purchase!")
         print("You have bought: ")
         total_coast_of_products = 0
         for product in self.product_cart:
-            coast_of_product = self.product_cart[product] * \
-                shop.products[product]
+            coast_of_product = (
+                self.product_cart[product] * shop.products[product]
+            )
             print(
                 f"{self.product_cart[product]} {product}s for"
                 f" {coast_of_product} dollars"
             )
-            total_coast_of_products += self.product_cart[product] * \
-                shop.products[product]
+            total_coast_of_products += (
+                self.product_cart[product] * shop.products[product]
+            )
         print(f"Total cost is {total_coast_of_products} dollars")
         self.money -= spend_money
         print("See you again!")

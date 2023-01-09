@@ -1,6 +1,5 @@
 import json
 
-from app.car import Car
 from app.customer import Customer
 from app.shop import Shop
 
@@ -8,7 +7,7 @@ from app.shop import Shop
 def shop_trip() -> None:
     with open("app/config.json") as data_in:
         data_from_file = json.load(data_in)
-        fuel_coast = Car(fuel_price=data_from_file["FUEL_PRICE"])
+        fuel_coast = data_from_file["FUEL_PRICE"]
         customers = [
             Customer(customer) for customer in data_from_file["customers"]
         ]
