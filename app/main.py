@@ -7,7 +7,7 @@ from app.shop import Shop
 def shop_trip() -> None:
     with open("app/config.json") as data_in:
         data_from_file = json.load(data_in)
-        fuel_coast = data_from_file["FUEL_PRICE"]
+        fuel_cost = data_from_file["FUEL_PRICE"]
         customers = [
             Customer(customer) for customer in data_from_file["customers"]
         ]
@@ -15,26 +15,26 @@ def shop_trip() -> None:
 
         for customer in customers:
             print(f"{customer.name} has {customer.money} dollars")
-            dict_shop_and_coast = {}
+            dict_shop_and_cost = {}
             for shop in shops:
-                coast_to_shop = customer.coast_of_trip_to_shop(
+                cost_to_shop = customer.cost_of_trip_to_shop(
                     shop,
-                    fuel_coast
+                    fuel_cost
                 )
-                dict_shop_and_coast[coast_to_shop] = shop
+                dict_shop_and_cost[cost_to_shop] = shop
                 print(f"{customer.name}'s trip to "
-                      f"the {shop.name} costs {coast_to_shop}")
+                      f"the {shop.name} costs {cost_to_shop}")
 
-            list_of_trip_coasts = [key for key in dict_shop_and_coast]
-            minimal_coast = list_of_trip_coasts[0]
-            for coast in dict_shop_and_coast:
-                if coast < minimal_coast:
-                    minimal_coast = coast
+            list_of_trip_costs = [cost for cost in dict_shop_and_cost]
+            minimal_cost = list_of_trip_costs[0]
+            for cost in dict_shop_and_cost:
+                if cost < minimal_cost:
+                    minimal_cost = cost
 
-            if customer.money >= minimal_coast:
+            if customer.money >= minimal_cost:
                 customer.go_shopping(
-                    dict_shop_and_coast[minimal_coast],
-                    fuel_coast
+                    dict_shop_and_cost[minimal_cost],
+                    fuel_cost
                 )
 
             else:
