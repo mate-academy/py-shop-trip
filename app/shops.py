@@ -1,18 +1,38 @@
+import json
 from datetime import datetime
-from app.customer import Customer
+
+# import app.customers as cust
 
 
-class Shop:
+class Shops:
 
     def __init__(
             self,
-            shop_dict: dict
+            name: str,
+            location: str,
+            products: dict
     ) -> None:
-        self.name = shop_dict["name"]
-        self.location = shop_dict["location"]
-        self.products = shop_dict["products"]
+        self.name = name
+        self.location = location
+        self.products = products
 
-    def shopping(self, customer: Customer) -> None:
+    @staticmethod
+    def create_shops_list() -> list:
+        with open("app/config.json") as config:
+            info = json.load(config)
+
+        shops_ls = []
+
+        for shop in info["shops"]:
+            new_shop = Shops(
+                name=shop["name"],
+                location=shop["location"],
+                products=shop["products"]
+            )
+            shops_ls.append(new_shop)
+        return shops_ls
+
+    def shopping(self, customer: object) -> None:
         date = datetime(2021, 1, 4, 12, 33, 41)
         print(f"Date: {date.strftime('%d/%m/%Y %H:%M:%S')}")
         print(f"Thanks, {customer.name}, for you purchase!\n"

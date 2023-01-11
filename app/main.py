@@ -1,36 +1,21 @@
-import json
-import math
-from app.customer import Customer
-from app.shop import Shop
+from __future__ import annotations
+
+from app.customers import Customers
+from app.shops import Shops
 
 
 def shop_trip() -> None:
-    with open("app/config.json") as config:
-        info = json.load(config)
 
-    fuel_price = info["FUEL_PRICE"]
-
-    customers_ls = []
-    for customer in info["customers"]:
-        customers_ls.append(Customer(customer))
-
-    shops_ls = []
-    for shop in info["shops"]:
-        shops_ls.append(Shop(shop))
+    customers_ls = Customers.create_customers_list()
+    shops_ls = Shops.create_shops_list()
 
     for customer in customers_ls:
         print(f"{customer.name} has {customer.money} dollars")
         cost_dict = {}
         for shop in shops_ls:
-            road_km = math.floor(
-                math.dist(customer.location, shop.location) * 2 * 100
-            ) / 100
-            trip_cost = round(
-                (fuel_price * road_km * customer.car.consumption / 100), 2)
-            product_cost = 0
-            for goods, amount in customer.product_cart.items():
-                product_cost += amount * shop.products[goods]
-            cost_dict[shop] = [trip_cost, product_cost]
+            trip_cost = customer.count_road_price(shop)
+            products_cost = customer.count_grocery_price(shop)
+            cost_dict[shop] = [trip_cost, products_cost]
             print(f"{customer.name}'s trip to the "
                   f"{shop.name} costs {sum(cost_dict[shop])}")
 
