@@ -1,4 +1,8 @@
+import json
+from math import dist
+
 from app.car import Car
+from app.shop import Shop
 
 
 class Customer:
@@ -13,3 +17,12 @@ class Customer:
         self.location = location
         self.money = money
         self.car = car
+
+    def cost_of_the_trip(self, shop: Shop) -> float:
+        with open("app/config.json", "r") as file:
+            json_info = json.load(file)
+        fuel_price = json_info["FUEL_PRICE"]
+
+        return round((self.car.fuel_consumption / 100)
+                     * (dist(self.location, shop.location) * 2)
+                     * fuel_price, 2)
