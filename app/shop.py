@@ -36,6 +36,7 @@ class Shop:
         road *= customer.car["fuel_consumption"]
         road /= 100
         road *= open_file("fuel")
+        road *= 2
 
         amount = 0
         for prod, num in customer.product_cart.items():
