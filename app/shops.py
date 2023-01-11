@@ -39,10 +39,11 @@ class Shops:
               f"You have bought: ")
         total_price = 0
         for item in customer.product_cart:
-            total_item_price = customer.product_cart[item] * self.products[item]
+            total_item_price = (customer.product_cart[item]
+                                * self.products[item])
             total_price += total_item_price
-            print(f"{customer.product_cart[item]} {item}s for {total_item_price}"
-                  f" dollars")
+            print(f"{customer.product_cart[item]} {item}s for "
+                  f"{total_item_price} dollars")
         print(f"Total cost is {total_price} dollars\n"
               f"See you again!\n"
               f"\n{customer.name} rides home\n"
