@@ -13,8 +13,10 @@ def shop_trip():
     for human in customers:
         print(f"{human.name} has {human.money} dollars")
         for store in shops:
-            print(f"{human.name}'s trip to the {store.name} "
-                  f"costs {store.calculate_trip(human)}")
+            print(
+                f"{human.name}'s trip to the {store.name} "
+                f"costs {store.calculate_trip(human)}"
+            )
             if store.calculate_trip(human) < min_:
                 min_ = store.calculate_trip(human)
         if human.money > min_:
@@ -36,12 +38,16 @@ def shop_trip():
             total_cost = 0
             print("See you again!\n")
             print(f"{human.name} rides home")
-            print(f"{human.name} now has "
-                  f"{human.money - market.calculate_trip(human)}"
-                  f" dollars\n")
+            print(
+                f"{human.name} now has "
+                f"{human.money - market.calculate_trip(human)}"
+                f" dollars\n"
+            )
         else:
-            print(f"{human.name} doesn't have enough "
-                  f"money to make purchase in any shop")
+            print(
+                f"{human.name} doesn't have enough "
+                f"money to make purchase in any shop"
+            )
 
 
 print(shop_trip())

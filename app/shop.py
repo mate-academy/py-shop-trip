@@ -18,9 +18,7 @@ def open_file(value):
 
 
 class Shop:
-    def __init__(self, name: str,
-                 location: list,
-                 products: dict):
+    def __init__(self, name: str, location: list, products: dict):
         self.name = name
         self.location = location
         self.products = products
@@ -53,14 +51,18 @@ def make_instances(value):
     for i in value:
         if len(i) == 3:
             for j in value:
-                l_instances.append(Shop(j["name"],
-                                        j["location"],
-                                        j["products"]))
+                l_instances.append(
+                    Shop(j["name"], j["location"], j["products"])
+                )
         if len(i) == 5:
             for j in value:
-                l_instances.append(Customer(j["name"],
-                                            j["product_cart"],
-                                            j["location"],
-                                            j["money"],
-                                            j["car"],))
+                l_instances.append(
+                    Customer(
+                        j["name"],
+                        j["product_cart"],
+                        j["location"],
+                        j["money"],
+                        j["car"],
+                    )
+                )
         return l_instances
