@@ -37,16 +37,13 @@ class Shops:
         print(f"Date: {date.strftime('%d/%m/%Y %H:%M:%S')}")
         print(f"Thanks, {customer.name}, for you purchase!\n"
               f"You have bought: ")
-        total_m = customer.product_cart["milk"] * self.products["milk"]
-        total_br = customer.product_cart["bread"] * self.products["bread"]
-        total_bu = customer.product_cart["butter"] * self.products["butter"]
-        print(f"{customer.product_cart['milk']} milks for {total_m}"
-              f" dollars\n"
-              f"{customer.product_cart['bread']} breads for {total_br}"
-              f" dollars\n"
-              f"{customer.product_cart['butter']} butters for {total_bu}"
-              f" dollars\n"
-              f"Total cost is {total_m + total_br + total_bu} dollars\n"
+        total_price = 0
+        for item in customer.product_cart:
+            total_item_price = customer.product_cart[item] * self.products[item]
+            total_price += total_item_price
+            print(f"{customer.product_cart[item]} {item}s for {total_item_price}"
+                  f" dollars")
+        print(f"Total cost is {total_price} dollars\n"
               f"See you again!\n"
               f"\n{customer.name} rides home\n"
               f"{customer.name} now has {customer.money} dollars\n"
