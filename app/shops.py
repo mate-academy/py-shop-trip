@@ -1,8 +1,6 @@
 import json
 from datetime import datetime
 
-# import app.customers as cust
-
 
 class Shops:
 
@@ -38,11 +36,11 @@ class Shops:
         print(f"Thanks, {customer.name}, for you purchase!\n"
               f"You have bought: ")
         total_price = 0
-        for item in customer.product_cart:
-            total_item_price = (customer.product_cart[item]
-                                * self.products[item])
+        for name, quantity in customer.product_cart.items():
+            total_item_price = (quantity
+                                * self.products[name])
             total_price += total_item_price
-            print(f"{customer.product_cart[item]} {item}s for "
+            print(f"{quantity} {name}s for "
                   f"{total_item_price} dollars")
         print(f"Total cost is {total_price} dollars\n"
               f"See you again!\n"

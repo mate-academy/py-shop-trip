@@ -11,24 +11,26 @@ def shop_trip() -> None:
 
     for customer in customers_ls:
         print(f"{customer.name} has {customer.money} dollars")
-        cost_dict = {}
+
+        min_price = 10_000
+        cheapest_shop = shops_ls[0]
         for shop in shops_ls:
             trip_cost = customer.count_road_price(shop)
             products_cost = customer.count_grocery_price(shop)
-            cost_dict[shop] = [trip_cost, products_cost]
-            print(f"{customer.name}'s trip to the "
-                  f"{shop.name} costs {sum(cost_dict[shop])}")
+            full_price = trip_cost + products_cost
+            if min_price > full_price:
+                min_price = full_price
+                cheapest_shop = shop
 
-        cheapest_shop = min(sum(value) for value in cost_dict.values())
-        if cheapest_shop > customer.money:
+            print(f"{customer.name}'s trip to the "
+                  f"{shop.name} costs {full_price}")
+
+        if min_price > customer.money:
             print(f"{customer.name} doesn't have "
                   f"enough money to make purchase in any shop")
             return
-        for key, value in cost_dict.items():
-            if sum(value) == cheapest_shop:
-                shop_to_go = key
-        print(f"{customer.name} rides to {shop_to_go.name}\n")
-        customer.location = shop_to_go.location
-        customer.money -= sum(cost_dict[shop_to_go])
+        print(f"{customer.name} rides to {cheapest_shop.name}\n")
+        customer.location = cheapest_shop.location
+        customer.money -= min_price
 
-        shop_to_go.shopping(customer)
+        cheapest_shop.shopping(customer)
