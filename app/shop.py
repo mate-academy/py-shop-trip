@@ -3,7 +3,7 @@ import json
 from app.customer import Customer
 
 
-def open_file(value):
+def open_file(value: dict) -> str:
     with open("app/config.json", "r") as file_out:
         data = json.load(file_out)
     data_shops = data["shops"]
@@ -18,18 +18,18 @@ def open_file(value):
 
 
 class Shop:
-    def __init__(self, name: str, location: list, products: dict):
+    def __init__(self, name: str, location: list, products: dict) -> None:
         self.name = name
         self.location = location
         self.products = products
 
-    def calculate_trip(self, customer: Customer):
+    def calculate_trip(self, customer: Customer) -> float:
         loc_shop = self.location
         loc_custom = customer.location
 
-        x = (loc_shop[0] - loc_custom[0]) ** 2
-        y = (loc_shop[1] - loc_custom[1]) ** 2
-        road = (x + y) ** 0.5
+        x_coor = (loc_shop[0] - loc_custom[0]) ** 2
+        y_coor = (loc_shop[1] - loc_custom[1]) ** 2
+        road = (x_coor + y_coor) ** 0.5
 
         road *= customer.car["fuel_consumption"]
         road /= 100
@@ -46,23 +46,23 @@ class Shop:
         return round(amount, 2)
 
 
-def make_instances(value):
+def make_instances(value: dict) -> list:
     l_instances = []
     for i in value:
         if len(i) == 3:
-            for j in value:
+            for key in value:
                 l_instances.append(
-                    Shop(j["name"], j["location"], j["products"])
+                    Shop(key["name"], key["location"], key["products"])
                 )
         if len(i) == 5:
-            for j in value:
+            for key in value:
                 l_instances.append(
                     Customer(
-                        j["name"],
-                        j["product_cart"],
-                        j["location"],
-                        j["money"],
-                        j["car"],
+                        key["name"],
+                        key["product_cart"],
+                        key["location"],
+                        key["money"],
+                        key["car"],
                     )
                 )
         return l_instances
