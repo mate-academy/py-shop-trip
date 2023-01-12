@@ -1,9 +1,10 @@
 import json
+from typing import IO
 
 from app.customer import Customer
 
 
-def open_file(value: dict) -> str:
+def open_file(value: str) -> dict:
     with open("app/config.json", "r") as file_out:
         data = json.load(file_out)
     data_shops = data["shops"]

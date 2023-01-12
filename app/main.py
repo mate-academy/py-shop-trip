@@ -1,7 +1,7 @@
 from app.shop import make_instances, open_file
 
 
-def shop_trip():
+def shop_trip() -> None:
     shops = make_instances(open_file("shops"))
     customers = make_instances(open_file("customers"))
     current = "04/01/2021 12:33:41"
