@@ -2,6 +2,6 @@ import json
 
 
 def get_information() -> dict:
-    with open("app"r"\config.json") as file:
+    with open(r"app\config.json") as file:
         info = json.load(file)
         return info
