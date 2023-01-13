@@ -28,7 +28,4 @@ def shop_trip() -> None:
             print(f"{customer.name} doesn't have enough money"
                   f" to make purchase in any shop")
         else:
-            shop_to_go.shopping(customer)
-            print(f"{customer.name} rides home\n"
-                  f"{customer.name} now has "
-                  f"{customer.money - cheapest_trip} dollars\n")
+            customer.shopping(shop_to_go, cheapest_trip)
