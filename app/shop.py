@@ -22,7 +22,8 @@ class Shop:
 
     def shopping(self, customer: Customer) -> None:
         current_datetime = datetime.datetime.now()
-        print(f"Date: {current_datetime.strftime('%d/%m/%Y %H:%M:%S')}\n"
+        print(f"{customer.name} rides to {self.name}\n"
+              f"\nDate: {current_datetime.strftime('%d/%m/%Y %H:%M:%S')}\n"
               f"Thanks, {customer.name}, for you purchase!\n"
               f"You have bought: ")
 

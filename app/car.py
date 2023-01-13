@@ -26,3 +26,34 @@ class Car:
             )
         )
         return consumption
+
+    def total_expenses(
+            self,
+            customer: Customer,
+            shop: Shop,
+            fuel_price: float
+    ) -> float:
+        return (
+            shop.shop_expenses(customer)
+            + self.car_expenses(fuel_price, customer, shop)
+        )
+
+    def trip_info(
+            self,
+            customer: Customer,
+            shop: Shop,
+            fuel_price: float
+    ) -> None:
+        print(f"{customer.name}'s trip to the {shop.name} costs"
+              f" {self.total_expenses(customer, shop, fuel_price)}")
+
+    def come_back_info(
+            self,
+            customer: Customer,
+            shop: Shop,
+            fuel_price: float
+    ) -> None:
+        total_expenses = self.total_expenses(customer, shop, fuel_price)
+        print(f"{customer.name} rides home\n"
+              f"{customer.name} now has "
+              f"{customer.money - total_expenses} dollars\n")
