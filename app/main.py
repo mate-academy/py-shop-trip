@@ -1,12 +1,12 @@
-from app.shop import make_instances, open_file
+from app.shop import make_instances, DATA_SHOPS, DATA_CUSTOMERS
 
 
 def shop_trip() -> None:
-    shops = make_instances(open_file("shops"))
-    customers = make_instances(open_file("customers"))
+    shops = make_instances(DATA_SHOPS)
+    customers = make_instances(DATA_CUSTOMERS)
     current = "04/01/2021 12:33:41"
 
-    min_ = 1000000
+    min_amount = 1000000
     market = None
     cost = 0
     total_cost = 0
@@ -17,11 +17,11 @@ def shop_trip() -> None:
                 f"{human.name}'s trip to the {store.name} "
                 f"costs {store.calculate_trip(human)}"
             )
-            if store.calculate_trip(human) < min_:
-                min_ = store.calculate_trip(human)
-        if human.money > min_:
+            if store.calculate_trip(human) < min_amount:
+                min_amount = store.calculate_trip(human)
+        if human.money > min_amount:
             for store in shops:
-                if store.calculate_trip(human) == min_:
+                if store.calculate_trip(human) == min_amount:
                     market = store
                     print(f"{human.name} rides to {store.name}\n")
             print(f"Date: {current}")

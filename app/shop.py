@@ -3,18 +3,11 @@ import json
 from app.customer import Customer
 
 
-def open_file(value: str) -> dict:
-    with open("app/config.json", "r") as file_out:
-        data = json.load(file_out)
-    data_shops = data["shops"]
-    fuel = data["FUEL_PRICE"]
-    data_customers = data["customers"]
-    if value == "customers":
-        return data_customers
-    if value == "fuel":
-        return fuel
-    if value == "shops":
-        return data_shops
+with open("app/config.json", "r") as file_out:
+    data = json.load(file_out)
+DATA_SHOPS = data["shops"]
+FUEL = data["FUEL_PRICE"]
+DATA_CUSTOMERS = data["customers"]
 
 
 class Shop:
@@ -33,7 +26,7 @@ class Shop:
 
         road *= customer.car["fuel_consumption"]
         road /= 100
-        road *= open_file("fuel")
+        road *= FUEL
         road *= 2
 
         amount = 0
