@@ -18,7 +18,7 @@ def test_shop_trip_output(monkeypatch):
         shop_trip()
 
     output = f.getvalue()
-    out = '''Bob has 55 dollars
+    out = """Bob has 55 dollars
 Bob's trip to the Outskirts Shop costs 28.21
 Bob's trip to the Shop '24/7' costs 31.48
 Bob's trip to the Central Shop costs 39.28
@@ -59,6 +59,5 @@ Monica's trip to the Outskirts Shop costs 15.65
 Monica's trip to the Shop '24/7' costs 16.84
 Monica's trip to the Central Shop costs 22.58
 Monica doesn't have enough money to make purchase in any shop
-'''
+"""
     assert output == out
-
