@@ -1,4 +1,6 @@
 from app.info import get_information
+from datetime import datetime
+from freezegun import freeze_time
 
 
 class Customer:
@@ -17,6 +19,7 @@ def create_class_instance_customers_list() -> list:
     return customer_class_list
 
 
+@freeze_time("01/04/2021 12:33:41")
 def make_rest_of_prints(customer: Customer, cheapest_shop: dict) -> None:
     if customer.money < cheapest_shop["cost"]:
         print(f"{customer.name} doesn't have "
@@ -26,16 +29,17 @@ def make_rest_of_prints(customer: Customer, cheapest_shop: dict) -> None:
         customer_home_location = customer.location
         customer.location = cheapest_shop["location"]
 
-        print("\nDate: 04/01/2021 12:33:41")
+        now = datetime.now()
+        day = now.strftime("%d/%m/%Y %H:%M:%S")
+
+        print(f"\nDate: {day}")
         print(f"Thanks, {customer.name}, for you purchase!")
         print("You have bought: ")
 
-        print(f"{customer.product_cart['milk']} milks "
-              f"for {cheapest_shop['milk']} dollars")
-        print(f"{customer.product_cart['bread']} breads "
-              f"for {cheapest_shop['bread']} dollars")
-        print(f"{customer.product_cart['butter']} butters "
-              f"for {cheapest_shop['butter']} dollars")
+        for key in customer.product_cart.keys():
+            print(f"{customer.product_cart[key]} {key}s "
+                  f"for {cheapest_shop[key]} dollars")
+
         print(f"Total cost is {cheapest_shop['products']} dollars")
         print("See you again!")
 
