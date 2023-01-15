@@ -1,37 +1,33 @@
-from datetime import datetime as dt
+import datetime as dt
 
 
 class Shop:
-    shops = []
+    shops = {}
 
     def __init__(self, name: str, location: list, products: dict) -> None:
         self.name = name
         self.location = location
         self.products = products
-        Shop.shops.append(self)
+        Shop.shops.update({self.name: self})
 
-    @staticmethod
     def store_cashier(
+            self,
             name: str,
-            store: str,
             products: dict,
             money: float
     ) -> None:
 
-        basket = None
-        for shop in Shop.shops:
-            if shop.name == store:
-                basket = shop
+        basket = self.products
         print(f"\nDate: "
-              f"{dt(2021, 4, 1, 12, 33, 41).strftime('%m/%d/%Y %H:%M:%S')}\n"
+              f"{dt.datetime.now().strftime('%d/%m/%Y %H:%M:%S')}\n"
               f"Thanks, {name}, for you purchase!"
               f"\nYou have bought: ")
         total = 0
 
-        for key, value in basket.products.items():
-            total += products[key] * value
-            print(f"{products[key]} {key}s for "
-                  f"{products[key] * value} dollars")
+        for product, count in basket.items():
+            total += products[product] * count
+            print(f"{products[product]} {product}s for "
+                  f"{products[product] * count} dollars")
         print(f"Total cost is {total} dollars\n"
               f"See you again!\n"
               f"\n{name} rides home\n"
