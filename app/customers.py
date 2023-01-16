@@ -36,9 +36,9 @@ def make_rest_of_prints(customer: Customer, cheapest_shop: dict) -> None:
         print(f"Thanks, {customer.name}, for you purchase!")
         print("You have bought: ")
 
-        for key in customer.product_cart.keys():
-            print(f"{customer.product_cart[key]} {key}s "
-                  f"for {cheapest_shop[key]} dollars")
+        for product_name, quantity in customer.product_cart.items():
+            print(f"{quantity} {product_name}s "
+                  f"for {cheapest_shop[product_name]} dollars")
 
         print(f"Total cost is {cheapest_shop['products']} dollars")
         print("See you again!")
