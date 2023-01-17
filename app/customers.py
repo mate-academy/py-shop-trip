@@ -10,42 +10,40 @@ class Customer:
             setattr(self, key, value)
         self.car_fuel_consumption_per_km = self.car["fuel_consumption"] / 100
 
+    @freeze_time("01/04/2021 12:33:41")
+    def make_prints_for_shop_visit(self, cheapest_shop: dict) -> None:
+        if self.money < cheapest_shop["cost"]:
+            print(f"{self.name} doesn't have "
+                  f"enough money to make purchase in any shop")
+        else:
+            print(f"{self.name} rides to {cheapest_shop['name']}")
+            customer_home_location = self.location
+            self.location = cheapest_shop["location"]
 
-def create_class_instance_customers_list() -> list:
-    customers_list = get_information()["customers"]
-    customer_class_list = []
-    for customer in customers_list:
-        customer_class_list.append(Customer(customer))
-    return customer_class_list
+            day = datetime.now().strftime("%d/%m/%Y %H:%M:%S")
 
+            print(f"\nDate: {day}")
+            print(f"Thanks, {self.name}, for you purchase!")
+            print("You have bought: ")
 
-@freeze_time("01/04/2021 12:33:41")
-def make_rest_of_prints(customer: Customer, cheapest_shop: dict) -> None:
-    if customer.money < cheapest_shop["cost"]:
-        print(f"{customer.name} doesn't have "
-              f"enough money to make purchase in any shop")
-    else:
-        print(f"{customer.name} rides to {cheapest_shop['name']}")
-        customer_home_location = customer.location
-        customer.location = cheapest_shop["location"]
+            for product_name, quantity in self.product_cart.items():
+                print(f"{quantity} {product_name}s "
+                      f"for {cheapest_shop[product_name]} dollars")
 
-        now = datetime.now()
-        day = now.strftime("%d/%m/%Y %H:%M:%S")
+            print(f"Total cost is {cheapest_shop['products']} dollars")
+            print("See you again!")
 
-        print(f"\nDate: {day}")
-        print(f"Thanks, {customer.name}, for you purchase!")
-        print("You have bought: ")
+            print(f"\n{self.name} rides home")
+            self.location = customer_home_location
 
-        for product_name, quantity in customer.product_cart.items():
-            print(f"{quantity} {product_name}s "
-                  f"for {cheapest_shop[product_name]} dollars")
+            money_left = self.money - cheapest_shop["final_cost"]
 
-        print(f"Total cost is {cheapest_shop['products']} dollars")
-        print("See you again!")
+            print(f"{self.name} now has {money_left} dollars\n")
 
-        print(f"\n{customer.name} rides home")
-        customer.location = customer_home_location
-
-        money_left = customer.money - cheapest_shop["final_cost"]
-
-        print(f"{customer.name} now has {money_left} dollars\n")
+    @staticmethod
+    def create_class_instance_customers_list() -> list:
+        customers_list = get_information()["customers"]
+        customer_class_list = []
+        for customer in customers_list:
+            customer_class_list.append(Customer(customer))
+        return customer_class_list
