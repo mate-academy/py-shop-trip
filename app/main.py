@@ -5,10 +5,10 @@ from app.customer import Customer
 
 
 def shop_trip() -> None:
-    with open("config.json", "r") as data_file:
+    with open("D:\\projects1\\py-shop-trip\\app\\config.json", "r") as data_file:
         data_file_json = json.load(data_file)
-        customers_list = []
 
+        customers_list = []
         for customer in data_file_json["customers"]:
             customers_list.append(Customer(customer))
         shop_list = []
@@ -24,9 +24,10 @@ def shop_trip() -> None:
                     data_file_json["customers"]["car"],
                     data_file_json["FUEL_PRICE"]
                 )
+                dict_shop[cost_to_shop] = shop
                 print(f"{shopper.name}'s trip to the {shop.name} "
                       f"cost {cost_to_shop}")
-                dict_shop[cost_to_shop] = shop
+
             list_of_trip_costs = [cost for cost in dict_shop]
             min_amount = list_of_trip_costs[0]
             for amount in dict_shop:
