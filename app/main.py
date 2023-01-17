@@ -5,7 +5,8 @@ from app.customer import Customer
 
 
 def shop_trip() -> None:
-    with open("D:\\projects1\\py-shop-trip\\app\\config.json", "r") as data_file:
+    with open("D:\\projects1\\py-shop-trip\\app\\config.json", "r") \
+            as data_file:
         data_file_json = json.load(data_file)
 
         customers_list = []
