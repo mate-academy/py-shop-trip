@@ -33,7 +33,7 @@ class Customer:
     def shopping(self, shop: Shop, data: FuelPrice) -> None:
         print(f"{self.name} rides to {shop.name}\n")
 
-        spend_money = self.full_cost(shop, data)
+        self.money -= self.full_cost(shop, data)
         self.location = shop.location
         date_of_purchase = datetime.datetime.now().strftime(
             "%d/%m/%Y %H:%M:%S"
@@ -50,5 +50,4 @@ class Customer:
         print("See you again!\n")
 
         print(f"{self.name} rides home")
-        self.money -= spend_money
         print(f"{self.name} now has {self.money} dollars\n")
