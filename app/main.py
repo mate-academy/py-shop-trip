@@ -1,17 +1,30 @@
-from app.data_file import read_customer_json, read_shop_json, fuel_price
+import json
+
+from app.customer import Customer
 from app.purchase import receipt
+from app.shop import Shop
 
 
 def shop_trip() -> None:
-    customers = read_customer_json()
-    shops = read_shop_json()
+    customers = []
+    shops = []
+    try:
+        with open("app/config.json", "r") as config:
+            data = json.load(config)
+            customers = Customer.read_customer_json(data["customers"])
+            shops = Shop.read_shop_json(data["shops"])
+            fuel_price = data["FUEL_PRICE"]
+    except FileNotFoundError:
+        print("File do not found")
+
     for customer in customers:
         print(f"{customer.name} has {customer.money} dollars")
         total_cost_in_shop = {}
         for shop in shops:
-            total_cost = \
-                customer.cost_for_trip_to_the_shop(shop, fuel_price) +\
-                customer.product_cost(shop)
+            total_cost = (
+                customer.cost_for_trip_to_the_shop(shop, fuel_price)
+                + customer.product_cost(shop)
+            )
             print(f"{customer.name}'s trip to the "
                   f"{shop.name} costs {total_cost}")
             total_cost_in_shop.update({total_cost: shop.name})
