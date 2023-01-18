@@ -4,8 +4,7 @@ from math import sqrt
 
 class Location:
     def __init__(self, coordinates: list) -> None:
-        self.x = coordinates[0]
-        self.y = coordinates[1]
+        self.x, self.y = coordinates
 
     def distance_to_other_location(self, other: Location) -> int | float:
         distance = sqrt(

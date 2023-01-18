@@ -48,7 +48,8 @@ class Customer:
     def determine_cheapest_shop_and_visit_it(
             self,
             shops: list,
-            fuel_price: float) -> None:
+            fuel_price: float
+    ) -> None:
         print(f"{self.name} has {self.money} dollars")
         lowest_total_price = float("inf")
         best_shop = None
@@ -68,10 +69,10 @@ class Customer:
     def report_about_visit_to_shop(
             self,
             shop: Shop,
-            lowest_total_price: int | float) -> None:
+            lowest_total_price: int | float
+    ) -> None:
         print(f"{self.name} rides to {shop.name}\n")
-        date_to_pass_test = datetime(2021, 1, 4, 12, 33, 41)
-        print(f"Date: {date_to_pass_test.strftime('%d/%m/%Y %H:%M:%S')}")
+        print(f"Date: {datetime.now().strftime('%d/%m/%Y %H:%M:%S')}")
         print(f"Thanks, {self.name}, for you purchase!")
         print("You have bought: ")
         for product, quantity in self.products_to_buy.items():
