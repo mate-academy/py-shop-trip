@@ -20,31 +20,35 @@ class Customer:
 
     def cost_trip(self, shop: Shop, data: FuelPrice) -> float:
         cost = (self.distance_to_shop(shop)
-                * self.car.fuel_consumption / 100
-                * data.fuel_price)
-        return round(cost, 2)
+                * self.car.fuel_consumption
+                * data.fuel_price / 100)
+        return cost * 2
 
     def full_cost(self, shop: Shop, data: FuelPrice) -> float:
-        cost_full = self.cost_trip(shop, data) * 2
+        cost_full = self.cost_trip(shop, data)
         for food in self.products:
             cost_full += self.products[food] * shop.product[food]
-        return cost_full
+        return round(cost_full, 2)
 
     def shopping(self, shop: Shop, data: FuelPrice) -> None:
-        print(f"{self.name} rides to {shop.name}")
+        print(f"{self.name} rides to {shop.name}\n")
+
+        spend_money = self.full_cost(shop, data)
         self.location = shop.location
         date_of_purchase = datetime.datetime.now().strftime(
             "%d/%m/%Y %H:%M:%S"
         )
         print(f"Date: {date_of_purchase}")
         print(f"Thanks, {self.name}, for you purchase!")
-        print("You have bought:")
-        sum_prices = 0
+        print("You have bought: ")
+        total_cost = 0
         for food, count in self.products.items():
-            sum_prices += self.products[food] * shop.product[food]
+            sum_prices = self.products[food] * shop.product[food]
             print(f"{count} {food}s for {sum_prices} dollars")
-        print(f"Total cost is {self.full_cost(shop, data)} dollars")
-        print("See you again!")
+            total_cost += sum_prices
+        print(f"Total cost is {total_cost} dollars")
+        print("See you again!\n")
+
         print(f"{self.name} rides home")
-        self.money -= self.full_cost(shop, data)
-        print(f"{self.name} now has {self.money} dollars")
+        self.money -= spend_money
+        print(f"{self.name} now has {self.money} dollars\n")
