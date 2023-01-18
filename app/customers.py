@@ -1,13 +1,25 @@
-from app.info import get_information
+from app.info import get_customers_list
 from datetime import datetime
 from freezegun import freeze_time
 
 
 class Customer:
 
-    def __init__(self, dictionary: dict) -> None:
-        for key, value in dictionary.items():
-            setattr(self, key, value)
+    def __init__(
+            self,
+            name: str,
+            product_cart: dict,
+            location: list,
+            money: int,
+            car: dict
+    ) -> None:
+
+        self.name = name
+        self.product_cart = product_cart
+        self.location = location
+        self.money = money
+        self.car = car
+
         self.car_fuel_consumption_per_km = self.car["fuel_consumption"] / 100
 
     @freeze_time("01/04/2021 12:33:41")
@@ -42,8 +54,15 @@ class Customer:
 
     @staticmethod
     def create_class_instance_customers_list() -> list:
-        customers_list = get_information()["customers"]
+        customers_list = get_customers_list()
         customer_class_list = []
         for customer in customers_list:
-            customer_class_list.append(Customer(customer))
+            customer_class_list.append(
+                Customer(
+                    customer["name"],
+                    customer["product_cart"],
+                    customer["location"],
+                    customer["money"],
+                    customer["car"]
+                ))
         return customer_class_list

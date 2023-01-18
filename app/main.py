@@ -7,7 +7,7 @@ def shop_trip() -> None:
     customers_list = Customer.create_class_instance_customers_list()
 
     for customer in customers_list:
-        shops_cost = []
+        shops_cost = {}
         shops = []
 
         print(f"{customer.name} has {customer.money} dollars")
@@ -16,7 +16,7 @@ def shop_trip() -> None:
             shop_dict = shop.create_shop_dict(customer)
 
             shops.append(shop_dict)
-            shops_cost.append(shop_dict["final_cost"])
+            shops_cost[shop.name] = shop_dict["final_cost"]
 
             print(f"{customer.name}'s trip "
                   f"to the {shop.name} costs {shop_dict['final_cost']}")
