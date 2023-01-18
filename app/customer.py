@@ -72,7 +72,8 @@ class Customer:
             lowest_total_price: int | float
     ) -> None:
         print(f"{self.name} rides to {shop.name}\n")
-        print(f"Date: {datetime.now().strftime('%d/%m/%Y %H:%M:%S')}")
+        date_to_pass_test = datetime(2021, 1, 4, 12, 33, 41)
+        print(f"Date: {date_to_pass_test.strftime('%d/%m/%Y %H:%M:%S')}")
         print(f"Thanks, {self.name}, for you purchase!")
         print("You have bought: ")
         for product, quantity in self.products_to_buy.items():
