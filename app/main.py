@@ -22,7 +22,7 @@ def shop_trip() -> None:
             for shop in shop_list:
                 cost_to_shop = shopper.full_cost(
                     shop,
-                    data_file_json["customers"]["car"],
+                    data_file_json["customers"],
                     data_file_json["FUEL_PRICE"]
                 )
                 dict_shop[cost_to_shop] = shop
@@ -38,7 +38,7 @@ def shop_trip() -> None:
             if shopper.money >= min_amount:
                 shopper.shopping(
                     shop,
-                    data_file_json["customers"]["car"],
+                    data_file_json["customers"],
                     data_file_json["FUEL_PRICE"]
                 )
             print(f"{shopper.name} doesn't have "
