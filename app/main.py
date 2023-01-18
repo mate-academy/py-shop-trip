@@ -37,6 +37,6 @@ def shop_trip() -> None:
                     receipt(customer, shop)
                     print(f"{customer.name} now has "
                           f"{customer.money - min_cost} dollars\n")
-        else:
-            print(f"{customer.name} doesn't have enough money "
-                  f"to make purchase in any shop")
+            continue
+        print(f"{customer.name} doesn't have enough money "
+              f"to make purchase in any shop")
