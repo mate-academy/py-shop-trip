@@ -64,5 +64,6 @@ class Customer:
                     customer["location"],
                     customer["money"],
                     customer["car"]
-                ))
+                )
+            )
         return customer_class_list

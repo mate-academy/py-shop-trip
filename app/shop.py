@@ -48,7 +48,8 @@ class Shop:
                     shop["name"],
                     shop["location"],
                     shop["products"]
-                ))
+                )
+            )
         return shops_class_list
 
     def create_shop_dict(self, customer: Customer) -> dict:
