@@ -8,10 +8,11 @@ def shop_trip() -> None:
     with open("D:\\projects1\\py-shop-trip\\app\\config.json", "r") \
             as data_file:
         data_file_json = json.load(data_file)
-
+        # fuel_price = data_file_json["FUEL_PRICE"]
         customers_list = []
         for customer in data_file_json["customers"]:
             customers_list.append(Customer(customer))
+
         shop_list = []
         for shop in data_file_json["shops"]:
             shop_list.append(Shop(shop))
@@ -22,7 +23,6 @@ def shop_trip() -> None:
             for shop in shop_list:
                 cost_to_shop = shopper.full_cost(
                     shop,
-                    data_file_json["customers"],
                     data_file_json["FUEL_PRICE"]
                 )
                 dict_shop[cost_to_shop] = shop
@@ -38,7 +38,6 @@ def shop_trip() -> None:
             if shopper.money >= min_amount:
                 shopper.shopping(
                     shop,
-                    data_file_json["customers"],
                     data_file_json["FUEL_PRICE"]
                 )
             print(f"{shopper.name} doesn't have "
