@@ -6,12 +6,12 @@ import datetime
 
 
 class Customer:
-    def __init__(self, data_customer: dict) -> None:
-        self.name = data_customer["name"]
-        self.products = data_customer["product_cart"]
-        self.location = data_customer["location"]
-        self.money = data_customer["money"]
-        self.car = Car(data_customer["car"])
+    def __init__(self, customer_data: dict) -> None:
+        self.name = customer_data["name"]
+        self.products = customer_data["product_cart"]
+        self.location = customer_data["location"]
+        self.money = customer_data["money"]
+        self.car = Car(customer_data["car"])
 
     def distance_to_shop(self, shop: Shop) -> float:
         distance = ((shop.location[0] - self.location[0]) ** 2
