@@ -20,9 +20,9 @@ class Customer:
         self.car = car
 
     @staticmethod
-    def create_customers(json_input: dict) -> list[Customer]:
+    def create_customers(customers: dict) -> list[Customer]:
         customers_list = []
-        for customer in json_input["customers"]:
+        for customer in customers:
             customers_list.append(
                 Customer(
                     customer["name"],

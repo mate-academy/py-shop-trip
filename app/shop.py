@@ -17,9 +17,9 @@ class Shop:
         self.products_provides = products_provides
 
     @staticmethod
-    def create_shops(json_input: dict) -> list[Shop]:
+    def create_shops(shops: dict) -> list[Shop]:
         shops_list = []
-        for shop in json_input["shops"]:
+        for shop in shops:
             shops_list.append(
                 Shop(
                     shop["name"],
