@@ -47,10 +47,8 @@ class Customer:
         )
 
     def to_shop_distance(self, shop: Shop) -> float:
-        x1 = self.location[0]
-        y1 = self.location[1]
-        x2 = shop.location[0]
-        y2 = shop.location[1]
+        x1, y1 = self.location
+        x2, y2 = shop.location
         result = (((x2 - x1) ** 2) + ((y1 - y2) ** 2)) ** 0.5
         return result
 

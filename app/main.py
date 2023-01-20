@@ -6,10 +6,10 @@ from app.customer import Customer
 
 def shop_trip() -> None:
     with open("app/config.json", "r") as data:
-        output = json.load(data)
-    fuel_price = output["FUEL_PRICE"]
-    customers = Customer.create_customers(output["customers"])
-    shops = Shop.create_shops(output["shops"])
+        json_input = json.load(data)
+    fuel_price = json_input["FUEL_PRICE"]
+    customers = Customer.create_customers(json_input["customers"])
+    shops = Shop.create_shops(json_input["shops"])
     for customer in customers:
         customer.print_money_remainder()
         shop_to_visit = customer.choose_shop(shops, fuel_price)
