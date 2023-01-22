@@ -1,3 +1,5 @@
+from typing import Any
+
 from datetime import datetime
 from app.location import Location
 from app.car import Car
@@ -5,56 +7,56 @@ from app.shop import Shop
 
 
 class Customer:
-    def __init__(self, customer: dict) -> None:
+    def __init__(self, customer: dict[str, Any]) -> None:
         self.name = customer["name"]
         self.products_to_buy = customer["product_cart"]
         self.location = Location(customer["location"])
         self.money = customer["money"]
         self.car = Car(customer["car"])
 
-    def ride_to_shop_and_back_price(
+    def get_trip_price(
             self,
             shop: Shop,
             fuel_price: int | float
     ) -> int | float:
-        distance_to_shop = self.location.distance_to_other_location(
+        distance_to_shop = self.location.calculate_distance_to_other_location(
             shop.location
         )
         money_for_trip = (
-            self.car.fuel_needed_for_trip(distance_to_shop * 2)
+            self.car.calculate_fuel_needed_for_trip(distance_to_shop * 2)
             * fuel_price
         )
         return round(money_for_trip, 2)
 
-    def products_in_a_shop_price(self, shop: Shop) -> int | float:
+    def get_products_in_a_shop_price(self, shop: Shop) -> int | float:
         if not shop.check_if_has_products(self.products_to_buy):
             raise ValueError(
                 "Shop doesn't have all the products which customer needs"
             )
-        return shop.price_of_products(self.products_to_buy)
+        return shop.get_price_of_products(self.products_to_buy)
 
-    def money_needed_for_trip_and_products(
+    def get_money_needed_for_trip_and_products(
             self,
             shop: Shop,
             fuel_price: float
     ) -> int | float:
         money_needed = (
-            self.ride_to_shop_and_back_price(shop, fuel_price)
-            + self.products_in_a_shop_price(shop)
+            self.get_trip_price(shop, fuel_price)
+            + self.get_products_in_a_shop_price(shop)
         )
         print(f"{self.name}'s trip to the {shop.name} costs {money_needed}")
         return money_needed
 
     def determine_cheapest_shop_and_visit_it(
             self,
-            shops: list,
+            shops: list[Shop],
             fuel_price: float
     ) -> None:
         print(f"{self.name} has {self.money} dollars")
         lowest_total_price = float("inf")
         best_shop = None
         for shop in shops:
-            tmp = self.money_needed_for_trip_and_products(shop, fuel_price)
+            tmp = self.get_money_needed_for_trip_and_products(shop, fuel_price)
             if tmp < lowest_total_price:
                 lowest_total_price = tmp
                 best_shop = shop
@@ -83,7 +85,7 @@ class Customer:
             )
         print(
             f"Total cost is "
-            f"{shop.price_of_products(self.products_to_buy)} dollars"
+            f"{shop.get_price_of_products(self.products_to_buy)} dollars"
         )
         print("See you again!\n")
         print(f"{self.name} rides home")
