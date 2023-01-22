@@ -1,5 +1,8 @@
+from typing import Any
+
+
 class Car:
-    def __init__(self, car: dict[str, str | int | float]) -> None:
+    def __init__(self, car: dict[str, Any]) -> None:
         self.brand = car["brand"]
         self.fuel_consumption = car["fuel_consumption"]
 

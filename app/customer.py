@@ -1,8 +1,8 @@
+from datetime import datetime
 from typing import Any
 
-from datetime import datetime
-from app.location import Location
 from app.car import Car
+from app.location import Location
 from app.shop import Shop
 
 
@@ -56,9 +56,11 @@ class Customer:
         lowest_total_price = float("inf")
         best_shop = None
         for shop in shops:
-            tmp = self.get_money_needed_for_trip_and_products(shop, fuel_price)
-            if tmp < lowest_total_price:
-                lowest_total_price = tmp
+            money_for_trip_and_products = (
+                self.get_money_needed_for_trip_and_products(shop, fuel_price)
+            )
+            if money_for_trip_and_products < lowest_total_price:
+                lowest_total_price = money_for_trip_and_products
                 best_shop = shop
         if self.money >= lowest_total_price:
             self.report_about_visit_to_shop(best_shop, lowest_total_price)
