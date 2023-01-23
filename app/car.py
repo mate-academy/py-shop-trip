@@ -8,8 +8,8 @@ class Car:
 
     def trip_consumption(
             self,
-            location1: list[int, int],
-            location2: list[int, int]
+            location1: list[int],
+            location2: list[int]
     ) -> int | float:
         distance = ((location2[0] - location1[0]) ** 2
                     + (location2[1] - location1[1]) ** 2

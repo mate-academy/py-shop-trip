@@ -15,8 +15,11 @@ def shop_trip() -> None:
                 customer["product_cart"],
                 customer["location"],
                 customer["money"],
-                Car(customer["car"]["brand"],
-                    customer["car"]["fuel_consumption"]))
+                Car(
+                    customer["car"]["brand"],
+                    customer["car"]["fuel_consumption"]
+                )
+            )
             for customer in config_dict["customers"]
         ]
         shops = [
@@ -27,26 +30,28 @@ def shop_trip() -> None:
             ) for shop in config_dict["shops"]
         ]
         for customer in customers:
-            home_location = customer.location
-            min_total_costs = 10 ** 6
+            home_location = customer.location.copy()
+            shop_costs_list = []
             min_shop_costs: int
             print(f"{customer.name} has {customer.money} dollars")
 
             for shop in shops:
-                if customer.calculate_costs(shop):
-                    costs = customer.calculate_costs(shop)
+                costs = customer.calculate_costs(shop)
+                if costs:
                     total_costs = round(
                         costs + customer.car.trip_consumption(
                             customer.location, shop.location
                         )
                         * fuel_price * 2,
                         2)
-                    if total_costs < min_total_costs:
-                        min_total_costs = total_costs
-                        min_shop_costs = costs
-                        cheapest_shop = shop
+                    shop_costs_list.append((total_costs, costs, shop))
                     print(f"{customer.name}'s trip to the "
                           f"{shop.name} costs {total_costs}")
+
+            min_shop_information = min(shop_costs_list)
+            min_total_costs = min_shop_information[0]
+            min_shop_costs = min_shop_information[1]
+            cheapest_shop = min_shop_information[2]
 
             if min_total_costs <= customer.money:
                 print(f"{customer.name} rides to {cheapest_shop.name}")
