@@ -12,7 +12,7 @@ def shop_trip() -> None:
     for customer in customers:
         shopper = Customer.create_class(customer)
         car = Car.create_class(shopper.car)
-        print(f"{shopper.name} has {shopper.money} dollars\n")
+        print(f"{shopper.name} has {shopper.money} dollars")
         expense = 0
         best_shop = ""
         prod_pack = {}
@@ -35,7 +35,7 @@ def shop_trip() -> None:
                 prod_pack = pack
                 receipt = shopping
             print(f"{shopper.name}'s trip"
-                  f" to the {destination.name} costs {total}\n")
+                  f" to the {destination.name} costs {total}")
         shopping_start(
             shopper.name,
             shopper.money,

@@ -1,5 +1,3 @@
-
-
 def trip_cost(
         customer_loc: list,
         shop_loc: list,
@@ -35,7 +33,7 @@ def shopping_start(
             f"{name} rides to {shop}\n\n"
             "Date: 04/01/2021 12:33:41\n"
             f"Thanks, {name}, for you purchase!\n"
-            "You have bought:\n"
+            "You have bought: \n"
             f"{prod_pack['milk'][0]} milks"
             f" for {prod_pack['milk'][1]} dollars\n"
             f"{prod_pack['bread'][0]} breads"
@@ -49,4 +47,4 @@ def shopping_start(
         )
     else:
         print(f"{name} doesn't have enough money"
-              f" to make purchase in any shop\n")
+              f" to make purchase in any shop")
