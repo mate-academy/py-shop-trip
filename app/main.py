@@ -43,15 +43,15 @@ def shop_trip() -> None:
                             customer.location, shop.location
                         )
                         * fuel_price * 2,
-                        2)
+                        2
+                    )
                     shop_costs_list.append((total_costs, costs, shop))
                     print(f"{customer.name}'s trip to the "
                           f"{shop.name} costs {total_costs}")
 
             min_shop_information = min(shop_costs_list)
-            min_total_costs = min_shop_information[0]
-            min_shop_costs = min_shop_information[1]
-            cheapest_shop = min_shop_information[2]
+            min_total_costs, min_shop_costs, cheapest_shop = \
+                min_shop_information
 
             if min_total_costs <= customer.money:
                 print(f"{customer.name} rides to {cheapest_shop.name}")
