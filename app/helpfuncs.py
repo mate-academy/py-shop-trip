@@ -33,13 +33,14 @@ def shopping_start(
             f"{name} rides to {shop}\n\n"
             "Date: 04/01/2021 12:33:41\n"
             f"Thanks, {name}, for you purchase!\n"
-            "You have bought: \n"
-            f"{prod_pack['milk'][0]} milks"
-            f" for {prod_pack['milk'][1]} dollars\n"
-            f"{prod_pack['bread'][0]} breads"
-            f" for {prod_pack['bread'][1]} dollars\n"
-            f"{prod_pack['butter'][0]} butters"
-            f" for {prod_pack['butter'][1]} dollars\n"
+            "You have bought: "
+        )
+        for product in prod_pack:
+            print(
+                f"{prod_pack[product][0]} {product}s"
+                f" for {prod_pack[product][1]} dollars"
+            )
+        print(
             f"Total cost is {receipt} dollars\n"
             "See you again!\n\n"
             f"{name} rides home\n"
