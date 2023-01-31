@@ -37,7 +37,7 @@ class Customer:
         print(f"Thanks, {self.name}, for you purchase!")
         print("You have bought: ")
         for product in self.product_cart.keys():
-            print (f"{self.product_cart[product]} {product}s "
-                   f"for {cheapest_shop[product]} dollars")
+            print(f"{self.product_cart[product]} {product}s "
+                  f"for {cheapest_shop[product]} dollars")
         print(f"Total cost is {total_price} dollars")
         print("See you again!\n")
