@@ -1,3 +1,10 @@
+from __future__ import annotations
+
+from typing import TYPE_CHECKING
+if TYPE_CHECKING:
+    from app.customer import Customer
+
+import datetime
 import dataclasses
 
 
@@ -7,15 +14,40 @@ class Shop:
     shop_location: list[int]
     shop_prices: dict[str, float]
 
-    def calculate_product(
-            self,
-            product_cart: dict[str, float]
-    ) -> dict[str, float]:
-        return {
-            product: (product_cart[product] * self.shop_prices[product])
-            for product in self.shop_prices.keys()
-        }
+    @staticmethod
+    def create_shop(shops: dict) -> list[Shop]:
+        shop_list = []
+        for shop in shops:
+            shop_list.append(
+                Shop(
+                    shop["name"],
+                    shop["location"],
+                    shop["products"]
+                )
+            )
+        return shop_list
 
     @staticmethod
-    def sum_of_products(products: dict[str, float]) -> float:
-        return sum(products.values())
+    def starting_and_ending_of_function(func: callable) -> callable:
+        def handler(shop: Shop, customer: Customer) -> callable:
+            print(
+                f"Date: "
+                f"{datetime.datetime.now().strftime('%d/%m/%Y %H:%M:%S')}"
+            )
+            print(f"Thanks, {customer.name}, for you purchase!")
+            func(shop, customer)
+            print("See you again!\n")
+
+        return handler
+
+    @starting_and_ending_of_function
+    def sell_products(self, customer: Customer) -> None:
+        print("You have bought: ")
+        total_cost = 0
+        for product in customer.product_cart:
+            product_cost = customer.product_cart[product] * self.shop_prices[product]
+            total_cost += product_cost
+            customer.money -= product_cost
+            print(f"{customer.product_cart[product]} {product}s "
+                  f"for {product_cost} dollars")
+        print(f"Total cost is {total_cost} dollars")
