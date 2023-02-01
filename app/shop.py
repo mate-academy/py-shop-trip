@@ -28,7 +28,7 @@ class Shop:
         return shop_list
 
     @staticmethod
-    def starting_and_ending_of_function(func: callable) -> callable:
+    def add_visit_header_and_footer(func: callable) -> callable:
         def handler(shop: Shop, customer: Customer) -> callable:
             print(
                 f"Date: "
@@ -40,7 +40,7 @@ class Shop:
 
         return handler
 
-    @starting_and_ending_of_function
+    @add_visit_header_and_footer
     def sell_products(self, customer: Customer) -> None:
         print("You have bought: ")
         total_cost = 0

@@ -18,7 +18,7 @@ class Customer:
     car: Car
 
     @staticmethod
-    def create_customers(customers: dict) -> list[Customer]:
+    def create_customers(customers: list) -> list[Customer]:
         customers_list = []
         for customer in customers:
             customers_list.append(
@@ -55,20 +55,28 @@ class Customer:
         one_km_consumption = self.car.fuel_consumption / 100
         consumption_for_trip = distance * one_km_consumption
         final_cost = consumption_for_trip * fuel_price
-        return final_cost
+        return final_cost * 2
 
     def charge_for_trip(self, shop: Shop, fuel_price: float) -> callable:
-        self.money -= float(self.trip_cost(shop, fuel_price)) * 2
+        self.money -= float(self.trip_cost(shop, fuel_price))
 
-    def choose_ideal_shop(self, shops: list, fuel_price: float) -> Shop | None:
+    def total_trip_cost(self, shop: Shop) -> float:
+        products_cost = sum(
+            self.product_cart[product] * shop.shop_prices[product]
+            for product in self.product_cart.keys()
+        )
+
+        return products_cost
+
+    def choose_ideal_shop(
+            self,
+            shops: list[Shop],
+            fuel_price: float
+    ) -> Shop | None:
         comparison_dict = {}
         for shop in shops:
-            travel_cost = self.trip_cost(shop, fuel_price) * 2
-            products_cost = sum(
-                self.product_cart[product] * shop.shop_prices[product]
-                for product in self.product_cart.keys()
-            )
-            total_cost = round(travel_cost + products_cost, 2)
+            total_cost = round(self.trip_cost(shop, fuel_price)
+                               + self.total_trip_cost(shop), 2)
             comparison_dict[total_cost] = shop
             print(
                 f"{self.name}'s trip to "
