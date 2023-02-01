@@ -79,7 +79,9 @@ class Customer:
     ) -> Shop | None:
         comparison_dict = {}
         for shop in shops:
-            total_cost = self.total_trip_cost(shop, shop.shop_prices, fuel_price)
+            total_cost = self.total_trip_cost(
+                shop, shop.shop_prices, fuel_price
+            )
             comparison_dict[total_cost] = shop
             print(
                 f"{self.name}'s trip to "
