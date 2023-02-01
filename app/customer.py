@@ -20,7 +20,7 @@ class Customer:
 
     @staticmethod
     def create_customers(customers: list) -> list[Customer]:
-        customers_list = [
+        return [
             Customer(customer["name"],
                      customer["product_cart"],
                      customer["location"],
@@ -30,8 +30,6 @@ class Customer:
                          customer["car"]["fuel_consumption"])
                      )
             for customer in customers]
-
-        return customers_list
 
     def print_money_remainder(self) -> None:
         print(f"{self.name} has {self.money} dollars")
@@ -58,10 +56,15 @@ class Customer:
     def charge_for_trip(self, shop: Shop, fuel_price: float) -> None:
         self.money -= float(self.trip_cost(shop, fuel_price))
 
-    def total_trip_cost(self, shop: Shop, fuel_price: float) -> float:
+    def total_trip_cost(
+            self,
+            shop: Shop,
+            products: dict[str, int or float],
+            fuel_price: float
+    ) -> float:
         products_cost = sum(
-            self.product_cart[product] * shop.shop_prices[product]
-            for product in self.product_cart.keys()
+            count * products[product]
+            for product, count in self.product_cart.items()
         )
 
         total_cost = round(self.trip_cost(shop, fuel_price)
@@ -76,7 +79,7 @@ class Customer:
     ) -> Shop | None:
         comparison_dict = {}
         for shop in shops:
-            total_cost = self.total_trip_cost(shop, fuel_price)
+            total_cost = self.total_trip_cost(shop, shop.shop_prices, fuel_price)
             comparison_dict[total_cost] = shop
             print(
                 f"{self.name}'s trip to "

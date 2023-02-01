@@ -17,27 +17,34 @@ class Shop:
         ]
         return shop_list
 
+    def get_product_cost(
+        self, name: str, count: int
+    ) -> float:
+        return count * self.shop_prices[name]
+
+    def get_product_costs(
+        self,
+        product_cart: dict[str, int],
+    ) -> float:
+        return sum(
+            self.get_product_cost(name, count)
+            for name, count in product_cart.items()
+        )
+
     def sell_products(
-            self,
-            product_cart: dict,
-            print_indicator: bool = True
+        self,
+        product_cart: dict[str, int],
     ) -> float:
 
-        if print_indicator:
-            print("You have bought: ")
+        print("You have bought: ")
 
         total_cost = 0
-        for product in product_cart:
-
-            product_cost = \
-                product_cart[product] * self.shop_prices[product]
+        for product, count in product_cart.items():
+            product_cost = self.get_product_cost(product, count)
             total_cost += product_cost
 
-            if print_indicator:
-                print(f"{product_cart[product]} {product}s "
-                      f"for {product_cost} dollars")
+            print(f"{count} {product}s for {product_cost} dollars")
 
-        if print_indicator:
-            print(f"Total cost is {total_cost} dollars")
+        print(f"Total cost is {total_cost} dollars")
 
         return total_cost
