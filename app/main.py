@@ -25,8 +25,10 @@ def shop_trip() -> None:
         shop_to_visit.sell_products(customer.product_cart)
         print("See you again!\n")
 
-        customer.money -= \
-            shop_to_visit.sell_products(customer.product_cart, False)
+        products_price = shop_to_visit.sell_products(
+            customer.product_cart, False
+        )
+        customer.money -= products_price
         customer.ride_home_and_show_remainder()
 
 

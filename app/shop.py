@@ -11,15 +11,10 @@ class Shop:
 
     @staticmethod
     def create_shop(shops: dict) -> list[Shop]:
-        shop_list = []
-        for shop in shops:
-            shop_list.append(
-                Shop(
-                    shop["name"],
-                    shop["location"],
-                    shop["products"]
-                )
-            )
+        shop_list = [
+            Shop(shop["name"], shop["location"], shop["products"])
+            for shop in shops
+        ]
         return shop_list
 
     def sell_products(

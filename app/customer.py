@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from typing import TYPE_CHECKING
+
 if TYPE_CHECKING:
     from app.shop import Shop
 
@@ -19,20 +20,17 @@ class Customer:
 
     @staticmethod
     def create_customers(customers: list) -> list[Customer]:
-        customers_list = []
-        for customer in customers:
-            customers_list.append(
-                Customer(
-                    customer["name"],
-                    customer["product_cart"],
-                    customer["location"],
-                    customer["money"],
-                    Car(
-                        customer["car"]["brand"],
-                        customer["car"]["fuel_consumption"]
-                    )
-                )
-            )
+        customers_list = [
+            Customer(customer["name"],
+                     customer["product_cart"],
+                     customer["location"],
+                     customer["money"],
+                     Car(
+                         customer["car"]["brand"],
+                         customer["car"]["fuel_consumption"])
+                     )
+            for customer in customers]
+
         return customers_list
 
     def print_money_remainder(self) -> None:
@@ -57,7 +55,7 @@ class Customer:
         final_cost = consumption_for_trip * fuel_price
         return final_cost * 2
 
-    def charge_for_trip(self, shop: Shop, fuel_price: float) -> callable:
+    def charge_for_trip(self, shop: Shop, fuel_price: float) -> None:
         self.money -= float(self.trip_cost(shop, fuel_price))
 
     def total_trip_cost(self, shop: Shop, fuel_price: float) -> float:
