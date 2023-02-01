@@ -1,10 +1,5 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING
-if TYPE_CHECKING:
-    from app.customer import Customer
-
-import datetime
 import dataclasses
 
 
@@ -27,28 +22,27 @@ class Shop:
             )
         return shop_list
 
-    @staticmethod
-    def add_visit_header_and_footer(func: callable) -> callable:
-        def handler(shop: Shop, customer: Customer) -> callable:
-            print(
-                f"Date: "
-                f"{datetime.datetime.now().strftime('%d/%m/%Y %H:%M:%S')}"
-            )
-            print(f"Thanks, {customer.name}, for you purchase!")
-            func(shop, customer)
-            print("See you again!\n")
+    def sell_products(
+            self,
+            product_cart: dict,
+            print_indicator: bool = True
+    ) -> float:
 
-        return handler
+        if print_indicator:
+            print("You have bought: ")
 
-    @add_visit_header_and_footer
-    def sell_products(self, customer: Customer) -> None:
-        print("You have bought: ")
         total_cost = 0
-        for product in customer.product_cart:
+        for product in product_cart:
+
             product_cost = \
-                customer.product_cart[product] * self.shop_prices[product]
+                product_cart[product] * self.shop_prices[product]
             total_cost += product_cost
-            customer.money -= product_cost
-            print(f"{customer.product_cart[product]} {product}s "
-                  f"for {product_cost} dollars")
-        print(f"Total cost is {total_cost} dollars")
+
+            if print_indicator:
+                print(f"{product_cart[product]} {product}s "
+                      f"for {product_cost} dollars")
+
+        if print_indicator:
+            print(f"Total cost is {total_cost} dollars")
+
+        return total_cost

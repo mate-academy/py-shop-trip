@@ -60,13 +60,16 @@ class Customer:
     def charge_for_trip(self, shop: Shop, fuel_price: float) -> callable:
         self.money -= float(self.trip_cost(shop, fuel_price))
 
-    def total_trip_cost(self, shop: Shop) -> float:
+    def total_trip_cost(self, shop: Shop, fuel_price: float) -> float:
         products_cost = sum(
             self.product_cart[product] * shop.shop_prices[product]
             for product in self.product_cart.keys()
         )
 
-        return products_cost
+        total_cost = round(self.trip_cost(shop, fuel_price)
+                           + products_cost, 2)
+
+        return total_cost
 
     def choose_ideal_shop(
             self,
@@ -75,8 +78,7 @@ class Customer:
     ) -> Shop | None:
         comparison_dict = {}
         for shop in shops:
-            total_cost = round(self.trip_cost(shop, fuel_price)
-                               + self.total_trip_cost(shop), 2)
+            total_cost = self.total_trip_cost(shop, fuel_price)
             comparison_dict[total_cost] = shop
             print(
                 f"{self.name}'s trip to "

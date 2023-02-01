@@ -2,6 +2,7 @@ from __future__ import annotations
 import json
 from app.shop import Shop
 from app.customer import Customer
+import datetime
 
 
 def shop_trip() -> None:
@@ -16,7 +17,16 @@ def shop_trip() -> None:
         if shop_to_visit is None:
             continue
         customer.charge_for_trip(shop_to_visit, fuel_price)
-        shop_to_visit.sell_products(customer)
+        print(
+            f"Date: "
+            f"{datetime.datetime.now().strftime('%d/%m/%Y %H:%M:%S')}"
+        )
+        print(f"Thanks, {customer.name}, for you purchase!")
+        shop_to_visit.sell_products(customer.product_cart)
+        print("See you again!\n")
+
+        customer.money -= \
+            shop_to_visit.sell_products(customer.product_cart, False)
         customer.ride_home_and_show_remainder()
 
 
