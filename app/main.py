@@ -1,9 +1,9 @@
 import json
 import datetime
 import os
-from car import Car
-from customer import Customer
-from shop import Shop
+from app.customer import Customer
+from app.shop import Shop
+from app.car import Car
 
 
 def shop_trip() -> None:
