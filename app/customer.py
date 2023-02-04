@@ -8,15 +8,14 @@ from app.recipe import Recipe
 
 
 class Customer:
-
     def __init__(
-            self,
-            name: str,
-            product_cart: dict,
-            location: List[int],
-            money: float,
-            car: Car,
-            fuel_price: float
+        self,
+        name: str,
+        product_cart: dict,
+        location: List[int],
+        money: float,
+        car: Car,
+        fuel_price: float,
     ) -> None:
         self.name = name
         self.product_cart = product_cart
@@ -27,14 +26,15 @@ class Customer:
         self.__home_location = location
 
     def get_distance_to_shop(self, location: List[int]) -> float:
-        return ((self.location[0] - location[0]) ** 2
-                + (self.location[1] - location[1]) ** 2) ** 0.5
+        return (
+            (self.location[0] - location[0]) ** 2
+            + (self.location[1] - location[1]) ** 2
+        ) ** 0.5
 
     def get_shopping_price(self, shop: Shop) -> Recipe:
         distance_to_shop = self.get_distance_to_shop(shop.location)
         cost_of_trip = self.car.get_cost_of_trip(
-            distance_to_shop,
-            self.fuel_price
+            distance_to_shop, self.fuel_price
         )
         cost_of_product_cart = shop.get_product_cart_price(self.product_cart)
         if cost_of_product_cart is None:
@@ -43,32 +43,38 @@ class Customer:
             cost_of_product_cart["recipe"],
             cost_of_trip,
             cost_of_product_cart["price"],
-            shop
+            shop,
         )
 
     def find_trip(self, shops: List[Shop]) -> Recipe:
-        trips = [self.get_shopping_price(shop) for shop in shops
-                 if self.get_shopping_price(shop) is not None]
+        trips = [
+            self.get_shopping_price(shop)
+            for shop in shops
+            if self.get_shopping_price(shop) is not None
+        ]
         best_buy = min(trips, key=lambda trip: trip.total_price, default=None)
         if best_buy is None:
             return
         if best_buy.total_price > self.money:
             best_buy = None
         for trip in trips:
-            print(f"{self.name}'s trip to the "
-                  f"{trip.shop.name} costs {trip.total_price}")
+            print(
+                f"{self.name}'s trip to the {trip.shop.name} costs"
+                f" {trip.total_price}"
+            )
         return best_buy
 
     def go_to_shopping(self, shops: List[Shop]) -> None:
         print(f"{self.name} has {self.money} dollars")
         recipe = self.find_trip(shops)
         if recipe is None:
-            print(f"{self.name} doesn't have enough "
-                  f"money to make purchase in any shop")
+            print(
+                f"{self.name} doesn't have enough money to make purchase in"
+                " any shop"
+            )
             return
-        print(f"{self.name} rides to {recipe.shop.name}")
+        print(f"{self.name} rides to {recipe.shop.name}\n")
         self.location = recipe.shop.location
-        print()
         print(
             f"Date: {datetime.datetime.now().strftime('%d/%m/%Y %H:%M:%S')}\n"
             f"Thanks, {self.name}, for you purchase!\n"
@@ -77,10 +83,10 @@ class Customer:
         for product in recipe.recipe.keys():
             print(product)
         print(f"Total cost is {recipe.recipe_price} dollars")
-        print("See you again!")
-        print()
+        print("See you again!\n")
         print(f"{self.name} rides home")
         self.location = self.__home_location
-        print(f"{self.name} now has "
-              f"{round(self.money - recipe.total_price, 2)} dollars")
-        print()
+        print(
+            f"{self.name} now has"
+            f" {round(self.money - recipe.total_price, 2)} dollars\n"
+        )

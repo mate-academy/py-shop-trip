@@ -9,20 +9,24 @@ def shop_trip() -> None:
     with open("app/config.json", "r") as file:
         config = file.read()
         config = json.loads(config)
-        customers = [Customer(
-            customer["name"],
-            customer["product_cart"],
-            customer["location"],
-            customer["money"],
-            Car(customer["car"]["brand"], customer["car"]["fuel_consumption"]),
-            config["FUEL_PRICE"]
-        ) for customer in config["customers"]
+        customers = [
+            Customer(
+                customer["name"],
+                customer["product_cart"],
+                customer["location"],
+                customer["money"],
+                Car(
+                    customer["car"]["brand"],
+                    customer["car"]["fuel_consumption"],
+                ),
+                config["FUEL_PRICE"],
+            )
+            for customer in config["customers"]
         ]
-        shops = [Shop(
-            shop["name"],
-            shop["location"],
-            shop["products"]
-        ) for shop in config["shops"]]
+        shops = [
+            Shop(shop["name"], shop["location"], shop["products"])
+            for shop in config["shops"]
+        ]
     for customer in customers:
         customer.go_to_shopping(shops)
 
