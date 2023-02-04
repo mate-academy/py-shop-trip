@@ -69,9 +69,11 @@ class Customer:
         print(f"{self.name} rides to {recipe.shop.name}")
         self.location = recipe.shop.location
         print()
-        print(f"Date: {datetime.datetime.now().strftime('%d/%m/%Y %H:%M:%S')}")
-        print(f"Thanks, {self.name}, for you purchase!")
-        print("You have bought: ")
+        print(
+            f"Date: {datetime.datetime.now().strftime('%d/%m/%Y %H:%M:%S')}\n"
+            f"Thanks, {self.name}, for you purchase!\n"
+            "You have bought: "
+        )
         for product in recipe.recipe.keys():
             print(product)
         print(f"Total cost is {recipe.recipe_price} dollars")
