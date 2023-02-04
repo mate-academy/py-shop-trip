@@ -10,14 +10,21 @@ class Shops:
         self.product = shop_dict["product"]
         self.customer = customer
 
+    def get_total(self, customer: Customers) -> float:
+        total_cost = sum(
+            [customer.prod_cart[key] * self.product[customer.prod_cart[key]]
+             for key in customer.prod_cart])
+        return round(total_cost, 2)
+
     def print_receipt(self, customer: Customers) -> None:
-        milk_cost = customer.prod_cart["milk"] * self.product["milk"]
-        bread = customer.prod_cart["bread"] * self.product["bread"]
-        butter = customer.prod_cart["butter"] * self.product["butter"]
-        amar = customer.prod_cart["milk"]
-        print(f"Date: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n")
-        print(f"Thanks, {customer.name}, for you purchase! \n")
-        print(f"You have bought:\n"
-        f"{customer.location[0]}")
-        print(f"{amar} milk for {milk_cost} dollars\n")
-              f"{customer.prod_cart["bread"]} ")
+        print(
+            f"Date: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n"
+            f"Thanks, {customer.name}, for you purchase! \n"
+            f"You have bought:\n")
+        for key in customer.prod_cart:
+            print(
+                f"{customer.prod_cart[key]} {customer.prod_cart[key].__name__} for "
+                f"{customer.prod_cart[key] * self.product[customer.prod_cart[key]]} dollars\n")
+        print(f"Total cost is {self.get_total(customer)} dollars\n")
+        print("See you again!")
+
