@@ -82,9 +82,11 @@ class Customer:
         )
         for product in recipe.recipe.keys():
             print(product)
-        print(f"Total cost is {recipe.recipe_price} dollars")
-        print("See you again!\n")
-        print(f"{self.name} rides home")
+        print(
+            f"Total cost is {recipe.recipe_price} dollars\n"
+            "See you again!\n\n"
+            f"{self.name} rides home"
+        )
         self.location = self.__home_location
         print(
             f"{self.name} now has"
