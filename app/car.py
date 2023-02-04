@@ -4,4 +4,4 @@ test = {"mjfy": 9,
          "wuryfhg": 8,
          "qwert": 7}
 
-print(min(test, key=lambda unit: test[unit]))
+print(max(test, key=lambda unit: test[unit]))
