@@ -4,11 +4,10 @@ from app.customer import Customers
 
 
 class Shops:
-    def __init__(self, shop_dict, customer: Customers) -> None:
+    def __init__(self, shop_dict) -> None:
         self.name = shop_dict["name"]
         self.location = shop_dict["location"]
         self.product = shop_dict["product"]
-        self.customer = customer
 
     def get_total(self, customer: Customers) -> float:
         total_cost = sum(
