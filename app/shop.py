@@ -13,10 +13,10 @@ class Shop:
         ):
             return
         recipe = {
-            (f"{amount} {product}s for "
-             f"{self.products[product] * amount} dollars"): (
-                self.products[product] * amount
-            )
+            (
+                f"{amount} {product}s for "
+                f"{self.products[product] * amount} dollars"
+            ): (self.products[product] * amount)
             for product, amount in product_cart.items()
         }
         return {"recipe": recipe, "price": sum(recipe.values())}

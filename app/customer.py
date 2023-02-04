@@ -4,7 +4,7 @@ from typing import List
 from app.car import Car
 from app.shop import Shop
 
-from app.recipe import Recipe
+from app.bill import Bill
 
 
 class Customer:
@@ -31,7 +31,7 @@ class Customer:
             + (self.location[1] - location[1]) ** 2
         ) ** 0.5
 
-    def get_shopping_price(self, shop: Shop) -> Recipe:
+    def get_shopping_price(self, shop: Shop) -> Bill:
         distance_to_shop = self.get_distance_to_shop(shop.location)
         cost_of_trip = self.car.get_cost_of_trip(
             distance_to_shop, self.fuel_price
@@ -39,29 +39,28 @@ class Customer:
         cost_of_product_cart = shop.get_product_cart_price(self.product_cart)
         if cost_of_product_cart is None:
             return
-        return Recipe(
+        return Bill(
             cost_of_product_cart["recipe"],
             cost_of_trip,
             cost_of_product_cart["price"],
             shop,
         )
 
-    def find_trip(self, shops: List[Shop]) -> Recipe:
-        trips = [
-            self.get_shopping_price(shop)
-            for shop in shops
-            if self.get_shopping_price(shop) is not None
-        ]
+    def find_trip(self, shops: List[Shop]) -> Bill:
+        trips = []
+        for shop in shops:
+            bill = self.get_shopping_price(shop)
+            if bill is not None:
+                trips.append(bill)
+                print(
+                    f"{self.name}'s trip to the {bill.shop.name} costs"
+                    f" {bill.total_price}"
+                )
         best_buy = min(trips, key=lambda trip: trip.total_price, default=None)
         if best_buy is None:
             return
         if best_buy.total_price > self.money:
             best_buy = None
-        for trip in trips:
-            print(
-                f"{self.name}'s trip to the {trip.shop.name} costs"
-                f" {trip.total_price}"
-            )
         return best_buy
 
     def go_to_shopping(self, shops: List[Shop]) -> None:

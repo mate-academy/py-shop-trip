@@ -4,7 +4,7 @@ from app.shop import Shop
 
 
 @dataclass
-class Recipe:
+class Bill:
     recipe: dict
     travel_cost: float
     recipe_price: float
