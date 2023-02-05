@@ -36,7 +36,11 @@ def shop_trip() -> None:
 
         shop_dict = {}
         for shop in shops:
-            total_expenses = customer.car.total_expenses(customer, shop, fuel_price)
+            total_expenses = customer.car.total_expenses(
+                customer,
+                shop,
+                fuel_price
+            )
             shop_dict[shop] = total_expenses
             customer.car.trip_info(customer, shop, fuel_price)
 
