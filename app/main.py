@@ -11,7 +11,7 @@ def get_food_cost(
         bayer: Customer,
         shops: List[Shop],
         fuel_price: float
-) -> Shop | float | float:
+) -> tuple[Shop, float, float]:
     min_cost = None
     for shop in shops:
         distance = bayer.get_track_distance(shop.location)
@@ -37,23 +37,23 @@ def shop_trip() -> None:
     fuel_price = config_data["FUEL_PRICE"]
     shops = [
         Shop(
-            config_data["shops"][index]["name"],
-            config_data["shops"][index]["location"],
-            config_data["shops"][index]["products"]
-        ) for index in range(len(config_data["shops"]))
+            shop["name"],
+            shop["location"],
+            shop["products"]
+        ) for shop in config_data["shops"]
     ]
     customers = [
         Customer(
-            config_data["customers"][index]["name"],
-            config_data["customers"][index]["product_cart"],
-            config_data["customers"][index]["location"],
-            config_data["customers"][index]["money"],
+            customer["name"],
+            customer["product_cart"],
+            customer["location"],
+            customer["money"],
             Car(
-                config_data["customers"][index]["car"]["brand"],
-                config_data["customers"][index]["car"]["fuel_consumption"]
+                customer["car"]["brand"],
+                customer["car"]["fuel_consumption"]
             ),
             []
-        ) for index in range(len(config_data["customers"]))
+        ) for customer in config_data["customers"]
     ]
 
     for bayer in customers:
