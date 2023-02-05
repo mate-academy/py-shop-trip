@@ -10,7 +10,7 @@ class Shop:
     products: dict
 
     def get_cost_food(self, customer: Customer) -> float:
-        cost_food = 0
-        for food in customer.product_cart.keys():
-            cost_food += customer.product_cart[food] * self.products[food]
-        return cost_food
+        return sum(
+            count * self.products[food]
+            for food, count in customer.product_cart.items()
+        )
