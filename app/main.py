@@ -1,9 +1,32 @@
 import json
 import datetime
 import os
+from typing import List
 from app.customer import Customer
 from app.shop import Shop
 from app.car import Car
+
+
+def get_food_cost(
+        bayer: Customer,
+        shops: List[Shop],
+        fuel_price: float
+) -> Shop | float | float:
+    min_cost = None
+    for shop in shops:
+        distance = bayer.get_track_distance(shop.location)
+        trac_cost = round(
+            distance * fuel_price * bayer.car.fuel_consumption / 100, 2
+        )
+        cost_food = shop.get_cost_food(bayer)
+        total_cost = cost_food + trac_cost
+        bayer.shop_info.append([total_cost, shop])
+        print(f"{bayer.name}'s trip to the {shop.name} costs {total_cost}")
+        if min_cost is None or total_cost < min_cost:
+            min_cost = total_cost
+            best_shop = shop
+            cost_only_food = min_cost - trac_cost
+    return best_shop, min_cost, cost_only_food
 
 
 def shop_trip() -> None:
@@ -12,16 +35,15 @@ def shop_trip() -> None:
     with open(path_file) as config_file:
         config_data = json.load(config_file)
     fuel_price = config_data["FUEL_PRICE"]
-    shop_list = []
-    customers_list = []
-    for index_shop in range(len(config_data["shops"])):
-        shop_list.append(Shop(
-            config_data["shops"][index_shop]["name"],
-            config_data["shops"][index_shop]["location"],
-            config_data["shops"][index_shop]["products"]
-        ))
-    for index in range(len(config_data["customers"])):
-        customers_list.append(Customer(
+    shops = [
+        Shop(
+            config_data["shops"][index]["name"],
+            config_data["shops"][index]["location"],
+            config_data["shops"][index]["products"]
+        ) for index in range(len(config_data["shops"]))
+    ]
+    customers = [
+        Customer(
             config_data["customers"][index]["name"],
             config_data["customers"][index]["product_cart"],
             config_data["customers"][index]["location"],
@@ -31,24 +53,15 @@ def shop_trip() -> None:
                 config_data["customers"][index]["car"]["fuel_consumption"]
             ),
             []
-        ))
+        ) for index in range(len(config_data["customers"]))
+    ]
 
-    for bayer in customers_list:
+    for bayer in customers:
         print(f"{bayer.name} has {bayer.money} dollars")
-        min_cost = 0
-        for shop in shop_list:
-            distance = bayer.trac_distance(shop.location)
-            trac_cost = round(
-                distance * fuel_price * bayer.car.fuel_consumption / 100, 2
-            )
-            cost_food = shop.cost_food(bayer)
-            total_cost = cost_food + trac_cost
-            bayer.shop_info.append([total_cost, shop])
-            print(f"{bayer.name}'s trip to the {shop.name} costs {total_cost}")
-            if min_cost == 0 or total_cost < min_cost:
-                min_cost = total_cost
-                best_shop = shop
-                cost_only_food = min_cost - trac_cost
+
+        best_shop, min_cost, cost_only_food = get_food_cost(
+            bayer, shops, fuel_price
+        )
         if min_cost > bayer.money:
             print(f"{bayer.name} doesn't have enough "
                   f"money to make purchase in any shop")
