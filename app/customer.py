@@ -10,3 +10,4 @@ class Customer:
         self.product_cart = product_cart
         self.location = location
         self.money = money
+
