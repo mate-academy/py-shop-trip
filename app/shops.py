@@ -1,6 +1,7 @@
 from datetime import datetime
-
-from app.customer import Customers
+# from typing import TYPE_CHECKING
+# if TYPE_CHECKING:
+from customer import Customers
 
 
 class Shops:
@@ -31,50 +32,36 @@ class Shops:
         print("See you again!")
 
 
-# if __name__ == "__main__":
-#     customer = {
-#             "name": "Bob",
-#             "product_cart": {
-#                 "milk": 4,
-#                 "bread": 2,
-#                 "butter": 5
-#             },
-#             "location": [12, -2],
-#             "money": 55,
-#             "car": {
-#                 "brand": "Suzuki",
-#                 "fuel_consumption": 9.9
-#             }
-#         }
-#     person = Customers(customer)
-#     shops = [{
-#             "name": "Outskirts Shop",
-#             "location": [10, -5],
-#             "products": {
-#                 "milk": 3,
-#                 "bread": 1,
-#                 "butter": 2.5
-#             }
-#         },
-#         {
-#             "name": "Shop '24/7'",
-#             "location": [4, 3],
-#             "products": {
-#                 "milk": 2,
-#                 "bread": 1.5,
-#                 "butter": 3.2
-#             }
-#         },
-#         {
-#             "name": "Central Shop",
-#             "location": [0, 0],
-#             "products": {
-#                 "milk": 3,
-#                 "bread": 2,
-#                 "butter": 3.5
-#             }
-#         }]
-#     market = Shops(shops)
-#
-#     print(market.list_of_shops)
+if __name__ == "__main__":
+    shops = [{
+            "name": "Outskirts Shop",
+            "location": [10, -5],
+            "products": {
+                "milk": 3,
+                "bread": 1,
+                "butter": 2.5
+            }
+        },
+        {
+            "name": "Shop '24/7'",
+            "location": [4, 3],
+            "products": {
+                "milk": 2,
+                "bread": 1.5,
+                "butter": 3.2
+            }
+        },
+        {
+            "name": "Central Shop",
+            "location": [0, 0],
+            "products": {
+                "milk": 3,
+                "bread": 2,
+                "butter": 3.5
+            }
+        }]
+    for market in shops:
+        market = Shops(market)
+    print(market.name)
+
 
