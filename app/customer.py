@@ -1,10 +1,9 @@
 import datetime
 from typing import List
 
+from app.bill import Bill
 from app.car import Car
 from app.shop import Shop
-
-from app.bill import Bill
 
 
 class Customer:
@@ -67,11 +66,10 @@ class Customer:
         print(f"{self.name} has {self.money} dollars")
         recipe = self.find_trip(shops)
         if recipe is None:
-            print(
-                f"{self.name} doesn't have enough money to make purchase in"
-                " any shop"
-            )
-            return
+            return self.__stay_home()
+        self.__go_to_shop(recipe)
+
+    def __go_to_shop(self, recipe: Bill) -> None:
         print(f"{self.name} rides to {recipe.shop.name}\n")
         self.location = recipe.shop.location
         print(
@@ -79,7 +77,7 @@ class Customer:
             f"Thanks, {self.name}, for you purchase!\n"
             "You have bought: "
         )
-        for product in recipe.recipe.keys():
+        for product in recipe.recipe:
             print(product)
         print(
             f"Total cost is {recipe.recipe_price} dollars\n"
@@ -90,4 +88,10 @@ class Customer:
         print(
             f"{self.name} now has"
             f" {round(self.money - recipe.total_price, 2)} dollars\n"
+        )
+
+    def __stay_home(self) -> None:
+        print(
+            f"{self.name} doesn't have enough money to make purchase in"
+            " any shop"
         )

@@ -9,7 +9,7 @@ class Shop:
 
     def get_product_cart_price(self, product_cart: dict) -> dict:
         if not all(
-            [product in self.products.keys() for product in product_cart]
+            [product in self.products for product in product_cart]
         ):
             return
         recipe = {
