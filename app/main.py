@@ -7,8 +7,7 @@ from app.shop import Shop
 
 def shop_trip() -> None:
     with open("app/config.json", "r") as file:
-        config = file.read()
-    config = json.loads(config)
+        config = json.load(file)
     customers = [
         Customer(
             customer["name"],
