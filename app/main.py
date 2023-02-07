@@ -1,3 +1,4 @@
+import datetime
 import json
 from app.car import Car
 from app.shop import Shop
@@ -30,19 +31,39 @@ def shop_trip() -> None:
             fuel_consumption=customer.car["fuel_consumption"]
         )
 
-        customer.get_amount_of_money()
+        print(f"{customer.name} has {customer.money} dollars")
 
         shop_dict = {}
         for shop in shops:
             shop_dict[shop] = car.get_total_trip_cost(
                 customer, shop, fuel_price
             )
-            car.get_shopping_options(customer, shop, fuel_price)
+            print(f"{customer.name}'s trip to the {shop.name} costs "
+                  f"{car.get_total_trip_cost(customer, shop, fuel_price)}")
 
         best_shop = min(shop_dict, key=shop_dict.get)
         if customer.money >= shop_dict[best_shop]:
-            best_shop.get_best_option(customer)
-            best_shop.get_receipt(customer)
-            car.get_home(customer, best_shop, fuel_price)
+            print(f"{customer.name} rides to {best_shop.name}")
+
+            current_date = datetime.datetime.now()
+            print(f"\nDate: {current_date.strftime('%d/%m/%Y %H:%M:%S')}\n"
+                  f"Thanks, {customer.name}, for you purchase!\n"
+                  f"You have bought: ")
+
+            for product in customer.product_cart:
+                number = customer.product_cart[product]
+                price = number * best_shop.products[product]
+                print(f"{number} {product}s for {price} dollars")
+            print(f"Total cost is "
+                  f"{best_shop.get_shopping_cost(customer)} dollars\n"
+                  f"See you again!\n")
+
+            total_cost = car.get_total_trip_cost(
+                customer, best_shop, fuel_price
+            )
+            rest_on_balance = customer.money - total_cost
+            print(f"{customer.name} rides home\n"
+                  f"{customer.name} now has {rest_on_balance} dollars\n")
         else:
-            customer.not_enough_money()
+            print(f"{customer.name} doesn't have enough money "
+                  f"to make purchase in any shop")

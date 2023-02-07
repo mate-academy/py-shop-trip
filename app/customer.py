@@ -12,10 +12,3 @@ class Customer:
         self.location = location
         self.money = money
         self.car = car
-
-    def get_amount_of_money(self) -> None:
-        print(f"{self.name} has {self.money} dollars")
-
-    def not_enough_money(self) -> None:
-        print(f"{self.name} doesn't have enough money to make purchase "
-              f"in any shop")

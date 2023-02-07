@@ -31,23 +31,3 @@ class Car:
             + self.get_trip_cost(fuel_price, customer, shop)
         )
         return total_trip_cost
-
-    def get_shopping_options(
-            self,
-            customer: Customer,
-            shop: Shop,
-            fuel_price: float
-    ) -> None:
-        print(f"{customer.name}'s trip to the {shop.name} "
-              f"costs {self.get_total_trip_cost(customer, shop, fuel_price)}")
-
-    def get_home(
-            self,
-            customer: Customer,
-            shop: Shop,
-            fuel_price: float
-    ) -> None:
-        total_cost = self.get_total_trip_cost(customer, shop, fuel_price)
-        rest_on_balance = customer.money - total_cost
-        print(f"{customer.name} rides home\n"
-              f"{customer.name} now has {rest_on_balance} dollars\n")
