@@ -1,7 +1,6 @@
-import json
 import math
 
-from shops import Shops
+from app.shops import Shops
 
 
 class Customers:
@@ -13,43 +12,45 @@ class Customers:
         self.car = customer_dict["car"]
 
     @staticmethod
-    def distance_two_points(point_1: list, point_2: list):
+    def distance_two_points(point_1: list, point_2: list) -> float:
         x1, y1 = point_1
         x2, y2 = point_2
-        return round(math.sqrt((x1 - x2) ** 2 + (y1 - y2) ** 2), 2)
+        return math.sqrt((x1 - x2) ** 2 + (y1 - y2) ** 2)
 
-    def cost_trip(self, market):
-        distance_to_market = self.distance_two_points(market.location, self.location)
-        fuel_cost = 2 * distance_to_market * self.car["fuel_consumption"] / 100 * fuel_price
+    def cost_trip(self, market: Shops, fuel_price: float) -> float:
+        distance_to_market = self.distance_two_points(
+            market.location, self.location
+        )
+        fuel_cost = 2 * distance_to_market * self.car[
+            "fuel_consumption"] / 100 * fuel_price
+
         money_in_market = Shops.get_total(market, self)
-        total_cost = round((money_in_market + fuel_cost), 2)
-        return total_cost
+        total_cost = money_in_market + fuel_cost
+        return round(total_cost, 2)
 
-
-
-
-if __name__ == "__main__":
-    with open("config.json", "r") as data_file:
-        config_file = json.load(data_file)
-        fuel_price = config_file["FUEL_PRICE"]
-
-        for shop in config_file["shops"]:
-            market = Shops(shop)
-        for customer in config_file["customers"]:
-            person = Customers(customer)
-                    #-----START-----#
-            print(f"{person.name} has {person.money} dollars")
-            dict_cost = {}
-            for shop in market.list_of_shops:
-                cost_trip = person.cost_trip(shop)
-                print(f"{person.name}'s trip to the {shop.name} costs {cost_trip}")
-                dict_cost[shop.name] = cost_trip
-            min_money = min(dict_cost.values())
+    def choice_of_options(self, market: Shops, fuel_price: float) -> None:
+        favorite_shop = ""
+        print(f"{self.name} has {self.money} dollars")
+        dict_cost = {}
+        for shop in market.list_of_shops:
+            cost_trip = self.cost_trip(shop, fuel_price)
+            print(f"{self.name}'s trip to the {shop.name} costs {cost_trip}")
+            dict_cost[shop.name] = cost_trip
+        min_money = min(dict_cost.values())
+        if self.money > min_money:
             for key, value in dict_cost.items():
                 if value == min_money:
                     favorite_shop = key
-                    print(f"{person.name} rides to {favorite_shop}\n")
+                    print(f"{self.name} rides to {favorite_shop}\n")
             for shop in market.list_of_shops:
                 if shop.name == favorite_shop:
-                    print(shop.name)
-                    Shops.print_receipt(shop, person)
+                    Shops.print_receipt(shop, self)
+                    print(f"{self.name} rides home")
+                    balance_of_money = round(
+                        self.money - self.cost_trip(shop, fuel_price
+                                                    ), 2)
+
+                    print(f"{self.name} now has {balance_of_money} dollars\n")
+        else:
+            print(f"{self.name} doesn't have enough "
+                  f"money to make purchase in any shop")
