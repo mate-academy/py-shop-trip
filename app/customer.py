@@ -1,5 +1,6 @@
 from __future__ import annotations
 from typing import List
+
 from app.car import Car
 from app.shop import Shop
 
@@ -19,11 +20,13 @@ class Customer:
 
     @classmethod
     def make_instance(cls, customer: dict) -> Customer:
-        return cls(customer["name"],
-                   customer["product_cart"],
-                   customer["location"],
-                   customer["money"],
-                   Car.make_instance(customer["car"]))
+        return cls(
+            customer["name"],
+            customer["product_cart"],
+            customer["location"],
+            customer["money"],
+            Car.make_instance(customer["car"])
+        )
 
     def calculate_trip_costs(self,
                              shops: List[Shop],
@@ -34,8 +37,8 @@ class Customer:
                               + (shop.location[1] - self.location[1]) ** 2)
                              ** (1 / 2)) * (self.car.fuel_consumption
                                             * fuel_price / 100)
-            for key in self.product_cart:
-                trip_cost += self.product_cart[key] * shop.products[key]
+            for product_item in self.product_cart:
+                trip_cost += self.product_cart[product_item] * shop.products[product_item]
             trip_cost = round(trip_cost, 2)
             trip_costs[trip_cost] = shop
             print(f"{self.name}'s trip to the {shop.name} costs {trip_cost}")

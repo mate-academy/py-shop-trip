@@ -11,9 +11,11 @@ class Shop:
 
     @classmethod
     def make_instance(cls, shop: dict) -> Shop:
-        return cls(shop["name"],
-                   shop["location"],
-                   shop["products"])
+        return cls(
+            shop["name"],
+            shop["location"],
+            shop["products"]
+        )
 
     def print_bill(self, customer: Callable) -> None:
         current_time = datetime.datetime.now()
@@ -21,10 +23,10 @@ class Shop:
         print(f"Thanks, {customer.name}, for you purchase!")
         print("You have bought: ")
         products_cost = 0
-        for key in customer.product_cart:
-            product_cost = customer.product_cart[key] * self.products[key]
-            print(f"{customer.product_cart[key]} "
-                  f"{key}s for {product_cost} dollars")
+        for product_item in customer.product_cart:
+            product_cost = customer.product_cart[product_item] * self.products[product_item]
+            print(f"{customer.product_cart[product_item]} "
+                  f"{product_item}s for {product_cost} dollars")
             products_cost += product_cost
         print(f"Total cost is {products_cost} dollars")
         print("See you again!\n")

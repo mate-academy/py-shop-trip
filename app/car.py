@@ -8,5 +8,7 @@ class Car:
 
     @classmethod
     def make_instance(cls, car: dict) -> Car:
-        return cls(car["brand"],
-                   car["fuel_consumption"])
+        return cls(
+            car["brand"],
+            car["fuel_consumption"]
+        )
