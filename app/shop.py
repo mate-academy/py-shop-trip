@@ -24,7 +24,8 @@ class Shop:
         print("You have bought: ")
         products_cost = 0
         for product_item in customer.product_cart:
-            product_cost = customer.product_cart[product_item] * self.products[product_item]
+            product_cost = (customer.product_cart[product_item]
+                            * self.products[product_item])
             print(f"{customer.product_cart[product_item]} "
                   f"{product_item}s for {product_cost} dollars")
             products_cost += product_cost

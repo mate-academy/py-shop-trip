@@ -4,7 +4,11 @@ from app.customer import Customer
 from app.shop import Shop
 
 
-def print_user_info(customer: Customer, shops: List[Shop], fuel_price: float) -> None:
+def print_user_info(
+        customer: Customer,
+        shops: List[Shop],
+        fuel_price: float
+) -> None:
     print(f"{customer.name} has {customer.money} dollars")
     cheapest_shop = customer.calculate_trip_costs(shops, fuel_price)
     if cheapest_shop != "not_enough_money":

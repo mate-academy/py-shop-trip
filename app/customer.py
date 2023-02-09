@@ -38,7 +38,8 @@ class Customer:
                              ** (1 / 2)) * (self.car.fuel_consumption
                                             * fuel_price / 100)
             for product_item in self.product_cart:
-                trip_cost += self.product_cart[product_item] * shop.products[product_item]
+                trip_cost += (self.product_cart[product_item]
+                              * shop.products[product_item])
             trip_cost = round(trip_cost, 2)
             trip_costs[trip_cost] = shop
             print(f"{self.name}'s trip to the {shop.name} costs {trip_cost}")
