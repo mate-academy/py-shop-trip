@@ -5,19 +5,19 @@ class Shop:
     shops = []
 
     def __init__(self, shop_dict: dict) -> None:
-        self.name = shop_dict["name"]
-        self.location = shop_dict["location"]
-        self.product = shop_dict["products"]
+        self.name = shop_dict.get("name")
+        self.location = shop_dict.get("location")
+        self.product = shop_dict.get("products")
         Shop.shops.append(self)
 
 
 class Customer:
     def __init__(self, customer_dict: dict) -> None:
-        self.name = customer_dict["name"]
-        self.prod_cart = customer_dict["product_cart"]
-        self.location = customer_dict["location"]
-        self.money = customer_dict["money"]
-        self.car = customer_dict["car"]
+        self.name = customer_dict.get("name")
+        self.prod_cart = customer_dict.get("product_cart")
+        self.location = customer_dict.get("location")
+        self.money = customer_dict.get("money")
+        self.car = customer_dict.get("car")
 
     @staticmethod
     def distance_two_points(point_1: list, point_2: list) -> float:
