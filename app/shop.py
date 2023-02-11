@@ -30,12 +30,6 @@ class Shop:
                      func: Any,
                      customer: str) -> None:
         dt = datetime.datetime.now()
-        dt = dt.replace(year=2021,
-                        month=1,
-                        day=4,
-                        hour=12,
-                        minute=33,
-                        second=41)
         dt = dt.strftime("%d/%m/%Y %H:%M:%S")
         print(f"Date: {dt}")
         print(f"Thanks, {customer}, for you purchase!")
