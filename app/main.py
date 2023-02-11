@@ -13,12 +13,12 @@ def shop_trip() -> None:
         fuel_price = config_file["FUEL_PRICE"]
 
         # creating instances of the class
-        for shop in config_file["shops"]:
-            market = Shop(shop)
+        list(map(lambda shop: Shop(shop), config_file["shops"]))
         for customer in config_file["customers"]:
             person = Customer(customer)
+
             # main function run
-            person.trip_in_shop(market, fuel_price)
+            person.trip_in_shop(fuel_price)
 
 
 if __name__ == "__main__":

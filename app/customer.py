@@ -2,13 +2,13 @@ import math
 
 
 class Shop:
-    list_of_shops = []
+    shops = []
 
     def __init__(self, shop_dict: dict) -> None:
         self.name = shop_dict["name"]
         self.location = shop_dict["location"]
         self.product = shop_dict["products"]
-        Shop.list_of_shops.append(self)
+        Shop.shops.append(self)
 
 
 class Customer:
@@ -27,17 +27,19 @@ class Customer:
 
     def get_total_in_shop(self, market: Shop) -> float:
         total_cost = sum(
-            [self.prod_cart[product] * market.product[product]
-             for product in self.prod_cart])
+            self.prod_cart[product] * market.product[product]
+            for product in self.prod_cart)
         return total_cost
 
     def cost_trip(self, market: Shop, fuel_price: float) -> float:
         distance_to_market = self.distance_two_points(
             market.location, self.location
         )
-        fuel_cost = 2 * distance_to_market \
-            * (self.car["fuel_consumption"] / 100) \
+        fuel_cost = (
+            2 * distance_to_market
+            * (self.car["fuel_consumption"] / 100)
             * fuel_price
+        )
         total_cost = self.get_total_in_shop(market) + fuel_cost
         return round(total_cost, 2)
 
@@ -53,10 +55,10 @@ class Customer:
         print(f"Total cost is {self.get_total_in_shop(market)} dollars")
         print("See you again!\n")
 
-    def optimal_shop(self, market: Shop, fuel_price: float) -> None | str:
+    def optimal_shop(self, fuel_price: float) -> None | str:
         favorite_shop = ""
         dict_cost = {}
-        for shop in market.list_of_shops:
+        for shop in Shop.shops:
             cost_trip = self.cost_trip(shop, fuel_price)
             print(f"{self.name}'s trip to the {shop.name} costs {cost_trip}")
             dict_cost[shop.name] = cost_trip
@@ -72,10 +74,10 @@ class Customer:
             return
         return favorite_shop
 
-    def trip_in_shop(self, market: Shop, fuel_price: float) -> None:
+    def trip_in_shop(self, fuel_price: float) -> None:
         print(f"{self.name} has {self.money} dollars")
-        optimal_shop = self.optimal_shop(market, fuel_price)
-        for shop in market.list_of_shops:
+        optimal_shop = self.optimal_shop(fuel_price)
+        for shop in Shop.shops:
             if shop.name == optimal_shop:
                 self.print_receipt(shop)
                 print(f"{self.name} rides home")
