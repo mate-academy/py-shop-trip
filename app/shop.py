@@ -31,14 +31,14 @@ class Shop:
                      customer: str) -> None:
         dt = datetime.datetime.now()
         dt = dt.strftime("%d/%m/%Y %H:%M:%S")
-        print(f"Date: {dt}")
-        print(f"Thanks, {customer}, for you purchase!")
-        print("You have bought: ")
-        print(f"{product['milk']} milks for "
-              f"{self.products['milk'] * product['milk']} dollars")
-        print(f"{product['bread']} breads for "
-              f"{self.products['bread'] * product['bread']} dollars")
-        print(f"{product['butter']} butters for "
-              f"{self.products['butter'] * product['butter']} dollars")
-        print(f"Total cost is {func} dollars")
-        print("See you again!")
+        print(f"Date: {dt}\n"
+              f"Thanks, {customer}, for you purchase!\n"
+              "You have bought: \n"
+              f"{product['milk']} milks for "
+              f"{self.products['milk'] * product['milk']} dollars\n"
+              f"{product['bread']} breads for "
+              f"{self.products['bread'] * product['bread']} dollars\n"
+              f"{product['butter']} butters for "
+              f"{self.products['butter'] * product['butter']} dollars\n"
+              f"Total cost is {func} dollars\n"
+              "See you again!")
