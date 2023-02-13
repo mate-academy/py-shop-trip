@@ -16,23 +16,23 @@ def shop_trip() -> None:
     ]
     for customer in customers:
         print(f"{customer.name} has {customer.money} dollars")
-        choices = {}
+        options = {}
         for shop in shops:
             money = round(
                 customer.calculate_way_to_shop(shop, fuel_price) * 2
                 + customer.calculate_products_cost(shop),
                 2,
             )
-            choices[money] = shop.name, shop
+            options[money] = shop
             print(f"{customer.name}'s trip to the {shop.name} costs {money}")
-        selected_shop = choices[min(choices)][1]
+        selected_shop = options[min(options)]
 
-        if min(choices) <= customer.money:
-            print(f"{customer.name} rides to {choices[min(choices)][0]}")
-            customer.creare_chek(selected_shop)
+        if min(options) <= customer.money:
+            print(f"{customer.name} rides to {options[min(options)].name}")
+            customer.create_chek(selected_shop)
             print(
                 f"{customer.name} rides home\n{customer.name} now has "
-                f"{round(customer.money - min(choices), 2)} dollars\n"
+                f"{round(customer.money - min(options), 2)} dollars\n"
             )
 
         else:

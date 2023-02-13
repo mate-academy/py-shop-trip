@@ -46,7 +46,7 @@ class Customer:
             money += shop.products[product] * self.product_cart[product]
         return money
 
-    def creare_chek(self, shop: Shop) -> None:
+    def create_chek(self, shop: Shop) -> None:
         print("\nDate: 04/01/2021 12:33:41")
         print(f"Thanks, {self.name}, for you purchase!\nYou have bought: ")
         check_money = 0
