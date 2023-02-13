@@ -11,8 +11,9 @@ def shop_trip() -> None:
     customers = [
         Customer.create_customer(customer) for customer in context["customers"]
     ]
-    shops = [Shop.create_shop(shop) for shop in context["shops"]]
-
+    shops = [
+        Shop.create_shop(shop) for shop in context["shops"]
+    ]
     for customer in customers:
         print(f"{customer.name} has {customer.money} dollars")
         choices = {}

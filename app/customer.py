@@ -2,7 +2,6 @@ from __future__ import annotations
 
 from app.car import Car
 from app.shop import Shop
-# import datetime
 
 
 class Customer:
@@ -49,10 +48,7 @@ class Customer:
 
     def creare_chek(self, shop: Shop) -> None:
         print("\nDate: 04/01/2021 12:33:41")
-        # print(f"\nDate: {datetime.datetime.now().
-        # strftime('%m/%d/%Y %H:%M:%S')}")
-        print(f"Thanks, {self.name}, for you purchase!")
-        print("You have bought: ")
+        print(f"Thanks, {self.name}, for you purchase!\nYou have bought: ")
         check_money = 0
         for product, count in self.product_cart.items():
             money = shop.products[product] * self.product_cart[product]
