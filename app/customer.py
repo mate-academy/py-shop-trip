@@ -1,4 +1,5 @@
 from __future__ import annotations
+from typing import List
 
 from app.car import Car
 from app.shop import Shop
@@ -9,7 +10,7 @@ class Customer:
             self,
             name: str,
             product_cart: dict,
-            location: list,
+            location: List[list],
             money: int,
             car: Car
     ) -> None:
@@ -19,9 +20,9 @@ class Customer:
         self.money = money
         self.car = car
 
-    @staticmethod
-    def create_customer(customer: dict) -> Customer:
-        return Customer(
+    @classmethod
+    def load_from_dict(cls, customer: dict) -> Customer:
+        return cls(
             name=customer["name"],
             product_cart=customer["product_cart"],
             location=customer["location"],
@@ -37,14 +38,13 @@ class Customer:
             + ((self.location[1] - shop.location[1]) ** 2)
         ) ** 0.5
         fuel_volume = way_km * self.car.fuel_consumption_for_100_km / 100
-        money = fuel_volume * fuel_prise
-        return money
+        return fuel_volume * fuel_prise
 
     def calculate_products_cost(self, shop: Shop) -> float:
-        money = 0
-        for product, cost in self.product_cart.items():
-            money += shop.products[product] * self.product_cart[product]
-        return money
+        return sum(
+            shop.products[product] * self.product_cart[product]
+            for product, cost in self.product_cart.items()
+        )
 
     def create_chek(self, shop: Shop) -> None:
         print("\nDate: 04/01/2021 12:33:41")

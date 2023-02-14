@@ -9,10 +9,10 @@ def shop_trip() -> None:
         context = json.load(file)
     fuel_price = context["FUEL_PRICE"]
     customers = [
-        Customer.create_customer(customer) for customer in context["customers"]
+        Customer.load_from_dict(customer) for customer in context["customers"]
     ]
     shops = [
-        Shop.create_shop(shop) for shop in context["shops"]
+        Shop.load_from_dict(shop) for shop in context["shops"]
     ]
     for customer in customers:
         print(f"{customer.name} has {customer.money} dollars")
@@ -27,7 +27,7 @@ def shop_trip() -> None:
             print(f"{customer.name}'s trip to the {shop.name} costs {money}")
         selected_shop = options[min(options)]
 
-        if min(options) <= customer.money:
+        if options and min(options) <= customer.money:
             print(f"{customer.name} rides to {options[min(options)].name}")
             customer.create_chek(selected_shop)
             print(
