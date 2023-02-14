@@ -2,7 +2,7 @@ from datetime import datetime as dt
 import math
 from dataclasses import dataclass
 from app.car import Car
-from app.shop import Shops
+from app.shop import Shop
 
 
 @dataclass()
@@ -23,7 +23,7 @@ class Customer:
 
         return math.sqrt((x1 - x2) ** 2 + (y1 - y2) ** 2)
 
-    def get_total_cost_in_shop(self, shop: Shops) -> int:
+    def get_total_cost_in_shop(self, shop: Shop) -> int:
         total_cost = sum(
             [shop.products[product]
              * self.product_cart[product]
@@ -34,14 +34,14 @@ class Customer:
     def get_price_for_trip(
             self,
             fuel_price: float,
-            shop: Shops
+            shop: Shop
     ) -> float:
         distance = self.distance_between_points(self.location, shop.location)
         spend_money_for_fuel = 2 * distance \
             * (self.car.fuel_for_100_km / 100) * fuel_price
         return spend_money_for_fuel
 
-    def get_receipt(self, shop: Shops) -> None:
+    def get_receipt(self, shop: Shop) -> None:
         print(f"Date: "
               f"{dt(2021, 1, 4, 12, 33, 41).strftime('%d/%m/%Y %H:%M:%S')}\n"
               f"Thanks, {self.name}, for you purchase!\n"
