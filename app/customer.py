@@ -5,7 +5,7 @@ from app.car import Car
 from app.shop import Shop
 
 
-@dataclass()
+@dataclass
 class Customer:
     name: str
     product_cart: dict
@@ -24,12 +24,8 @@ class Customer:
         return math.sqrt((x1 - x2) ** 2 + (y1 - y2) ** 2)
 
     def get_total_cost_in_shop(self, shop: Shop) -> int:
-        total_cost = sum(
-            [shop.products[product]
-             * self.product_cart[product]
-             for product in self.product_cart.keys()]
-        )
-        return total_cost
+        return sum(shop.products[product] * self.product_cart[product]
+                   for product in self.product_cart.keys())
 
     def get_price_for_trip(
             self,
@@ -37,9 +33,7 @@ class Customer:
             shop: Shop
     ) -> float:
         distance = self.distance_between_points(self.location, shop.location)
-        spend_money_for_fuel = 2 * distance \
-            * (self.car.fuel_for_100_km / 100) * fuel_price
-        return spend_money_for_fuel
+        return 2 * distance * (self.car.fuel_for_100_km / 100) * fuel_price
 
     def get_receipt(self, shop: Shop) -> None:
         print(f"Date: "

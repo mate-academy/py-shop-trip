@@ -19,13 +19,13 @@ def get_customer_data(data_json: Any) -> list[Customer]:
     customers_data = []
     for customer in data_json["customers"]:
         customers_data.append(Customer(
-            name=dict.get(customer, "name"),
-            product_cart=dict.get(customer, "product_cart"),
-            location=dict.get(customer, "location"),
-            money=dict.get(customer, "money"),
+            name=customer.get("name"),
+            product_cart=customer.get("product_cart"),
+            location=customer.get("location"),
+            money=customer.get("money"),
             car=Car(
-                brand=dict.get(customer["car"], "brand"),
-                fuel_for_100_km=dict.get(customer["car"], "fuel_consumption")
+                brand=customer["car"].get("brand"),
+                fuel_for_100_km=customer["car"].get("fuel_consumption")
             ),
         ))
     return customers_data
@@ -35,9 +35,9 @@ def get_shop_data(data_json: Any) -> list[Shop]:
     shops_data = []
     for shop in data_json["shops"]:
         shops_data.append(Shop(
-            name=shop["name"],
-            location=shop["location"],
-            products=shop["products"]
+            name=shop.get("name"),
+            location=shop.get("location"),
+            products=shop.get("products")
         ))
     return shops_data
 
