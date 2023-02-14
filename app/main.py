@@ -1,11 +1,11 @@
 import json
 
-from app.shop import Shop
 from app.customer import Customer
+from app.shop import Shop
 
 
 def shop_trip() -> None:
-    with open("./app/config.json") as file:
+    with open("app/config.json") as file:
         context = json.load(file)
     fuel_price = context["FUEL_PRICE"]
     customers = [
@@ -25,16 +25,15 @@ def shop_trip() -> None:
             )
             options[money] = shop
             print(f"{customer.name}'s trip to the {shop.name} costs {money}")
-        selected_shop = options[min(options)]
-
-        if options and min(options) <= customer.money:
-            print(f"{customer.name} rides to {options[min(options)].name}")
-            customer.create_chek(selected_shop)
+        cheap_trip = min(options)
+        selected_shop = options[cheap_trip]
+        if options and cheap_trip <= customer.money:
+            print(f"{customer.name} rides to {options[cheap_trip].name}")
+            customer.create_check(selected_shop)
             print(
                 f"{customer.name} rides home\n{customer.name} now has "
-                f"{round(customer.money - min(options), 2)} dollars\n"
+                f"{round(customer.money - cheap_trip, 2)} dollars\n"
             )
-
         else:
             print(
                 f"{customer.name} doesn't have enough money "

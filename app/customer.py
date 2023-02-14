@@ -29,7 +29,8 @@ class Customer:
             money=customer["money"],
             car=Car(
                 customer["car"]["brand"],
-                customer["car"]["fuel_consumption"]),
+                customer["car"]["fuel_consumption"],
+            ),
         )
 
     def calculate_way_to_shop(self, shop: Shop, fuel_prise: float) -> float:
@@ -46,7 +47,7 @@ class Customer:
             for product, cost in self.product_cart.items()
         )
 
-    def create_chek(self, shop: Shop) -> None:
+    def create_check(self, shop: Shop) -> None:
         print("\nDate: 04/01/2021 12:33:41")
         print(f"Thanks, {self.name}, for you purchase!\nYou have bought: ")
         check_money = 0
