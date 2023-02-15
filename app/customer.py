@@ -43,7 +43,7 @@ class Customer:
 
     def calculate_products_cost(self, shop: Shop) -> float:
         return sum(
-            shop.products[product] * self.product_cart[product]
+            shop.products[product] * cost
             for product, cost in self.product_cart.items()
         )
 
