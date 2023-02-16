@@ -6,25 +6,25 @@ from app.shop import Shop
 
 
 def shop_trip() -> None:
-    file_open = json.load(open("app/config.json", "r"))
+    input_data = json.load(open("app/config.json", "r"))
 
-    fuel_price, customers_list, shops_list = \
-        file_open["FUEL_PRICE"], file_open["customers"], file_open["shops"]
+    fuel_price, customers, shops =\
+        input_data["FUEL_PRICE"], input_data["customers"], input_data["shops"]
 
-    customers_list = Customer.constructor(customers_list)
-    shops_list = Shop.list_constructor(shops_list)
+    customers = Customer.constructor(customers)
+    shops = Shop.list_constructor(shops)
 
-    for customer in customers_list:
-        print(f"{customer.name} has {customer.money} dollars")
+    for customers in customers:
+        print(f"{customers.name} has {customers.money} dollars")
         best_shop = None
         shop_cost = None
 
-        for index, shop in enumerate(shops_list):
-            total_cost = customer.car.fuel_price(shop.location, fuel_price)
-            total_cost += shop.total_price(customer.product_cart)
+        for shop in shops:
+            total_cost = customers.car.fuel_price(shop.location, fuel_price)
+            total_cost += shop.total_price(customers.product_cart)
 
             print(
-                f"{customer.name}'s trip to the "
+                f"{customers.name}'s trip to the "
                 f"{shop.name} costs {total_cost}"
             )
 
@@ -32,25 +32,27 @@ def shop_trip() -> None:
                 best_shop = shop
                 shop_cost = total_cost
 
-        if customer.money < shop_cost:
+        if customers.money < shop_cost:
             print(
-                f"{customer.name} doesn't have enough "
+                f"{customers.name} doesn't have enough "
                 f"money to make purchase in any shop"
             )
             continue
 
-        customer.money -= shop_cost
+        customers.money -= shop_cost
 
-        print(f"{customer.name} rides to {best_shop}\n")
+        print(f"{customers.name} rides to {best_shop}\n")
         print(
             f"Date: "
             f"{datetime.datetime.now().strftime(f'%d/%m/%Y %H:%M:%S')}"
         )
-        print(f"Thanks, {customer.name}, for you purchase!\nYou have bought: ")
+        print(
+            f"Thanks, {customers.name}, for you purchase!\nYou have bought: "
+        )
 
-        best_shop.buy_product(customer.product_cart)
+        best_shop.buy_product(customers.product_cart)
 
         print(
-            f"{customer.name} rides home\n"
-            f"{customer.name} now has {customer.money} dollars\n"
+            f"{customers.name} rides home\n"
+            f"{customers.name} now has {customers.money} dollars\n"
         )

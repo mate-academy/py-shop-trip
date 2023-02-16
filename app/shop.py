@@ -9,8 +9,8 @@ class Shop:
 
     def total_price(self, product_cart: dict) -> float:
         price = 0
-        for key, value in product_cart.items():
-            price += self.products[key] * value
+        for product, price_product in product_cart.items():
+            price += self.products[product] * price_product
 
         return round(price, 2)
 

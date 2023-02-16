@@ -1,4 +1,6 @@
+from __future__ import annotations
 from dataclasses import dataclass
+
 
 from app.car import Car
 
@@ -14,9 +16,9 @@ class Customer:
         return self.name
 
     @classmethod
-    def constructor(cls, customer_list: list) -> list:
-        for index, customer in enumerate(customer_list):
-            customer_list[index] = Customer(
+    def constructor(cls, customer: list) -> list[Customer]:
+        customer = [
+            Customer(
                 name=customer["name"],
                 product_cart=customer["product_cart"],
                 money=customer["money"],
@@ -26,4 +28,6 @@ class Customer:
                     location=customer["location"]
                 )
             )
-        return customer_list
+            for customer in customer
+        ]
+        return customer
