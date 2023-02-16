@@ -6,10 +6,10 @@ from app.shop import Shop
 
 
 def shop_trip() -> None:
-    file = json.load(open("app/config.json", "r"))
+    file_open = json.load(open("app/config.json", "r"))
 
     fuel_price, customers_list, shops_list = \
-        file["FUEL_PRICE"], file["customers"], file["shops"]
+        file_open["FUEL_PRICE"], file_open["customers"], file_open["shops"]
 
     customers_list = Customer.constructor(customers_list)
     shops_list = Shop.list_constructor(shops_list)
