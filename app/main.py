@@ -5,9 +5,6 @@ from app.customer import Customer
 from app.shop import Shop
 
 
-def calculating_best_shop():
-    pass
-
 def shop_trip() -> None:
     input_data = json.load(open("app/config.json", "r"))
 
