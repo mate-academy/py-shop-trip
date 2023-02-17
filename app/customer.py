@@ -32,7 +32,7 @@ class Customer:
 
         return self.money > result, {"name": shop, "cost": result}
 
-    def ride_to_shop(self, shop: "Shop", cost: int) -> None:
+    def ride_to_shop(self, shop: "Shop", cost: float) -> None:
         print(f"{self.name} rides to {shop.name}\n")
         self.current_location = shop.location
         shop.serve_customer(self, cost)
