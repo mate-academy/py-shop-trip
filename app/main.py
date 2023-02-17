@@ -1,5 +1,5 @@
-import json
 import datetime
+import json
 
 from app.customer import Customer
 from app.shop import Shop
@@ -8,10 +8,13 @@ from app.shop import Shop
 def shop_trip() -> None:
     input_data = json.load(open("app/config.json", "r"))
 
-    fuel_price, customers, shops =\
-        input_data["FUEL_PRICE"], input_data["customers"], input_data["shops"]
+    fuel_price, customers, shops = (
+        input_data["FUEL_PRICE"],
+        input_data["customers"],
+        input_data["shops"]
+    )
 
-    customers = Customer.constructor(customers)
+    customers = Customer.list_constructor(customers)
     shops = Shop.list_constructor(shops)
 
     for customers in customers:

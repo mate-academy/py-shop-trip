@@ -15,8 +15,8 @@ class Customer:
         return self.name
 
     @classmethod
-    def constructor(cls, customer: list) -> list[Customer]:
-        customer = [
+    def list_constructor(cls, customers: list) -> list[Customer]:
+        customers = [
             Customer(
                 name=customer["name"],
                 product_cart=customer["product_cart"],
@@ -27,6 +27,6 @@ class Customer:
                     location=customer["location"]
                 )
             )
-            for customer in customer
+            for customer in customers
         ]
-        return customer
+        return customers
