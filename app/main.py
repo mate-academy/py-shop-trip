@@ -1,4 +1,5 @@
 import json
+from pathlib import Path
 
 from app.car import Car
 from app.customer import Customer
@@ -6,9 +7,9 @@ from app.shop import Shop
 
 
 def shop_trip() -> None:
-    with open(R"C:\Users\Pavel\MateAcademy"
-              R"\py-shop-trip\app\config.json", "r") as f:
-        file_data = json.load(f)
+    path_to_file = Path(__file__).parent.joinpath("config.json")
+    with open(path_to_file, "r") as file_read_stream:
+        file_data = json.load(file_read_stream)
 
     fuel_price = file_data["FUEL_PRICE"]
     customers = []
@@ -52,7 +53,7 @@ def shop_trip() -> None:
             ) * fuel_price
             products_cost = customer.count_purchases(shop.products)
             print(f"{customer.name}'s trip to the"
-                  f" {shop.name} cost "
+                  f" {shop.name} costs "
                   f"{round(transport_cost + products_cost, 2)}")
 
             if best_trip > transport_cost + products_cost:
@@ -70,8 +71,12 @@ def shop_trip() -> None:
             print(f"{customer.name} rides home")
             print(f"{customer.name} now has {rest_customer_money} dollars\n")
         else:
-            print(f"{customer.name} doesn't have"
-                  f" enough money to make purchase in any shop\n")
+            if customer == customers[-1]:
+                print(f"{customer.name} doesn't have"
+                      f" enough money to make purchase in any shop")
+            else:
+                print(f"{customer.name} doesn't have"
+                      f" enough money to make purchase in any shop\n")
 
 
 if __name__ == "__main__":

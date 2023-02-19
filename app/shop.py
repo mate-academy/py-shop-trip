@@ -21,8 +21,6 @@ class Shop:
 
         current_date = datetime.datetime.now()
 
-        # print(f"Date: {now.day}/{now.month}/{now.year}"
-        #       f" {now.hour}:{now.minute}:{now.second}")
         print(f"Date: {current_date.strftime('%d/%m/%Y %H:%M:%S')}")
         print(f"Thanks, {customer.name}, for you purchase!")
         print("You have bought: ")
