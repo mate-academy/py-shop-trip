@@ -8,7 +8,7 @@ class Car:
     fuel_consumption: int | float
 
     @classmethod
-    def car_info(cls, car: dict) -> Car:
+    def create_car_instance(cls, car: dict) -> Car:
         return cls(
             brand=car["brand"],
             fuel_consumption=car["fuel_consumption"]
