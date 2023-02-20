@@ -14,7 +14,7 @@ class Customer:
     car: Car
 
     @classmethod
-    def get_customer_info(cls, customer: dict) -> Customer:
+    def customer_info(cls, customer: dict) -> Customer:
         return cls(
             name=customer["name"],
             product_cart=customer["product_cart"],

@@ -21,9 +21,9 @@ def find_cheapest_shop_and_trip(
             (customer.car.fuel_consumption * fuel_price / 100) * distance, 2
         )
         product_price = 0
-        for name, quountity in customer.product_cart.items():
+        for name, quantit in customer.product_cart.items():
             product_price += (
-                quountity * shops[i].products[name]
+                quantit * shops[i].products[name]
             )
         total_price = product_price + trip_price
         print(
@@ -63,14 +63,14 @@ def get_check(customer: Customer, cheapest_shop: Shop) -> None:
 
 
 def shop_trip() -> None:
-    with open("app/config.json", "r") as file:
+    with open("config.json", "r") as file:
         data = json.load(file)
 
     fuel_price = data["FUEL_PRICE"]
     customers = [
-        Customer.get_customer_info(customer) for customer in data["customers"]
+        Customer.customer_info(customer) for customer in data["customers"]
     ]
-    shops = [Shop.get_shop_info(shop) for shop in data["shops"]]
+    shops = [Shop.shop_info(shop) for shop in data["shops"]]
 
     for customer in customers:
         print(f"{customer.name} has {customer.money} dollars")

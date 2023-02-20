@@ -9,7 +9,7 @@ class Shop:
     products: dict
 
     @classmethod
-    def get_shop_info(cls, shop: dict) -> Shop:
+    def shop_info(cls, shop: dict) -> Shop:
         return cls(
             name=shop["name"],
             location=shop["location"],

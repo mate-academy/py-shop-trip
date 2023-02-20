@@ -8,7 +8,7 @@ class Car:
     fuel_consumption: int | float
 
     @classmethod
-    def get_car_info(cls, car: dict) -> Car:
+    def car_info(cls, car: dict) -> Car:
         return cls(
             brand=car["brand"],
             fuel_consumption=car["fuel_consumption"]
