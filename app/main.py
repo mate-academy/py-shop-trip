@@ -1,45 +1,13 @@
-import json
-
-from app.car import Car
 from app.customers import Customer
 from app.shop import Shop
 
 
-def get_data() -> dict:
-    with open("app/config.json", "r") as data_file:
-        data = json.load(data_file)
-    return data
-
-
-def create_customer(customer: dict) -> Customer:
-    return Customer(
-        name=customer.get("name"),
-        product_cart=customer.get("product_cart"),
-        location=customer.get("location"),
-        money=customer.get("money"),
-        car=Car(customer.get("car").get("brand"),
-                customer.get("car").get("fuel_consumption"),
-                fuel_price=get_data().get("FUEL_PRICE"))
-    )
-
-
-def create_shop(shop: dict) -> Shop:
-    return Shop(
-        name=shop.get("name"),
-        location=shop.get("location"),
-        products=shop.get("products")
-    )
-
-
 def shop_trip() -> None:
-    for customer_data in get_data().get("customers"):
-        customer = create_customer(customer_data)
+    for customer in Customer.create_customer():
         customer.print_customers_money()
-
         cost_list = {}
         product_cost = {}
-        for shop_data in get_data().get("shops"):
-            shop = create_shop(shop_data)
+        for shop in Shop.create_shop():
             trip_cost = (shop.distance_cost(customer, customer.car)
                          + shop.product_costs(customer))
             print(
@@ -62,8 +30,7 @@ def shop_trip() -> None:
                 "You have bought: "
             )
 
-            for shop_data in get_data()["shops"]:
-                shop = create_shop(shop_data)
+            for shop in Shop.create_shop():
                 if shop.name == cheap_shop:
                     shop.print_purchase(customer)
 

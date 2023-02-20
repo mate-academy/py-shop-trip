@@ -3,6 +3,7 @@ from __future__ import annotations
 import math
 from dataclasses import dataclass
 
+from app.data import data
 from app.car import Car
 from app.customers import Customer
 
@@ -13,6 +14,19 @@ class Shop:
     location: list[int]
     products: dict
 
+    @staticmethod
+    def create_shop() -> list[Shop]:
+        shops_list = []
+        for shop in data.get("shops"):
+            shops_list.append(
+                Shop(
+                    name=shop.get("name"),
+                    location=shop.get("location"),
+                    products=shop.get("products")
+                )
+            )
+        return shops_list
+
     def distance_cost(self, customer: Customer, car: Car) -> float:
         return round(
             math.dist(customer.location, self.location) * 2
@@ -21,12 +35,11 @@ class Shop:
         )
 
     def product_costs(self, customer: Customer) -> float:
-        product_costs = 0
+        product_costs = []
         for product in self.products:
-            product_costs += (
-                self.products[product] * customer.product_cart[product]
-            )
-        return product_costs
+            product_costs.append(self.products[product]
+                                 * customer.product_cart[product])
+        return sum(product_costs)
 
     def print_purchase(self, customer: Customer) -> None:
         for product, number in customer.product_cart.items():
