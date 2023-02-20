@@ -15,7 +15,7 @@ class Shop:
     products: dict
 
     @staticmethod
-    def create_shop() -> list[Shop]:
+    def create_shops() -> list[Shop]:
         shops_list = []
         for shop in data.get("shops"):
             shops_list.append(
@@ -35,11 +35,10 @@ class Shop:
         )
 
     def product_costs(self, customer: Customer) -> float:
-        product_costs = []
-        for product in self.products:
-            product_costs.append(self.products[product]
-                                 * customer.product_cart[product])
-        return sum(product_costs)
+        return sum(
+            self.products[product] * customer.product_cart[product]
+            for product in self.products
+        )
 
     def print_purchase(self, customer: Customer) -> None:
         for product, number in customer.product_cart.items():

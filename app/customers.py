@@ -17,7 +17,7 @@ class Customer:
         print(f"{self.name} has {self.money} dollars")
 
     @staticmethod
-    def create_customer() -> list[Customer]:
+    def create_customers() -> list[Customer]:
         customers_list = []
         for customer in data.get("customers"):
             customers_list.append(

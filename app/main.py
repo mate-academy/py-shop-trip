@@ -3,11 +3,11 @@ from app.shop import Shop
 
 
 def shop_trip() -> None:
-    for customer in Customer.create_customer():
+    for customer in Customer.create_customers():
         customer.print_customers_money()
         cost_list = {}
         product_cost = {}
-        for shop in Shop.create_shop():
+        for shop in Shop.create_shops():
             trip_cost = (shop.distance_cost(customer, customer.car)
                          + shop.product_costs(customer))
             print(
@@ -30,7 +30,7 @@ def shop_trip() -> None:
                 "You have bought: "
             )
 
-            for shop in Shop.create_shop():
+            for shop in Shop.create_shops():
                 if shop.name == cheap_shop:
                     shop.print_purchase(customer)
 
