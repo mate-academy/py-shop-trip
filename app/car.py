@@ -11,7 +11,4 @@ class Car:
             shop_location: list[int],
             customer_location: list[int]
     ) -> float:
-        return math.sqrt(
-            (shop_location[0] - customer_location[0])
-            ** 2 + (shop_location[1] - customer_location[1]) ** 2
-        )
+        return math.dist(shop_location, customer_location)
