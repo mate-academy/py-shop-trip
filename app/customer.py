@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from decimal import Decimal
 from typing import List
 
@@ -21,7 +23,11 @@ class Customer:
         self.money = money
         self.car = car
 
-    def find_optimal_shop(self, shops: List[Shop], fuel_price: float) -> list:
+    def find_optimal_shop(
+            self,
+            shops: List[Shop],
+            fuel_price: float
+    ) -> list[Shop | str | int]:
         print(f"{self.name} has {self.money} dollars")
         optimal_shop = [shops[0], "", 10 ** 6]
         for shop in shops:
@@ -31,7 +37,10 @@ class Customer:
                 optimal_shop = [shop, shop.name, total_cost]
         return optimal_shop
 
-    def has_enough_money(self, optimal_shop: list) -> None:
+    def has_enough_money(
+            self,
+            optimal_shop: list[Shop | str | int]
+    ) -> None:
         print(f"{self.name} rides to {optimal_shop[1]}")
         self.location = optimal_shop[0].location
         print()
