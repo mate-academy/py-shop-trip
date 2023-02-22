@@ -43,6 +43,7 @@ class Customer:
         self.location = self.home_location
         current_wallet = self.money - optimal_shop[2]
         print(f"{self.name} now has {current_wallet} dollars")
+        print()
 
     def has_not_enough_money(self) -> None:
         print(f"{self.name} "
@@ -66,8 +67,6 @@ class Customer:
         return round(cost_of_road + Decimal(cost_of_products), 2)
 
     def print_check_of_customer(self, shop: Shop) -> None:
-        # current_time = datetime.datetime.now()
-        # print(current_time.strftime("%d/%m/%Y, %H:%M:%S"))
         print("Date: 04/01/2021 12:33:41")
 
         print(f"Thanks, {self.name}, for you purchase!")
