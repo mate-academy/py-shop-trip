@@ -1,14 +1,17 @@
 from typing import Dict
 
+from app.car import Car
+from app.location import Location
+
 
 class Customer:
     def __init__(
             self,
             name: str,
             product_cart: Dict[str, int],
-            location: "Location",
+            location: Location,
             money: int,
-            car: "Car"
+            car: Car
     ) -> None:
         self.name = name
         self.product_cart = product_cart

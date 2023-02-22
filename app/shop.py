@@ -1,13 +1,16 @@
 import datetime
 from typing import Dict
 
+from app.location import Location
+from app.product import Product
+
 
 class Shop:
     def __init__(
             self,
             name: str,
-            location: "Location",
-            products: Dict[str, "Product"]
+            location: Location,
+            products: Dict[str, Product]
     ) -> None:
         self.name = name
         self.location = location
