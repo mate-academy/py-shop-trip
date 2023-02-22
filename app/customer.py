@@ -31,8 +31,10 @@ class Customer:
 
         cheapest_trip_cost = min(trips_costs.keys())
         if self.money < cheapest_trip_cost:
-            print(f"{self.name} doesn't have enough "
-                  f"money to make purchase in any shop")
+            print(
+                f"{self.name} doesn't have enough "
+                f"money to make purchase in any shop"
+            )
             return False
         else:
             self._selected_shop = trips_costs[cheapest_trip_cost]
@@ -42,22 +44,28 @@ class Customer:
 
     def make_purchases(self) -> None:
         date = datetime(2021, 4, 1, 12, 33, 41).strftime("%m/%d/%Y %H:%M:%S")
-        print(f"Date: {date}")
-        print(f"Thanks, {self.name}, for you purchase!")
+        print(
+            f"Date: {date}\n"
+            f"Thanks, {self.name}, for you purchase!\n"
+            f"You have bought: "
+        )
 
-        print("You have bought: ")
         total_costs = 0
         for product, number in self.product_cart.items():
             price = self._selected_shop.assortment[product] * number
             print(f"{number} {product}s for {price} dollars")
             total_costs += price
 
-        print(f"Total cost is {total_costs} dollars")
-        print("See you again!\n")
+        print(
+            f"Total cost is {total_costs} dollars\n"
+            f"See you again!\n"
+        )
 
     def go_home(self) -> None:
-        print(f"{self.name} rides home")
-        print(f"{self.name} now has {self.money} dollars\n")
+        print(
+            f"{self.name} rides home\n"
+            f"{self.name} now has {self.money} dollars\n"
+        )
 
     def _calculate_fuel_costs(self, shop: Shop, fuel_price: float) -> float:
         distance = math.dist(self.location, shop.location)
