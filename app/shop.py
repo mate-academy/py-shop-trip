@@ -1,7 +1,7 @@
 import math
 
-from app.unpack_file import fuel_price, customer_list
 from app.customer import Customers
+from app.unpack_file import open_file
 
 
 class Shops:
@@ -14,7 +14,7 @@ class Shops:
         return round(
             (math.dist(self.location, customer.location) * 2)
             * (customer.car["fuel_consumption"] / 100)
-            * fuel_price, 2
+            * open_file()["fuel_price"], 2
         )
 
     def total_price_products(self, customer: Customers) -> float:
@@ -52,7 +52,7 @@ class Shops:
         )
 
     def way_home(self, customer: Customers) -> None:
-        for dict_customer in customer_list:
+        for dict_customer in open_file()["customer_list"]:
             if customer.name == dict_customer["name"]:
                 customer.location = dict_customer["location"]
 
