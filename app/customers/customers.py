@@ -18,7 +18,5 @@ class Customer:
         location_person_x, location_person_y = self.location
         distance = ((location_shop_x - location_person_x) ** 2
                     + (location_shop_y - location_person_y) ** 2) ** 0.5
-
-        costing = self.car["fuel_consumption"] * (round(distance, 2) / 100) * fuel_price
-        return round(costing, 2)
-# AB = √(xb - xa)2 + (yb - ya)2
+        costing = self.car["fuel_consumption"] * (distance / 100) * fuel_price
+        return costing
