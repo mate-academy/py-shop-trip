@@ -12,7 +12,3 @@ def open_file() -> dict:
         "customer_list": customer_list,
         "shop_list": shop_list
     }
-
-
-if __name__ == "__main__":
-    pass
