@@ -12,7 +12,7 @@ def shop_trip() -> None:
     shops_obj = []
     result = ""
 
-    with open("config.json", "r") as data_file:
+    with open("app/config.json", "r") as data_file:
         data_from_file = json.loads(data_file.read())
 
     customers = data_from_file.get("customers")

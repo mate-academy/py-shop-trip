@@ -66,6 +66,6 @@ class Customer:
 
     @staticmethod
     def _get_fuel_price() -> float:
-        with open("config.json", "r") as data_file:
+        with open("app/config.json", "r") as data_file:
             data_from_file = json.loads(data_file.read())
         return data_from_file.get("FUEL_PRICE")
