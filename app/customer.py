@@ -1,6 +1,6 @@
-from app.shop import Shop
 from math import dist
 
+from app.shop import Shop
 
 class Customer:
     def __init__(self, customer: dict) -> None:
