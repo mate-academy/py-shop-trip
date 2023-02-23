@@ -9,23 +9,26 @@ def shop_trip() -> None:
     with open("app/config.json", "r") as f:
         config = json.load(f)
     fuel_price = config["FUEL_PRICE"]
-    customers = []
-    for customer in config["customers"]:
-        customers.append(Customer(
+
+    customers = [
+        Customer(
             customer["name"],
             customer["product_cart"],
             customer["location"],
             customer["money"],
             Car(customer["car"]["brand"], customer["car"]["fuel_consumption"])
-        ))
+        )
+        for customer in config["customers"]
+    ]
 
-    shops = []
-    for shop in config["shops"]:
-        shops.append(Shop(
+    shops = [
+        Shop(
             shop["name"],
             shop["location"],
             shop["products"]
-        ))
+        )
+        for shop in config["shops"]
+    ]
 
     for customer in customers:
         optimal_shop = customer.find_optimal_shop(shops, fuel_price)
