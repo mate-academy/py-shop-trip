@@ -9,12 +9,10 @@ class Shop:
         self.products = shops["products"]
 
     def calculate_products_price(self, product_cart: dict) -> float:
-        price = 0
-
-        for product_name, product_price in product_cart.items():
-            price += product_price * self.products[product_name]
-
-        return price
+        return sum(
+            product_price * self.products[product_name]
+            for product_name, product_price in product_cart.items()
+        )
 
     def get_receipt(self, name: str, product_cart: dict) -> None:
         date = datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S")

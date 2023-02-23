@@ -5,22 +5,35 @@ from app.customer import Customer
 from app.shop import Shop
 
 
-def shop_trip() -> None:
+def read_json() -> dict:
     with open("app/config.json", "r") as file_open:
         data = json.load(file_open)
 
     customers = [Customer(customer) for customer in data["customers"]]
     shops = [Shop(shop) for shop in data["shops"]]
+    fuel_price = data["FUEL_PRICE"]
 
-    for customer in customers:
+    info_dict = {
+        "customers": customers,
+        "shops": shops,
+        "fuel_price": fuel_price
+    }
+
+    return info_dict
+
+
+def get_best_shop(info_dict: dict) -> None:
+
+    for customer in info_dict["customers"]:
         car = Car(customer.car)
 
         print(f"{customer.name} has {customer.money} dollars")
 
         best_option_shop = {}
-        for shop in shops:
+
+        for shop in info_dict["shops"]:
             distance = customer.get_distance(shop)
-            cost = car.cost_of_travel(distance, data["FUEL_PRICE"])
+            cost = car.cost_of_travel(distance, info_dict["fuel_price"])
             total_cost = round(
                 (shop.calculate_products_price(customer.product_cart)
                  + cost), 2
@@ -53,3 +66,8 @@ def shop_trip() -> None:
             f"{customer.name} now "
             f"has {customer.money - minimal_cost} dollars\n"
         )
+
+
+def shop_trip() -> None:
+    info = read_json()
+    get_best_shop(info)
