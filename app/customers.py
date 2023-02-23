@@ -7,7 +7,7 @@ class Customer:
         self,
         name: str,
         product_cart: dict,
-        location: list,
+        location: List[int],
         money: int,
         car: dict
     ) -> None:
@@ -17,7 +17,11 @@ class Customer:
         self.money = money
         self.car = Car(**car)
 
-    def cost_of_road(self, shop_location: list, fuel_price: float) -> float:
+    def cost_of_road(
+            self,
+            shop_location: List[int],
+            fuel_price: float
+    ) -> float:
         location_shop_x, location_shop_y = shop_location
         location_person_x, location_person_y = self.location
         distance = ((location_shop_x - location_person_x) ** 2
