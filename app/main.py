@@ -34,4 +34,3 @@ def shop_trip() -> None:
     customers = process_customers_list()
     for customer in customers:
         customer.wake_up_and_ride()
-        print()

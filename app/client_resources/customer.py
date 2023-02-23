@@ -83,4 +83,4 @@ class Customer:
         cheapest_shop = best_place[0]
         cheapest_shop.sell_products(self, self.product_cart)
         print(f"{self.name} rides home")
-        print(f"{self.name} now has {round(self.money, 2)} dollars")
+        print(f"{self.name} now has {round(self.money, 2)} dollars\n")
