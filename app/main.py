@@ -29,7 +29,7 @@ def shop_trip() -> None:
 
     for customer in customers:
         optimal_shop = customer.find_optimal_shop(shops, fuel_price)
-        if customer.money >= optimal_shop[2]:
+        if customer.money >= optimal_shop["total_cost"]:
             customer.has_enough_money(optimal_shop)
             continue
         customer.has_not_enough_money()
