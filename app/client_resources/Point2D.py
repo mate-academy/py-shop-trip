@@ -10,4 +10,4 @@ class Point2d:
     def distance_to(self, other: Point2d) -> float:
         dx = abs(self.x - other.x)
         dy = abs(self.y - other.y)
-        return round(sqrt(dx * dx + dy * dy), 2)
+        return sqrt(dx * dx + dy * dy)

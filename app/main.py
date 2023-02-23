@@ -15,7 +15,7 @@ def create_shops(shops: list[dict]) -> List[Shop]:
 
 def process_customers_list() -> List[Customer]:
     try:
-        with open("config.json", "r") as f:
+        with open("app/config.json", "r") as f:
             world_data = json.load(f)
     except FileNotFoundError as fnfe:
         print(f"Loading problem, {fnfe} doesn't exist.")

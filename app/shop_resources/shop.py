@@ -1,3 +1,6 @@
+import datetime
+
+
 from app.client_resources.Point2D import Point2d
 
 
@@ -13,21 +16,23 @@ class Shop:
             self,
             person: object,
             products: dict[str]) -> None:
-        print(f"Hey {person.name}, welcome to {self.name}")
-        print("You have bought:")
+        date = datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S")
+        print(f"Date: {date}")
+        print(f"Thanks, {person.name}, for you purchase!")
+        print("You have bought: ")
 
         total_price = 0
         for name, count in products.items():
             total_price += self.products[name] * count
             self.sell_product(person, name, count)
 
-        print(f"For a total cost just in {total_price}$.")
-        print(f"See you again at {self.name}!")
+        print(f"Total cost is {total_price} dollars")
+        print(f"See you again!\n")
 
     def sell_product(self,
                      person: object,
                      product: str,
                      count: int) -> None:
         person.money -= self.products[product] * count
-        print(f"{count} {product} for "
-              f"{self.products[product] * count}$.")
+        print(f"{count} {product}s for "
+              f"{self.products[product] * count} dollars")

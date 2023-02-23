@@ -11,7 +11,5 @@ class Car:
     def ride_to_location(self,
                          person: Customer,
                          place: object) -> None:
-        print(f"{self.brand} is riding"
-              f" {person.name} to shop...\n")
         person.money -= ((person.location.distance_to(place) / 100)
                          * self.fuel_consumption) * person.fuel_price * 2
