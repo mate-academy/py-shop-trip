@@ -1,9 +1,9 @@
 import json
 from pathlib import Path
 
-from app.customers.creating_customers_classes import creating_customers_classes
+from app.customers import creating_customers_classes
 from app.data_processing import data_processing
-from app.shops.creating_shops_classes import creating_shops_classes
+from app.shop import creating_shops_classes
 
 
 def shop_trip() -> None:

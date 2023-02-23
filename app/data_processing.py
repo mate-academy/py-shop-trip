@@ -1,8 +1,8 @@
 from copy import copy
 from typing import List
 
-from app.customers.customers import Customer
-from app.shops.shop import Shop
+from app.customers import Customer
+from app.shop import Shop
 
 
 def data_processing(
