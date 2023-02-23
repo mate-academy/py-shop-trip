@@ -6,7 +6,7 @@ from app.shops import Shop
 
 
 def shop_trip() -> None:
-    with open("/py-shop-trip/app/config.json", "r") as file:
+    with open("app/config.json", "r") as file:
         file_info = json.load(file)
     shops = [Shop(name=shop["name"],
                   location=shop["location"],
