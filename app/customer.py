@@ -1,5 +1,6 @@
 import dataclasses
-from typing import List
+import datetime
+from typing import List, Any
 
 from app.car import Car
 
@@ -28,3 +29,18 @@ class Customer:
                 )
             )
         return customers_list
+
+    def make_purchase(self, best_shop: Any) -> None:
+        print(f"{self.name} rides to {best_shop.name}\n")
+        print(
+            f"Date: "
+            f"{datetime.datetime.now().strftime(f'%d/%m/%Y %H:%M:%S')}"
+        )
+        print(f"Thanks, {self.name}, for you purchase!\nYou have bought: ")
+
+        best_shop.buy_product(self.product_cart)
+
+        print(
+            f"{self.name} rides home\n"
+            f"{self.name} now has {self.money} dollars\n"
+        )
