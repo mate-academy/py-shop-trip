@@ -2,7 +2,6 @@ from __future__ import annotations
 import dataclasses
 from typing import List, Optional
 
-
 from app.customer import Customer
 
 
@@ -21,10 +20,8 @@ class Shop:
 
     @classmethod
     def list_read(cls, list_shops: List[dict]) -> list:
-        shop_list = []
-        for shop in list_shops:
-            shop_list.append(Shop(**shop))
-        return shop_list
+
+        return [Shop(**shop) for shop in list_shops]
 
     def buy_product(self, product_cart: dict) -> None:
         total_price = 0
