@@ -27,11 +27,7 @@ class Customer:
         cheaper_shop = None
         cheaper_shop_cost = None
         for shop in shops:
-            distance = math.sqrt((shop.location[0] - self._location[0]) ** 2
-                                 + (shop.location[1] - self._location[1]) ** 2)
-            price = round(self._car.fuel_consumption / 100
-                          * distance * 2 * 2.4
-                          + shop.buy_products(self._product_cart), 2)
+            price = self._price(shop, self._distance(shop))
             if cheaper_shop_cost is not None and price < cheaper_shop_cost:
                 cheaper_shop = shop
                 cheaper_shop_cost = price
@@ -51,3 +47,12 @@ class Customer:
             print(f"{self._name} rides home\n"
                   f"{self._name} now has "
                   f"{self._money - cheaper_shop_cost} dollars\n")
+
+    def _distance(self, shop: Shop) -> float:
+        return math.sqrt((shop.location[0] - self._location[0]) ** 2
+                         + (shop.location[1] - self._location[1]) ** 2)
+
+    def _price(self, shop: Shop, distance: float) -> float:
+        return round(self._car.fuel_consumption / 100
+                     * distance * 2 * 2.4
+                     + shop.buy_products(self._product_cart), 2)

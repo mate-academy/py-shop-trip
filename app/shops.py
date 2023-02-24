@@ -11,6 +11,7 @@ class Shop:
                          customer_name: str,
                          customer_products: dict) -> None:
         date = datetime.datetime.now()
+
         print(f"Date: {date.strftime('%d')}/"
               f"{date.strftime('%m')}/"
               f"{date.strftime('%Y')}"
@@ -18,19 +19,19 @@ class Shop:
               f"{date.strftime('%M')}:"
               f"{date.strftime('%S')}\n"
               f"Thanks, {customer_name}, for you purchase!\n"
-              f"You have bought: \n"
-              f"{customer_products['milk']} milks for "
-              f"{customer_products['milk'] * self.products['milk']} dollars\n"
-              f"{customer_products['bread']} breads for "
-              f"{customer_products['bread'] * self.products['bread']} "
-              f"dollars\n"
-              f"{customer_products['butter']} butters for "
-              f"{customer_products['butter'] * self.products['butter']} "
-              f"dollars\n"
-              f"Total cost is {self.buy_products(customer_products)} dollars\n"
+              f"You have bought: ")
+        self.products_receipt(customer_products)
+
+        print(f"Total cost is {self.buy_products(customer_products)} dollars\n"
               f"See you again!")
 
     def buy_products(self, customer_products: dict) -> int | float:
         return sum(customer_products[product]
                    * self.products[product]
                    for product in self.products)
+
+    def products_receipt(self, customer_products: dict) -> None:
+        for product, count in customer_products.items():
+            end_with_s = "s" if count != 1 else ""
+            print(f"{count} {product}{end_with_s} for "
+                  f"{count * self.products[product]} dollars")
