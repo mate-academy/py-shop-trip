@@ -18,8 +18,8 @@ class Shop:
 
         return round(price, 2)
 
-    @classmethod
-    def list_read(cls, list_shops: List[dict]) -> list:
+    @staticmethod
+    def list_read(list_shops: List[dict]) -> list:
 
         return [Shop(**shop) for shop in list_shops]
 
