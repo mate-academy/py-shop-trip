@@ -5,7 +5,7 @@ from app.shop import Shop
 
 
 def shop_trip() -> None:
-    with open("config.json") as config:
+    with open("app/config.json", "r") as config:
         data = json.load(config)
     fuel_price = data["FUEL_PRICE"]
     customers = [
@@ -32,13 +32,15 @@ def shop_trip() -> None:
         )
         if not cheapest_shop:
             print(
-                (f"{customer.name}doesn't have enough money "
+                (f"{customer.name} doesn't have enough money "
                  f"to make purchase in any shop")
             )
             break
-
+        trip_cost = Trip.calculate_costs(customer, cheapest_shop, fuel_price)
         print(
             (f"{customer.name} rides to "
-             f"{cheapest_shop}\n")
-        )
-        print(Trip.shopping(cheapest_shop, customer))
+             f"{cheapest_shop}\n\n"
+             f"{Trip.shopping(cheapest_shop, customer)}"
+             f"{customer.name} rides home\n"
+             f"{customer.name} now has "
+             f"{customer.money - trip_cost} dollars\n"))
