@@ -9,7 +9,7 @@ class Customer:
             self,
             name: str,
             product_cart: dict,
-            location: list,
+            location: list[int],
             money: float,
             car: Car
     ) -> None:
@@ -30,7 +30,7 @@ class Customer:
 
         return round(consumption + price, 2)
 
-    def choose_shop(self, shops: list, fuel_price: float) -> Shop:
+    def choose_shop(self, shops: list[Shop], fuel_price: float) -> Shop:
         min_shop = shops[0]
         for shop in shops:
             if self.road_to_shop(min_shop, fuel_price) > \
