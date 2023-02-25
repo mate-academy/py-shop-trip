@@ -1,10 +1,11 @@
 import json
 
 from app.customer import Customer
+from app.info_dict import InfoDict
 from app.shop import Shop
 
 
-def read_json() -> dict:
+def read_json() -> InfoDict:
     with open("app/config.json", "r") as file_open:
         data = json.load(file_open)
 
@@ -12,10 +13,8 @@ def read_json() -> dict:
     shops = [Shop(shop) for shop in data["shops"]]
     fuel_price = data["FUEL_PRICE"]
 
-    info_dict = {
-        "customers": customers,
-        "shops": shops,
-        "fuel_price": fuel_price
-    }
-
-    return info_dict
+    return InfoDict(
+        customers=customers,
+        shops=shops,
+        fuel_price=fuel_price
+    )

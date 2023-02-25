@@ -1,28 +1,19 @@
 from app.car import Car
+from app.info_dict import InfoDict
+from app.find_best_shop import find_the_best_shop
 
 
-def get_best_shop(info_dict: dict) -> None:
+def display_info(info_dict: InfoDict) -> None:
 
-    for customer in info_dict["customers"]:
+    for customer in info_dict.customers:
         car = Car(customer.car)
 
         print(f"{customer.name} has {customer.money} dollars")
 
-        best_option_shop = {}
-
-        for shop in info_dict["shops"]:
-            distance = customer.get_distance(shop)
-            cost = car.cost_of_travel(distance, info_dict["fuel_price"])
-            total_cost = round(
-                (shop.calculate_products_price(customer.product_cart)
-                 + cost), 2
-            )
-
-            if total_cost <= customer.money:
-                best_option_shop[total_cost] = shop
-
-            print(f"{customer.name}'s trip to "
-                  f"the {shop.name} costs {total_cost}")
+        best_option_shop = find_the_best_shop(
+            customer=customer,
+            info_dict=info_dict,
+            car=car)
 
         if not best_option_shop:
             print(
