@@ -59,3 +59,5 @@ def shop_trip() -> None:
             f"{customers.name} rides home\n"
             f"{customers.name} now has {customers.money} dollars\n"
         )
+
+shop_trip()

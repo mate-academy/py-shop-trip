@@ -15,8 +15,8 @@ class Customer:
         return self.name
 
     @classmethod
-    def list_constructor(cls, customers: list) -> list[Customer]:
-        customers = [
+    def list_constructor(cls, customers: list[dict]) -> list[Customer]:
+        return [
             Customer(
                 name=customer["name"],
                 product_cart=customer["product_cart"],
@@ -29,4 +29,3 @@ class Customer:
             )
             for customer in customers
         ]
-        return customers
