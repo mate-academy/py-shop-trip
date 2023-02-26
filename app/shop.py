@@ -8,12 +8,13 @@ class Shop:
     products: dict
 
     def total_price(self, product_cart: dict) -> float:
-        price = 0
-        price += self.products["milk"] * product_cart["milk"]
-        price += self.products["bread"] * product_cart["bread"]
-        price += self.products["butter"] * product_cart["butter"]
-
-        return round(price, 2)
+        return round(
+            sum(
+                self.products[product] * price_product
+                for product, price_product in product_cart.items()
+            )
+            , 2
+        )
 
     def __repr__(self) -> str:
         return self.name
