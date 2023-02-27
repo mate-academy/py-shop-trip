@@ -62,14 +62,14 @@ def check_if_can_ride_to_shop(
         customer: Customer,
         trips_to_shops_costs: dict
 ) -> None:
-    cheapest_trip = min(trips_to_shops_costs.values())
+    cheapest_trip_cost = min(trips_to_shops_costs.values())
 
-    if customer.money >= cheapest_trip:
-        for shop_instance, ride_cost in trips_to_shops_costs.items():
-            if cheapest_trip == ride_cost:
+    if customer.money >= cheapest_trip_cost:
+        for shop_instance, trip_cost in trips_to_shops_costs.items():
+            if cheapest_trip_cost == trip_cost:
                 customer.has_enough_money = True
                 customer.chosen_shop = shop_instance
-                customer.money -= cheapest_trip
+                customer.money -= cheapest_trip_cost
     else:
         print(f"{customer.name} doesn't have "
               f"enough money to make purchase in any shop")

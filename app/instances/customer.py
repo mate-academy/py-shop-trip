@@ -18,4 +18,3 @@ class Customer:
         self.current_location = home_location
         self.has_enough_money = False
         self.chosen_shop = None
-        self.fuel_cost_to_destination = None
