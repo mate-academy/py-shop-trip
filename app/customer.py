@@ -41,9 +41,9 @@ class Customer:
         cheapest_shop = ""
         for key, value in self.full_trip_cost_different_shops.items():
             if value == cheapest:
-                cheapest_shop = key
+                cheapest_shop_name = key
         for shop in Shop.shops:
-            if shop.name == cheapest_shop:
+            if shop.name == cheapest_shop_name:
                 cheapest_shop = shop
         if self.money < cheapest:
             print(

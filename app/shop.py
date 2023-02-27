@@ -1,5 +1,4 @@
 import datetime
-from typing import Any
 
 
 class Shop:
@@ -12,9 +11,7 @@ class Shop:
         self.shops.append(self)
 
     def calculates_cost_of_product_cart(
-        self,
-        customer: Any,
-        printing: bool = False
+        self, customer: object, printing: bool = False
     ) -> int | float:
         product_cart_cost = 0
         for product, amount in customer.product_cart.items():
@@ -25,9 +22,10 @@ class Shop:
                     print(f"{amount} {product}s for {cost_of_product} dollars")
         return product_cart_cost
 
-    def shop_purchase_display(self, customer: Any) -> None:
-        today = datetime.datetime.today()
-        transaction_datetime = today.strftime("%d/%m/%Y %H:%M:%S")
+    def shop_purchase_display(self, customer: object) -> None:
+        transaction_datetime = datetime.datetime.now().strftime(
+            "%d/%m/%Y %H:%M:%S"
+        )
         print(f"Date: {transaction_datetime}")
         print(f"Thanks, {customer.name}, for you purchase!")
         print("You have bought: ")
