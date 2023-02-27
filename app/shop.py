@@ -18,10 +18,9 @@ class Shop:
 
         return round(price, 2)
 
-    @staticmethod
-    def list_read(list_shops: List[dict]) -> list:
+    def list_read(self: List[dict]) -> list:
 
-        return [Shop(**shop) for shop in list_shops]
+        return [Shop(**shop) for shop in self]
 
     def buy_product(self, product_cart: dict) -> None:
         total_price = 0
@@ -34,16 +33,15 @@ class Shop:
 
         print(f"Total cost is {total_price} dollars\nSee you again!\n")
 
-    @staticmethod
     def find_best_shop(
-            shops: List[Shop],
+            self: List[Shop],
             customer: Customer,
             fuel_price: float
     ) -> Optional[Shop]:
         best_shop = None
         shop_cost = None
 
-        for shop in shops:
+        for shop in self:
             total_cost = customer.car.trip_fuel_cost(shop.location, fuel_price)
             total_cost += shop.total_price(customer.product_cart)
 
