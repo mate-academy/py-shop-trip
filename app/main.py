@@ -4,10 +4,7 @@ from app.shop import Shop
 
 
 def shop_trip() -> None:
-    absolute_path = (
-        "C:\\Programming Study\\Mate\\py-shop-trip\\app\\" + "config.json"
-    )
-    with open(absolute_path, "r") as file_in:
+    with open("app/config.json", "r") as file_in:
         config_data = json.load(file_in)
 
     for customer in config_data["customers"]:
