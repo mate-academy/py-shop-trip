@@ -26,7 +26,8 @@ def calculate_product_cart_cost(
 ) -> int | float:
     total_cost = 0
     for product_name, quantity in products_to_buy.items():
-        total_cost += products_costs.get(product_name) * quantity
+        if product_name in products_costs:
+            total_cost += products_costs.get(product_name) * quantity
     return total_cost
 
 
@@ -84,3 +85,5 @@ def ride_home(customer: Customer) -> None:
     print(f"{customer.name} rides home")
     print(f"{customer.name} now has {customer.money} dollars\n")
     customer.current_location = customer.home_location
+    customer.has_enough_money = False
+    customer.chosen_shop = None

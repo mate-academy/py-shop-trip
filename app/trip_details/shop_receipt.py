@@ -16,9 +16,10 @@ def print_shop_receipt(customer: Customer, shop: Shop) -> None:
     total_cost = 0
 
     for product_name, quantity in customer.product_cart.items():
-        products_cost = shop.products.get(product_name) * quantity
-        total_cost += products_cost
-        print(f"{quantity} {product_name}s for {products_cost} dollars")
+        if product_name in shop.products:
+            products_cost = shop.products.get(product_name) * quantity
+            total_cost += products_cost
+            print(f"{quantity} {product_name}s for {products_cost} dollars")
 
     print(
         f"Total cost is {total_cost} dollars\n"
