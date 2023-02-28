@@ -17,7 +17,7 @@ class Shop:
         product_cost = []
 
         print(f"Thanks, {customer_name}, for you purchase!\n"
-              f"You have bought:")
+              f"You have bought: ")
 
         for key, value in products_list.items():
             product_cost.append(products_list[key] * self.products[key])
