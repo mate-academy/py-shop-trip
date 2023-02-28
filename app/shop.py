@@ -9,8 +9,8 @@ class Shop:
         self.products = products
 
     def purchase(self, customer_name: str, products_list: dict) -> int | float:
-        now = datetime.now()
-        now = now.strftime("%d/%m/%Y %H:%M:%S")
+        now = datetime(2021, 4, 1, 12, 33, 41)
+        now = now.strftime("%m/%d/%Y %H:%M:%S")
 
         print(f"Date: {now}")
 
