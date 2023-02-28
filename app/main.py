@@ -64,4 +64,4 @@ def shop_trip() -> None:
         if len(ride_price) == 0:
 
             print(f"{person.name} doesn't have enough money "
-                  f"to make purchase in any shop\n")
+                  f"to make purchase in any shop")
