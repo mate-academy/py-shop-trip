@@ -19,7 +19,8 @@ class Customer:
         self._money_info()
         shop = self._find_cheapest_option(shops)
         if shop:
-            print(f"Date: {datetime.datetime.now().strftime('%d/%m/%Y %H:%M:%S')}")
+            print(f"Date: "
+                  f"{datetime.datetime.now().strftime('%d/%m/%Y %H:%M:%S')}")
             print(f"Thanks, {self.name}, for you purchase!\nYou have bought: ")
             cost = self._calculate_products_cost(shop, show=True)
             print(f"Total cost is {cost} dollars\nSee you again!\n")
@@ -63,7 +64,11 @@ class Customer:
     def _calculate_fuel_cost(self, distance: float) -> float:
         return self.car.fuel_cons / 100 * distance * Car.fuel_price * 2
 
-    def _calculate_products_cost(self, shop: Shop, show: bool = False) -> float:
+    def _calculate_products_cost(
+            self,
+            shop: Shop,
+            show: bool = False
+    ) -> float:
         total = 0
         for product, quantity in self.product_cart.items():
             price = quantity * shop.products[product]
