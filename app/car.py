@@ -1,9 +1,9 @@
-import dataclasses
 import math
+from dataclasses import dataclass
 from typing import List
 
 
-@dataclasses.dataclass
+@dataclass
 class Car:
     brand: str
     fuel_consumption: float

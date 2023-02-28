@@ -1,19 +1,19 @@
-import dataclasses
 import datetime
+from dataclasses import dataclass
 from typing import List, Any
 
 from app.car import Car
 
 
-@dataclasses.dataclass
+@dataclass
 class Customer:
     name: str
     product_cart: dict
     car: Car
     money: int
 
-    @classmethod
-    def list_read(cls, list_customers: List[dict]) -> list:
+    @staticmethod
+    def list_read(list_customers: List[dict]) -> list:
         customers_list = []
         for customer in list_customers:
             customers_list.append(

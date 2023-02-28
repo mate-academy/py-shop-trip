@@ -1,11 +1,11 @@
 from __future__ import annotations
-import dataclasses
+from dataclasses import dataclass
 from typing import List, Optional
 
 from app.customer import Customer
 
 
-@dataclasses.dataclass
+@dataclass
 class Shop:
     name: str
     location: List[int]
@@ -18,9 +18,10 @@ class Shop:
 
         return round(price, 2)
 
-    def list_read(self: List[dict]) -> list:
+    @staticmethod
+    def list_read(shops: List[dict]) -> list:
 
-        return [Shop(**shop) for shop in self]
+        return [Shop(**shop) for shop in shops]
 
     def buy_product(self, product_cart: dict) -> None:
         total_price = 0
