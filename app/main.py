@@ -34,5 +34,4 @@ def shop_trip() -> None:
             )
 
     for customer in customers:
-        customer.money_info()
         customer.make_purchase(shops)

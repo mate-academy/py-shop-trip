@@ -1,6 +1,7 @@
 from typing import List
 from dataclasses import dataclass
 from math import sqrt
+import datetime
 
 from app.car import Car
 from app.shop import Shop
@@ -14,29 +15,30 @@ class Customer:
     money: int
     car: Car
 
-    def money_info(self) -> None:
-        print(f"{self.name} has {self.money} dollars")
-
     def make_purchase(self, shops: List[Shop]) -> None:
-        shop = self.find_cheapest_option(shops)
+        self._money_info()
+        shop = self._find_cheapest_option(shops)
         if shop:
-            print("Date: 04/01/2021 12:33:41")
+            print(f"Date: {datetime.datetime.now().strftime('%d/%m/%Y %H:%M:%S')}")
             print(f"Thanks, {self.name}, for you purchase!\nYou have bought: ")
-            cost = self.calculate_products_cost(shop, show=True)
+            cost = self._calculate_products_cost(shop, show=True)
             print(f"Total cost is {cost} dollars\nSee you again!\n")
-            self.ride_home()
+            self._ride_home()
         else:
             print(f"{self.name} doesn't have enough "
                   f"money to make purchase in any shop")
 
-    def ride_home(self) -> None:
+    def _money_info(self) -> None:
+        print(f"{self.name} has {self.money} dollars")
+
+    def _ride_home(self) -> None:
         print(f"{self.name} rides home")
         print(f"{self.name} now has {self.money} dollars\n")
 
-    def find_cheapest_option(self, shops: List[Shop]) -> Shop:
-        cheapest_option = shops[0], self.calculate_expenses(shops[0])
+    def _find_cheapest_option(self, shops: List[Shop]) -> Shop | None:
+        cheapest_option = shops[0], self._calculate_expenses(shops[0])
         for shop in shops:
-            expenses = self.calculate_expenses(shop)
+            expenses = self._calculate_expenses(shop)
             print(f"{self.name}'s trip to the {shop.name} costs {expenses}")
             if expenses < cheapest_option[1]:
                 cheapest_option = shop, expenses
@@ -46,22 +48,22 @@ class Customer:
         self.money -= cheapest_option[1]
         return cheapest_option[0]
 
-    def calculate_expenses(self, shop: Shop) -> float:
-        distance = self.calculate_distance(shop)
-        fuel_cost = self.calculate_fuel_cost(distance)
-        products_cost = self.calculate_products_cost(shop)
+    def _calculate_expenses(self, shop: Shop) -> float:
+        distance = self._calculate_distance(shop)
+        fuel_cost = self._calculate_fuel_cost(distance)
+        products_cost = self._calculate_products_cost(shop)
         return round(fuel_cost + products_cost, 2)
 
-    def calculate_distance(self, shop: Shop) -> int | float:
+    def _calculate_distance(self, shop: Shop) -> int | float:
         return sqrt(
             (shop.location[0] - self.location[0]) ** 2
             + (shop.location[1] - self.location[1]) ** 2
         )
 
-    def calculate_fuel_cost(self, distance: float) -> float:
+    def _calculate_fuel_cost(self, distance: float) -> float:
         return self.car.fuel_cons / 100 * distance * Car.fuel_price * 2
 
-    def calculate_products_cost(self, shop: Shop, show: bool = False) -> float:
+    def _calculate_products_cost(self, shop: Shop, show: bool = False) -> float:
         total = 0
         for product, quantity in self.product_cart.items():
             price = quantity * shop.products[product]
