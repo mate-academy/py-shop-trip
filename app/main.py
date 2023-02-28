@@ -1,3 +1,37 @@
-def shop_trip():
-    # write your code here
-    pass
+import json
+from app.customer import Customer
+from app.shop import Shop
+
+
+def shop_trip() -> None:
+    with open("config.json") as file:
+        source_data = json.load(file)
+
+    Customer.create_customers_from_json(source_data)
+    Shop.create_shops_from_json(source_data)
+
+    for customer in Customer._all_customers:
+        print(f"{customer.name} has {customer.money} dollars")
+        cost_whole_trips = {}
+
+        for shop in Shop._all_shops:
+            cost_products = customer.cost_products_in_shop(shop)
+            cost_drive = customer.cost_drive(shop)
+            total_trip_price = cost_drive + cost_products
+            cost_whole_trips[total_trip_price] = shop
+
+            print(f"{customer.name}'s trip to the "
+                  f"{shop.name} costs {total_trip_price}")
+
+        cheapest_trip_price = min(cost_whole_trips)
+        if cheapest_trip_price > customer.money:
+            print(f"{customer.name} doesn't have enough "
+                  f"money to make purchase in any shop")
+            return
+        cheapest_trip = cost_whole_trips[cheapest_trip_price]
+        customer.money = cheapest_trip_price
+        customer.start_trip(cheapest_trip)
+
+
+if __name__ == "__main__":
+    shop_trip()
