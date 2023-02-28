@@ -27,7 +27,9 @@ def shop_trip() -> None:
                           shop["products"]))
 
     for person in customers:
+
         print(f"{person.name} has {person.money} dollars")
+
         ride_price = {}
         for place in shops:
             distance = 2 * person.distance(person.location, place.location)
@@ -36,8 +38,10 @@ def shop_trip() -> None:
                                            place.products)
             if total_price <= person.money:
                 ride_price[place.name] = total_price
+
             print(f"{person.name}'s trip to the {place.name} "
                   f"costs {round(total_price, 2)}")
+
         if len(ride_price) != 0:
             shop_price_tuple = [(key, value)
                                 for key, value in ride_price.items()]
@@ -45,16 +49,18 @@ def shop_trip() -> None:
             sorted_price_dict = {key: value
                                  for key, value in sorted_price_tuple}
             shop_to_ride = next(iter(sorted_price_dict))
+
             print(f"{person.name} rides to {shop_to_ride}\n")
+
             for shop in shops:
                 if shop.name == shop_to_ride:
                     shop.purchase(person.name, person.product_cart)
                     person.money -= sorted_price_dict[shop_to_ride]
+
             print(f"{person.name} rides home\n"
                   f"{person.name} now has {round(person.money, 2)} dollars\n")
+
         if len(ride_price) == 0:
+
             print(f"{person.name} doesn't have enough money "
                   f"to make purchase in any shop\n")
-
-
-shop_trip()
