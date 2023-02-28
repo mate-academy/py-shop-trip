@@ -18,13 +18,13 @@ def shop_trip() -> None:
     data = transform_json_to_instances(raw_data)
 
     for customer in data["customers"]:
-        trip_cost = calculate_trips_costs_to_shops(
+        trips_costs = calculate_trips_costs_to_shops(
             data["FUEL_PRICE"],
             customer,
             data["shops"]
         )
 
-        check_if_can_ride_to_shop(customer, trip_cost)
+        check_if_can_ride_to_shop(customer, trips_costs)
 
         if customer.has_enough_money:
             ride_to_shop(customer, customer.chosen_shop)

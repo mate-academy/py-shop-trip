@@ -3,20 +3,14 @@ from app.instances.shop import Shop
 
 
 def transform_json_to_instances(data: dict) -> dict:
-    processed_data = {}
-
-    for key, value in data.items():
-        if key == "FUEL_PRICE":
-            processed_data["FUEL_PRICE"] = value
-        if key == "customers":
-            processed_data["customers"] = create_customer_instances(value)
-        if key == "shops":
-            processed_data["shops"] = create_shop_instances(value)
-
-    return processed_data
+    return {
+        "FUEL_PRICE": data["FUEL_PRICE"],
+        "customers": create_customer_instances(data["customers"]),
+        "shops": create_shop_instances(data["shops"])
+    }
 
 
-def create_customer_instances(customers_list: list) -> list:
+def create_customer_instances(customers_list: list[dict]) -> list[Customer]:
     return [
         Customer(
             name=customer["name"],
@@ -29,7 +23,7 @@ def create_customer_instances(customers_list: list) -> list:
     ]
 
 
-def create_shop_instances(shops_list: list) -> list:
+def create_shop_instances(shops_list: list[dict]) -> list[Shop]:
     return [
         Shop(
             name=shop["name"],

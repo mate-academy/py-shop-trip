@@ -24,17 +24,17 @@ def calculate_product_cart_cost(
         products_to_buy: dict,
         products_costs: dict
 ) -> int | float:
-    total_cost = 0
-    for product_name, quantity in products_to_buy.items():
-        if product_name in products_costs:
-            total_cost += products_costs.get(product_name) * quantity
-    return total_cost
+    return sum(
+        products_costs.get(product_name) * quantity
+        for product_name, quantity in products_to_buy.items()
+        if product_name in products_costs
+    )
 
 
 def calculate_trips_costs_to_shops(
         fuel_price: int | float,
         customer: Customer,
-        shops: list
+        shops: list[Shop]
 ) -> dict:
     print(f"{customer.name} has {customer.money} dollars")
 
