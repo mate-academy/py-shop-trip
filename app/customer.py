@@ -47,7 +47,9 @@ class Customer:
 
             result += f"{self.name} rides to {shop_to_choose}\n\n"
 
-            result += shop.print_list(self)[0] + "\n"
+            for shop in shops:
+                if shop.name == shop_to_choose:
+                    result += shop.print_list(self)[0] + "\n"
 
             result += (f"\n{self.name} rides home\n"
                        f"{self.name} now has {self.money} dollars\n\n")
