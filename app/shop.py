@@ -29,5 +29,5 @@ class Shop:
                 f"Thanks, {customer.name}, for you purchase!\n"
                 f"You have bought: \n"
                 f"{cart}"
-                f"Total coast is {total} dollars\n"
+                f"Total cost is {total} dollars\n"
                 f"See you again!"), total
