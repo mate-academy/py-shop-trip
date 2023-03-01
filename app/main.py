@@ -6,8 +6,7 @@ from app.customer import Customer
 def shop_trip() -> None:
     with open("app/config.json", "r") as f:
         data = json.load(f)
-        customers = [customer for customer in data["customers"]]
-        for customer in customers:
+        for customer in data["customers"]:
             cust = Customer(
                 name=customer["name"],
                 products=customer["product_cart"],
@@ -16,7 +15,6 @@ def shop_trip() -> None:
                 car=customer["car"],
             )
             print(f"{cust.name} has {cust.money} dollars")
-            shops = [shop for shop in data["shops"]]
             closest = {}
             shop_names = {}
             cust_prod = []
@@ -24,7 +22,7 @@ def shop_trip() -> None:
             sh_prod_names = []
             prod_count = []
             sum_all = []
-            for shop in shops:
+            for shop in data["shops"]:
                 sh = Shop(
                     name=shop["name"],
                     location=shop["location"],
@@ -40,8 +38,8 @@ def shop_trip() -> None:
                     cust.fuel_shop(fuel, cust.dist_shop(sh.location)), 2
                 )
                 expenses = prod_total + fuel_total
-                closest.update({sh.name: expenses})
-                shop_names.update({sh.name: sh.products})
+                closest[sh.name] = expenses
+                shop_names[sh.name] = sh.products
                 print(
                     f"{cust.name}'s trip to the "
                     f"{sh.name} costs {expenses}"
@@ -69,8 +67,9 @@ def shop_trip() -> None:
             for pr_name, pr_count in cust.products.items():
                 sh_prod_names.append(pr_name)
                 prod_count.append(str(pr_count) + " " + str(pr_name))
-            tot_every_product_price = \
-                [a * b for a, b in zip(prod_price, cust_prod)]
+            tot_every_product_price = [
+                a * b for a, b in zip(prod_price, cust_prod)
+            ]
             all_bought_prod = {prod_count[i]: tot_every_product_price[i]
                                for i in range(len(prod_count))}
             for prod, total in all_bought_prod.items():
