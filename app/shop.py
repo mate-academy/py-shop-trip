@@ -1,21 +1,13 @@
+from dataclasses import dataclass
 from app.product import Product
 
 
+@dataclass
 class Shop:
+    _name: str
+    _location: list
+    _products: dict[str: Product]
     _all_shops = []
-
-    def __init__(
-            self,
-            name: str,
-            location: list,
-            products: dict[str: Product]
-    ) -> None:
-        self._name = name
-        self._location = location
-        self._products = products
-
-    def __str__(self) -> str:
-        return f"{self._name}, {self._products}"
 
     @property
     def name(self) -> str:

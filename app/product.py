@@ -1,7 +1,15 @@
-class Product:
-    def __init__(self, name: str, price: float) -> None:
-        self.name = name
-        self.price = price
+from dataclasses import dataclass
 
-    def __repr__(self) -> str:
-        return f"Product(name={self.name}, price={self.price})"
+
+@dataclass
+class Product:
+    _name: str
+    _price: float
+
+    @property
+    def name(self) -> str:
+        return self._name
+
+    @property
+    def price(self) -> float:
+        return self._price
