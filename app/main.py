@@ -2,6 +2,7 @@ import json
 
 from app.Receipt import Receipt
 from app.Trip_cost import Trip
+from pathlib import Path
 
 
 def shop_trip() -> None:
@@ -56,10 +57,11 @@ def shop_trip() -> None:
 
         affordable_shops.sort(key=lambda x: x[2])
         shop_name, cost_prod, total_cost, receipt = affordable_shops[0]
-        print(f"{name} rides to {shop_name}")
-        print()
+        print(f"{name} rides to {shop_name}\n")
 
         print(receipt)
         print(f"{name} rides home")
-        print(f"{name} now has {money - total_cost} dollars")
-        print()
+        print(f"{name} now has {money - total_cost} dollars\n")
+
+
+shop_trip()
