@@ -19,6 +19,10 @@ class Customer:
     _money: float
     _car: Car
 
+    @classmethod
+    def get_customers(cls) -> list["Customer"]:
+        return cls._all_customers
+
     @property
     def name(self) -> str:
         return self._name

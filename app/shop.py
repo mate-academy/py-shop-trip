@@ -9,6 +9,10 @@ class Shop:
     _products: dict[str: Product]
     _all_shops = []
 
+    @classmethod
+    def get_shops(cls) -> list["Shop"]:
+        return cls._all_shops
+
     @property
     def name(self) -> str:
         return self._name

@@ -13,11 +13,11 @@ def shop_trip() -> None:
     Customer.create_customers_from_json(source_data)
     Shop.create_shops_from_json(source_data)
 
-    for customer in Customer._all_customers:
+    for customer in Customer.get_customers():
         print(f"{customer.name} has {customer.money} dollars")
 
         cost_whole_trips = []
-        for shop in Shop._all_shops:
+        for shop in Shop.get_shops():
             cost_products = customer.cost_products_in_shop(shop)
             cost_drive = customer.cost_drive(shop)
             total_trip_price = cost_drive + cost_products
