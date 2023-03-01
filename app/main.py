@@ -12,7 +12,7 @@ def shop_trip() -> None:
     shops_list = []
     result = ""
 
-    with open("config.json") as file:
+    with open("app/config.json") as file:
         data = json.loads(file.read())
 
     customers = data.get("customers")
