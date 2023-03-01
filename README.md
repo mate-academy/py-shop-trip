@@ -8,7 +8,7 @@ trip for the products.
 There is `config.json` file that contains:
 - `FUEL_PRICE` - Price for 1 liter of fuel in dollars.
 - `customers` - list of dictionaries with information about each customer.
-- `self` - list of dictionaries with information about each shop in the city. 
+- `shops` - list of dictionaries with information about each shop in the city. 
 
 You have information about 
 
@@ -74,7 +74,7 @@ For example, let's say now is 04/01/2021 12:33:41:
             }
         }
     ],
-    "self": [
+    "shops": [
         {
             "name": "Outskirts Shop",
             "location": [10, -5],

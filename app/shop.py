@@ -12,11 +12,10 @@ class Shop:
     products: dict
 
     def total_price(self, product_cart: dict) -> float:
-        price = 0
-        for product, count in product_cart.items():
-            price += self.products[product] * count
-
-        return round(price, 2)
+        return round(
+            sum(self.products[product] * count for product, count
+                in product_cart.items()), 2
+        )
 
     @staticmethod
     def list_read(shops: List[dict]) -> list:
