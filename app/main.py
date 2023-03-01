@@ -2,7 +2,6 @@ import json
 
 from app.Receipt import Receipt
 from app.Trip_cost import Trip
-from pathlib import Path
 
 
 def shop_trip() -> None:
