@@ -62,6 +62,3 @@ def shop_trip() -> None:
         print(receipt)
         print(f"{name} rides home")
         print(f"{name} now has {money - total_cost} dollars\n")
-
-
-shop_trip()
