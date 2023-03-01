@@ -50,7 +50,7 @@ class Customer:
             result += shop.print_list(self)[0] + "\n"
 
             result += (f"\n{self.name} rides home\n"
-                       f"{self.name} now has {self.money} dollars\n\n\n")
+                       f"{self.name} now has {self.money} dollars\n\n")
         else:
             result += (f"{self.name} doesn't have enough money "
                        f"to make purchase in any shop\n\n")
