@@ -1,10 +1,10 @@
 import json
-from datetime import datetime
 
 from app.customer import Customer
 from app.car import Car
 from app.shop import Shop
-from app.go_to_shop import count_trip_to_shop_value
+from app.shopping_costs import count_trip_to_shop_value
+from app.go_to_shop import go_to_shop
 
 
 def shop_trip() -> None:
@@ -48,40 +48,7 @@ def shop_trip() -> None:
             )
             continue
 
-        print(f"{customer.name} rides to {cheapest_shop.name}\n")
-
-        customer_home = customer.location
-        customer.location = cheapest_shop.location
-
-        date = datetime(
-            year=2021, month=1, day=4, hour=12, minute=33, second=41
-        )
-
-        print(f"Date: {date.strftime('%d/%m/%Y %H:%M:%S')}")
-        # print(f"Date: {datetime.now().strftime('%d/%m/%Y %H:%M:%S')}")
-        # tests crush if it make it like that
-        print(f"Thanks, {customer.name}, for you purchase!")
-        print("You have bought: ")
-
-        shopping_costs = 0
-
-        for product in customer.product_cart:
-            if product in cheapest_shop.products:
-                spent_per_product = (
-                    customer.product_cart[product]
-                    * cheapest_shop.products[product]
-                )
-                shopping_costs += spent_per_product
-                print(
-                    f"{customer.product_cart[product]} {product}s "
-                    f"for {spent_per_product} dollars"
-                )
-
-        print(f"Total cost is {shopping_costs} dollars")
-        print("See you again!\n")
-        print(f"{customer.name} rides home")
-
-        customer.location = customer_home
+        go_to_shop(customer, cheapest_shop)
 
         money_rest = round(customer.money - min_costs, 2)
 

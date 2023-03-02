@@ -1,38 +1,48 @@
 from __future__ import annotations
-import math
+from datetime import datetime
 
 from app.customer import Customer
 from app.shop import Shop
 
 
-def count_trip_to_shop_value(
-        customer: Customer,
-        shops: list[Shop],
-        fuel_price: float
-) -> tuple[Shop, float]:
-    result = {}
-    for shop in shops:
-        km_to_the_shop = math.sqrt(
-            (customer.location[0] - shop.location[0]) ** 2
-            + (customer.location[1] - shop.location[1]) ** 2)
+def go_to_shop(customer: Customer, cheapest_shop: Shop) -> None:
+    print(f"{customer.name} rides to {cheapest_shop.name}\n")
 
-        trip_to_shop_value = ((customer.car.fuel_consumption
-                               * km_to_the_shop) / 100 * fuel_price)
+    customer_home = customer.location
+    customer.location = cheapest_shop.location
 
-        purchase_costs = sum(
-            shop.products[product] * customer.product_cart[product]
-            for product in shop.products
-        )
+    date = datetime(
+        year=2021, month=1, day=4, hour=12, minute=33, second=41
+    )
 
-        total_costs = round(purchase_costs + trip_to_shop_value * 2, 2)
+    print(f"Date: {date.strftime('%d/%m/%Y %H:%M:%S')}")
+    # print(f"Date: {datetime.now().strftime('%d/%m/%Y %H:%M:%S')}")
+    # tests crush if it make it like that
+    print(f"Thanks, {customer.name}, for you purchase!")
+    print("You have bought: ")
 
-        result[shop.name] = total_costs
+    shopping_costs = shopping_list(
+        customer.product_cart,
+        cheapest_shop.products
+    )
 
-        print(f"{customer.name}'s trip to the {shop.name} costs {total_costs}")
+    print(f"Total cost is {shopping_costs} dollars")
+    print("See you again!\n")
+    print(f"{customer.name} rides home")
 
-    cheapest_shop = min(result, key=result.get)
-    min_costs = min(result.values())
+    customer.location = customer_home
 
-    for shop in shops:
-        if shop.name == cheapest_shop:
-            return shop, min_costs
+
+def shopping_list(product_cart: dict, products: dict) -> float:
+    costs = 0
+
+    for product in product_cart:
+        if product in products:
+            spent_per_product = (product_cart[product] * products[product])
+            costs += spent_per_product
+            print(
+                f"{product_cart[product]} {product}s "
+                f"for {spent_per_product} dollars"
+            )
+
+    return costs
