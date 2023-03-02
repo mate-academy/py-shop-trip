@@ -42,8 +42,7 @@ def shop_trip() -> None:
                 )
                 break
             print()
-            # print(f"Date: {datetime.now():%d/%m/%Y %H:%M:%S}")
-            print("Date: 04/01/2021 12:33:41")
+            print(f"Date: {datetime.now():%d/%m/%Y %H:%M:%S}")
             print(f"Thanks, {customer.name}, for your purchase!")
             print("You have bought:")
             total_costs = 0
@@ -65,4 +64,3 @@ def shop_trip() -> None:
                 f"{customer.money - min(closest.values())} dollars"
             )
             print()
-
