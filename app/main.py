@@ -1,86 +1,68 @@
+from datetime import datetime
 import json
-from app.shop import Shop
+
 from app.customer import Customer
+from app.shop import Shop
 
 
 def shop_trip() -> None:
     with open("app/config.json", "r") as f:
         data = json.load(f)
-        for customer in data["customers"]:
-            cust = Customer(
-                name=customer["name"],
-                products=customer["product_cart"],
-                location=customer["location"],
-                money=customer["money"],
-                car=customer["car"],
-            )
-            print(f"{cust.name} has {cust.money} dollars")
+        for customer_data in data["customers"]:
+            customer = Customer(**customer_data)
+            print(f"{customer.name} has {customer.money} dollars")
             closest = {}
             shop_names = {}
-            cust_prod = []
-            prod_price = []
-            sh_prod_names = []
-            prod_count = []
-            sum_all = []
-            for shop in data["shops"]:
-                sh = Shop(
-                    name=shop["name"],
-                    location=shop["location"],
-                    products=shop["products"]
-                )
-                fuel = cust.car["fuel_consumption"]
-                prod_total = [
-                    a * b for a, b in zip
-                    (sh.prod_price(), cust.prod_count())
-                ]
-                prod_total = sum(prod_total)
+            for shop_data in data["shops"]:
+                shop = Shop(**shop_data)
+                fuel = customer.car["fuel_consumption"]
+                prod_total = sum(a * b for a, b in zip(
+                    shop.prod_price(),
+                    customer.product_cart.values()
+                ))
                 fuel_total = round(
-                    cust.fuel_shop(fuel, cust.dist_shop(sh.location)), 2
+                    customer.fuel_shop(
+                        fuel, customer.dist_shop(shop.location)
+                    ), 2
                 )
                 expenses = prod_total + fuel_total
-                closest[sh.name] = expenses
-                shop_names[sh.name] = sh.products
+                closest[shop.name] = expenses
+                shop_names[shop.name] = shop.products
                 print(
-                    f"{cust.name}'s trip to the "
-                    f"{sh.name} costs {expenses}"
+                    f"{customer.name}'s trip "
+                    f"to the {shop.name} costs {expenses}"
                 )
-            if cust.money > expenses:
-                print(f"{cust.name} rides to "
-                      f"{min(closest, key=closest.get)}")
+            if customer.money > expenses:
+                closest_shop_name = min(closest, key=closest.get)
+                print(f"{customer.name} rides to {closest_shop_name}")
             else:
                 print(
-                    f"{cust.name} doesn't have enough "
-                    f"money to make purchase in any shop"
+                    f"{customer.name} doesn't have "
+                    f"enough money to make a purchase in any shop"
                 )
                 break
-            closest_sh = min(closest, key=closest.get)
             print()
+            # print(f"Date: {datetime.now():%d/%m/%Y %H:%M:%S}")
             print("Date: 04/01/2021 12:33:41")
-            print(f"Thanks, {cust.name}, for you purchase!")
-            print("You have bought: ")
-            for cl, prod in shop_names.items():
-                if cl == closest_sh:
-                    for price in prod.values():
-                        prod_price.append(price)
-            for prod in cust.products.values():
-                cust_prod.append(prod)
-            for pr_name, pr_count in cust.products.items():
-                sh_prod_names.append(pr_name)
-                prod_count.append(str(pr_count) + " " + str(pr_name))
-            tot_every_product_price = [
-                a * b for a, b in zip(prod_price, cust_prod)
-            ]
-            all_bought_prod = {prod_count[i]: tot_every_product_price[i]
-                               for i in range(len(prod_count))}
-            for prod, total in all_bought_prod.items():
-                sum_all.append(total)
-                print(f"{prod}s for {total} dollars")
-            print(f"Total cost is {sum(sum_all)} dollars")
+            print(f"Thanks, {customer.name}, for your purchase!")
+            print("You have bought:")
+            total_costs = 0
+            for product_name, product_count in customer.product_cart.items():
+                if product_name in shop_names[closest_shop_name]:
+                    product_price = shop_names[closest_shop_name][product_name]
+                    product_total_cost = product_price * product_count
+                    total_costs += product_total_cost
+                    print(
+                        f"{product_count} {product_name}s "
+                        f"for {product_total_cost} dollars"
+                    )
+            print(f"Total cost is {total_costs} dollars")
             print("See you again!")
             print()
-            print(f"{cust.name} rides home")
+            print(f"{customer.name} rides home")
             print(
-                f"{cust.name} now has "
-                f"{cust.money - min(closest.values())} dollars"
+                f"{customer.name} now has "
+                f"{customer.money - min(closest.values())} dollars"
             )
             print()
+

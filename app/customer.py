@@ -9,10 +9,10 @@ FUEL_PRICE = 2.4
 @dataclasses.dataclass
 class Customer:
     name: str
-    products: dict
     location: tuple
     money: int
     car: dict
+    product_cart: dict
 
     @staticmethod
     def fuel_shop(fuel_cons: float, distance_to_shop: float) -> float:
@@ -25,10 +25,4 @@ class Customer:
         )
 
     def prod_count(self) -> Any:
-        return self.products.values()
-
-    def prod_choice(self, product_price: callable) -> None:
-        for product, value in self.products.items():
-            for price in product_price:
-                prod_sum = value * price
-                print(f"{value} {product} for {prod_sum} dollars")
+        return self.product_cart.values()
