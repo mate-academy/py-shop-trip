@@ -48,5 +48,3 @@ def shop_trip() -> None:
                 f"{customer.money - min(closest.values())} dollars"
             )
             print()
-
-
