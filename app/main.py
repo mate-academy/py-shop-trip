@@ -16,8 +16,6 @@ def shop_trip() -> None:
             for shop_data in data["shops"]:
                 shop = Shop(**shop_data)
                 fuel = customer.car["fuel_consumption"]
-                customer.product_total(shop.products)
-                customer.fuel_expenses(fuel, shop.location, fuel_price)
                 expenses = (
                     customer.product_total(shop.products)
                     + customer.fuel_expenses(fuel, shop.location, fuel_price)
@@ -50,3 +48,5 @@ def shop_trip() -> None:
                 f"{customer.money - min(closest.values())} dollars"
             )
             print()
+
+

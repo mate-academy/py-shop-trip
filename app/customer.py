@@ -24,7 +24,7 @@ class Customer:
         )
 
     def product_total(self, products: dict) -> list:
-        prod_total = sum(a * b for a, b in zip(
+        prod_total = sum(price * count for price, count in zip(
             products.values(),
             self.product_cart.values()
         ))
