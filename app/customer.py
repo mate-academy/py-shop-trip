@@ -28,8 +28,6 @@ class Customer:
             f"\nDate: "
             f"{datetime.datetime.now().strftime('%d/%m/%Y %H:%M:%S')}"
         )
-        print(f"Thanks, {self}, for you purchase!")
-        print("You have bought: ")
 
     def ride_to_home(self, price: int) -> None:
         print(f"\n{self} rides home")

@@ -37,7 +37,9 @@ def counting_product_price(
         person: Customer,
         shops: dict,
         chosen_shop: Shop
-) -> int:
+) -> float:
+    print(f"Thanks, {person.name}, for you purchase!")
+    print("You have bought: ")
     result_price = 0
 
     for goods in person.product_cart:
