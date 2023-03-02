@@ -1,5 +1,6 @@
+import datetime
 import json
-from app.costumer import Costumer
+from app.costumer import Customer
 from app.shop import Shop
 from app.trip_cost import trip_cost
 
@@ -8,8 +9,8 @@ def shop_trip() -> None:
     with open("app/config.json") as source:
         info = json.load(source)
 
-    customers = [Costumer(customer) for customer in info["customers"]]
-    shops = {market["name"]: Shop(market) for market in info["shops"]}
+    customers = [Customer(**customer) for customer in info["customers"]]
+    shops = {market["name"]: Shop(**market) for market in info["shops"]}
 
     for person in customers:
         result_trip = {}
@@ -31,7 +32,10 @@ def shop_trip() -> None:
         else:
             cheapest_shop = result_trip[min(result_trip)]
             print(f"{person.name} rides to {cheapest_shop}")
-            print("\nDate: 04/01/2021 12:33:41")
+            print(
+                f"\nDate: "
+                f"{datetime.datetime.now().strftime('%d/%m/%Y %H:%M:%S')}"
+            )
             print(f"Thanks, {person.name}, for you purchase!")
             print("You have bought: ")
             products_price = 0
