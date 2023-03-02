@@ -1,4 +1,3 @@
-from datetime import datetime
 import json
 
 from app.customer import Customer
@@ -35,14 +34,13 @@ def shop_trip() -> None:
             else:
                 print(
                     f"{customer.name} doesn't have "
-                    f"enough money to make a purchase in any shop"
+                    f"enough money to make purchase in any shop"
                 )
                 break
             print()
-            print(f"Date: {datetime.now():%d/%m/%Y %H:%M:%S}")
             print("Date: 04/01/2021 12:33:41")
-            print(f"Thanks, {customer.name}, for your purchase!")
-            print("You have bought:")
+            print(f"Thanks, {customer.name}, for you purchase!")
+            print("You have bought: ")
             customer.shop_choice(shop_names, closest_shop_name)
             print("See you again!")
             print()

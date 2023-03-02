@@ -51,4 +51,5 @@ class Customer:
                     f"{product_count} {product_name}s "
                     f"for {product_total_cost} dollars"
                 )
+        print(f"Total cost is {total_costs} dollars")
         return total_costs
