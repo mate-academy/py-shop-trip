@@ -1,6 +1,5 @@
 from __future__ import annotations
 import math
-from typing import Any
 
 from app.customer import Customer
 from app.shop import Shop
@@ -10,15 +9,15 @@ def count_trip_to_shop_value(
         customer: Customer,
         shops: list[Shop],
         fuel_price: float
-) -> Any:   # Shop | float doesn't work, have no idea how to make it other way
+) -> tuple[Shop, float]:
     result = {}
     for shop in shops:
         km_to_the_shop = math.sqrt(
             (customer.location[0] - shop.location[0]) ** 2
             + (customer.location[1] - shop.location[1]) ** 2)
 
-        trip_to_shop_value = \
-            (customer.car.fuel_consumption * km_to_the_shop) / 100 * fuel_price
+        trip_to_shop_value = ((customer.car.fuel_consumption
+                               * km_to_the_shop) / 100 * fuel_price)
 
         purchase_costs = sum(
             shop.products[product] * customer.product_cart[product]

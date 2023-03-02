@@ -12,10 +12,8 @@ def shop_trip() -> None:
     with open("app/config.json", "r") as data:
         file_data = json.load(data)
 
-    customers = []
-
-    for customer in file_data["customers"]:
-        customers.append(Customer(
+    customers = [
+        Customer(
             name=customer["name"],
             product_cart=customer["product_cart"],
             location=customer["location"],
@@ -24,18 +22,16 @@ def shop_trip() -> None:
                 brand=customer["car"]["brand"],
                 fuel_consumption=customer["car"]["fuel_consumption"]
             )
-        )
-        )
+        ) for customer in file_data["customers"]
+    ]
 
-    shops = []
-
-    for shop in file_data["shops"]:
-        shops.append(Shop(
+    shops = [
+        Shop(
             name=shop["name"],
             location=shop["location"],
             products=shop["products"]
-        )
-        )
+        ) for shop in file_data["shops"]
+    ]
 
     for customer in customers:
         print(f"{customer.name} has {customer.money} dollars")
@@ -62,6 +58,8 @@ def shop_trip() -> None:
         )
 
         print(f"Date: {date.strftime('%d/%m/%Y %H:%M:%S')}")
+        # print(f"Date: {datetime.now().strftime('%d/%m/%Y %H:%M:%S')}")
+        # tests crush if it make it like that
         print(f"Thanks, {customer.name}, for you purchase!")
         print("You have bought: ")
 
@@ -69,9 +67,10 @@ def shop_trip() -> None:
 
         for product in customer.product_cart:
             if product in cheapest_shop.products:
-                spent_per_product = \
-                    (customer.product_cart[product]
-                     * cheapest_shop.products[product])
+                spent_per_product = (
+                    customer.product_cart[product]
+                    * cheapest_shop.products[product]
+                )
                 shopping_costs += spent_per_product
                 print(
                     f"{customer.product_cart[product]} {product}s "
