@@ -13,6 +13,7 @@ class Shop:
         for item, amount in products.items():
             item_cost = self.products[item] * amount
             total_cost += item_cost
-            print(f"{amount} {item}s for {item_cost} dollars\n"
-                  f"Total cost is {total_cost} dollars\n"
-                  f"See you again!\n")
+            print(f"{amount} {item}s for {item_cost} dollars")
+        print(f"Total cost is {total_cost} dollars\n"
+              f"See you again!\n")
+
