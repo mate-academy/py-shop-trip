@@ -7,8 +7,8 @@ class Shop:
     def print_receipt(self, name: str, products: dict) -> None:
         # print(f"Date: {datetime.now().strftime('%d/%m/%y %H:%M:%S')}")
         print("Date: 04/01/2021 12:33:41\n"
-              "Thanks, {name}, for you purchase!\n"
-              f"You have bought: ")
+              f"Thanks, {name}, for you purchase!\n"
+              "You have bought: ")
         total_cost = 0
         for item, amount in products.items():
             item_cost = self.products[item] * amount
