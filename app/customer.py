@@ -23,14 +23,16 @@ class Customer:
         return self.car["fuel_consumption"] * fuel_price / 100
 
     def ride_to_shop(self, chosen_shop: str) -> None:
-        print(f"{self} rides to {chosen_shop}")
         print(
+            f"{self} rides to {chosen_shop}\n"
             f"\nDate: "
             f"{datetime.datetime.now().strftime('%d/%m/%Y %H:%M:%S')}"
         )
 
     def ride_to_home(self, price: int) -> None:
-        print(f"\n{self} rides home")
         remaining_money = self.money - price
-        print(f"{self} now has {round(remaining_money, 2)} dollars")
+        print(
+            f"\n{self} rides home\n"
+            f"{self} now has {round(remaining_money, 2)} dollars"
+        )
         print()

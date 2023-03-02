@@ -1,10 +1,7 @@
-import json
 import math
+
 from app.customer import Customer
 from app.shop import Shop
-
-with open("app/config.json") as source:
-    info = json.load(source)
 
 
 def trip_cost(fuel_price: float, costumer: Customer, shop: Shop) -> float:
@@ -18,12 +15,12 @@ def trip_cost(fuel_price: float, costumer: Customer, shop: Shop) -> float:
     return round(total_fuel_cost + total_price, 2)
 
 
-def counting_trips(person: Customer, shops: dict) -> dict:
+def counting_trips(person: Customer, shops: dict, fuel_price: float) -> dict:
     print(f"{person.name} has {person.money} dollars")
     result_trip = {}
 
     for trip in shops:
-        cost = trip_cost(info["FUEL_PRICE"], person, shops[trip])
+        cost = trip_cost(fuel_price, person, shops[trip])
         print(
             f"{person.name}'s trip"
             f" to the {trip} costs {cost}"
@@ -38,8 +35,10 @@ def counting_product_price(
         shops: dict,
         chosen_shop: Shop
 ) -> float:
-    print(f"Thanks, {person.name}, for you purchase!")
-    print("You have bought: ")
+    print(
+        f"Thanks, {person.name}, for you purchase!\n"
+        f"You have bought: "
+    )
     result_price = 0
 
     for goods in person.product_cart:
@@ -53,6 +52,8 @@ def counting_product_price(
             f"for {goods_price} dollars"
         )
 
-    print(f"Total cost is {result_price} dollars")
-    print("See you again!")
+    print(
+        f"Total cost is {result_price} dollars\n"
+        f"See you again!"
+    )
     return result_price
