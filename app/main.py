@@ -1,62 +1,25 @@
-import datetime
-import json
-from app.costumer import Customer
+from app.customer import Customer
 from app.shop import Shop
-from app.trip_cost import trip_cost
+from app.logic_funcs import counting_product_price, counting_trips, info
 
 
 def shop_trip() -> None:
-    with open("app/config.json") as source:
-        info = json.load(source)
-
     customers = [Customer(**customer) for customer in info["customers"]]
     shops = {market["name"]: Shop(**market) for market in info["shops"]}
 
     for person in customers:
-        result_trip = {}
-        print(f"{person.name} has {person.money} dollars")
+        counted_trip = counting_trips(person, shops)
 
-        for trip in shops:
-            cost = trip_cost(info["FUEL_PRICE"], person, shops[trip])
-            print(
-                f"{person.name}'s trip"
-                f" to the {trip} costs {cost}"
-            )
-            result_trip[cost] = trip
-
-        if min(result_trip) > person.money:
+        if min(counted_trip) > person.money:
             print(
                 f"{person.name} doesn't have enough money "
                 f"to make purchase in any shop"
             )
         else:
-            cheapest_shop = result_trip[min(result_trip)]
-            print(f"{person.name} rides to {cheapest_shop}")
-            print(
-                f"\nDate: "
-                f"{datetime.datetime.now().strftime('%d/%m/%Y %H:%M:%S')}"
-            )
-            print(f"Thanks, {person.name}, for you purchase!")
-            print("You have bought: ")
-            products_price = 0
-
-            for goods in person.product_cart:
-                goods_price = (
-                    person.product_cart[goods]
-                    * shops[cheapest_shop].products[goods]
-                )
-                products_price += goods_price
-                print(
-                    f"{person.product_cart[goods]} {goods}s "
-                    f"for {goods_price} dollars"
-                )
-
-            print(f"Total cost is {products_price} dollars")
-            print("See you again!")
-            print(f"\n{person.name} rides home")
-            remaining_money = person.money - min(result_trip)
-            print(f"{person.name} now has {round(remaining_money, 2)} dollars")
-            print()
+            cheapest_shop = counted_trip[min(counted_trip)]
+            person.ride_to_shop(cheapest_shop)
+            counting_product_price(person, shops, cheapest_shop)
+            person.ride_to_home(price=min(counted_trip))
 
 
 shop_trip()
