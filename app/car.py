@@ -1,5 +1,3 @@
-from __future__ import annotations
-
 from app.location import Location
 
 
@@ -18,13 +16,6 @@ class Car:
 
     def __repr__(self) -> str:
         return f"{self.brand} with fuel consumption {self.fuel_consumption}"
-
-    @classmethod
-    def car_from_dict(cls, car_info: dict) -> Car:
-        return cls(
-            brand=car_info.get("brand"),
-            fuel_consumption=car_info.get("fuel_consumption")
-        )
 
     def estimate_trip_price(
         self,

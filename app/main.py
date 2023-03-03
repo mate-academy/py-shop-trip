@@ -14,10 +14,10 @@ def shop_trip() -> None:
         data = json.load(reader)
     fuel_price = data.get("FUEL_PRICE")
     customers = [
-        Customer.customer_from_dict(customer)
+        Customer(**customer)
         for customer in data.get("customers")
     ]
-    shops = [Shop.shop_from_dict(shop) for shop in data.get("shops")]
+    shops = [Shop(**shop) for shop in data.get("shops")]
     for i, customer in enumerate(customers):
         if i > 0:
             print()

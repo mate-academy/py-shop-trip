@@ -1,4 +1,3 @@
-from __future__ import annotations
 import datetime
 
 from app.location import Location
@@ -24,14 +23,6 @@ class Shop:
 
     def __repr__(self) -> str:
         return f"shop {self.name} located {self.location} has {self.products}"
-
-    @classmethod
-    def shop_from_dict(cls, shop_info: dict) -> Shop:
-        return cls(
-            name=shop_info.get("name"),
-            location=shop_info.get("location"),
-            products=shop_info.get("products")
-        )
 
     def calculate_cart_price(
         self,
