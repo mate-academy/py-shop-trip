@@ -6,7 +6,7 @@ from typing import Any
 @dataclasses.dataclass
 class Customer:
     name: str
-    location: tuple
+    location: list
     money: int
     car: dict
     product_cart: dict
@@ -17,13 +17,14 @@ class Customer:
     ) -> float:
         return ((fuel_cons * distance_to_shop) / 100 * fuel_price) * 2
 
-    def dist_to_shop(self, shop_location: tuple) -> float:
+    def dist_to_shop(self, shop_location: list) -> float:
         return (
             math.sqrt((shop_location[0] - self.location[0]) ** 2
                       + (shop_location[1] - self.location[1]) ** 2)
         )
 
     def product_total(self, products: dict) -> list:
+
         prod_total = sum(price * count for price, count in zip(
             products.values(),
             self.product_cart.values()
@@ -31,7 +32,7 @@ class Customer:
         return prod_total
 
     def fuel_expenses(
-            self, fuel: float, shop_location: tuple, fuel_price: float
+            self, fuel: float, shop_location: list, fuel_price: float
     ) -> Any:
         fuel_total = round(
             self.fuel_to_shop(
@@ -40,7 +41,9 @@ class Customer:
         )
         return fuel_total
 
-    def shop_choice(self, shop_names: dict, closest_shop: Any) -> float:
+    def shop_choice(
+            self, shop_names: dict, closest_shop: str
+    ) -> float:
         total_costs = 0
         for product_name, product_count in self.product_cart.items():
             if product_name in shop_names[closest_shop]:

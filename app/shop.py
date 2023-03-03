@@ -4,5 +4,5 @@ import dataclasses
 @dataclasses.dataclass
 class Shop:
     name: str
-    location: tuple
+    location: list
     products: dict
