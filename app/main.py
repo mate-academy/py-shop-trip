@@ -52,7 +52,7 @@ def shop_trip() -> None:
             print(f"{customer.name} rides to {go_to_}")
         else:
             print(f"{customer.name} doesn't have "
-                  f"enough money to make purchase in any shop")
+                  f"enough money to make a purchase in any shop")
             break
         print("")
         print("Date: 04/01/2021 12:33:41")
