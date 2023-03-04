@@ -13,23 +13,21 @@ class Car:
         self.fuel_consumption = fuel_consumption
 
     @classmethod
-    def add_to_car(cls) -> None:
-        with open("app/config.json", "r") as cars_file:
+    def load_from_json_info_about_car(cls) -> None:
+        with open("../config.json", "r") as cars_file:
             customer_data = json.load(cars_file)
             for customer in customer_data["customers"]:
-                for key, value in customer.items():
-                    if key == "car":
-                        car = cls(
-                            brand=value["brand"],
-                            fuel_consumption=value["fuel_consumption"]
-                        )
+                car = cls(
+                    brand=customer["car"]["brand"],
+                    fuel_consumption=customer["car"]["fuel_consumption"]
+                )
                 cls.cars.append(car)
 
     @staticmethod
     def fuel_consumption_to_car(car: str) -> float:
-        with open("app/config.json", "r") as file_data:
+        with open("../config.json", "r") as file_data:
             info = json.load(file_data)
             fuel_price = info["FUEL_PRICE"]
-        for i in Car.cars:
-            if i.brand == car:
-                return i.fuel_consumption * fuel_price
+        for car_brand in Car.cars:
+            if car_brand.brand == car:
+                return car_brand.fuel_consumption * fuel_price

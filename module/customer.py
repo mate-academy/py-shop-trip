@@ -18,8 +18,8 @@ class Customer:
         self.car = car
 
     @classmethod
-    def add_to_customers(cls) -> None:
-        with open("app/config.json", "rb") as customers_file:
+    def load_from_json_info_about_customer(cls) -> None:
+        with open("../config.json", "rb") as customers_file:
             customer_data = json.load(customers_file)
             for customer in customer_data["customers"]:
                 for key, value in customer.items():
