@@ -18,7 +18,7 @@ class Shop:
 
     @classmethod
     def load_from_json_info_about_shop(cls) -> None:
-        path_file = "../app/config.json"
+        path_file = "app/config.json"
         with open(path_file, "r") as shop_file:
             shop_data = json.load(shop_file)
             for shop in shop_data["shops"]:
