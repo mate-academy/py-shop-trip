@@ -56,7 +56,7 @@ def shop_trip() -> None:
             break
         print("")
         print("Date: 04/01/2021 12:33:41")
-        print(f"Thanks, {customer.name}, for you purchase!")
+        print(f"Thanks, {customer.name}, for your purchase!")
         print("You have bought: ")
 
         Shop.buy_product(customer, go_to_, product_cart_keys)
