@@ -1,5 +1,4 @@
 import json
-import os.path
 
 
 class Car:
@@ -15,8 +14,7 @@ class Car:
 
     @classmethod
     def load_from_json_info_about_car(cls) -> None:
-        path_file = os.path.abspath(".")
-        path_file = os.path.join(path_file, "config.json")
+        path_file = "../app/config.json"
         with open(path_file, "r") as cars_file:
             customer_data = json.load(cars_file)
             for customer in customer_data["customers"]:
@@ -28,8 +26,7 @@ class Car:
 
     @staticmethod
     def fuel_consumption_to_car(car: str) -> float:
-        path_file = os.path.abspath(".")
-        path_file = os.path.join(path_file, "config.json")
+        path_file = "../app/config.json"
         with open(path_file, "r") as file_data:
             info = json.load(file_data)
             fuel_price = info["FUEL_PRICE"]
