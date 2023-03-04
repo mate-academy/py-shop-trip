@@ -54,16 +54,16 @@ def shop_trip() -> None:
             print(f"{customer.name} doesn't have "
                   f"enough money to make a purchase in any shop")
             break
-        print("")
-        print("Date: 04/01/2021 12:33:41")
-        print(f"Thanks, {customer.name}, for your purchase!")
-        print("You have bought: ")
+        print(""
+              "Date: 04/01/2021 12:33:41"
+              f"Thanks, {customer.name}, for your purchase!"
+              "You have bought: ")
 
         Shop.buy_product(customer, go_to_, product_cart_keys)
-        print(f"Total cost is {round(distance_re, 2)} dollars")
-        print("See you again!")
-        print("")
-        print(f"{customer.name} rides home")
-        print(f"{customer.name} now has "
-              f"{customer.money - min(values_cost)} dollars")
-        print("")
+        print(f"Total cost is {round(distance_re, 2)} dollars"
+              "See you again!"
+              ""
+              f"{customer.name} rides home"
+              f"{customer.name} now has "
+              f"{customer.money - min(values_cost)} dollars"
+              "")
