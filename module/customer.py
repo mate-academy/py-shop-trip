@@ -1,4 +1,5 @@
 import json
+import os
 
 
 class Customer:
@@ -19,7 +20,9 @@ class Customer:
 
     @classmethod
     def load_from_json_info_about_customer(cls) -> None:
-        with open("../config.json", "rb") as customers_file:
+        path_file = os.path.abspath(".")
+        path_file = os.path.join(path_file, "config.json")
+        with open(path_file, "r") as customers_file:
             customer_data = json.load(customers_file)
             for customer in customer_data["customers"]:
                 for key, value in customer.items():
