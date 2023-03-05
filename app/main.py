@@ -13,8 +13,7 @@ def shop_trip() -> None:
             print(f"{customer.name} has {customer.money} dollars")
             closest = {}
             shop_names = {}
-            for shop_data in data["shops"]:
-                shop = Shop(**shop_data)
+            for shop in Shop.create_shops("app/config.json"):
                 fuel = customer.car["fuel_consumption"]
                 expenses = (
                     customer.product_total(shop.products)

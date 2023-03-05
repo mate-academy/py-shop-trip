@@ -23,12 +23,12 @@ class Customer:
                       + (shop_location[1] - self.location[1]) ** 2)
         )
 
-    def product_total(self, products: dict) -> list:
-
-        prod_total = sum(price * count for price, count in zip(
-            products.values(),
-            self.product_cart.values()
-        ))
+    def product_total(self, products: dict) -> int:
+        prod_total = 0
+        for key_1, value_1 in products.items():
+            for key_2, value_2 in self.product_cart.items():
+                if key_1 == key_2:
+                    prod_total += value_1 * value_2
         return prod_total
 
     def fuel_expenses(
