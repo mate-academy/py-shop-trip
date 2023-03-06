@@ -12,6 +12,6 @@ def shop_trip() -> None:
                 choice = result
         if not choice:
             print(f"{customer.name} doesn't have enough"
-                  f" money to make purchase in any shop")
+                  f" money to make a purchase in any shop")
             continue
         customer.ride_to_shop(choice["name"], choice["cost"])
