@@ -21,13 +21,13 @@ class Customer:
         if shop:
             print(f"Date: "
                   f"{datetime.datetime.now().strftime('%d/%m/%Y %H:%M:%S')}")
-            print(f"Thanks, {self.name}, for you purchase!\nYou have bought: ")
+            print(f"Thanks, {self.name}, for your purchase!\nYou have bought: ")
             cost = self._calculate_products_cost(shop, show=True)
             print(f"Total cost is {cost} dollars\nSee you again!\n")
             self._ride_home()
         else:
             print(f"{self.name} doesn't have enough "
-                  f"money to make purchase in any shop")
+                  f"money to make purchase a in any shop")
 
     def _print_money_info(self) -> None:
         print(f"{self.name} has {self.money} dollars")
