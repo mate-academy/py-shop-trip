@@ -8,7 +8,7 @@ class Shop:
         self.products: dict = data["products"]
 
     def print_receipt(self, name: str, products: dict) -> None:
-        date = datetime.datetime.now().strftime('%d/%m/%Y %H:%M:%S')
+        date = datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S")
         print(f"Date: {date}\n"
               f"Thanks, {name}, for you purchase!\n"
               "You have bought: ")
