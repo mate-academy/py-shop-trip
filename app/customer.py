@@ -1,12 +1,13 @@
 import dataclasses
 import math
-from typing import Any
+
+from app.shop import Shop
 
 
 @dataclasses.dataclass
 class Customer:
     name: str
-    location: list
+    location: list[int]
     money: int
     car: dict
     product_cart: dict
@@ -23,17 +24,22 @@ class Customer:
                       + (shop_location[1] - self.location[1]) ** 2)
         )
 
-    def product_total(self, products: dict) -> int:
-        prod_total = 0
-        for key_1, value_1 in products.items():
-            for key_2, value_2 in self.product_cart.items():
-                if key_1 == key_2:
-                    prod_total += value_1 * value_2
-        return prod_total
+    def is_all_products_exist(self) -> bool:
+        return all(
+            product in Shop.products.keys()
+            for product in self.product_cart.keys()
+        )
+
+    def product_total(self, products: dict) -> float:
+        if self.is_all_products_exist:
+            return sum(
+                count * products[name]
+                for name, count in self.product_cart.items()
+            )
 
     def fuel_expenses(
-            self, fuel: float, shop_location: list, fuel_price: float
-    ) -> Any:
+            self, fuel: float, shop_location: list[int], fuel_price: float
+    ) -> float:
         fuel_total = round(
             self.fuel_to_shop(
                 fuel, self.dist_to_shop(shop_location), fuel_price

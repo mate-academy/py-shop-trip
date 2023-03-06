@@ -5,7 +5,7 @@ import json
 @dataclasses.dataclass
 class Shop:
     name: str
-    location: list
+    location: list[int]
     products: dict
 
     @staticmethod
