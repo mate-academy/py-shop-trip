@@ -28,7 +28,7 @@ class Customer:
             self._ride_home()
         else:
             print(f"{self.name} doesn't have enough "
-                  f"money to make purchase a in any shop")
+                  f"money to make a purchase in any shop")
 
     def _print_money_info(self) -> None:
         print(f"{self.name} has {self.money} dollars")
