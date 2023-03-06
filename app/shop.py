@@ -10,7 +10,7 @@ class Shop:
     def print_receipt(self, name: str, products: dict) -> None:
         date = datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S")
         print(f"Date: {date}\n"
-              f"Thanks, {name}, for you purchase!\n"
+              f"Thanks, {name}, for your purchase!\n"
               "You have bought: ")
         total_cost = 0
         for item, amount in products.items():
