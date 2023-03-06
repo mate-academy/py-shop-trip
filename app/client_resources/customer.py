@@ -1,6 +1,7 @@
+import json
+
 from typing import List, Dict
 
-import json
 from app.shop_resources.shop import Shop
 from app.client_resources.Point2D import Point2d
 

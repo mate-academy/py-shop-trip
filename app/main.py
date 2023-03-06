@@ -1,6 +1,7 @@
+import json
+
 from typing import List
 
-import json
 from app.client_resources.Point2D import Point2d
 from app.client_resources.customer import Customer
 from app.shop_resources.shop import Shop

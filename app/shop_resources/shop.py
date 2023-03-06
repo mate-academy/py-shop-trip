@@ -1,6 +1,5 @@
 import datetime
 
-
 from app.client_resources.Point2D import Point2d
 
 
