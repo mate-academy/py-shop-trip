@@ -9,9 +9,9 @@ def shop_trip() -> None:
     customers = []
     shops = []
     with open("app/config.json") as file:
-        data = json.load(file)
-    Car.fuel_price = data["FUEL_PRICE"]
-    for customer in data["customers"]:
+        app_data = json.load(file)
+    Car.fuel_price = app_data["FUEL_PRICE"]
+    for customer in app_data["customers"]:
         customers.append(
             Customer(
                 customer["name"],
@@ -24,7 +24,7 @@ def shop_trip() -> None:
                 )
             )
         )
-    for shop in data["shops"]:
+    for shop in app_data["shops"]:
         shops.append(
             Shop(
                 shop["name"],

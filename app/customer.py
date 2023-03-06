@@ -16,7 +16,7 @@ class Customer:
     car: Car
 
     def make_purchase(self, shops: List[Shop]) -> None:
-        self._money_info()
+        self._print_money_info()
         shop = self._find_cheapest_option(shops)
         if shop:
             print(f"Date: "
@@ -29,7 +29,7 @@ class Customer:
             print(f"{self.name} doesn't have enough "
                   f"money to make purchase in any shop")
 
-    def _money_info(self) -> None:
+    def _print_money_info(self) -> None:
         print(f"{self.name} has {self.money} dollars")
 
     def _ride_home(self) -> None:
