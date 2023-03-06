@@ -21,7 +21,8 @@ class Customer:
         if shop:
             print(f"Date: "
                   f"{datetime.datetime.now().strftime('%d/%m/%Y %H:%M:%S')}")
-            print(f"Thanks, {self.name}, for your purchase!\nYou have bought: ")
+            print(f"Thanks, {self.name}, for your purchase!\n"
+                  "You have bought: ")
             cost = self._calculate_products_cost(shop, show=True)
             print(f"Total cost is {cost} dollars\nSee you again!\n")
             self._ride_home()
