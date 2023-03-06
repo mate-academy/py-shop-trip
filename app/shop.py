@@ -1,3 +1,6 @@
+import datetime
+
+
 class Shop:
     def __init__(self, data: dict) -> None:
         self.name: str = data["name"]
@@ -5,8 +8,8 @@ class Shop:
         self.products: dict = data["products"]
 
     def print_receipt(self, name: str, products: dict) -> None:
-        # print(f"Date: {datetime.now().strftime('%d/%m/%y %H:%M:%S')}")
-        print("Date: 04/01/2021 12:33:41\n"
+        date = datetime.datetime.now().strftime('%d/%m/%Y %H:%M:%S')
+        print(f"Date: {date}\n"
               f"Thanks, {name}, for you purchase!\n"
               "You have bought: ")
         total_cost = 0
