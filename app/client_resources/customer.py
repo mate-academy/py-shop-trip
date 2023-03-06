@@ -74,7 +74,7 @@ class Customer:
         if (min(shops_and_products_price.items(), key=lambda x: x[1])[1]
                 > self.money):
             print(f"{self.name} doesn't have enough money "
-                  f"to make purchase in any shop")
+                  f"to make a purchase in any shop")
             return
 
         best_place = min(shops_and_products_price.items(), key=lambda x: x[1])

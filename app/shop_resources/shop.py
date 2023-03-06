@@ -17,7 +17,7 @@ class Shop:
             products: dict[str]) -> None:
         date = datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S")
         print(f"Date: {date}")
-        print(f"Thanks, {person.name}, for you purchase!")
+        print(f"Thanks, {person.name}, for your purchase!")
         print("You have bought: ")
 
         total_price = 0
