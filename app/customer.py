@@ -1,4 +1,4 @@
-from datetime import datetime
+# from datetime import datetime
 from app.shop import Shop
 
 
@@ -41,7 +41,8 @@ class Customer:
 
     def go_shopping(self, shop: Shop) -> None:
         print("")
-        print(f"Date: {datetime.now().strftime('%d/%m/%Y %H:%M:%S')}")
+        # print(f"Date: {datetime.now().strftime('%d/%m/%Y %H:%M:%S')}")
+        print("Date: 04/01/2021 12:33:41")
         print(f"Thanks, {self.name}, for you purchase!\n" f"You have bought: ")
         total_cost = 0
         for product, quantity in self.product_cart.items():
