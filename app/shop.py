@@ -27,11 +27,13 @@ class Shop:
             money: float,
             name: str
     ) -> bool:
+
         if min_cost > money:
             print(
                 f"{name} "
                 f"doesn't have enough money to make purchase in any shop")
             return True
+
         return False
 
     @staticmethod
@@ -40,10 +42,12 @@ class Shop:
             value: dict
     ) -> list[dict]:
         purchased_products = []
+
         for key in customer_products:
             purchased_products.append(
                 {key: {"amount": customer_products[key], "price": value[key]}}
             )
+
         return purchased_products
 
     @staticmethod
@@ -52,6 +56,8 @@ class Shop:
             value: dict
     ) -> int:
         total = 0
+
         for key in customer_products:
             total += customer_products[key] * value[key]
+
         return total

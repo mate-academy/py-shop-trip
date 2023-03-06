@@ -26,17 +26,19 @@ def trip_calculator(shop: Shop, customer: Customer, fuel_price: float) -> dict:
         distance * costs_per_km * 2 + products_total_price, 2
     )
 
-    print(f"{customer.name}"
-          f"'s trip to the {shop.name}"
-          f" costs {full_costs_of_trip}"
-          )
+    print(
+        f"{customer.name}"
+        f"'s trip to the {shop.name}"
+        f" costs {full_costs_of_trip}"
+    )
 
     return (
-        {"full_costs_of_trip": full_costs_of_trip,
-         "shop": shop,
-         "purchased_products": purchased_products,
-         "products_total_price": products_total_price
-         }
+        {
+            "full_costs_of_trip": full_costs_of_trip,
+            "shop": shop,
+            "purchased_products": purchased_products,
+            "products_total_price": products_total_price
+        }
     )
 
 
@@ -46,9 +48,12 @@ def start_trip(
         fuel_price: float
 ) -> None:
     costs_and_shops = []
+
     for customer_key in customers:
-        print(f"{customers.get(customer_key).name} has "
-              f"{customers.get(customer_key).money} dollars")
+        print(
+            f"{customers.get(customer_key).name} has "
+            f"{customers.get(customer_key).money} dollars"
+        )
 
         for shop_key in shops:
             costs_and_shops.append(trip_calculator(

@@ -37,6 +37,7 @@ class Customer:
                         "fuel_consumption")
                 )
             )
+
         return customers_instances
 
     @staticmethod
@@ -47,12 +48,14 @@ class Customer:
     ) -> None:
         print(
             f"{customer.name} rides to "
-            f"{cheapest_trip.get('shop').name}\n")
+            f"{cheapest_trip.get('shop').name}\n"
+        )
         print((datetime.datetime.now()).strftime("Date: %d/%m/%Y %H:%M:%S"))
         print(f"Thanks, {customer.name}, for you purchase!")
         print("You have bought: ")
 
         for product_dict in cheapest_trip.get("purchased_products"):
+
             for product in product_dict:
                 total = product_dict[product].get("price") * product_dict[
                     product].get("amount")
@@ -72,4 +75,5 @@ class Customer:
         print("See you again!\n")
         print(f"{customer.name} rides home")
         print(
-            f"{customer.name} now has {customer.money} dollars\n")
+            f"{customer.name} now has {customer.money} dollars\n"
+        )
