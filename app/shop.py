@@ -31,7 +31,7 @@ class Shop:
         if min_cost > money:
             print(
                 f"{name} "
-                f"doesn't have enough money to make purchase in any shop")
+                f"doesn't have enough money to make a purchase in any shop")
             return True
 
         return False

@@ -51,7 +51,7 @@ class Customer:
             f"{cheapest_trip.get('shop').name}\n"
         )
         print((datetime.datetime.now()).strftime("Date: %d/%m/%Y %H:%M:%S"))
-        print(f"Thanks, {customer.name}, for you purchase!")
+        print(f"Thanks, {customer.name}, for your purchase!")
         print("You have bought: ")
 
         for product_dict in cheapest_trip.get("purchased_products"):
