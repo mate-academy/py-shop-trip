@@ -72,7 +72,7 @@ class Customer:
     def _buy_products(self, shop: Shop) -> None:
 
         print(f"Date: {DATE_TIME}")
-        print(f"Thanks, {self.name}, for you purchase!")
+        print(f"Thanks, {self.name}, for your purchase!")
         print("You have bought: ")
         total_price = self.cost_products_in_shop(shop)
 
