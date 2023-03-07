@@ -10,15 +10,14 @@ with open("app/config.json", "r") as data_file:
     data_from_file = json.loads(data_file.read())
 
 FUEL_PRICE = data_from_file.get("FUEL_PRICE")
+customers = data_from_file.get("customers")
+shops = data_from_file.get("shops")
 
 
 def shop_trip() -> None:
     customers_list = []
     shops_list = []
     result = ""
-
-    customers = data_from_file.get("customers")
-    shops = data_from_file.get("shops")
 
     for customer in customers:
         customer_name = customer.get("name")
@@ -48,9 +47,8 @@ def shop_trip() -> None:
         shops_list.append(Shop(shop_name, shop_location, shop_products))
 
     for customer_obj in customers_list:
-        if customer_obj == customers_list[-1]:
-            result += customer_obj.print_report(shops_list)[:-2]
-        else:
-            result += customer_obj.print_report(shops_list)
+        result += (customer_obj.print_report(shops_list)[:-2]
+                   if customer_obj == customers_list[-1]
+                   else customer_obj.print_report(shops_list))
 
     print(result)
