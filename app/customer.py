@@ -15,6 +15,17 @@ class Customer:
             self, shops: list[Shop], fuel_price: float
     ) -> Shop | None:
         print(f"{self.name} has {self.money} dollars")
+        totals = self.budget_shop_visits(shops, fuel_price)
+
+        if self.money < min(totals):
+            print(f"{self.name} doesn't have enough money "
+                  f"to make a purchase in any shop")
+            return None
+        the_shop = shops[totals.index(min(totals))]
+        print(f"{self.name} rides to {the_shop.name}")
+        return the_shop
+
+    def budget_shop_visits(self, shops: list[Shop], fuel_price: float) -> list:
         totals = []
 
         for shop in shops:
@@ -30,21 +41,10 @@ class Customer:
             print(f"{self.name}'s trip to the {shop.name} costs {trip_cost}")
             totals.append(trip_cost)
             self.trip_totals[shop.name] = trip_cost
-
-        if self.money < min(totals):
-            print(f"{self.name} doesn't have enough money "
-                  f"to make a purchase in any shop")
-            return None
-        the_shop = shops[totals.index(min(totals))]
-        print(f"{self.name} rides to {the_shop.name}")
-        return the_shop
+        return totals
 
     def go_shopping(self, shop: Shop) -> None:
-        print("")
-        # print(f"Date: {datetime.now().strftime('%d/%m/%Y %H:%M:%S')}")
-        print("Date: 04/01/2021 12:33:41")
-        print(f"Thanks, {self.name}, for your purchase!\n"
-              f"You have bought: ")
+        self.greeting()
         total_cost = 0
         for product, quantity in self.product_cart.items():
             item_total = shop.products[product] * quantity
@@ -53,6 +53,13 @@ class Customer:
         print(f"Total cost is {total_cost} dollars\n" f"See you again!\n")
         self.money -= self.trip_totals[shop.name]
         self.go_home()
+
+    def greeting(self) -> None:
+        print("")
+        # print(f"Date: {datetime.now().strftime('%d/%m/%Y %H:%M:%S')}")
+        print("Date: 04/01/2021 12:33:41")
+        print(f"Thanks, {self.name}, for your purchase!\n"
+              f"You have bought: ")
 
     def go_home(self) -> None:
         print(f"{self.name} rides home")

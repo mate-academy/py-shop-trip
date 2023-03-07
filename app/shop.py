@@ -1,3 +1,6 @@
+from math import dist
+
+
 class Shop:
     def __init__(self, data: dict) -> None:
         self.name = data["name"]
@@ -11,7 +14,4 @@ class Shop:
         return total
 
     def calc_distance(self, customer_location: list) -> float:
-        x_delta = self.location[0] - customer_location[0]
-        y_delta = self.location[1] - customer_location[1]
-        distance = (x_delta**2 + y_delta**2) ** 0.5
-        return distance
+        return dist(self.location, customer_location)
