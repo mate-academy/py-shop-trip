@@ -1,9 +1,10 @@
 from datetime import datetime
-from math import dist
 from dataclasses import dataclass
+from math import dist
+
 from app.car import Car
-from app.shop import Shop
 from app.car import FUEL_PRICE
+from app.shop import Shop
 
 
 DATE_TIME = (datetime(2021, 1, 4, 12, 33, 41)
@@ -62,9 +63,8 @@ class Customer:
             total_price += shop.products[name].price * count
         return round(total_price, 2)
 
-    def cost_drive(self, location: Shop) -> float:
-        # d = sqrt((x2 - x1)^2 + (y2 - y1)^2)
-        distance_in_km = dist(self._location, location.location)
+    def cost_drive(self, shop: Shop) -> float:
+        distance_in_km = dist(self._location, shop.location)
         cost = (distance_in_km
                 * 2 * self._car.fuel_consumption_in_km * FUEL_PRICE)
         return round(cost, 2)
