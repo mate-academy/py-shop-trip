@@ -39,7 +39,7 @@ def shop_trip() -> None:
         print(f"{customer.name} has {customer.money} dollars")
         cheapest_shop = customer.choose_shop(shops, fuel_price)
         if not cheapest_shop:
-            return
+            continue
         customer.buy_products(cheapest_shop, fuel_price)
         customer.return_home()
 
