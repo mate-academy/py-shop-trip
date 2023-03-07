@@ -18,9 +18,9 @@ def process_customers_list() -> List[Customer]:
     try:
         with open("app/config.json", "r") as f:
             world_data = json.load(f)
-    except FileNotFoundError as fnfe:
-        print(f"Loading problem, {fnfe} doesn't exist.")
-        raise fnfe
+    except FileNotFoundError:
+        raise FileNotFoundError("Loading problem, file/fpath"
+                                f" {f} doesn't exist.")
 
     ServerWithFuelData.fuel_price = world_data["FUEL_PRICE"]
 
