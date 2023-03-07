@@ -11,10 +11,9 @@ class Shop:
         self.location = location
         self.products = products
 
-    def sell_products(
-            self,
-            person: object,
-            products: dict[str]) -> None:
+    def sell_products(self,
+                      person: object,
+                      products: dict[str]) -> None:
         date = datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S")
         print(f"Date: {date}")
         print(f"Thanks, {person.name}, for your purchase!")

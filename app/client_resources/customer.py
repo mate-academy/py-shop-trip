@@ -67,17 +67,18 @@ class Customer:
                 f"costs {round(shops_and_products_price[shop], 2)}"
             )
 
-        if (min(shops_and_products_price.items(), key=lambda x: x[1])[1]
+        if not (min(shops_and_products_price.items(), key=lambda x: x[1])[1]
                 > self.money):
-            print(f"{self.name} doesn't have enough money "
-                  f"to make a purchase in any shop")
-            return
 
-        best_place = min(shops_and_products_price.items(), key=lambda x: x[1])
+            best_place = min(shops_and_products_price.items(),
+                             key=lambda x: x[1])
 
-        print(f"{self.name} rides to {best_place[0].name}\n")
-        self.car.ride_to_location(self, best_place[0].location)
-        cheapest_shop = best_place[0]
-        cheapest_shop.sell_products(self, self.product_cart)
-        print(f"{self.name} rides home")
-        print(f"{self.name} now has {round(self.money, 2)} dollars\n")
+            print(f"{self.name} rides to {best_place[0].name}\n")
+            self.car.ride_to_location(self, best_place[0].location)
+            cheapest_shop = best_place[0]
+            cheapest_shop.sell_products(self, self.product_cart)
+            print(f"{self.name} rides home")
+            print(f"{self.name} now has {round(self.money, 2)} dollars\n")
+
+        print(f"{self.name} doesn't have enough money "
+              f"to make a purchase in any shop")
