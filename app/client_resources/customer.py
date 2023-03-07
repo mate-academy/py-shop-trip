@@ -1,9 +1,13 @@
-import json
-
+from dataclasses import dataclass
 from typing import List, Dict
 
 from app.shop_resources.shop import Shop
 from app.client_resources.Point2D import Point2d
+
+
+@dataclass
+class ServerWithFuelData:
+    fuel_price: str
 
 
 class Customer:
@@ -26,15 +30,7 @@ class Customer:
         self._shops_price_and_map = None
 
     def check_fuel_price(self) -> None:
-        try:
-            with open("app/config.json", "r") as f:
-                world_data = json.load(f)
-        except FileNotFoundError as fnfe:
-            print("World didn't provide data to customer :(")
-            raise fnfe
-
-        self.fuel_price = world_data["FUEL_PRICE"]
-        del world_data
+        self.fuel_price = ServerWithFuelData.fuel_price
 
     def _count_price_and_map_to_shops(self) -> Dict[Shop, float]:
         self._shops_price_and_map = dict()

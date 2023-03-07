@@ -3,7 +3,7 @@ import json
 from typing import List
 
 from app.client_resources.Point2D import Point2d
-from app.client_resources.customer import Customer
+from app.client_resources.customer import Customer, ServerWithFuelData
 from app.shop_resources.shop import Shop
 from app.client_resources.car import Car
 
@@ -21,6 +21,8 @@ def process_customers_list() -> List[Customer]:
     except FileNotFoundError as fnfe:
         print(f"Loading problem, {fnfe} doesn't exist.")
         raise fnfe
+
+    ServerWithFuelData.fuel_price = world_data["FUEL_PRICE"]
 
     return [Customer(name=customer["name"],
                      product_cart=customer["product_cart"],
