@@ -29,7 +29,7 @@ def shop_trip() -> None:
         cheapest_trip_price, cheapest_trip = min(cost_whole_trips)
         if cheapest_trip_price > customer.money:
             print(f"{customer.name} doesn't have enough "
-                  f"money to make purchase in any shop")
+                  f"money to make a purchase in any shop")
             return
         customer.money -= cheapest_trip_price
         customer.start_trip(cheapest_trip)
