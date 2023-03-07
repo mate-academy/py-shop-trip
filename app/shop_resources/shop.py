@@ -25,7 +25,7 @@ class Shop:
             self.sell_product(person, name, count)
 
         print(f"Total cost is {total_price} dollars")
-        print("See you again!\n")
+        print("See you again!")
 
     def sell_product(self,
                      person: object,

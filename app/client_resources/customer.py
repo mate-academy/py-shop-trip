@@ -54,6 +54,13 @@ class Customer:
             shop_name_overall_price[shop] = goods_price
         return shop_name_overall_price
 
+    def could_manage_the_ride(
+            self,
+            shops_and_products_price: dict[Shop, float]
+    ) -> bool:
+        return (min(shops_and_products_price.items(), key=lambda x: x[1])[1]
+                <= self.money)
+
     def wake_up_and_ride(self) -> None:
         print(f"{self.name} has {self.money} dollars")
         self.check_fuel_price()
@@ -67,18 +74,17 @@ class Customer:
                 f"costs {round(shops_and_products_price[shop], 2)}"
             )
 
-        if not (min(shops_and_products_price.items(), key=lambda x: x[1])[1]
-                > self.money):
+        if not self.could_manage_the_ride(shops_and_products_price):
+            print(f"{self.name} doesn't have enough money "
+                  f"to make a purchase in any shop")
 
+        if self.could_manage_the_ride(shops_and_products_price):
             best_place = min(shops_and_products_price.items(),
                              key=lambda x: x[1])
 
-            print(f"{self.name} rides to {best_place[0].name}\n")
+            print(f"{self.name} rides to {best_place[0].name}")
             self.car.ride_to_location(self, best_place[0].location)
             cheapest_shop = best_place[0]
             cheapest_shop.sell_products(self, self.product_cart)
             print(f"{self.name} rides home")
-            print(f"{self.name} now has {round(self.money, 2)} dollars\n")
-
-        print(f"{self.name} doesn't have enough money "
-              f"to make a purchase in any shop")
+            print(f"{self.name} now has {round(self.money, 2)} dollars")
