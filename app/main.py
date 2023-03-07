@@ -6,14 +6,16 @@ from app.cart import Cart
 from app.shop import Shop
 from app.customer import Customer
 
+with open("app/config.json", "r") as data_file:
+    data_from_file = json.loads(data_file.read())
+
+FUEL_PRICE = data_from_file.get("FUEL_PRICE")
+
 
 def shop_trip() -> None:
-    customers_obj = []
-    shops_obj = []
+    customers_list = []
+    shops_list = []
     result = ""
-
-    with open("app/config.json", "r") as data_file:
-        data_from_file = json.loads(data_file.read())
 
     customers = data_from_file.get("customers")
     shops = data_from_file.get("shops")
@@ -29,11 +31,11 @@ def shop_trip() -> None:
         for product, amount in customer.get("product_cart").items():
             customer_products_list.append(Cart(product, amount))
 
-        customers_obj.append(Customer(customer_name,
-                                      customer_products_list,
-                                      customer_location,
-                                      customer_money,
-                                      customer_car))
+        customers_list.append(Customer(customer_name,
+                                       customer_products_list,
+                                       customer_location,
+                                       customer_money,
+                                       customer_car))
 
     for shop in shops:
         shop_name = shop.get("name")
@@ -43,12 +45,12 @@ def shop_trip() -> None:
         for product, price in shop.get("products").items():
             shop_products.append(Product(product, price))
 
-        shops_obj.append(Shop(shop_name, shop_location, shop_products))
+        shops_list.append(Shop(shop_name, shop_location, shop_products))
 
-    for customer_obj in customers_obj:
-        if customer_obj == customers_obj[-1]:
-            result += customer_obj.print_report(shops_obj)[:-2]
+    for customer_obj in customers_list:
+        if customer_obj == customers_list[-1]:
+            result += customer_obj.print_report(shops_list)[:-2]
         else:
-            result += customer_obj.print_report(shops_obj)
+            result += customer_obj.print_report(shops_list)
 
     print(result)

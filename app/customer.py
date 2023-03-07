@@ -1,10 +1,10 @@
-import json
-
 import math
+
+import app.main
+import app.shop as mall
 
 from dataclasses import dataclass
 
-import app.shop as mall
 from app.cart import Cart
 from app.car import Car
 
@@ -21,7 +21,7 @@ class Customer:
         fuel_consumption = self.car.fuel_consumption
         distance = self._count_distance(shop.location)
         trip_cost = round(fuel_consumption * distance * 2
-                          / 100 * self._get_fuel_price(), 2)
+                          / 100 * app.main.FUEL_PRICE, 2)
 
         return trip_cost
 
@@ -34,8 +34,8 @@ class Customer:
                         + shop.print_receipt(self)[1])
             shop_dict[shop.name] = trip_sum
 
-            result += (
-                f"{self.name}'s trip to the {shop.name} costs {trip_sum}\n")
+            result += (f"{self.name}'s trip to the {shop.name}"
+                       f" costs {trip_sum}\n")
 
         min_sum_trip = min(shop_dict.values())
 
@@ -63,9 +63,3 @@ class Customer:
         x1, y1 = self.location
         x2, y2 = shop_coords
         return math.hypot(x2 - x1, y2 - y1)
-
-    @staticmethod
-    def _get_fuel_price() -> float:
-        with open("app/config.json", "r") as data_file:
-            data_from_file = json.loads(data_file.read())
-        return data_from_file.get("FUEL_PRICE")
