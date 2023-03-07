@@ -8,10 +8,11 @@ from app.shops import Shop
 def shop_trip() -> None:
     with open("app/config.json", "r") as file:
         file_info = json.load(file)
-    shops = [Shop(name=shop["name"],
-                  location=shop["location"],
-                  products=shop["products"]
-                  ) for shop in file_info["shops"]]
+    shops = [Shop(
+        name=shop["name"],
+        location=shop["location"],
+        products=shop["products"]
+    ) for shop in file_info["shops"]]
 
     for customer in file_info["customers"]:
         new_customer = Customer(

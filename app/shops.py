@@ -10,14 +10,9 @@ class Shop:
     def purchase_receipt(self,
                          customer_name: str,
                          customer_products: dict) -> None:
-        date = datetime.datetime.now()
+        date = datetime.datetime.now().strftime("%d/%m/%Y %H:%M:S")
 
-        print(f"Date: {date.strftime('%d')}/"
-              f"{date.strftime('%m')}/"
-              f"{date.strftime('%Y')}"
-              f" {date.strftime('%H')}:"
-              f"{date.strftime('%M')}:"
-              f"{date.strftime('%S')}\n"
+        print(f"Date: {date}\n"
               f"Thanks, {customer_name}, for you purchase!\n"
               f"You have bought: ")
         self.products_receipt(customer_products)

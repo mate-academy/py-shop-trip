@@ -28,10 +28,10 @@ class Customer:
         cheaper_shop_cost = None
         for shop in shops:
             price = self._price(shop, self._distance(shop))
-            if cheaper_shop_cost is not None and price < cheaper_shop_cost:
+            if cheaper_shop_cost and price < cheaper_shop_cost:
                 cheaper_shop = shop
                 cheaper_shop_cost = price
-            elif cheaper_shop_cost is None:
+            elif not cheaper_shop_cost:
                 cheaper_shop = shop
                 cheaper_shop_cost = price
             print(f"{self._name}'s trip to the {shop.name} costs {price}")
