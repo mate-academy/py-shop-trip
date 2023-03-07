@@ -19,7 +19,6 @@ class Customer:
         self.car = car
 
     def choose_shop(self, shops: list[Shop], fuel_price: float) -> Shop | bool:
-        enough_money = False
         shop_trips = {}
         for shop in shops:
             total_cost = (
@@ -31,9 +30,8 @@ class Customer:
                 f" costs {round(total_cost, 2)}"
             )
             if total_cost < self.money:
-                enough_money = True
                 shop_trips[shop] = total_cost
-        if not enough_money:
+        if not len(shop_trips):
             print(
                 f"{self.name} doesn't have enough money"
                 f" to make a purchase in any shop"
