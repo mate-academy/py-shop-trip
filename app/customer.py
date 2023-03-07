@@ -37,7 +37,7 @@ class Customer:
             print(f"{self._name}'s trip to the {shop.name} costs {price}")
         if self._money < cheaper_shop_cost:
             print(f"{self._name} doesn't have enough"
-                  f" money to make purchase in any shop")
+                  f" money to make a purchase in any shop")
         else:
             self._location = shop.location
             print(f"{self._name} rides to {cheaper_shop.name}")
