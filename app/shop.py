@@ -28,7 +28,7 @@ class Shop:
         data = datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S")
 
         return (f"Date: {data}\n"
-                f"Thanks, {customer.name}, for you purchase!\n"
+                f"Thanks, {customer.name}, for your purchase!\n"
                 f"You have bought: \n"
                 f"{cart}"
                 f"Total cost is {total} dollars\n"

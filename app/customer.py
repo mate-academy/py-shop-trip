@@ -55,7 +55,7 @@ class Customer:
 
         else:
             result += (f"{self.name} doesn't have enough money "
-                       f"to make purchase in any shop\n\n")
+                       f"to make a purchase in any shop\n\n")
 
         return result
 
