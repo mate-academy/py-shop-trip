@@ -47,8 +47,8 @@ class Customer:
                 cheapest_shop = shop
         if self.money < cheapest:
             print(
-                f"{self.name} doesn't have enough money"
-                f" to make purchase in any shop"
+                f"{self.name} doesn't have enough money "
+                f"to make a purchase in any shop"
             )
             return
         print(f"{self.name} rides to {cheapest_shop.name}\n")
