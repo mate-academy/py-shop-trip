@@ -27,7 +27,7 @@ class Shop:
             "%d/%m/%Y %H:%M:%S"
         )
         print(f"Date: {transaction_datetime}")
-        print(f"Thanks, {customer.name}, for you purchase!")
+        print(f"Thanks, {customer.name}, for your purchase!")
         print("You have bought: ")
         total_cost = self.calculates_cost_of_product_cart(
             customer, printing=True
