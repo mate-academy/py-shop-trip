@@ -1,4 +1,5 @@
 from app.customer import Customer
+from datetime import datetime
 
 
 def unpack_shops(data: list) -> list:
@@ -16,8 +17,10 @@ class Shop:
 
     def recipe(self, customer: Customer) -> None:
         total_price = 0
+        dt = datetime(2021, 4, 1, 12, 33, 41)
+        datetime_recipe = dt.strftime("%m/%d/%Y %H:%M:%S")
         print(
-            f"Date: 04/01/2021 12:33:41\nThanks, "
+            f"Date: {datetime_recipe}\nThanks, "
             f"{customer.name}, for you purchase!\nYou have bought: "
         )
         for name, value in customer.product_cart.items():

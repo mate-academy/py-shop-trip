@@ -1,5 +1,5 @@
-from app.car import Car
 from math import dist
+from app.car import Car
 
 
 def unpack_customers(data: list) -> list:
