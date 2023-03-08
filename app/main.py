@@ -34,7 +34,7 @@ def shop_trip() -> None:
             print(f"{customer.name} rides to {shop_to_ride.name}\n")
         else:
             print(f"{customer.name} doesn't have "
-                  f"enough money to make purchase in any shop")
+                  f"enough money to make a purchase in any shop")
             ride_price_to_shop_list.clear()
             choose_shop.clear()
             break
