@@ -78,7 +78,7 @@ class Customer:
             print(f"{self.name} doesn't have enough money "
                   f"to make a purchase in any shop")
 
-        if self.could_manage_the_ride(shops_and_products_price):
+        else:
             best_place = min(shops_and_products_price.items(),
                              key=lambda x: x[1])
 
