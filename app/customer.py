@@ -51,10 +51,10 @@ class Customer:
                 f"to make a purchase in any shop"
             )
             return
-        print(f"{self.name} rides to {cheapest_shop.name}\n")
+        print(f"{self.name} rides to {cheapest_shop.name}")
         cheapest_shop.shop_purchase_display(self)
         print(f"{self.name} rides home")
         print(
             f"{self.name} now has"
-            f" {round(self.money - cheapest, 2)} dollars\n"
+            f" {round(self.money - cheapest, 2)} dollars"
         )

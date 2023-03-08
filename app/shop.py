@@ -33,4 +33,4 @@ class Shop:
             customer, printing=True
         )
         print(f"Total cost is {total_cost} dollars")
-        print("See you again!\n")
+        print("See you again!")
