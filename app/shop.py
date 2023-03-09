@@ -4,7 +4,12 @@ from typing import Tuple
 
 
 class Shop:
-    def __init__(self, name: str, location: Tuple[int, int], products: dict) -> None:
+    def __init__(
+            self,
+            name: str,
+            location: Tuple[int, int],
+            products: dict
+    ) -> None:
         self.__name = name
         self.__location = location
         self.__products = products
