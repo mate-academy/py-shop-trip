@@ -55,7 +55,7 @@ class Customer:
                     )
                     print(f"Date: {data}")
                     print(f"Thanks, {self.name}, for your purchase!")
-                    print("You have bought: ")
+                    print("You have bought:")
                     for product, quantity in self.products.items():
                         list_to_buy(product, quantity, shop.products[product])
                     price = total_cost_products(self, shop)
@@ -69,5 +69,5 @@ class Customer:
                 else:
                     print(
                         f"{self.name} doesn't have enough money"
-                        f" to make purchase in any shop"
+                        f" to make a purchase in any shop"
                     )
