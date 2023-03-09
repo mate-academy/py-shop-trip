@@ -16,31 +16,24 @@ def get_dict_from_json(json_file_name: str) -> dict:
 
 def create_shop_objects() -> tuple:
     data_dict = get_dict_from_json(file_name)
-    res = []
-    for store in data_dict["shops"]:
-        res.append(
-            Shop(store["name"], store["location"], store["products"])
-        )
-    return tuple(res)
+    return tuple([Shop(
+        store["name"],
+        store["location"],
+        store["products"]
+    ) for store in data_dict["shops"]])
 
 
 def create_customer_objects() -> tuple:
     data_dict = get_dict_from_json(file_name)
     fuel_price = data_dict["FUEL_PRICE"]
-    res = []
-    for customer in data_dict["customers"]:
-        res.append(
-            Customer(
-                customer["name"],
-                customer["product_cart"],
-                customer["location"],
-                customer["money"],
-                Car(
-                    customer["car"]["brand"],
-                    customer["car"]["fuel_consumption"],
-                    fuel_price
-                )
-            )
+    return tuple([Customer(
+        customer["name"],
+        customer["product_cart"],
+        customer["location"],
+        customer["money"],
+        Car(
+            customer["car"]["brand"],
+            customer["car"]["fuel_consumption"],
+            fuel_price
         )
-
-    return tuple(res)
+    ) for customer in data_dict["customers"]])
