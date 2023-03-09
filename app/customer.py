@@ -1,6 +1,7 @@
 import dataclasses
 
 from math import sqrt
+from typing import Tuple
 
 from app.shop import Shop
 from app.car import Car
@@ -12,7 +13,7 @@ class Customer:
             self,
             name: str,
             product_cart: dict,
-            location: list,
+            location: Tuple[int, int],
             money: float,
             car: Car
     ) -> None:
