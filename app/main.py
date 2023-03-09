@@ -33,6 +33,3 @@ def shop_trip() -> None:
         customer.amount_of_money()
         customer.check_price(shops, distance, data["FUEL_PRICE"])
         customer.shopping(shops, distance, data["FUEL_PRICE"])
-
-
-shop_trip()
