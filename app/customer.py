@@ -44,7 +44,7 @@ class Customer:
                      * distance * 2 * 2.4
                      + shop.buy_products(self._product_cart), 2)
 
-    def cheaper_shop(self, shops):
+    def cheaper_shop(self, shops: List[Shop]) -> tuple:
         cheaper_shop = None
         cheaper_shop_cost = None
         for shop in shops:
