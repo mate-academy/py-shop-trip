@@ -4,14 +4,6 @@ from app.distance import Distance
 from app.shop import Shop
 
 
-def list_to_buy(
-        product: str,
-        quantity: int,
-        price: float | int
-) -> None:
-    print(f"{quantity} {product}s for {price * quantity} dollars")
-
-
 def total_cost_products(
         customer: Any,
         shop: Shop

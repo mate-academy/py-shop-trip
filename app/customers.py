@@ -3,7 +3,7 @@ from typing import List
 
 from app.distance import Distance
 from app.shop import Shop
-from app.action import total_cost_products, min_price, total_cost, list_to_buy
+from app.action import total_cost_products, min_price, total_cost
 
 
 class Customer:
@@ -21,15 +21,13 @@ class Customer:
         self.products = products
         self.location = location
 
-    def amount_of_money(self) -> None:
-        print(f"{self.name} has {self.amount_money} dollars")
-
     def check_price(
             self,
             shops: [Shop],
             distance: Distance,
             full_price: int | float
     ) -> None:
+        print(f"{self.name} has {self.amount_money} dollars")
         for shop in shops:
             price_for_trip = total_cost(self, shop, distance, full_price)
             print(f"{self.name}'s trip to the "
@@ -57,7 +55,10 @@ class Customer:
                     print(f"Thanks, {self.name}, for your purchase!")
                     print("You have bought: ")
                     for product, quantity in self.products.items():
-                        list_to_buy(product, quantity, shop.products[product])
+                        print(
+                            f"{quantity} {product}s for "
+                            f"{shop.products[product] * quantity} dollars"
+                        )
                     price = total_cost_products(self, shop)
                     print(f"Total cost is {price} dollars")
                     print("See you again!\n")

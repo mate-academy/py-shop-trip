@@ -30,6 +30,5 @@ def shop_trip() -> None:
         for shop in data["shops"]
     ]
     for customer in customers:
-        customer.amount_of_money()
         customer.check_price(shops, distance, data["FUEL_PRICE"])
         customer.shopping(shops, distance, data["FUEL_PRICE"])
