@@ -6,7 +6,7 @@ from app.shops import Shop
 
 
 def shop_trip() -> None:
-    with open("app/config.json", "r") as file:
+    with open("/Users/bohdanlysuchenko/PycharmProjects/py-shop-trip/app/config.json", "r") as file:
         file_info = json.load(file)
     shops = [Shop(
         name=shop["name"],
@@ -23,5 +23,4 @@ def shop_trip() -> None:
             car=Car(brand=customer["car"]["brand"],
                     fuel_consumption=customer["car"]["fuel_consumption"])
         )
-        new_customer.money()
         new_customer.customer_in_shop(shops)

@@ -13,12 +13,12 @@ class Shop:
         date = datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S")
 
         print(f"Date: {date}\n"
-              f"Thanks, {customer_name}, for your purchase!\n"
+              f"Thanks, {customer_name}, for you purchase!\n"
               f"You have bought: ")
         self.products_receipt(customer_products)
 
         print(f"Total cost is {self.buy_products(customer_products)} dollars\n"
-              f"See you again!")
+              f"See you again!\n")
 
     def buy_products(self, customer_products: dict) -> int | float:
         return sum(customer_products[product]

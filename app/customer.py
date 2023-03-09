@@ -20,30 +20,17 @@ class Customer:
         self._money = money
         self._car = car
 
-    def money(self) -> None:
-        print(f"{self._name} has {self._money} dollars")
-
     def customer_in_shop(self, shops: List[Shop]) -> None:
-        cheaper_shop = None
-        cheaper_shop_cost = None
-        for shop in shops:
-            price = self._price(shop, self._distance(shop))
-            if cheaper_shop_cost and price < cheaper_shop_cost:
-                cheaper_shop = shop
-                cheaper_shop_cost = price
-            elif not cheaper_shop_cost:
-                cheaper_shop = shop
-                cheaper_shop_cost = price
-            print(f"{self._name}'s trip to the {shop.name} costs {price}")
+        print(f"{self._name} has {self._money} dollars")
+        cheaper_shop, cheaper_shop_cost = self.cheaper_shop(shops)
+
         if self._money < cheaper_shop_cost:
             print(f"{self._name} doesn't have enough"
-                  f" money to make a purchase in any shop")
+                  f" money to make purchase in any shop")
         else:
-            self._location = shop.location
-            print(f"{self._name} rides to {cheaper_shop.name}")
-            print()
+            self._location = cheaper_shop.location
+            print(f"{self._name} rides to {cheaper_shop.name}\n")
             cheaper_shop.purchase_receipt(self._name, self._product_cart)
-            print()
             print(f"{self._name} rides home\n"
                   f"{self._name} now has "
                   f"{self._money - cheaper_shop_cost} dollars\n")
@@ -56,3 +43,17 @@ class Customer:
         return round(self._car.fuel_consumption / 100
                      * distance * 2 * 2.4
                      + shop.buy_products(self._product_cart), 2)
+
+    def cheaper_shop(self, shops):
+        cheaper_shop = None
+        cheaper_shop_cost = None
+        for shop in shops:
+            price = self._price(shop, self._distance(shop))
+            if cheaper_shop_cost and price < cheaper_shop_cost:
+                cheaper_shop = shop
+                cheaper_shop_cost = price
+            elif not cheaper_shop_cost:
+                cheaper_shop = shop
+                cheaper_shop_cost = price
+            print(f"{self._name}'s trip to the {shop.name} costs {price}")
+        return cheaper_shop, cheaper_shop_cost
