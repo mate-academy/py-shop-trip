@@ -59,8 +59,8 @@ class Customer:
                     for product, quantity in self.products.items():
                         list_to_buy(product, quantity, shop.products[product])
                     print(
-                        f"Total cost is "
-                        f"{total_cost_products(self, shop)} dollars"
+                        f"Total cost is {total_cost_products(self, shop)}"
+                        f" dollars"
                     )
                     print("See you again!\n")
                     print(f"{self.name} rides home")
