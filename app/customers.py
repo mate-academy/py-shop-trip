@@ -54,7 +54,7 @@ class Customer:
                         "%d/%m/%Y %H:%M:%S"
                     )
                     print(f"Date: {data}")
-                    print(f"Thanks, {self.name}, for you purchase!")
+                    print(f"Thanks, {self.name}, for your purchase!")
                     print("You have bought: ")
                     for product, quantity in self.products.items():
                         list_to_buy(product, quantity, shop.products[product])
