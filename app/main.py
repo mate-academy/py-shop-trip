@@ -7,33 +7,28 @@ from app.shop import Shop
 
 
 def get_customers(customers: dict) -> list[Customer]:
-    customers_list = []
-    for customer in customers:
-        car = Car(
-            customer["car"]["brand"],
-            customer["car"]["fuel_consumption"]
-        )
-        new_customer = Customer(
+    return [
+        Customer(
             customer["name"],
             customer["product_cart"],
             customer["location"],
             customer["money"],
-            car
-        )
-        customers_list.append(new_customer)
-    return customers_list
+            Car(
+                customer["car"]["brand"],
+                customer["car"]["fuel_consumption"]
+            )
+        ) for customer in customers
+    ]
 
 
 def get_shops(shops: dict) -> list[Shop]:
-    shops_list = []
-    for shop in shops:
-        new_shop = Shop(
+    return [
+        Shop(
             shop["name"],
             shop["location"],
             shop["products"]
-        )
-        shops_list.append(new_shop)
-    return shops_list
+        ) for shop in shops
+    ]
 
 
 def buy_products(
@@ -69,7 +64,6 @@ def visit_shop(
         shops_list: list[Shop],
         fuel_price: float
 ) -> None:
-
     print(f"{customer.name} has {customer.money} dollars")
     is_enough_money = False
     for shop in shops_list:
