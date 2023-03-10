@@ -45,7 +45,7 @@ def buy_products(
     time_now = current_date_time.strftime("%d/%m/%Y %H:%M:%S")
     print(f"{customer.name} rides to {chosen_shop.name}\n")
     print(f"Date: {time_now}")
-    print(f"Thanks, {customer.name}, for you purchase!")
+    print(f"Thanks, {customer.name}, for your purchase!")
     print("You have bought: ")
 
     total_cost = 0
@@ -80,7 +80,7 @@ def visit_shop(
             is_enough_money = True
     if not is_enough_money:
         print(f"{customer.name} doesn't have enough money "
-              f"to make purchase in any shop")
+              f"to make a purchase in any shop")
         return
     chosen_shop = customer.choose_shop(shops_list, fuel_price)
     buy_products(customer, chosen_shop, fuel_price)
