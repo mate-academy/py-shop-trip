@@ -24,13 +24,11 @@ def shop_trip() -> None:
             )
         ))
 
-    shops = []
-    for shop in config_dict["shops"]:
-        shops.append(Shop(
-            name=shop["name"],
-            location=shop["location"],
-            products=shop["products"]
-        ))
+    shops = [Shop(
+        name=shop["name"],
+        location=shop["location"],
+        products=shop["products"]
+    ) for shop in config_dict["shops"]]
 
     for customer in customers:
         cheapest_shop = customer.choose_shop(price_for_liter, shops)
