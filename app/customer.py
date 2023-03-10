@@ -59,6 +59,7 @@ class Customer:
         else:
             cheapest_shop = min(shops_trip_costs, key=shops_trip_costs.get)
             print(f"{self.name} rides to {cheapest_shop.name}\n")
+            self.location = cheapest_shop.location
             self.money -= shops_trip_costs[cheapest_shop]
             return cheapest_shop
 
