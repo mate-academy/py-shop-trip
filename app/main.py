@@ -6,7 +6,7 @@ from app.customer import Customer
 
 
 def shop_trip() -> None:
-    with open("app/config.json", "r") as file:
+    with open("config.json", "r") as file:
         data = json.load(file)
 
     fuel_cost = data["FUEL_PRICE"]
@@ -33,3 +33,11 @@ def shop_trip() -> None:
         ) for shop_dict in data["shops"]
     ]
 
+    for customer in customers:
+        customer.has_money()
+        customer.bill_by_shop(shops, fuel_cost)
+        customer.return_home()
+
+
+if __name__ == "__main__":
+    shop_trip()
