@@ -1,6 +1,5 @@
 import datetime
 import math
-from typing import Any
 
 from app.car import Car
 from app.shop import Shop
@@ -11,7 +10,7 @@ class Customer:
             self,
             name: str,
             product_cart: dict,
-            location: list,
+            location: list[int],
             money: int,
             car: Car
     ) -> None:
@@ -28,7 +27,7 @@ class Customer:
     def cost_per_km(self) -> float:
         return self.car.fuel_consumption / 100
 
-    def calculate_road_expenses(self, shops: Any, fuel_cost: float) -> float:
+    def calculate_road_expenses(self, shops: Shop, fuel_cost: float) -> float:
         distance = math.dist(self.location, shops.location)
         return distance * self.cost_per_km() * fuel_cost
 
@@ -53,26 +52,28 @@ class Customer:
                 shop, fuel_cost
             )) * 2 + self.product_cost(shop), 2)
 
-            if spent_for_shopping > self.money:
-                print(f"{self.name} doesn't have enough money "
-                      f"to make a purchase in any shop")
-                break
-
             print(f"{self.name}'s trip to the {shop.name} "
                   f"costs {spent_for_shopping}")
+
             cheapest_shop[shop] = spent_for_shopping
 
-        chosen_shop = min(cheapest_shop, key=cheapest_shop.get)
-        print(f"{self.name} rides to {chosen_shop.name}")
-        self.money -= float(cheapest_shop[chosen_shop])
-        data = datetime.datetime.now().strftime("%d/%m/20%y %H:%M:%S")
-        print(f"Date: {data}")
-        print(f"Thanks, {self.name}, for your purchase!")
-        print("You have bought: ")
-        self.cost_by_category(chosen_shop.products)
-        print(f"Total cost is {self.product_cost(chosen_shop)} dollars")
-        print("See you again!")
+        if len(cheapest_shop) != 0 and max(
+                cheapest_shop.values()
+        ) < self.money:
+            chosen_shop = min(cheapest_shop, key=cheapest_shop.get)
+            print(f"{self.name} rides to {chosen_shop.name}\n")
 
-    def return_home(self) -> None:
-        print(f"{self.name} rides home")
-        print(f"{self.name} now has {round(self.money, 2)} dollars")
+            self.money -= float(cheapest_shop[chosen_shop])
+
+            data = datetime.datetime.now().strftime("%d/%m/20%y %H:%M:%S")
+            print(f"Date: {data}")
+            print(f"Thanks, {self.name}, for your purchase!")
+            print("You have bought: ")
+            self.cost_by_category(chosen_shop.products)
+            print(f"Total cost is {self.product_cost(chosen_shop)} dollars")
+            print("See you again!\n")
+            print(f"{self.name} rides home")
+            print(f"{self.name} now has {round(self.money, 2)} dollars\n")
+        else:
+            print(f"{self.name} doesn't have enough money "
+                  f"to make a purchase in any shop")

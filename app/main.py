@@ -36,7 +36,6 @@ def shop_trip() -> None:
     for customer in customers:
         customer.has_money()
         customer.bill_by_shop(shops, fuel_cost)
-        customer.return_home()
 
 
 if __name__ == "__main__":
