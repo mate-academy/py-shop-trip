@@ -32,10 +32,8 @@ class Customer:
         return distance * self.cost_per_km() * fuel_cost
 
     def cost_by_category(self, shopping_price: dict) -> None:
-        total_amount = 0
         for product, amount in self.product_cart.items():
             price = (amount * shopping_price[product])
-            total_amount += price
             print(f"{amount} {product}s for {price} dollars")
 
     def product_cost(self, shops: Shop) -> float:
