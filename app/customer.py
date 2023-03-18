@@ -14,7 +14,6 @@ class Customer:
             money: int,
             car: Car
     ) -> None:
-
         self.name = name
         self.product_cart = product_cart
         self.location = location
@@ -37,9 +36,13 @@ class Customer:
             print(f"{amount} {product}s for {price} dollars")
 
     def product_cost(self, shops: Shop) -> float:
-        total_expanse = 0
-        for product, price in shops.products.items():
-            total_expanse += (price * self.product_cart.get(product))
+        total_expanse = sum(
+            [
+                price * int(self.product_cart.get(product))
+                for product, price in shops.products.items()
+            ]
+        )
+
         return total_expanse
 
     def bill_by_shop(self, shops: list[Shop], fuel_cost: float) -> None:
