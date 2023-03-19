@@ -26,8 +26,8 @@ class Customer:
     def cost_per_km(self) -> float:
         return self.car.fuel_consumption / 100
 
-    def calculate_road_expenses(self, shops: Shop, fuel_cost: float) -> float:
-        distance = math.dist(self.location, shops.location)
+    def calculate_road_expenses(self, shop: Shop, fuel_cost: float) -> float:
+        distance = math.dist(self.location, shop.location)
         return distance * self.cost_per_km() * fuel_cost
 
     def cost_by_category(self, shopping_price: dict) -> None:
@@ -35,11 +35,11 @@ class Customer:
             price = (amount * shopping_price[product])
             print(f"{amount} {product}s for {price} dollars")
 
-    def product_cost(self, shops: Shop) -> float:
+    def product_cost(self, shop: Shop) -> float:
         total_expanse = sum(
             [
                 price * int(self.product_cart.get(product))
-                for product, price in shops.products.items()
+                for product, price in shop.products.items()
             ]
         )
 
@@ -67,14 +67,12 @@ class Customer:
             self.money -= float(cheapest_shop[chosen_shop])
 
             data = datetime.datetime.now().strftime("%d/%m/20%y %H:%M:%S")
-            print(f"Date: {data}")
-            print(f"Thanks, {self.name}, for your purchase!")
-            print("You have bought: ")
+            print(f"Date: {data}\nThanks, {self.name}, "
+                  f"for your purchase!\nYou have bought: ")
             self.cost_by_category(chosen_shop.products)
-            print(f"Total cost is {self.product_cost(chosen_shop)} dollars")
-            print("See you again!\n")
-            print(f"{self.name} rides home")
-            print(f"{self.name} now has {round(self.money, 2)} dollars\n")
+            print(f"Total cost is {self.product_cost(chosen_shop)} dollars\n"
+                  f"See you again!\n\n{self.name} rides home\n"
+                  f"{self.name} now has {round(self.money, 2)} dollars\n")
         else:
             print(f"{self.name} doesn't have enough money "
                   f"to make a purchase in any shop")
