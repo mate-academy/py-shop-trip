@@ -5,11 +5,11 @@ import datetime
 
 class Customer:
     def __init__(self, customer_info: dict) -> None:
-        self.name = customer_info["name"]
-        self.product_cart = customer_info["product_cart"]
-        self.location = customer_info["location"]
-        self.money = customer_info["money"]
-        self.car = Car(customer_info["car"])
+        self.name = customer_info.get("name")
+        self.product_cart = customer_info.get("product_cart")
+        self.location = customer_info.get("location")
+        self.money = customer_info.get("money")
+        self.car = Car(customer_info.get("car"))
 
     def calculate_fuel_cost(
             self,
@@ -27,7 +27,7 @@ class Customer:
     def calculate_products_cost(self, products_in_shop: dict) -> float:
         product_cost = 0
         for product, amount in self.product_cart.items():
-            product_cost += products_in_shop[product] * amount
+            product_cost += products_in_shop.get(product) * amount
         return product_cost
 
     def select_shop(
@@ -50,7 +50,7 @@ class Customer:
             list_expenses.append(expenses)
 
             print(f"{self.name}'s trip to the {shop.name} "
-                  f"costs {expenses['total']}")
+                  f"costs {expenses.get('total')}")
 
         list_total_expenses = [sum(x.values()) for x in list_expenses]
         index = list_total_expenses.index(min(list_total_expenses))
@@ -69,10 +69,10 @@ class Customer:
             print(f"{amount} {product}s for "
                   f"{shop.products[product] * amount} dollars")
 
-        print(f"Total cost is {expenses['product']} dollars")
+        print(f"Total cost is {expenses.get('product')} dollars")
         print("See you again!\n")
 
-        self.money -= expenses["total"]
+        self.money -= expenses.get("total")
 
         print(f"{self.name} rides home")
         print(f"{self.name} now has {self.money} dollars\n")
