@@ -1,19 +1,29 @@
-from app.customer import customer_list
+import json
+from app.customer import Customer
+from app.shop import Shop
+
+
+with open("app/config.json", "r") as file:
+    data = json.load(file)
+
+FUEL_PRICE = data["FUEL_PRICE"]
+
+customers = [Customer(customer) for customer in data["customers"]]
+shops = [Shop(shop) for shop in data["shops"]]
 
 
 def shop_trip() -> None:
+    for customer in customers:
+        print(f"{customer.name} has {customer.money} dollars")
 
-    for client in customer_list:
-        print(f"{client.name} has {client.money} dollars")
+        shop_, expenses = customer.select_shop(FUEL_PRICE, shops)
 
-        shop_, expenses = client.select_shop()
-
-        if client.money < expenses:
-            print(f"{client.name} doesn't have enough money "
+        if customer.money < expenses["total"]:
+            print(f"{customer.name} doesn't have enough money "
                   f"to make purchase in any shop")
         else:
-            print(f"{client.name} rides to {shop_.name}\n")
-            client.go_to_shop(shop_)
+            print(f"{customer.name} rides to {shop_.name}\n")
+            customer.go_to_shop(shop_, expenses)
         print()
 
 

@@ -1,6 +1,5 @@
-import json
 from app.car import Car
-from app.shop import Shop, shop_list
+from app.shop import Shop
 import datetime
 
 
@@ -12,12 +11,16 @@ class Customer:
         self.money = customer_info["money"]
         self.car = Car(customer_info["car"])
 
-    def calculate_fuel_cost(self, shop_location: list[int]) -> float:
+    def calculate_fuel_cost(
+            self,
+            shop_location: list[int],
+            fuel_price: float
+    ) -> float:
         distance = (
             ((self.location[0] - shop_location[0]) ** 2
              + (self.location[1] - shop_location[1]) ** 2) ** 0.5
         )
-        fuel_cost = self.car.fuel_consumption * distance / 100 * FUEL_PRICE
+        fuel_cost = self.car.fuel_consumption * distance / 100 * fuel_price
 
         return fuel_cost * 2
 
@@ -27,25 +30,36 @@ class Customer:
             product_cost += products_in_shop[product] * amount
         return product_cost
 
-    def select_shop(self) -> tuple[Shop, int]:
-        list_of_expenses = []
+    def select_shop(
+            self,
+            fuel_price: float,
+            shop_list: list[Shop]
+    ) -> tuple[Shop, dict]:
+        list_expenses = []
 
         for shop in shop_list:
-            total_expenses = round(
-                self.calculate_fuel_cost(shop.location)
-                + self.calculate_products_cost(shop.products), 2
-            )
-            list_of_expenses.append(total_expenses)
+            expenses = {
+                "fuel": round(
+                    self.calculate_fuel_cost(shop.location, fuel_price), 2
+                ),
+                "product": round(
+                    self.calculate_products_cost(shop.products), 2
+                )
+            }
+            expenses["total"] = sum(expenses.values())
+            list_expenses.append(expenses)
 
             print(f"{self.name}'s trip to the {shop.name} "
-                  f"costs {total_expenses}")
+                  f"costs {expenses['total']}")
 
-        cheapest_shop_index = list_of_expenses.index(min(list_of_expenses))
-        selected_shop = shop_list[cheapest_shop_index]
+        list_total_expenses = [sum(x.values()) for x in list_expenses]
+        index = list_total_expenses.index(min(list_total_expenses))
+        selected_shop = shop_list[index]
 
-        return selected_shop, list_of_expenses[cheapest_shop_index]
+        return selected_shop, list_expenses[index]
 
-    def go_to_shop(self, shop: Shop) -> None:
+    def go_to_shop(self, shop: Shop, expenses: dict) -> None:
+        print(f"{self.name} rides to {shop.name}")
         self.location = shop.location
 
         print(f"Date: {datetime.datetime.now().strftime('%d/%m/%Y %X')}")
@@ -56,21 +70,10 @@ class Customer:
             print(f"{amount} {product}s for "
                   f"{shop.products[product] * amount} dollars")
 
-        total_cost = self.calculate_products_cost(shop.products)
-
-        print(f"Total cost is {total_cost} dollars")
+        print(f"Total cost is {expenses['product']} dollars")
         print("See you again!\n")
 
+        self.money -= expenses["total"]
+
         print(f"{self.name} rides home")
-        print(f"{self.name} now has {self.money - total_cost} dollars")
-
-
-customer_list = []
-with open("../config.json", "r") as file_in:
-    data = json.load(file_in)
-
-customers_info = data["customers"]
-FUEL_PRICE = data["FUEL_PRICE"]
-
-for customer in customers_info:
-    customer_list.append(Customer(customer))
+        print(f"{self.name} now has {self.money} dollars")
