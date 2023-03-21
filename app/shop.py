@@ -8,10 +8,11 @@ class Shop:
         self.products = shop_info["products"]
 
 
-with open("config.json", "r") as file_in:
-    shops_info = json.load(file_in)["shops"]
-
 shop_list = []
+
+with open("../config.json", "r") as file_in:
+    data = json.load(file_in)
+shops_info = data["shops"]
 
 for shop in shops_info:
     shop_list.append(Shop(shop))
