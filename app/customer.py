@@ -59,7 +59,6 @@ class Customer:
         return selected_shop, list_expenses[index]
 
     def go_to_shop(self, shop: Shop, expenses: dict) -> None:
-        print(f"{self.name} rides to {shop.name}")
         self.location = shop.location
 
         print(f"Date: {datetime.datetime.now().strftime('%d/%m/%Y %X')}")
@@ -76,4 +75,4 @@ class Customer:
         self.money -= expenses["total"]
 
         print(f"{self.name} rides home")
-        print(f"{self.name} now has {self.money} dollars")
+        print(f"{self.name} now has {self.money} dollars\n")

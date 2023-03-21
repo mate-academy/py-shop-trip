@@ -24,7 +24,3 @@ def shop_trip() -> None:
         else:
             print(f"{customer.name} rides to {shop_.name}\n")
             customer.go_to_shop(shop_, expenses)
-        print()
-
-
-shop_trip()
