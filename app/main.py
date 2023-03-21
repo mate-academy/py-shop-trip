@@ -20,7 +20,7 @@ def shop_trip() -> None:
 
         if customer.money < expenses["total"]:
             print(f"{customer.name} doesn't have enough money "
-                  f"to make purchase in any shop")
+                  f"to make a purchase in any shop")
         else:
             print(f"{customer.name} rides to {shop_.name}\n")
             customer.go_to_shop(shop_, expenses)

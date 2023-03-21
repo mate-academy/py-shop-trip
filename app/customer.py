@@ -62,7 +62,7 @@ class Customer:
         self.location = shop.location
 
         print(f"Date: {datetime.datetime.now().strftime('%d/%m/%Y %X')}")
-        print(f"Thanks, {self.name}, for you purchase!")
+        print(f"Thanks, {self.name}, for your purchase!")
         print("You have bought: ")
 
         for product, amount in self.product_cart.items():
