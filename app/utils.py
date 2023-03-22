@@ -26,7 +26,7 @@ def shopping_choice(
     if customer.money < best_choice:
         print(
             f"{customer.name} doesn't have enough "
-            f"money to make purchase in any shop"
+            f"money to make a purchase in any shop"
         )
     else:
         selected_shop = shop_rating[best_choice]
