@@ -26,7 +26,7 @@ Bob rides to Outskirts Shop
 
 Date: 04/01/2021 12:33:41
 Thanks, Bob, for your purchase!
-You have bought:
+You have bought: 
 4 milks for 12 dollars
 2 breads for 2 dollars
 5 butters for 12.5 dollars
@@ -44,7 +44,7 @@ Alex rides to Shop '24/7'
 
 Date: 04/01/2021 12:33:41
 Thanks, Alex, for your purchase!
-You have bought:
+You have bought: 
 2 milks for 4 dollars
 2 breads for 3.0 dollars
 2 butters for 6.4 dollars
@@ -61,4 +61,3 @@ Monica's trip to the Central Shop costs 22.58
 Monica doesn't have enough money to make a purchase in any shop
 '''
     assert output == out
-
