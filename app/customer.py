@@ -41,12 +41,7 @@ class Customer:
                 print(f"{self.name}'s trip to the "
                       f"{shop.name} costs {trip_cost}")
 
-                if not cheapest_trip_cost:
-                    cheapest_trip_cost = trip_cost
-                    selected_shop = shop
-                    continue
-
-                if trip_cost < cheapest_trip_cost:
+                if not cheapest_trip_cost or trip_cost < cheapest_trip_cost:
                     cheapest_trip_cost = trip_cost
                     selected_shop = shop
 
