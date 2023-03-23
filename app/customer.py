@@ -32,10 +32,10 @@ class Customer:
                     * fuel_price
                 )
 
-                products_cost = 0
-
-                for key, value in self.product_cart.items():
-                    products_cost += value * shop.products.get(key)
+                products_cost = sum(
+                    value * shop.products.get(key)
+                    for key, value in self.product_cart.items()
+                )
 
                 trip_cost = round(fuel_cost * 2 + products_cost, 2)
                 print(f"{self.name}'s trip to the "
