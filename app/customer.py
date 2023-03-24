@@ -68,11 +68,11 @@ class Customer:
 
             data = datetime.datetime.now().strftime("%d/%m/20%y %H:%M:%S")
             print(f"Date: {data}\nThanks, {self.name}, "
-                  f"for you purchase!\nYou have bought: ")
+                  f"for your purchase!\nYou have bought: ")
             self.cost_of_category(chosen_shop.products)
             print(f"Total cost is {self.product_cost(chosen_shop)} dollars\n"
                   f"See you again!\n\n{self.name} rides home\n"
                   f"{self.name} now has {round(self.money, 2)} dollars\n")
         else:
             print(f"{self.name} doesn't have enough money "
-                  f"to make purchase in any shop")
+                  f"to make a purchase in any shop")
