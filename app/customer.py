@@ -1,34 +1,78 @@
-from typing import List
+import datetime
+import math
+from typing import List, Dict
+from app.car import Car
+from app.shop import Shop
 
 
 class Customer:
     def __init__(
-            self, name: str, money: float, car: object, home_location: object
+            self,
+            name: str,
+            product_cart: Dict[str, int],
+            location: List[int],
+            money: int,
+            car: Car
     ) -> None:
         self.name = name
+        self.product_cart = product_cart
+        self.location = location
         self.money = money
         self.car = car
-        self.home_location = home_location
 
-    def distance_to(self, other_location: object) -> float:
-        return self.home_location.distance_to(other_location)
+    def money_of_costomer(self) -> None:
+        print(f"{self.name} has {self.money} dollars")
 
-    def calculate_product_cost(self, shop: object) -> float:
-        return sum(product.price for product in shop.products)
+    def cost_per_km(self) -> float:
+        return self.car.fuel_consumption / 100
 
-    def print_product_receipt(self, shop: object) -> None:
-        for product in shop.products:
-            print(f"{product.name} - ${product.price:.2f}")
-        print(f"Total: ${self.calculate_product_cost(shop):.2f}")
+    def calculate_road_expenses(self, shop: Shop, fuel_cost: float) -> float:
+        distance = math.dist(self.location, shop.location)
+        return distance * self.cost_per_km() * fuel_cost
 
-    def go_to_shop(self, shop: object, cost: float) -> None:
-        print(
-            f"{self.name} is going to {shop.name} by {self.car} ({cost:.2f})."
+    def cost_of_category(self, shopping_price: dict) -> None:
+        for product, amount in self.product_cart.items():
+            price = (amount * shopping_price[product])
+            print(f"{amount} {product}s for {price} dollars")
+
+    def product_cost(self, shop: Shop) -> float:
+        total_expanse = sum(
+            [
+                price * int(self.product_cart.get(product))
+                for product, price in shop.products.items()
+            ]
         )
 
-    def go_home(self) -> None:
-        print(f"{self.name} is going home.\n")
+        return total_expanse
 
+    def bill_by_shop(self, shops: List[Shop], fuel_cost: float) -> None:
+        cheapest_shop = {}
 
-def get_customers(customers_data: List[dict]) -> List[Customer]:
-    return [Customer(**customer_data) for customer_data in customers_data]
+        for shop in shops:
+            spent_for_shopping = round((self.calculate_road_expenses(
+                shop, fuel_cost
+            )) * 2 + self.product_cost(shop), 2)
+
+            print(f"{self.name}'s trip to the {shop.name} "
+                  f"costs {spent_for_shopping}")
+
+            cheapest_shop[shop] = spent_for_shopping
+
+        if len(cheapest_shop) != 0 and max(
+                cheapest_shop.values()
+        ) < self.money:
+            chosen_shop = min(cheapest_shop, key=cheapest_shop.get)
+            print(f"{self.name} rides to {chosen_shop.name}\n")
+
+            self.money -= float(cheapest_shop[chosen_shop])
+
+            data = datetime.datetime.now().strftime("%d/%m/20%y %H:%M:%S")
+            print(f"Date: {data}\nThanks, {self.name}, "
+                  f"for you purchase!\nYou have bought: ")
+            self.cost_of_category(chosen_shop.products)
+            print(f"Total cost is {self.product_cost(chosen_shop)} dollars\n"
+                  f"See you again!\n\n{self.name} rides home\n"
+                  f"{self.name} now has {round(self.money, 2)} dollars\n")
+        else:
+            print(f"{self.name} doesn't have enough money "
+                  f"to make purchase in any shop")
