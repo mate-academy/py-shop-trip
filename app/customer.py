@@ -1,36 +1,34 @@
-from car import Car
-from math import sqrt
+from typing import List
 
 
 class Customer:
     def __init__(
-            self, name: str, product_cart: str, location: str, money: int, car: str, home_location=None
-    ):
+            self, name: str, money: float, car: object, home_location: object
+    ) -> None:
         self.name = name
-        self.product_cart = product_cart
-        self.location = location
         self.money = money
-        self.car = Car
-        self.home_location = home_location if home_location else location
+        self.car = car
+        self.home_location = home_location
 
-    def distance_to(self, other_location):
-        return sqrt((self.location[0] - other_location[0])**2 + (self.location[1] - other_location[1])**2)
+    def distance_to(self, other_location: object) -> float:
+        return self.home_location.distance_to(other_location)
 
-    def calculate_product_cost(self, shop):
-        cost = 0
-        for product, quantity in self.product_cart.items():
-            cost += shop.products[product] * quantity
-        return cost
+    def calculate_product_cost(self, shop: object) -> float:
+        return sum(product.price for product in shop.products)
 
-    def go_to_shop(self, shop, cost):
-        self.location = shop.location
-        self.money -= cost
+    def print_product_receipt(self, shop: object) -> None:
+        for product in shop.products:
+            print(f"{product.name} - ${product.price:.2f}")
+        print(f"Total: ${self.calculate_product_cost(shop):.2f}")
 
-    def print_product_receipt(self, shop):
-        for product, quantity in self.product_cart.items():
-            cost = shop.products[product] * quantity
-            print(f"{product.capitalize()}: {quantity} x ${shop.products[product]:.2f} = ${cost:.2f}")
+    def go_to_shop(self, shop: object, cost: float) -> None:
+        print(
+            f"{self.name} is going to {shop.name} by {self.car} ({cost:.2f})."
+        )
 
-    def go_home(self):
-        self.location = self.home_location
-        print(f"{self.name} arrived back home with ${self.money:.2f} remaining.\n")
+    def go_home(self) -> None:
+        print(f"{self.name} is going home.\n")
+
+
+def get_customers(customers_data: List[dict]) -> List[Customer]:
+    return [Customer(**customer_data) for customer_data in customers_data]
