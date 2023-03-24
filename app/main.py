@@ -10,38 +10,51 @@ def get_dict_from_json() -> dict:
     with open("app/config.json", "r") as data:
         data = json.load(data)
 
-        customers = []
-        for customer in data["customers"]:
-            customers.append(Customer(
-                name=customer["name"],
-                product_cart=customer["product_cart"],
-                location=customer["location"],
-                money=customer["money"],
-                car=Car(brand=customer["car"]["brand"],
-                        fuel_consumption=customer["car"]["fuel_consumption"], )
-            ))
+    customers = []
+    for customer in data["customers"]:
+        customers.append(Customer(
+            name=customer["name"],
+            product_cart=customer["product_cart"],
+            location=customer["location"],
+            money=customer["money"],
+            car=Car(brand=customer["car"]["brand"],
+                    fuel_consumption=customer["car"]["fuel_consumption"], )
+        ))
 
-        shops = []
-        for shop in data["shops"]:
-            shops.append(Shop(
-                name=shop["name"],
-                products=shop["products"],
-                location=shop["location"],
-            ))
-        return {
-            "FUEL_PRICE": data["FUEL_PRICE"],
-            "customers": customers,
-            "shops": shops,
-        }
+    shops = []
+    for shop in data["shops"]:
+        shops.append(Shop(
+            name=shop["name"],
+            products=shop["products"],
+            location=shop["location"],
+        ))
+    return {
+        "FUEL_PRICE": data["FUEL_PRICE"],
+        "customers": customers,
+        "shops": shops,
+    }
+
+
+def length_trip_calculation(x_point: list, y_point: list) -> float:
+    return math.hypot(y_point[0] - x_point[0], y_point[1] - x_point[1])
+
+
+def cost_trip_calculation(
+        length_trip: float,
+        fuel_consumption: float,
+        fuel_price: float,
+        cost_products: float,
+) -> float:
+    return round(
+        length_trip * fuel_consumption / 100
+        * fuel_price * 2 + cost_products, 2
+    )
 
 
 def shop_trip() -> None:
     data = get_dict_from_json()
     customers = data["customers"]
     shops = data["shops"]
-
-    def length_trip(x_point: list, y_point: list) -> float:
-        return math.hypot(y_point[0] - x_point[0], y_point[1] - x_point[1])
 
     for customer in customers:
         # amount of money
@@ -50,18 +63,21 @@ def shop_trip() -> None:
 
         # path cost calculation
         for shop in shops:
-            costs = {shop.name: round(
-                (length_trip(
-                    shop.location, customer.location
-                ) * customer.car.fuel_consumption) / 100
-                * data["FUEL_PRICE"] * 2
-                + (shop.products["milk"]
-                   * customer.product_cart["milk"]
-                   + shop.products["bread"]
-                   * customer.product_cart["bread"]
-                   + shop.products["butter"]
-                   * customer.product_cart["butter"]), 2)
-                for shop in shops}
+            costs = {
+                shop.name: cost_trip_calculation(
+                    length_trip=length_trip_calculation(
+                        shop.location, customer.location
+                    ),
+                    fuel_consumption=customer.car.fuel_consumption,
+                    fuel_price=data["FUEL_PRICE"],
+                    cost_products=(shop.products["milk"]
+                                   * customer.product_cart["milk"]
+                                   + shop.products["bread"]
+                                   * customer.product_cart["bread"]
+                                   + shop.products["butter"]
+                                   * customer.product_cart["butter"]))
+                for shop in shops
+            }
 
             print(
                 f"{customer.name}'s trip to the "

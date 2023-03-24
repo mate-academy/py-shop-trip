@@ -2,8 +2,8 @@ class Shop:
     def __init__(
             self,
             name: str,
-            products: list,
-            location: dict,
+            products: dict,
+            location: list[int, int],
     ) -> None:
         self.name = name
         self.products = products
