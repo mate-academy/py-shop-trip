@@ -39,7 +39,9 @@ def create_shops(shops_data: List[dict]) -> list:
     return shops
 
 
-def process_customers(customers: List[Customer], shops: list, fuel_cost: float) -> None:
+def process_customers(
+        customers: List[Customer], shops: list, fuel_cost: float
+) -> None:
     for customer in customers:
         print(customer.money_of_costomer)
         customer.bill_by_shop(shops, fuel_cost)
