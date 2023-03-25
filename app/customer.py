@@ -21,7 +21,7 @@ class Customer:
         self.car = car
 
     @property
-    def money_of_costomer(self) -> None:
+    def money_of_costomer(self) -> str:
         print(f"{self.name} has {self.money} dollars")
 
     def cost_per_km(self) -> float:
