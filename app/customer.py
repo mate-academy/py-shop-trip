@@ -17,7 +17,7 @@ class Customer:
                      * (self.car["fuel_consumption"] / 100)
                      * unpack("app/config.json", "fuel_price"), 2)
 
-    def shop_total_cost(self, shop: Shop) -> int:
+    def shop_total_cost(self, shop: Shop) -> float:
         total_cost = 0
         for product, count in self.product_cart.items():
             if product in shop.products:
