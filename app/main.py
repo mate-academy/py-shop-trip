@@ -1,4 +1,6 @@
 import json
+from typing import List
+
 from app.car import Car
 from app.customer import Customer
 from app.shop import Shop
@@ -10,7 +12,7 @@ def read_config_file(file_path: str) -> dict:
     return data
 
 
-def create_customers(customers_data: list) -> list:
+def create_customers(customers_data: List[dict]) -> list:
     customers = [
         Customer(
             customer_dict["name"],
@@ -26,7 +28,7 @@ def create_customers(customers_data: list) -> list:
     return customers
 
 
-def create_shops(shops_data: list) -> list:
+def create_shops(shops_data: List[dict]) -> list:
     shops = [
         Shop(
             shop_dict["name"],
@@ -37,7 +39,7 @@ def create_shops(shops_data: list) -> list:
     return shops
 
 
-def process_customers(customers: list, shops: list, fuel_cost: float) -> None:
+def process_customers(customers: List[Customer], shops: list, fuel_cost: float) -> None:
     for customer in customers:
         print(customer.money_of_costomer)
         customer.bill_by_shop(shops, fuel_cost)
