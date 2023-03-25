@@ -20,6 +20,7 @@ class Customer:
         self.money = money
         self.car = car
 
+    @property
     def money_of_costomer(self) -> None:
         print(f"{self.name} has {self.money} dollars")
 
