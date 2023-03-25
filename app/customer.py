@@ -45,10 +45,16 @@ class Customer:
 
         return total_expanse
 
-    def calculate_total_costs(self, shops: List[Shop], fuel_cost: float) -> Dict[Shop, float]:
+    def calculate_total_costs(
+            self, shops: List[Shop], fuel_cost: float
+    ) -> Dict[Shop, float]:
         total_costs = {}
         for shop in shops:
-            spent_for_shopping = round((self.calculate_road_expenses(shop, fuel_cost)) * 2 + self.product_cost(shop), 2)
+            spent_for_shopping = round(
+                (
+                    self.calculate_road_expenses(shop, fuel_cost)
+                ) * 2 + self.product_cost(shop), 2
+            )
             total_costs[shop] = spent_for_shopping
         return total_costs
 
@@ -56,7 +62,9 @@ class Customer:
         for shop, cost in total_costs.items():
             print(f"{self.name}'s trip to the {shop.name} costs {cost}")
 
-    def find_cheapest_shop(self, total_costs: Dict[Shop, float]) -> Optional[Shop]:
+    def find_cheapest_shop(
+            self, total_costs: Dict[Shop, float]
+    ) -> Optional[Shop]:
         if len(total_costs) != 0 and max(total_costs.values()) < self.money:
             return min(total_costs, key=total_costs.get)
         return None
@@ -65,7 +73,10 @@ class Customer:
         self.money -= float(total_cost)
 
         data = datetime.datetime.now().strftime("%d/%m/20%y %H:%M:%S")
-        print(f"Date: {data}\nThanks, {self.name}, for your purchase!\nYou have bought: ")
+        print(
+            f"Date: {data}\nThanks, {self.name},"
+            f" for your purchase!\nYou have bought: "
+        )
         self.cost_of_category(chosen_shop.products)
         print(f"Total cost is {self.product_cost(chosen_shop)} dollars\n"
               f"See you again!\n\n{self.name} rides home\n"
@@ -80,4 +91,7 @@ class Customer:
             print(f"{self.name} rides to {chosen_shop.name}\n")
             self.finalize_purchase(chosen_shop, total_costs[chosen_shop])
         else:
-            print(f"{self.name} doesn't have enough money to make a purchase in any shop")
+            print(
+                f"{self.name} doesn't have enough money to"
+                f" make a purchase in any shop"
+            )
