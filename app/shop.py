@@ -2,7 +2,7 @@ class Shop:
     def __init__(
             self,
             name: str,
-            location: list,
+            location: list[int],
             products: dict
     ) -> None:
         self.name = name
