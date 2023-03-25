@@ -10,24 +10,21 @@ def get_dict_from_json() -> dict:
     with open("app/config.json", "r") as data:
         data = json.load(data)
 
-    customers = []
-    for customer in data["customers"]:
-        customers.append(Customer(
-            name=customer["name"],
-            product_cart=customer["product_cart"],
-            location=customer["location"],
-            money=customer["money"],
-            car=Car(brand=customer["car"]["brand"],
-                    fuel_consumption=customer["car"]["fuel_consumption"], )
-        ))
+    customers = [Customer(
+        name=customer["name"],
+        product_cart=customer["product_cart"],
+        location=customer["location"],
+        money=customer["money"],
+        car=Car(brand=customer["car"]["brand"],
+                fuel_consumption=customer["car"]["fuel_consumption"], )
+    ) for customer in data["customers"]]
 
-    shops = []
-    for shop in data["shops"]:
-        shops.append(Shop(
-            name=shop["name"],
-            products=shop["products"],
-            location=shop["location"],
-        ))
+    shops = [Shop(
+        name=shop["name"],
+        products=shop["products"],
+        location=shop["location"],
+    ) for shop in data["shops"]]
+
     return {
         "FUEL_PRICE": data["FUEL_PRICE"],
         "customers": customers,
@@ -60,24 +57,23 @@ def shop_trip() -> None:
         # amount of money
         print(f"{customer.name} has "
               f"{customer.money} dollars")
-
+        products = customer.product_cart.keys()
         # path cost calculation
+        costs = {}
         for shop in shops:
-            costs = {
-                shop.name: cost_trip_calculation(
-                    length_trip=length_trip_calculation(
-                        shop.location, customer.location
-                    ),
-                    fuel_consumption=customer.car.fuel_consumption,
-                    fuel_price=data["FUEL_PRICE"],
-                    cost_products=(shop.products["milk"]
-                                   * customer.product_cart["milk"]
-                                   + shop.products["bread"]
-                                   * customer.product_cart["bread"]
-                                   + shop.products["butter"]
-                                   * customer.product_cart["butter"]))
-                for shop in shops
-            }
+            cost_prod = sum(
+                [
+                    shop.products[prod] * customer.product_cart[prod]
+                    for prod in products
+                ]
+            )
+            costs[shop.name] = cost_trip_calculation(
+                length_trip=length_trip_calculation(
+                    shop.location, customer.location
+                ),
+                fuel_consumption=customer.car.fuel_consumption,
+                fuel_price=data["FUEL_PRICE"],
+                cost_products=cost_prod)
 
             print(
                 f"{customer.name}'s trip to the "
@@ -91,31 +87,21 @@ def shop_trip() -> None:
 
         if min(costs.values()) <= customer.money:
             current_data = "04/01/2021 12:33:41"
-            milk_price = \
-                customer.product_cart["milk"] * \
-                selected_shop.products["milk"]
-            bread_price = \
-                customer.product_cart["bread"] * \
-                selected_shop.products["bread"]
-            butter_price = \
-                customer.product_cart["butter"] * \
-                selected_shop.products["butter"]
 
             print(f"{customer.name} rides to {selected_shop.name}\n")
             print(f"Date: {current_data}")
             print(f"Thanks, {customer.name}, for your purchase!")
             print("You have bought: ")
-            print(
-                f"{customer.product_cart['milk']} milks for "
-                f"{milk_price} dollars")
-            print(
-                f"{customer.product_cart['bread']} breads for "
-                f"{bread_price} dollars")
-            print(
-                f"{customer.product_cart['butter']} butters for "
-                f"{butter_price} dollars")
-            print(f"Total cost is "
-                  f"{milk_price + bread_price + butter_price} dollars")
+            total_cost = 0
+            for prod in products:
+                cost = \
+                    customer.product_cart[prod] * selected_shop.products[prod]
+                print(
+                    f"{customer.product_cart[prod]} {prod}s for "
+                    f"{cost} dollars")
+                total_cost += cost
+
+            print(f"Total cost is {total_cost} dollars")
             print("See you again!\n")
             print(f"{customer.name} rides home")
             print(f"{customer.name} now has "
