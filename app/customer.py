@@ -22,7 +22,7 @@ class Customer:
 
     @property
     def money_of_costomer(self) -> str:
-        print(f"{self.name} has {self.money} dollars")
+        return f"{self.name} has {self.money} dollars"
 
     def cost_per_km(self) -> float:
         return self.car.fuel_consumption / 100
