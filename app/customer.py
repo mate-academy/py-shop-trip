@@ -65,7 +65,7 @@ class Customer:
     def find_cheapest_shop(
             self, total_costs: Dict[Shop, float]
     ) -> Optional[Shop]:
-        if len(total_costs) != 0 and max(total_costs.values()) < self.money:
+        if len(total_costs) != 0 and min(total_costs.values()) < self.money:
             return min(total_costs, key=total_costs.get)
         return None
 
