@@ -1,6 +1,6 @@
 import datetime
 import math
-from typing import List, Dict
+from typing import List, Dict, Optional
 from app.car import Car
 from app.shop import Shop
 
