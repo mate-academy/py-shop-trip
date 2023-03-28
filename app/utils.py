@@ -21,7 +21,6 @@ def shopping_choice(
             f"costs {travelling_expense}"
         )
         shop_rating[travelling_expense] = shop
-
     best_choice = min(shop_rating.keys())
     if customer.money < best_choice:
         print(
