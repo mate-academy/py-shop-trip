@@ -14,9 +14,9 @@ class Shop:
         date = datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S")
         print(
             f"Date: {date}\n"
-            f"Thanks, {customer.name}, for your purchase!"
+            f"Thanks, {customer.name}, for your purchase!\n"
+            "You have bought: "
         )
-        print("You have bought:")
         total_costs = 0
         for product, number in customer.product_cart.items():
             price = self.products[product] * number
@@ -24,7 +24,7 @@ class Shop:
             total_costs += price
         print(
             f"Total cost is {total_costs} dollars\n"
-            f"See you again!\n"
+            f"See you again!"
         )
 
     def products_sum(self, customer: Customer) -> int:
