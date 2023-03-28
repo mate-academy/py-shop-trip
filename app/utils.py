@@ -31,7 +31,7 @@ def shopping_choice(
     else:
         selected_shop = shop_rating[best_choice]
         customer.money -= best_choice
-        print(f"{customer.name} rides to {selected_shop.name}")
+        print(f"{customer.name} rides to {selected_shop.name}\n")
         selected_shop.bill(customer)
         return True
 
@@ -39,5 +39,5 @@ def shopping_choice(
 def back_home(customer: Customer) -> None:
     print(
         f"{customer.name} rides home\n"
-        f"{customer.name} now has {customer.money} dollars"
+        f"{customer.name} now has {customer.money} dollars\n"
     )

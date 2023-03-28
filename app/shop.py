@@ -24,7 +24,7 @@ class Shop:
             total_costs += price
         print(
             f"Total cost is {total_costs} dollars\n"
-            f"See you again!"
+            f"See you again!\n"
         )
 
     def products_sum(self, customer: Customer) -> int:
