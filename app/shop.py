@@ -22,7 +22,6 @@ class Shop:
             price = self.products[product] * number
             print(f"{number} {product}s for {price} dollars")
             total_costs += price
-
         print(
             f"Total cost is {total_costs} dollars\n"
             f"See you again!\n"
