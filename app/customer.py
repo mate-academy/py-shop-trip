@@ -28,7 +28,7 @@ class Customer:
 
     def calculate_gasoline(self,
                            fuel_price: int,
-                           shop_detail: Shop) -> int:
+                           shop_detail: Shop) -> float:
         gasoline = (self.calculate_distance(shop_detail)
                     * (self.car["fuel_consumption"] / 100)
                     * fuel_price)
@@ -36,10 +36,8 @@ class Customer:
 
     def product_cost(self, list_of_shop: Shop) -> float:
         total_expanse = sum(
-            [
-                price * int(self.product_cart.get(product))
-                for product, price in list_of_shop.products.items()
-            ]
+            price * int(self.product_cart.get(product))
+            for product, price in list_of_shop.products.items()
         )
         return total_expanse
 
@@ -61,20 +59,19 @@ class Customer:
             print(f"{amount} {product}s for {price} dollars")
 
     def sum_purchase_details(self, shop_detail: dict) -> float:
-        return sum([amount * shop_detail[product]
-                    for product, amount in self.product_cart.items()])
+        return sum(amount * shop_detail[product]
+                   for product, amount in self.product_cart.items())
 
     def final_result(self,
-                     fuel_price: int,
+                     fuel_price: float,
                      list_of_shop: list) -> None:
         cheap_shop = self.find_min_cost_shop(fuel_price, list_of_shop)
         if min(cheap_shop.keys()) < self.money:
             print(f"{self.name} rides to "
                   f"{cheap_shop.get(min(cheap_shop.keys()))}\n")
             data = datetime.datetime.now().strftime("%d/%m/20%y %H:%M:%S")
-            print(f"Date: {data}")
-            print(f"Thanks, {self.name}, for your purchase!")
-            print("You have bought: ")
+            print(f"Date: {data}\nThanks, {self.name}, "
+                  f"for your purchase!\nYou have bought: ")
             for detail in list_of_shop:
                 if detail.name == cheap_shop.get(min(cheap_shop.keys())):
                     self.purchase_details(detail.products)

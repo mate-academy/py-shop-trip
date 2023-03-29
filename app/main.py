@@ -24,4 +24,5 @@ def shop_trip() -> None:
             new_customer.final_result(fuel_price, list_of_shop)
 
 
-shop_trip()
+if __name__ == "main":
+    shop_trip()
