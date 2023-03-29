@@ -19,8 +19,7 @@ def shop_trip() -> None:
                                     customer["location"],
                                     customer["money"],
                                     customer["car"])
-            for shop_detail in list_of_shop:
-                new_customer.calculate_product(shop_detail)
+
             new_customer.current_balance()
             new_customer.final_result(fuel_price, list_of_shop)
 

@@ -34,14 +34,14 @@ class Customer:
                     * fuel_price)
         return gasoline
 
-    def calculate_product(self, shop_detail: Shop) -> float:
-        product = (self.product_cart["milk"]
-                   * shop_detail.products["milk"]
-                   + self.product_cart["bread"]
-                   * shop_detail.products["bread"]
-                   + self.product_cart["butter"]
-                   * shop_detail.products["butter"])
-        return product
+    def product_cost(self, list_of_shop: Shop) -> float:
+        total_expanse = sum(
+            [
+                price * int(self.product_cart.get(product))
+                for product, price in list_of_shop.products.items()
+            ]
+        )
+        return total_expanse
 
     def find_min_cost_shop(self,
                            fuel_price: int,
@@ -49,11 +49,20 @@ class Customer:
         min_coast_shop = {}
         for shop_detail in list_of_shop:
             total = round(self.calculate_gasoline(fuel_price, shop_detail)
-                          * 2 + self.calculate_product(shop_detail), 2)
+                          * 2 + self.product_cost(shop_detail), 2)
             print(f"{self.name}'s trip to the "
                   f"{shop_detail.name} costs {total}")
             min_coast_shop[total] = shop_detail.name
         return min_coast_shop
+
+    def purchase_details(self, shop_detail: dict) -> None:
+        for product, amount in self.product_cart.items():
+            price = (amount * shop_detail[product])
+            print(f"{amount} {product}s for {price} dollars")
+
+    def sum_purchase_details(self, shop_detail: dict) -> float:
+        return sum([amount * shop_detail[product]
+                    for product, amount in self.product_cart.items()])
 
     def final_result(self,
                      fuel_price: int,
@@ -65,25 +74,19 @@ class Customer:
             data = datetime.datetime.now().strftime("%d/%m/20%y %H:%M:%S")
             print(f"Date: {data}")
             print(f"Thanks, {self.name}, for your purchase!")
-
+            print("You have bought: ")
             for detail in list_of_shop:
                 if detail.name == cheap_shop.get(min(cheap_shop.keys())):
-                    products = [self.product_cart["milk"]
-                                * detail.products["milk"],
-                                self.product_cart["bread"]
-                                * detail.products["bread"],
-                                self.product_cart["butter"]
-                                * detail.products["butter"]]
-                    add_inf = iter(products)
-                    print("You have bought: ")
-                    for key, value in self.product_cart.items():
-                        print(f"{value} {key}s for {next(add_inf)} dollars")
-                    print(f"Total cost is {sum(products)} dollars")
+                    self.purchase_details(detail.products)
+                    print(f"Total cost is "
+                          f"{self.sum_purchase_details(detail.products)} "
+                          f"dollars")
                     print("See you again!\n")
                     print(f"{self.name} rides home")
                     fuel = self.calculate_gasoline(fuel_price, detail)
+                    sum_purchase = self.sum_purchase_details(detail.products)
                     print(f"{self.name} now has "
-                          f"{round(self.money - sum(products) - fuel * 2, 2)}"
+                          f"{round(self.money - sum_purchase - fuel * 2, 2)}"
                           f" dollars\n")
         else:
             print(f"{self.name} doesn't have enough "
