@@ -57,6 +57,10 @@ class Customer:
         for product, amount in self.product_cart.items():
             price = (amount * shop_detail[product])
             print(f"{amount} {product}s for {price} dollars")
+        print(f"Total cost is "
+              f"{self.sum_purchase_details(shop_detail)} dollars")
+        print("See you again!\n")
+        print(f"{self.name} rides home")
 
     def sum_purchase_details(self, shop_detail: dict) -> float:
         return sum(amount * shop_detail[product]
@@ -75,11 +79,6 @@ class Customer:
             for detail in list_of_shop:
                 if detail.name == cheap_shop.get(min(cheap_shop.keys())):
                     self.purchase_details(detail.products)
-                    print(f"Total cost is "
-                          f"{self.sum_purchase_details(detail.products)} "
-                          f"dollars")
-                    print("See you again!\n")
-                    print(f"{self.name} rides home")
                     fuel = self.calculate_gasoline(fuel_price, detail)
                     sum_purchase = self.sum_purchase_details(detail.products)
                     print(f"{self.name} now has "

@@ -12,7 +12,6 @@ def shop_trip() -> None:
                              shop["location"],
                              shop["products"])
                         for shop in data["shops"]]
-
         for customer in data["customers"]:
             new_customer = Customer(customer["name"],
                                     customer["product_cart"],
