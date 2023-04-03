@@ -6,13 +6,9 @@ class Shop:
     def __init__(
             self,
             name: str,
-<<<<<<< HEAD
-            products: dict[str, float], location: list[int]) -> None:
-=======
-            products: dict[dict],
-            location: list
+            products: dict[str, float],
+            location: list[int]
     ) -> None:
->>>>>>> fdd224fdc68e73fd0dc447ddb5a6bcbbf20eca65
         self.name = name
         self.products = products
         self.location = location if location else [0, 0]

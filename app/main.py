@@ -1,12 +1,7 @@
 import json
-<<<<<<< HEAD
 from dataclasses import dataclass
-from typing import Any
-=======
->>>>>>> fdd224fdc68e73fd0dc447ddb5a6bcbbf20eca65
 from pathlib import Path
 from typing import Any
-
 from app.shop import Shop
 from app.customer import Customer
 
@@ -40,7 +35,9 @@ def get_min_purchase_price(customer: Customer, shops: list[Shop]) -> float:
 def shop_trip() -> Any:
     config = load_config()
     for customer in config.customers:
-        total_cost_products = customer.get_min_purchase_price
+        total_cost_products = get_min_purchase_price(
+            customer=customer
+        )
         total = total_cost_products + customer.get_fare * 2
         print(
             f"{customer} has {customer.money} dollars\n"
