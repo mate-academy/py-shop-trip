@@ -7,7 +7,7 @@ class Customer:
     def __init__(
         self,
         name: str,
-        product_cart: dict[str, float],
+        product_cart: dict[str, float | int],
         money: float,
         car: dict[str, str | float],
         location: list[int],
@@ -36,3 +36,18 @@ class Customer:
         )
         total_fare = distance * self.car.fuel_consumption / 100 * fuel_price
         return total_fare
+
+    def get_cost_to_shop(self, shop: Shop, fuel_price: float) -> float:
+        products_cost = shop.get_price(self.product_cart)
+        cost_road = self.get_fare(shop, fuel_price)
+        return products_cost + cost_road * 2
+
+    def make_purchase(self, shop: Shop, fuel_price: float) -> None:
+        print(f"{self.name} rides to {shop.name}\n")
+        print(shop.print_check(self.name, self.product_cart))
+        print(
+            f"{self.name} rides home\n"
+            f"{self.name} now has "
+            f"{round(self.money - self.get_cost_to_shop(shop, fuel_price), 2)}"
+            " dollars\n"
+        )

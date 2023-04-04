@@ -12,18 +12,25 @@ class Shop:
     def __repr__(self) -> str:
         return f"{self.name}, {self.location}, {self.products}"
 
-    def print_check(self, customer: dict) -> str:
+    def get_price(self, product_cart: dict[str, int]) -> float:
+        return sum(
+            self.products[product] * amount
+            for product, amount in product_cart.items()
+        )
+
+    def print_check(self, name: str, product_cart: dict) -> str:
         total_cost = 0
         current_time = datetime.datetime.now()
         text_check = (
             f"Date: {current_time.strftime('%d/%m/%Y %H:%M:%S')}"
-            + f"\nThanks, {customer.name}, for you purchase!\n"
+            + f"\nThanks, {name}, for you purchase!\n"
             + "You have bought: \n"
         )
-        for product, item in customer.product_cart.items():
+        for product, item in product_cart.items():
             product_cost = round(item * self.products[product], 2)
             total_cost += product_cost
             text_check += f"{item} {product}s for {product_cost} dollars\n"
-        text_check += \
+        text_check += (
             f"Total cost is {total_cost} dollars\n" "See you again!\n"
+        )
         return text_check
