@@ -1,6 +1,5 @@
 import datetime
 from typing import List
-
 from app.customer import Customer
 
 

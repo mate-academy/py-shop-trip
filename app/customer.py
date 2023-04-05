@@ -1,7 +1,10 @@
+from __future__ import annotations
 import math
-from typing import List, Any
-
+from typing import List, TYPE_CHECKING
 from app.car import Car
+
+if TYPE_CHECKING:
+    from app.shop import Shop
 
 
 class Customer:
@@ -15,7 +18,7 @@ class Customer:
             customer_config["car"]["fuel_consumption"]
         )
 
-    def fuel_costs_calculation(self, place: Any, fuel_price: float) -> float:
+    def fuel_costs_calculation(self, place: Shop, fuel_price: float) -> float:
         distance = math.dist(self.location, place.location)
         fuel_con = self.car.fuel_consumption / 100
         back_and_forth_coefficient = 2
