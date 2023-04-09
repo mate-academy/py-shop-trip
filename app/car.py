@@ -11,6 +11,8 @@ class Car:
     fuel_price = FUEL_PRICE
 
     def fuel_outgo(self, shop_loc: list, customer_loc: list) -> int | float:
-        return round(((self.fuel_consumption / 100
-                       * math.dist(customer_loc, shop_loc))
-                      * self.fuel_price) * 2, 2)
+        return round((
+                    (self.fuel_consumption / 100
+                     * math.dist(customer_loc, shop_loc))
+            * self.fuel_price) * 2, 2
+        )
