@@ -41,7 +41,9 @@ def have_bought(customer: Customer, shop: Shop) -> None:
 
 
 def shop_trip() -> None:
-    path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "config.json")
+    path = os.path.join(
+        os.path.dirname(os.path.abspath(__file__)), "config.json"
+    )
 
     with open(path, "r") as json_data:
         data = json.load(json_data)
