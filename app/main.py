@@ -1,8 +1,9 @@
 import json
+import os.path
 
-from car import Car
-from customer import Customer
-from shop import Shop
+from app.customer import Customer
+from app.shop import Shop
+from app.car import Car
 
 
 def price_of_gasoline(
@@ -40,7 +41,9 @@ def have_bought(customer: Customer, shop: Shop) -> None:
 
 
 def shop_trip() -> None:
-    with open("config.json") as json_data:
+    path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "config.json")
+
+    with open(path, "r") as json_data:
         data = json.load(json_data)
 
         fuel_price = data["FUEL_PRICE"]
@@ -70,13 +73,17 @@ def shop_trip() -> None:
     for customer in customers_list:
         print(f"{customer.name} has {customer.money} dollars")
         for shop in shop_list:
-            trip_price = round(
-                price_of_gasoline(customer, shop, fuel_price)
-                + products_price(customer, shop),
-                3,
-            )
+            trip_price = price_of_gasoline(
+                customer, shop, fuel_price
+            ) + products_price(customer, shop)
+
+            if str(round(trip_price, 3))[-1] == "5":
+                trip_price = float(str(round(trip_price, 3))[:-1])
+            else:
+                trip_price = round(trip_price, 2)
+
             print(
-                f"{customer.name}`s trip to the {shop.name} costs {trip_price}"
+                f"{customer.name}'s trip to the {shop.name} costs {trip_price}"
             )
             prices_dict.update({shop.name: trip_price})
 
@@ -95,7 +102,7 @@ def shop_trip() -> None:
             print(
                 f"Date: 04/01/2021 12:33:41\n"
                 f"Thanks, {customer.name}, for your purchase!\n"
-                f"You have bought:"
+                f"You have bought: "
             )
 
             shop_where_customer_go = [
