@@ -1,3 +1,4 @@
+import datetime
 import json
 import os.path
 
@@ -6,7 +7,7 @@ from app.shop import Shop
 from app.car import Car
 
 
-def price_of_gasoline(
+def calculate_gasoline_cost(
     customer: Customer, shop: Shop, fuel_price: float
 ) -> float:
     km = (
@@ -31,7 +32,9 @@ def products_price(customer: Customer, shop: Shop) -> float:
     )
 
 
-def have_bought(customer: Customer, shop: Shop) -> None:
+def print_purchased_items_and_their_cost(
+        customer: Customer, shop: Shop
+) -> None:
     for product in customer.product_cart:
         print(
             f"{customer.product_cart[product]} {product}s for "
@@ -75,14 +78,9 @@ def shop_trip() -> None:
     for customer in customers_list:
         print(f"{customer.name} has {customer.money} dollars")
         for shop in shop_list:
-            trip_price = price_of_gasoline(
+            trip_price = round(round(calculate_gasoline_cost(
                 customer, shop, fuel_price
-            ) + products_price(customer, shop)
-
-            if str(round(trip_price, 3))[-1] == "5":
-                trip_price = float(str(round(trip_price, 3))[:-1])
-            else:
-                trip_price = round(trip_price, 2)
+            ) + products_price(customer, shop), 3), 2)
 
             print(
                 f"{customer.name}'s trip to the {shop.name} costs {trip_price}"
@@ -102,7 +100,8 @@ def shop_trip() -> None:
         else:
             print(f"{customer.name} rides to {shop_name}\n")
             print(
-                f"Date: 04/01/2021 12:33:41\n"
+                f"Date: "
+                f"{datetime.datetime.now().strftime('%d/%m/%Y %H:%M:%S')}\n"
                 f"Thanks, {customer.name}, for your purchase!\n"
                 f"You have bought: "
             )
@@ -110,7 +109,9 @@ def shop_trip() -> None:
             shop_where_customer_go = [
                 shop for shop in shop_list if shop.name == shop_name
             ][0]
-            have_bought(customer, shop_where_customer_go)
+            print_purchased_items_and_their_cost(
+                customer, shop_where_customer_go
+            )
             print(
                 f"Total cost is "
                 f"{products_price(customer, shop_where_customer_go)} dollars\n"
