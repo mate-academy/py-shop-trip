@@ -1,4 +1,4 @@
-from typing import Tuple
+from typing import Tuple, Dict
 
 
 class Shop:
@@ -6,7 +6,7 @@ class Shop:
             self,
             name: str,
             location: Tuple[int, int],
-            products: dict
+            products: Dict[str, int]
     ) -> None:
         self.name = name
         self.location = location
