@@ -10,8 +10,16 @@ class Customer:
             money: float,
             car: Car,
     ) -> None:
-        self.name = name
+        self._name = name
         self.product_cart = product_cart
         self.location = location
-        self.money = money
+        self._money = money
         self.car = car
+
+    @property
+    def get_name(self) -> str:
+        return self._name
+
+    @property
+    def get_money(self) -> float:
+        return self._money

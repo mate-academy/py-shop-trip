@@ -5,6 +5,10 @@ class Shop:
             products: dict,
             location: list[int, int],
     ) -> None:
-        self.name = name
+        self._name = name
         self.products = products
         self.location = location
+
+    @property
+    def get_name(self) -> str:
+        return self._name
