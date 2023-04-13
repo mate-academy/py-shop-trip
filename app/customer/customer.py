@@ -3,7 +3,7 @@ from app.customer.car import Car
 
 
 class Customer:
-    """A class to create a customer."""
+    """A class to create a customer"""
 
     def __init__(self, data: dict) -> None:
         self.name = data["name"]

@@ -6,7 +6,7 @@ import math
 
 
 def distance(customer: Customer, shop: Shop) -> float:
-    """Calculate distance between customer and shop."""
+    """Calculate distance between customer and shop"""
     x1, y1 = customer.location
     x2, y2 = shop.location
     return math.sqrt((x2 - x1) ** 2 + (y2 - y1) ** 2)
