@@ -5,7 +5,7 @@ from datetime import datetime
 
 
 class Trip:
-    """A class to create a single customer trip to shop."""
+    """A class to create a single customer trip to shop"""
 
     def __init__(self, customer: Customer, shops: list[Shop]) -> None:
         self.customer = customer
@@ -29,11 +29,11 @@ class Trip:
             )
 
     def customer_has_money(self) -> None:
-        """Print sum of money customer has."""
+        """Print sum of money customer has"""
         print(f"{self.customer.name} has {self.customer.money} dollars")
 
     def trips_cost(self) -> None:
-        """Print the costs of customer`s shop trips."""
+        """Print the costs of customer`s shop trips"""
         for shop in self.shops:
             customer = self.customer
             product_cart = customer.product_cart
@@ -49,11 +49,11 @@ class Trip:
             shop.expenses = shopping_expenses
 
     def minimal_shop_expenses(self) -> float:
-        """Return minimal expenses among shops."""
+        """Return minimal expenses among shops"""
         return min(shop.expenses for shop in self.shops)
 
     def define_shop_to_ride(self) -> None:
-        """Define shop to ride."""
+        """Define shop to ride"""
         for shop in self.shops:
             if shop.expenses == self.minimal_shop_expenses():
                 self.shop_to_ride = shop.name
@@ -62,7 +62,7 @@ class Trip:
                 self.butter_price = shop.price_list.butter
 
     def customer_has_enough_money(self) -> None:
-        """Check if customer has enough money."""
+        """Check if customer has enough money"""
         return self.customer.money >= self.minimal_shop_expenses()
 
     @staticmethod
