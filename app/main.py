@@ -14,17 +14,17 @@ def calculate_gasoline_cost(
         fuel_price: float
 ) -> float:
     km = (
-        round(
-            (
-                (customer.location[0] - shop.location[0]) ** 2
-                + (customer.location[1] - shop.location[1]) ** 2
+            round(
+                (
+                        (customer.location[0] - shop.location[0]) ** 2
+                        + (customer.location[1] - shop.location[1]) ** 2
+                )
+                ** 0.5,
+                2,
             )
-            ** 0.5,
-            2,
-        )
-        * 2
+            * 2
     )
-    price = (customer.car.fuel_consumption / 100 * km) * fuel_price
+    price = round((customer.car.fuel_consumption / 100 * km) * fuel_price, 3)
     return price
 
 
@@ -59,7 +59,7 @@ def print_date_purchased_items_and_their_cost(
 
 
 def print_cost_of_a_trip_to_all_stores_and_selected_store(
-    customers_list: List[Customer], shop_list: List[Shop], fuel_price: float
+        customers_list: List[Customer], shop_list: List[Shop], fuel_price: float
 ) -> None:
     prices_dict = {}
 
@@ -67,11 +67,8 @@ def print_cost_of_a_trip_to_all_stores_and_selected_store(
         print(f"{customer.name} has {customer.money} dollars")
         for shop in shop_list:
             trip_price = round(
-                round(
-                    calculate_gasoline_cost(customer, shop, fuel_price)
-                    + products_price(customer, shop),
-                    3,
-                ),
+                calculate_gasoline_cost(customer, shop, fuel_price)
+                + products_price(customer, shop),
                 2,
             )
 
@@ -92,9 +89,8 @@ def print_cost_of_a_trip_to_all_stores_and_selected_store(
         else:
             print(f"{customer.name} rides to {shop_name}\n")
 
-            shop_where_customer_go = [
-                shop for shop in shop_list if shop.name == shop_name
-            ][0]
+            shop_where_customer_go = next(filter(lambda shop: shop.name == shop_name, shop_list))
+
             print_date_purchased_items_and_their_cost(
                 customer, shop_where_customer_go
             )
@@ -104,7 +100,7 @@ def print_cost_of_a_trip_to_all_stores_and_selected_store(
 
 
 def print_amount_of_money_left_after_purchases(
-    customer: Customer, money_in_account: float
+        customer: Customer, money_in_account: float
 ) -> None:
     print(
         f"{customer.name} rides home\n"
