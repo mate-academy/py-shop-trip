@@ -18,8 +18,6 @@ class Customer:
                      * unpack("app/config.json", "fuel_price"), 2)
 
     def shop_total_cost(self, shop: Shop) -> float:
-        total_cost = 0
-        for product, count in self.product_cart.items():
-            if product in shop.products:
-                total_cost += count * shop.products[product]
-        return total_cost
+        return sum(
+            count * shop.products[product] for product,
+            count in self.product_cart.items() if product in shop.products)

@@ -5,13 +5,14 @@ from app.unpack_json_file import unpack
 
 
 def shop_trip() -> None:
+    shops_data = unpack("app/config.json", "shops")
+    shops = [Shop(**data) for data in shops_data]
     for customer_data in unpack("app/config.json", "customers"):
         customer = Customer(**customer_data)
         print(f"{customer.name} has {customer.money} dollars")
         choice_shop = ""
         num = None
-        for shops_data in unpack("app/config.json", "shops"):
-            shop = Shop(**shops_data)
+        for shop in shops:
             total_cost = (customer.road_cost(shop)
                           + customer.shop_total_cost(shop))
             if num is None or num > total_cost:
