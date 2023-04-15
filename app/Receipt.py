@@ -20,8 +20,8 @@ class Receipt:
             [f"{value} {key}s for {price} dollars"
              for key, (value, price) in self.purchase_list.items()]
         )
-        return f"Date: {self.timestamp.strftime('%d/%m/%Y %H:%M:%S')}\n" \
-               f"Thanks, {self.customer_name}, for you purchase!\n" \
-               f"You have bought: \n{purchase_str}\n" \
-               f"Total cost is {self.total_cost} dollars\n" \
-               f"See you again!\n"
+        return (f"Date: {self.timestamp.strftime('%d/%m/%Y %H:%M:%S')}\n"
+                f"Thanks, {self.customer_name}, for you purchase!\n"
+                f"You have bought: \n{purchase_str}\n"
+                f"Total cost is {self.total_cost} dollars\n"
+                f"See you again!\n")
