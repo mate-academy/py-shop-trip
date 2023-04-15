@@ -22,6 +22,6 @@ class Receipt:
         )
         return (f"Date: {self.timestamp.strftime('%d/%m/%Y %H:%M:%S')}\n"
                 f"Thanks, {self.customer_name}, for your purchase!\n"
-                f"You have bought:\n{purchase_str}\n"
+                f"You have bought: \n{purchase_str}\n"
                 f"Total cost is {self.total_cost} dollars\n"
                 f"See you again!\n")
