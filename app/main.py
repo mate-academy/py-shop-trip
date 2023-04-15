@@ -3,7 +3,7 @@ import json
 from app.Receipt import Receipt
 from app.Trip_cost import Trip
 
-PATH = "app/config.json"
+PATH = "C:\\Users\\kasko\\projects\\mate\\Python\\py-shop-trip\\app\\config.json"
 
 
 def shop_trip() -> None:
@@ -28,7 +28,7 @@ def shop_trip() -> None:
 
         if len(shop_list) == 0:
             print(f"{name} doesn't have enough money "
-                  f"to make purchase in any shop")
+                  f"to make a purchase in any shop")
             continue
 
         shop_list.sort(key=lambda x: x[2])
