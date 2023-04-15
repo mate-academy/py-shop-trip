@@ -44,7 +44,7 @@ Alex rides to Shop '24/7'
 
 Date: 04/01/2021 12:33:41
 Thanks, Alex, for your purchase!
-You have bought:
+You have bought: 
 2 milks for 4 dollars
 2 breads for 3.0 dollars
 2 butters for 6.4 dollars
