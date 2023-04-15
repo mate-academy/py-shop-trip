@@ -40,7 +40,15 @@ def shop_trip() -> None:
         print(f"{name} now has {money - total_cost} dollars\n")
 
 
-def select_shop(customer, fuel_price, shops, name, money, product_cart, car):
+def select_shop(
+        customer: dict,
+        fuel_price: float,
+        shops: list,
+        name: str,
+        money: int,
+        product_cart: dict,
+        car: dict
+) -> list:
     purchase_price = []
     for shop in shops:
         shop_name = shop["name"]
