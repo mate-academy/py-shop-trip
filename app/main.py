@@ -3,7 +3,7 @@ import json
 from app.Receipt import Receipt
 from app.Trip_cost import Trip
 
-PATH = "C:\\Users\\kasko\\projects\\mate\\Python\\py-shop-trip\\app\\config.json"
+PATH = "app/config.json"
 
 
 def shop_trip() -> None:
