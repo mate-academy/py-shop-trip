@@ -7,7 +7,7 @@ class Customer:
             self,
             name: str,
             product_cart_items: dict,
-            location: list,
+            location: list[int, int],
             money: int,
             car: Car
     ) -> None:
@@ -33,6 +33,7 @@ class Customer:
         best_shop = costs[min_cost]
         if self.money >= min_cost:
             self.visit_to_shop(best_shop, min_cost)
+            self.location = best_shop.shop_location
         else:
             print(f"{self.name} doesn't have enough "
                   f"money to make a purchase in any shop")

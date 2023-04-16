@@ -11,8 +11,8 @@ class Car:
 
     def calculate_fuel_consumption_price(
             self,
-            customer_location: list,
-            shop_location: list
+            customer_location: list[int, int],
+            shop_location: list[int, int]
     ) -> float:
         distance = math.dist(customer_location, shop_location)
         fuel_consumption_price = (self.fuel_consumption / 100
