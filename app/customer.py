@@ -1,4 +1,5 @@
 from dataclasses import dataclass
+from typing import List
 
 from app.car import Car
 
@@ -7,6 +8,6 @@ from app.car import Car
 class Customer:
     name: str
     product_cart: dict
-    location: list
+    location: List[int]
     money: int
-    car: object = Car
+    car: Car
