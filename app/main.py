@@ -12,8 +12,8 @@ def shop_trip() -> None:
 
     for customer in customers:
         # amount of money
-        print(f"{customer.get_name} has "
-              f"{customer.get_money} dollars")
+        print(f"{customer.name} has "
+              f"{customer.money} dollars")
 
         products = customer.product_cart.keys()
         # path cost calculation
@@ -23,7 +23,7 @@ def shop_trip() -> None:
         )
 
         for shop in shops:
-            if shop.get_name == shop_min_cost:
+            if shop.name == shop_min_cost:
                 selected_shop = shop
 
         trip(costs, customer, selected_shop, products)

@@ -61,7 +61,7 @@ def costs_value(shops: list, customer: Customer, products: list) -> dict:
                 for prod in products
             ]
         )
-        costs[shop.get_name] = cost_trip_calculation(
+        costs[shop.name] = cost_trip_calculation(
             length_trip=length_trip_calculation(
                 shop.location, customer.location
             ),
@@ -70,8 +70,8 @@ def costs_value(shops: list, customer: Customer, products: list) -> dict:
             cost_products=cost_prod)
 
         print(
-            f"{customer.get_name}'s trip to the "
-            f"{shop.get_name} costs {costs[shop.get_name]}")
+            f"{customer.name}'s trip to the "
+            f"{shop.name} costs {costs[shop.name]}")
 
     return costs
 
@@ -82,12 +82,12 @@ def trip(
         selected_shop: Shop,
         products: list
 ) -> None:
-    if min(costs.values()) <= customer.get_money:
+    if min(costs.values()) <= customer.money:
         current_data = "04/01/2021 12:33:41"
 
-        print(f"{customer.get_name} rides to {selected_shop.get_name}\n")
+        print(f"{customer.name} rides to {selected_shop.name}\n")
         print(f"Date: {current_data}")
-        print(f"Thanks, {customer.get_name}, for your purchase!")
+        print(f"Thanks, {customer.name}, for your purchase!")
         print("You have bought: ")
         total_cost = 0
         for prod in products:
@@ -100,9 +100,9 @@ def trip(
 
         print(f"Total cost is {total_cost} dollars")
         print("See you again!\n")
-        print(f"{customer.get_name} rides home")
-        print(f"{customer.get_name} now has "
-              f"{customer.get_money - min(costs.values())} dollars\n")
+        print(f"{customer.name} rides home")
+        print(f"{customer.name} now has "
+              f"{customer.money - min(costs.values())} dollars\n")
     else:
-        print(f"{customer.get_name} "
+        print(f"{customer.name} "
               f"doesn't have enough money to make a purchase in any shop")

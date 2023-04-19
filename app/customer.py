@@ -6,7 +6,7 @@ class Customer:
             self,
             name: str,
             product_cart: dict,
-            location: list[int, int],
+            location: list[int],
             money: float,
             car: Car,
     ) -> None:
@@ -17,9 +17,9 @@ class Customer:
         self.car = car
 
     @property
-    def get_name(self) -> str:
+    def name(self) -> str:
         return self._name
 
     @property
-    def get_money(self) -> float:
+    def money(self) -> float:
         return self._money

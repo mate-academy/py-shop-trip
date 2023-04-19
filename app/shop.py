@@ -10,5 +10,5 @@ class Shop:
         self.location = location
 
     @property
-    def get_name(self) -> str:
+    def name(self) -> str:
         return self._name
