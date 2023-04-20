@@ -71,9 +71,9 @@ def shop_trip() -> None:
                 print(
                     f"You have bought: \n"
                     f"{_customer.prod['milk']} milks "
-                    f"for {cheapest_shop[1]} dollars \n"
+                    f"for {cheapest_shop[1]} dollars\n"
                     f"{_customer.prod['bread']} breads "
-                    f"for {cheapest_shop[2]} dollars \n"
+                    f"for {cheapest_shop[2]} dollars\n"
                     f"{_customer.prod['butter']} butters "
                     f"for {cheapest_shop[3]} dollars"
                 )
