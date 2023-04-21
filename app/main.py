@@ -10,15 +10,14 @@ def shop_trip() -> None:
 
     fuel_price = config_info["FUEL_PRICE"]
 
-    customers: list[Customer] = [Customer(**customer) for customer in config_info["customers"]]
+    customers: list[Customer] = [
+        Customer(**customer) for customer in config_info["customers"]
+    ]
     shops: list[Shop] = [Shop(**shop) for shop in config_info["shops"]]
 
     for customer in customers:
         customer.car.fuel_price = fuel_price
-        # find the cheapest shop
-        customer.calculates_ultimate_shopping_journey_cost(shops)
-        # print result based on customer's money
-        customer.render_shop_journey()
+        customer.render_shop_journey(shops)
 
 
 if __name__ == "__main__":

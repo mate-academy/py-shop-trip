@@ -1,10 +1,12 @@
 from typing import Union
-from dataclasses import dataclass
 
 
-@dataclass
 class Car:
-    def __init__(self, brand: str, fuel_consumption: Union[int, float]) -> None:
+    def __init__(
+            self,
+            brand: str,
+            fuel_consumption: Union[int, float]
+    ) -> None:
         self.brand = brand
         self.fuel_consumption = fuel_consumption
         self.fuel_price = 0
