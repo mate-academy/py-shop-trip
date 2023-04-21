@@ -1,6 +1,6 @@
 from app.customer.customer import Customer, ProductCart
 from app.shop.shop import Shop, PriceList
-from app.trip.get_data import get_data
+from app.trip.get_data import _FUEL_PRICE
 
 import math
 
@@ -14,7 +14,7 @@ def distance(customer: Customer, shop: Shop) -> float:
 
 def fuel_price() -> float:
     """Return fuel_price"""
-    return get_data()["FUEL_PRICE"]
+    return _FUEL_PRICE
 
 
 def fuel_costs(customer: Customer, shop: Shop) -> float:
@@ -28,6 +28,12 @@ def fuel_costs(customer: Customer, shop: Shop) -> float:
 
 def shopping_cost(product_cart: ProductCart, price_list: PriceList) -> float:
     """Calculate cost of all purchases in one shop"""
-    return (product_cart.milk * price_list.milk
-            + product_cart.butter * price_list.butter
-            + product_cart.bread * price_list.bread)
+    total_cost = 0
+    for product, quantity in product_cart.__dict__.items():
+        if product == "milk":
+            total_cost += quantity * price_list.milk
+        elif product == "butter":
+            total_cost += quantity * price_list.butter
+        elif product == "bread":
+            total_cost += quantity * price_list.bread
+    return total_cost
