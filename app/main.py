@@ -17,7 +17,7 @@ def shop_trip() -> None:
 
     for customer in customers:
         customer.car.fuel_price = fuel_price
-        customer.render_shop_journey(shops)
+        customer.display_shop_journey(shops)
 
 
 if __name__ == "__main__":

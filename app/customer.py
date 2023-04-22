@@ -1,6 +1,6 @@
 from app.car import Car
 from app.shop import Shop
-from typing import Union
+from typing import List, Union
 
 
 class Customer:
@@ -26,34 +26,37 @@ class Customer:
         distance_cost = self.car.fuel_cost_calculation_per_distance(distance)
         return distance_cost
 
-    def calculates_ultimate_shopping_journey_cost(self, shop: Shop) -> dict:
+    def calc_ult_shopping_journey_cost(self, shop: Shop) -> dict:
         total_sum = shop.calc_cost_of_prod_cart(self) + self.journey_cost(shop)
         return {shop.name: total_sum}
 
-    def render_shop_journey(self, shops: Shop) -> None:
+    def display_shop_journey(self, shops: List[Shop]) -> None:
         print(f"{self.name} has {self.money} dollars")
 
-        ult_journey_cost_various_shops = {}
-
-        for shop in shops:
-            ult_journey_cost_various_shops.update(
-                self.calculates_ultimate_shopping_journey_cost(shop)
-            )
-            print(f"{self.name}'s trip to the {shop.name} costs "
-                  f"{ult_journey_cost_various_shops.get(shop.name):.2f}")
-
-        cheapest_trip_cost = min(ult_journey_cost_various_shops.values())
+        ult_journ_cost_var_shops = {}
         cheapest_shop_name = ""
 
-        for shop_name, trip_cost in ult_journey_cost_various_shops.items():
-            if trip_cost == cheapest_trip_cost:
-                cheapest_shop_name = shop_name
-                break
+        for shop in shops:
+            journey_cost_for_shop = self.calc_ult_shopping_journey_cost(shop)
+            ult_journ_cost_var_shops.update(journey_cost_for_shop)
 
-        for shop in Shop.shops:
-            if shop.name == cheapest_shop_name:
-                cheapest_shop = shop
-                break
+            print(f"{self.name}'s trip to the {shop.name} costs "
+                  f"{ult_journ_cost_var_shops.get(shop.name):.2f}")
+
+            for shop_name, trip_cost in journey_cost_for_shop.items():
+                if trip_cost < \
+                        ult_journ_cost_var_shops.get(shop_name, float("inf")):
+                    ult_journ_cost_var_shops[shop_name] = trip_cost
+
+            if cheapest_shop_name == "" or \
+                    ult_journ_cost_var_shops[shop.name] < \
+                    ult_journ_cost_var_shops[cheapest_shop_name]:
+                cheapest_shop_name = shop.name
+
+        cheapest_trip_cost = min(ult_journ_cost_var_shops.values())
+        cheapest_shop = next(
+            (shop for shop in shops if shop.name == cheapest_shop_name), None
+        )
 
         if self.money < cheapest_trip_cost:
             print(f"{self.name} doesn't have enough money "
