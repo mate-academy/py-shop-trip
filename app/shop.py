@@ -11,9 +11,9 @@ class Shop:
         self.products = products
         self.shops.append(self)
 
-    def calculates_cost_of_product_cart(
+    def calc_cost_of_prod_cart(
             self,
-            customer: "Customer"
+            customer: object
     ) -> Union[int, float]:
         product_cart_cost = 0
         for product, amount in customer.product_cart.items():
@@ -22,7 +22,7 @@ class Shop:
                 product_cart_cost += cost_of_product
         return product_cart_cost
 
-    def shop_purchase_reflect(self, customer: "Customer") -> None:
+    def shop_purchase_reflect(self, customer: object) -> None:
         purchase_datetime = datetime.datetime.now().strftime(
             "%d/%m/%Y %H:%M:%S"
         )
@@ -40,6 +40,6 @@ class Shop:
         print(f"{butter_count} butters for "
               f"{self.products.get('butter') * butter_count} dollars")
 
-        total_cost = self.calculates_cost_of_product_cart(customer)
+        total_cost = self.calc_cost_of_prod_cart(customer)
         print(f"Total cost is {total_cost} dollars")
         print("See you again!\n")

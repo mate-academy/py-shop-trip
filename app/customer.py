@@ -18,8 +18,6 @@ class Customer:
         self.distance_to_shop = 0
         self.money = money
         self.car: Car = Car(**car)
-        self.closest_shop_by_distance_cost = {}
-        self.ult_journey_cost_various_shops = {}
 
     def journey_cost(self, shop: Shop) -> float:
         point_x = shop.location[0] - self.location[0]
@@ -28,30 +26,26 @@ class Customer:
         distance_cost = self.car.fuel_cost_calculation_per_distance(distance)
         return distance_cost
 
-    def calculates_ultimate_shopping_journey_cost(self, shop: Shop) -> None:
-        self.ult_journey_cost_various_shops[
-            shop.name
-        ] = shop.calculates_cost_of_product_cart(
-            self
-        ) + self.journey_cost(
-            shop
-        )
+    def calculates_ultimate_shopping_journey_cost(self, shop: Shop) -> dict:
+        total_sum = shop.calc_cost_of_prod_cart(self) + self.journey_cost(shop)
+        return {shop.name: total_sum}
 
     def render_shop_journey(self, shops: Shop) -> None:
         print(f"{self.name} has {self.money} dollars")
 
-        for shop in shops:
-            self.calculates_ultimate_shopping_journey_cost(shop)
-            print(f"{self.name}'s trip to the {shop.name} costs "
-                  f"{self.ult_journey_cost_various_shops.get(shop.name):.2f}")
+        ult_journey_cost_various_shops = {}
 
-        cheapest_trip_cost = min(
-            self.ult_journey_cost_various_shops.values()
-        )
+        for shop in shops:
+            ult_journey_cost_various_shops.update(
+                self.calculates_ultimate_shopping_journey_cost(shop)
+            )
+            print(f"{self.name}'s trip to the {shop.name} costs "
+                  f"{ult_journey_cost_various_shops.get(shop.name):.2f}")
+
+        cheapest_trip_cost = min(ult_journey_cost_various_shops.values())
         cheapest_shop_name = ""
 
-        for shop_name, trip_cost \
-                in self.ult_journey_cost_various_shops.items():
+        for shop_name, trip_cost in ult_journey_cost_various_shops.items():
             if trip_cost == cheapest_trip_cost:
                 cheapest_shop_name = shop_name
                 break
