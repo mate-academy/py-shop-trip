@@ -13,7 +13,7 @@ class Shop:
 
     def calc_cost_of_prod_cart(
             self,
-            customer: object
+            customer: "Customer"
     ) -> Union[int, float]:
         product_cart_cost = 0
         for product, amount in customer.product_cart.items():
@@ -22,7 +22,7 @@ class Shop:
                 product_cart_cost += cost_of_product
         return product_cart_cost
 
-    def shop_purchase_reflect(self, customer: object) -> None:
+    def shop_purchase_reflect(self, customer: "Customer") -> None:
         purchase_datetime = datetime.datetime.now().strftime(
             "%d/%m/%Y %H:%M:%S"
         )
