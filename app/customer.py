@@ -19,7 +19,7 @@ class Customer:
         self.money = money
         self.car: Car = Car(**car)
         self.closest_shop_by_distance_cost = {}
-        self.ultimate_journey_cost_different_shops = {}
+        self.ult_journey_cost_various_shops = {}
 
     def journey_cost(self, shop: Shop) -> float:
         point_x = shop.location[0] - self.location[0]
@@ -29,9 +29,12 @@ class Customer:
         return distance_cost
 
     def calculates_ultimate_shopping_journey_cost(self, shop: Shop) -> None:
-        self.ultimate_journey_cost_different_shops[shop.name] = (
-                shop.calculates_cost_of_product_cart(self)
-                + self.journey_cost(shop)
+        self.ult_journey_cost_various_shops[
+            shop.name
+        ] = shop.calculates_cost_of_product_cart(
+            self
+        ) + self.journey_cost(
+            shop
         )
 
     def render_shop_journey(self, shops: Shop) -> None:
@@ -40,15 +43,15 @@ class Customer:
         for shop in shops:
             self.calculates_ultimate_shopping_journey_cost(shop)
             print(f"{self.name}'s trip to the {shop.name} costs "
-                  f"{self.ultimate_journey_cost_different_shops.get(shop.name):.2f}")
+                  f"{self.ult_journey_cost_various_shops.get(shop.name):.2f}")
 
         cheapest_trip_cost = min(
-            self.ultimate_journey_cost_different_shops.values()
+            self.ult_journey_cost_various_shops.values()
         )
         cheapest_shop_name = ""
 
         for shop_name, trip_cost \
-                in self.ultimate_journey_cost_different_shops.items():
+                in self.ult_journey_cost_various_shops.items():
             if trip_cost == cheapest_trip_cost:
                 cheapest_shop_name = shop_name
                 break
