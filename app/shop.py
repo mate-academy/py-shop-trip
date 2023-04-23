@@ -30,15 +30,11 @@ class Shop:
         print(f"Thanks, {customer.name}, for your purchase!")
         print("You have bought: ")
 
-        milk_count = customer.product_cart.get("milk")
-        bread_count = customer.product_cart.get("bread")
-        butter_count = customer.product_cart.get("butter")
-        print(f"{milk_count} milks for "
-              f"{self.products.get('milk') * milk_count} dollars")
-        print(f"{bread_count} breads for "
-              f"{self.products.get('bread') * bread_count} dollars")
-        print(f"{butter_count} butters for "
-              f"{self.products.get('butter') * butter_count} dollars")
+        for product_name, product_count in customer.product_cart.items():
+            product_price = self.products.get(product_name)
+            if product_price:
+                print(f"{product_count} {product_name}s "
+                      f"for {product_price * product_count} dollars")
 
         total_cost = self.calc_cost_of_prod_cart(customer)
         print(f"Total cost is {total_cost} dollars")
