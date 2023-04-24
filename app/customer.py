@@ -15,20 +15,15 @@ class Customer:
 
     def choose_shop_or_stay_home(
             self,
-            shops_list: list[Shop],
+            shops: list[Shop],
             fuel_price: float
     ) -> None | Shop:
         self.current_location = self.home_location
         print(f"{self.name} has {self.money} dollars")
-        calculated_trips = dict()
-        for shop in shops_list:
-            calculated_trips[
-                self.calculate_trip_to_shop
-                (
-                    shop,
-                    fuel_price
-                )
-            ] = shop
+        calculated_trips = {
+            self.calculate_trip_to_shop(shop, fuel_price): shop
+            for shop in shops
+        }
         cheapest_trip = min(calculated_trips.keys())
         if self.money < cheapest_trip:
             print(
@@ -55,13 +50,16 @@ class Customer:
             (((x2 - x1) ** 2 + (y2 - y1) ** 2) ** 0.5) * 2,
             2
         )
-        trip_fuel_consumption = \
-            total_distance * self.car["fuel_consumption"] \
+        trip_fuel_consumption = (
+            total_distance * self.car["fuel_consumption"]
             / 100
+        )
         fuel_expenses = trip_fuel_consumption * fuel_price
-        product_expenses = 0
-        for product, amount_to_buy in self.product_cart.items():
-            product_expenses += amount_to_buy * shop.products[product]
+        product_expenses = sum(
+            amount_to_buy * shop.products[product]
+            for product, amount_to_buy
+            in self.product_cart.items()
+        )
         trip_expenses = round(fuel_expenses + product_expenses, 2)
         print(f"{self.name}'s trip "
               f"to the {shop.name} costs {trip_expenses}")

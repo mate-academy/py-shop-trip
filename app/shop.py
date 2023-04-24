@@ -21,10 +21,8 @@ class Shop:
         money_spent = 0
         for product, amount in customer_product_cart.items():
             money_spent += amount * self.products[product]
-            if amount == 1:
-                print(f"1 {product} for {self.products[product]} dollars")
-            print(
-                f"{amount} {product}s for "
-                f"{self.products[product] * amount} dollars")
+            plural = "s" if amount > 1 else ""
+            print(f"{amount} {product}{plural} "
+                  f"for {self.products[product] * amount} dollars")
         print(f"Total cost is {money_spent} dollars")
         print("See you again!\n")
