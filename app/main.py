@@ -31,4 +31,3 @@ def shop_trip() -> None:
         if chosen_shop:
             chosen_shop.print_check(customer.name, customer.product_cart)
             customer.ride_home()
-
