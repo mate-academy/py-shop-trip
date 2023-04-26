@@ -1,14 +1,13 @@
-from app.customer import customers
-from app.shop import shops
+from app.convertor import customers, shops, fuel_price
 
 
-def shop_trip():
+def shop_trip() -> None:
     for customer in customers:
         print(f"{customer.name} has {customer.money} dollars")
-        customer.calculate_cost_trip()
-        customer.pick_cheapest_trip()
-        if customer.enough_money:
-            customer.drives_to_shop()
-            customer.buys_products()
-            customer.arrives_home()
-            customer.counts_remaining_money()
+        target_shop, trip_to_shop_cost = customer.pick_cheapest_trip(shops, fuel_price)
+        if customer.money >= trip_to_shop_cost:
+            customer.drives_to_shop(target_shop)
+            customer.drives_home(trip_to_shop_cost)
+        else:
+            print(f"{customer.name} doesn't have enough money to make a "
+                  f"purchase in any shop\n")
