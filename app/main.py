@@ -1,4 +1,4 @@
-from app.convertor import customers, shops, fuel_price
+from app.from_json import customers, shops, fuel_price
 
 
 def shop_trip() -> None:
