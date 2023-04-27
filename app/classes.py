@@ -18,7 +18,6 @@ class Customer:
         self.location = tuple(location)
         self.money = money
         self.car = car
-        self.enough_money = False
         self.home_location = tuple(self.location)
 
     def calculate_products_cost(self, products: Dict[str: int]) -> float:
