@@ -1,5 +1,6 @@
 from __future__ import annotations
 import math
+import datetime
 from typing import Dict, List
 
 
@@ -7,9 +8,10 @@ class Customer:
     def __init__(
             self,
             name: str,
-            product_cart: Dict,
+            product_cart: Dict[str: int],
             location: List[int],
-            money: int, car: Dict
+            money: int,
+            car: Dict[str: int]
     ) -> None:
         self.name = name
         self.product_cart = product_cart
@@ -19,7 +21,7 @@ class Customer:
         self.enough_money = False
         self.home_location = tuple(self.location)
 
-    def calculate_products_cost(self, products: dict) -> float:
+    def calculate_products_cost(self, products: Dict[str: int]) -> float:
         return sum(
             self.product_cart[product] * products[product]
             for product in self.product_cart
@@ -40,8 +42,8 @@ class Customer:
         trips_cost = dict()
         for shop in shops:
             products_cost = self.calculate_products_cost(shop.products)
-            fuel_cost = self.calculate_fuel_cost(shop, fuel_price)
-            trip_cost = round(products_cost + fuel_cost, 2)
+            fuel_cost = round(self.calculate_fuel_cost(shop, fuel_price), 2)
+            trip_cost = products_cost + fuel_cost
             print(
                 f"{self.name}'s trip to the {shop.name} costs {trip_cost}"
             )
@@ -66,15 +68,16 @@ class Shop:
         self,
         name: str,
         location: List[int],
-        products: Dict
+        products: Dict[str: int]
     ) -> None:
         self.name = name
         self.location = tuple(location)
         self.products = products
 
     def print_receipt(self, customer: Customer) -> None:
+        now = datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S")
         print(
-            f"Date: 04/01/2021 12:33:41\n"
+            f"Date: {now}\n"
             f"Thanks, {customer.name}, for your purchase!\n"
             f"You have bought: "
         )
