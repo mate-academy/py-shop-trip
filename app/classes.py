@@ -8,10 +8,10 @@ class Customer:
     def __init__(
             self,
             name: str,
-            product_cart: Dict[str: int],
+            product_cart: Dict[str, int],
             location: List[int],
             money: int,
-            car: Dict[str: int]
+            car: Dict[str, int]
     ) -> None:
         self.name = name
         self.product_cart = product_cart
@@ -20,7 +20,7 @@ class Customer:
         self.car = car
         self.home_location = tuple(self.location)
 
-    def calculate_products_cost(self, products: Dict[str: int]) -> float:
+    def calculate_products_cost(self, products: Dict[str, int]) -> float:
         return sum(
             self.product_cart[product] * products[product]
             for product in self.product_cart
@@ -67,7 +67,7 @@ class Shop:
         self,
         name: str,
         location: List[int],
-        products: Dict[str: int]
+        products: Dict[str, int]
     ) -> None:
         self.name = name
         self.location = tuple(location)

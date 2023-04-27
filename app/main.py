@@ -1,4 +1,7 @@
-from app.from_json import customers, shops, fuel_price
+from app.from_json import from_json
+
+
+fuel_price, customers, shops = from_json().values()
 
 
 def shop_trip() -> None:
