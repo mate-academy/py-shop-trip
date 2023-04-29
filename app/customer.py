@@ -20,10 +20,8 @@ class Customer:
 
     def product_value(self, shop: Shop) -> float:
         return sum(
-            [
-                self.product_cart[product_name] * shop.products[product_name]
-                for product_name in self.product_cart
-            ]
+            self.product_cart[product_name] * shop.products[product_name]
+            for product_name in self.product_cart
         )
 
     def price_trip(self, shop: Shop) -> float:
