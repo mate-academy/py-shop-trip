@@ -18,16 +18,19 @@ class Customer:
         pow_y_coordinate = pow(self.location[1] - shop.location[1], 2)
         return math.sqrt(pow_x_coordinate + pow_y_coordinate)
 
+    def product_value(self, shop: Shop) -> float:
+        return sum(
+            [
+                self.product_cart[product_name] * shop.products[product_name]
+                for product_name in self.product_cart.keys()
+            ]
+        )
+
     def price_trip(self, shop: Shop) -> float:
         fuel_consumption = self.car["fuel_consumption"]
         distance = self.distance(shop)
         price_road = 2 * (fuel_consumption / 100) * distance * fuel_price
-
-        price_product = 0
-        for product_name in self.product_cart.keys():
-            count_product = self.product_cart[product_name]
-            price = shop.products[product_name]
-            price_product += count_product * price
+        price_product = self.product_value(shop)
 
         return round(price_road + price_product, 2)
 
@@ -35,15 +38,13 @@ class Customer:
 with open("app/config.json", "r") as file:
     customers = json.load(file)["customers"]
 
-customers_list = []
-
-for customer in customers:
-    customers_list.append(
-        Customer(
-            name=customer["name"],
-            product_cart=customer["product_cart"],
-            location=customer["location"],
-            money=customer["money"],
-            car=customer["car"]
-        )
+customers_list = [
+    Customer(
+        name=customer["name"],
+        product_cart=customer["product_cart"],
+        location=customer["location"],
+        money=customer["money"],
+        car=customer["car"]
     )
+    for customer in customers
+]

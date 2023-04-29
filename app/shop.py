@@ -12,13 +12,11 @@ class Shop:
 with open("app/config.json", "r") as file:
     shops = json.load(file)["shops"]
 
-shop_list = []
-
-for shop in shops:
-    shop_list.append(
-        Shop(
-            name=shop["name"],
-            location=shop["location"],
-            products=shop["products"]
-        )
+shop_list = [
+    Shop(
+        name=shop["name"],
+        location=shop["location"],
+        products=shop["products"]
     )
+    for shop in shops
+]

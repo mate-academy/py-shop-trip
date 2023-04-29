@@ -27,20 +27,19 @@ def shop_trip() -> None:
         print("Date: 04/01/2021 12:33:41")
         print(f"Thanks, {customer.name}, for your purchase!")
 
-        count_milk = customer.product_cart["milk"]
-        count_bread = customer.product_cart["bread"]
-        count_butter = customer.product_cart["butter"]
-        milk_value = count_milk * shop_cheapest_check.products["milk"]
-        bread_value = count_bread * shop_cheapest_check.products["bread"]
-        butter_value = count_butter * shop_cheapest_check.products["butter"]
-
-        total_value = milk_value + bread_value + butter_value
-
         print("You have bought: ")
-        print(f"{count_milk} milks for {milk_value} dollars")
-        print(f"{count_bread} breads for {bread_value} dollars")
-        print(f"{count_butter} butters for {butter_value} dollars")
-        print(f"Total cost is {total_value} dollars")
+
+        for product_name in customer.product_cart.keys():
+            product_count = customer.product_cart[product_name]
+            product_value = product_count * (
+                shop_cheapest_check.products[product_name]
+            )
+            print(f"{product_count} {product_name}s "
+                  f"for {product_value} dollars")
+
+        print(f"Total cost is "
+              f"{customer.product_value(shop_cheapest_check)} "
+              f"dollars")
         print("See you again!")
         print()
         print(f"{customer.name} rides home")
