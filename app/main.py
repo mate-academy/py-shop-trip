@@ -29,7 +29,7 @@ def shop_trip() -> None:
 
         print("You have bought: ")
 
-        for product_name in customer.product_cart.keys():
+        for product_name in customer.product_cart:
             product_count = customer.product_cart[product_name]
             product_value = product_count * (
                 shop_cheapest_check.products[product_name]

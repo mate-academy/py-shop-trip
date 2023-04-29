@@ -22,7 +22,7 @@ class Customer:
         return sum(
             [
                 self.product_cart[product_name] * shop.products[product_name]
-                for product_name in self.product_cart.keys()
+                for product_name in self.product_cart
             ]
         )
 
