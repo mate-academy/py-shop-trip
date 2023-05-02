@@ -1,9 +1,27 @@
+import json
 import math
-from app.customer import customers_list
-from app.shop import shops_list
+from app.customer import Customer
+from app.shop import Shop
 
 
 def shop_trip() -> None:
+    with open("app/config.json", "r") as file_json:
+        file_data = json.load(file_json)
+
+    shops_list = [Shop(shop["name"],
+                       shop["location"],
+                       shop["products"])
+                  for shop in file_data["shops"]]
+
+    customers_list = [Customer(customer["name"],
+                               customer["product_cart"],
+                               customer["location"],
+                               customer["money"],
+                               customer["car"])
+                      for customer in file_data["customers"]]
+
+    fuel_price = file_data["FUEL_PRICE"]
+
     for customer in customers_list:
         print(f"{customer.name} has {customer.money} dollars")
         cost_trip = {}
@@ -11,7 +29,8 @@ def shop_trip() -> None:
             distance = math.dist(customer.location, shop.location)
 
             cost_trip[shop] = round(
-                customer.cost_trip(distance) + customer.sum_products(
+                customer.cost_trip(
+                    distance, fuel_price) + customer.sum_products(
                     shop.products), 2)
             print(
                 f"{customer.name}'s trip to the {shop.name} costs "

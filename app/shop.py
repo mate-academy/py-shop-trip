@@ -1,4 +1,3 @@
-import json
 import datetime
 from app.customer import Customer
 
@@ -24,12 +23,3 @@ class Shop:
                     f"{product if quantity == 1 else product + 's'} "
                     f"for {sum_product} dollars")
         return total
-
-
-with open("app/config.json", "r") as file_json:
-    shops = json.load(file_json)["shops"]
-
-shops_list = [Shop(shop["name"],
-                   shop["location"],
-                   shop["products"])
-              for shop in shops]
