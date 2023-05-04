@@ -44,22 +44,22 @@ class Customer:
         for shop in shops:
             trip_cost = round(self.calculated_fuel_cost(fuel_price, shop)
                               + self.get_product_cost(shop), 2)
-            dict_with_trip[trip_cost] = shop.name
+            dict_with_trip[trip_cost] = shop
             print(f"{self.name}'s trip to the {shop.name} costs {trip_cost}")
 
         return dict_with_trip
 
-    def select_cheapest_trip(self, trips: Dict) -> str:
+    def select_cheapest_trip(self, trips: Dict[float, Shop]) -> str | None:
         cheapest_trip = min(trips)
-        shop_name = None
         if cheapest_trip < self.money:
             self.money -= cheapest_trip
-            shop_name = trips[cheapest_trip]
-            print(f"{self.name} rides to {shop_name}" + "\n")
+            shop = trips[cheapest_trip]
+            print(f"{self.name} rides to {shop.name}\n")
+            return shop.name
         else:
             print(f"{self.name} doesn't have enough money "
                   f"to make a purchase in any shop")
-        return shop_name
+            return None
 
     def ride_home_and_calculated_money(self) -> None:
         print(f"{self.name} rides home")
