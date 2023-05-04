@@ -49,13 +49,13 @@ class Customer:
 
         return dict_with_trip
 
-    def select_cheapest_trip(self, trips: Dict[float, Shop]) -> str | None:
+    def select_cheapest_trip(self, trips: Dict[float, Shop]) -> Shop | None:
         cheapest_trip = min(trips)
         if cheapest_trip < self.money:
             self.money -= cheapest_trip
             shop = trips[cheapest_trip]
             print(f"{self.name} rides to {shop.name}\n")
-            return shop.name
+            return shop
         else:
             print(f"{self.name} doesn't have enough money "
                   f"to make a purchase in any shop")

@@ -18,7 +18,7 @@ def shop_trip() -> None:
             dict_with_cost_trip = customer.get_trip_cost(fuel_price, shops)
             cheapest_shop = customer.select_cheapest_trip(dict_with_cost_trip)
             for shop in shops:
-                if shop.name == cheapest_shop:
+                if shop == cheapest_shop:
                     shop.print_receipt(customer)
                     customer.ride_home_and_calculated_money()
 
