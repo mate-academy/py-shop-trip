@@ -26,10 +26,10 @@ class Customer:
         )
 
     def calculated_distance_to_shop(self, shop: Shop) -> float:
-        distance = ((sqrt((shop.location[0]
-                           - self.location[0]) ** 2
-                          + (shop.location[1]
-                             - self.location[1]) ** 2)))
+        distance = sqrt(
+            (shop.location[0] - self.location[0]) ** 2
+            + (shop.location[1] - self.location[1]) ** 2
+        )
         return distance
 
     def calculated_fuel_cost(self, fuel_price: float, shop: Shop) -> float:
@@ -44,24 +44,21 @@ class Customer:
         for shop in shops:
             trip_cost = round(self.calculated_fuel_cost(fuel_price, shop)
                               + self.get_product_cost(shop), 2)
-            dict_with_trip[shop.name] = trip_cost
+            dict_with_trip[trip_cost] = shop.name
             print(f"{self.name}'s trip to the {shop.name} costs {trip_cost}")
 
         return dict_with_trip
 
-    def select_cheapest_trip(self, trips: Dict) -> float:
-        cheapest_trip = min(trips.values())
+    def select_cheapest_trip(self, trips: Dict) -> str:
+        cheapest_trip = min(trips)
         shop_name = None
         if cheapest_trip < self.money:
             self.money -= cheapest_trip
-            for shop, cost in trips.items():
-                if cost == cheapest_trip:
-                    print(f"{self.name} rides to {shop}" + "\n")
-                    shop_name = shop
+            shop_name = trips[cheapest_trip]
+            print(f"{self.name} rides to {shop_name}" + "\n")
         else:
             print(f"{self.name} doesn't have enough money "
                   f"to make a purchase in any shop")
-
         return shop_name
 
     def ride_home_and_calculated_money(self) -> None:
