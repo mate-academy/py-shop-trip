@@ -20,6 +20,7 @@ def shop_trip() -> None:
         customer.customer_info()
         cars = Car(item["car"]["brand"], item["car"]["fuel_consumption"])
         shop_dict = {}
+
         for shop in infos["shops"]:
             current_shop = 0
             shop = Shop(
@@ -30,8 +31,7 @@ def shop_trip() -> None:
             current_shop += sum(shop.count_product(customer.product_cart))
             current_shop += round(
                 (cars.fuel_cost(customer.location, shop.location, fuel_price)
-                 * 2)
-                , 2)
+                 * 2), 2)
             customer.shop_visit(shop.name, current_shop)
             shop_dict[current_shop] = shop
 
