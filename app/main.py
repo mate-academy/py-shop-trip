@@ -5,7 +5,7 @@ from app.customer import Customer
 
 
 def shop_trip() -> None:
-    with open("config.json") as config:
+    with open("app/config.json") as config:
         infos = json.load(config)
 
     fuel_price = infos["FUEL_PRICE"]
@@ -45,4 +45,3 @@ def shop_trip() -> None:
         else:
             print(f"{customer.name} "
                   f"doesn't have enough money to make a purchase in any shop")
-
