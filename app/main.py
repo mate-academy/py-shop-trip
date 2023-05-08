@@ -5,7 +5,7 @@ from app.customer import Customer
 
 
 def shop_trip() -> None:
-    with open("app/config.json") as config:
+    with open("config.json") as config:
         infos = json.load(config)
 
     fuel_price = infos["FUEL_PRICE"]
@@ -36,11 +36,13 @@ def shop_trip() -> None:
             shop_dict[current_shop] = shop
 
         cheapest_shop = shop_dict[min(shop_dict.keys())]
-        if min(shop_dict.keys()) <= customer.money:
+        lowest_price = min(shop_dict.keys())
+        if lowest_price <= customer.money:
             customer.change_location(cheapest_shop.location)
             cheapest_shop.bill(customer.name, customer.product_cart)
-            customer.come_back_home(min(shop_dict.keys()))
+            customer.come_back_home(lowest_price)
             customer.change_location(item["location"])
         else:
             print(f"{customer.name} "
                   f"doesn't have enough money to make a purchase in any shop")
+

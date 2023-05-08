@@ -7,8 +7,8 @@ class Car:
         self.fuel_consumption = fuel_consumption
 
     def fuel_cost(self,
-                  cust_loc: list[int],
-                  shop_loc: list[int],
+                  customer_location: list[int],
+                  shop_location: list[int],
                   fuel_price: float) -> float:
         fuel = self.fuel_consumption / 100
-        return fuel * fuel_price * math.dist(cust_loc, shop_loc)
+        return fuel * fuel_price * math.dist(customer_location, shop_location)
