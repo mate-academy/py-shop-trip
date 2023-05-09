@@ -1,4 +1,4 @@
-from datetime import datetime
+import datetime
 
 
 class Shop:
@@ -13,7 +13,7 @@ class Shop:
 
     def bill(self, customer_name: str, customer_cart: dict) -> None:
         total_price = []
-        date = datetime(2021, 1, 4, 12, 33, 41).strftime("%d/%m/%Y %H:%M:%S")
+        date = datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S")
         print(f"{customer_name} rides to {self.name}\n")
         print(f"Date: {date}\n"
               f"Thanks, {customer_name}, for your purchase!")

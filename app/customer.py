@@ -1,4 +1,4 @@
-import math
+from math import dist
 
 
 class Customer:
@@ -34,4 +34,4 @@ class Customer:
                   shop_location: list[int],
                   fuel_price: float) -> float:
         fuel = self.car_consumption / 100
-        return fuel * fuel_price * math.dist(self.location, shop_location)
+        return fuel * fuel_price * dist(self.location, shop_location)
