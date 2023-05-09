@@ -1,13 +1,21 @@
+import math
+
+
 class Customer:
     def __init__(self,
                  name: str,
                  product_cart: dict,
                  location: list[int],
-                 money: float) -> None:
+                 money: float,
+                 car_consumption: float) -> None:
         self.name = name
         self.product_cart = product_cart
+        self.home = location
         self.location = location
         self.money = money
+        self.shop = "Please approve task"
+        self.home = location
+        self.car_consumption = car_consumption
 
     def customer_info(self) -> None:
         print(f"{self.name} has {self.money} dollars")
@@ -21,3 +29,9 @@ class Customer:
     def come_back_home(self, spent_money: float) -> None:
         print(f"{self.name} rides home\n"
               f"{self.name} now has {self.money - spent_money} dollars\n")
+
+    def fuel_cost(self,
+                  shop_location: list[int],
+                  fuel_price: float) -> float:
+        fuel = self.car_consumption / 100
+        return fuel * fuel_price * math.dist(self.location, shop_location)

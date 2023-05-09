@@ -1,5 +1,4 @@
 import json
-from app.car import Car
 from app.shop import Shop
 from app.customer import Customer
 
@@ -10,38 +9,42 @@ def shop_trip() -> None:
 
     fuel_price = infos["FUEL_PRICE"]
 
-    for item in infos["customers"]:
-        customer = Customer(
-            item["name"],
-            item["product_cart"],
-            item["location"],
-            item["money"],
+    shops_dict = {}
+    customer_dict = {}
+
+    for index, shops in enumerate(infos["shops"]):
+        shops_dict[shops["name"]] = Shop(
+            shops["name"],
+            shops["location"],
+            shops["products"]
         )
+
+    for index, customer in enumerate(infos["customers"]):
+        customer_dict[customer["name"]] = Customer(
+            customer["name"],
+            customer["product_cart"],
+            customer["location"],
+            customer["money"],
+            customer["car"]["fuel_consumption"]
+        )
+
+    for customer in customer_dict.values():
         customer.customer_info()
-        cars = Car(item["car"]["brand"], item["car"]["fuel_consumption"])
-        shop_dict = {}
-
-        for shop in infos["shops"]:
-            current_shop = 0
-            shop = Shop(
-                shop["name"],
-                shop["location"],
-                shop["products"]
-            )
-            current_shop += sum(shop.count_product(customer.product_cart))
+        cheapest_shop = 1000
+        for shop in shops_dict.values():
+            current_shop = sum(shop.count_product(customer.product_cart))
             current_shop += round(
-                (cars.fuel_cost(customer.location, shop.location, fuel_price)
-                 * 2), 2)
+                (customer.fuel_cost(shop.location, fuel_price) * 2), 2)
             customer.shop_visit(shop.name, current_shop)
-            shop_dict[current_shop] = shop
+            if current_shop < cheapest_shop:
+                cheapest_shop = current_shop
+                customer.shop = shop
 
-        cheapest_shop = shop_dict[min(shop_dict.keys())]
-        lowest_price = min(shop_dict.keys())
-        if lowest_price <= customer.money:
-            customer.change_location(cheapest_shop.location)
-            cheapest_shop.bill(customer.name, customer.product_cart)
-            customer.come_back_home(lowest_price)
-            customer.change_location(item["location"])
+        if cheapest_shop <= customer.money:
+            customer.change_location(customer.shop.location)
+            customer.shop.bill(customer.name, customer.product_cart)
+            customer.come_back_home(cheapest_shop)
+            customer.change_location(customer.home)
         else:
             print(f"{customer.name} "
                   f"doesn't have enough money to make a purchase in any shop")
