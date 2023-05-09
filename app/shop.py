@@ -16,7 +16,7 @@ class Shop:
 
         product_cost = []
 
-        print(f"Thanks, {customer_name}, for you purchase!\n"
+        print(f"Thanks, {customer_name}, for your purchase!\n"
               f"You have bought: ")
 
         for key, value in products_list.items():
