@@ -14,7 +14,6 @@ class Customer:
         self.home = location
         self.location = location
         self.money = money
-        self.home = location
         self.car_consumption = car_consumption
 
     def customer_info(self) -> None:
