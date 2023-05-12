@@ -36,7 +36,7 @@ class Customer:
         fuel = self.car_consumption / 100
         return fuel * fuel_price * dist(self.location, shop_location)
 
-    def cheapest_shop(self, fuel_price):
+    def cheapest_shop(self, fuel_price: float) -> None:
         self.customer_info()
         cheapest_shop_price = 1000
         cheapest_shop = None
