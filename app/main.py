@@ -8,27 +8,25 @@ def shop_trip() -> None:
         infos = json.load(config)
 
     fuel_price = infos["FUEL_PRICE"]
-
-    shops_dict = {}
-    customer_dict = {}
-
-    for index, shops in enumerate(infos["shops"]):
-        shops_dict[shops["name"]] = Shop(
-            shops["name"],
-            shops["location"],
-            shops["products"]
+    shops_dict = {
+        shop["name"]: Shop(
+            shop["name"],
+            shop["location"],
+            shop["products"]
         )
-
-    for index, customer in enumerate(infos["customers"]):
-        customer_dict[customer["name"]] = Customer(
+        for shop in infos["shops"]
+    }
+    customers_dict = {
+        customer["name"]: Customer(
             customer["name"],
             customer["product_cart"],
             customer["location"],
             customer["money"],
             customer["car"]["fuel_consumption"]
-        )
+        ) for customer in infos["customers"]
+    }
 
-    for customer in customer_dict.values():
+    for customer in customers_dict.values():
         customer.customer_info()
         cheapest_shop = 1000
         for shop in shops_dict.values():

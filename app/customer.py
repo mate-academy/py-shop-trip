@@ -13,7 +13,7 @@ class Customer:
         self.home = location
         self.location = location
         self.money = money
-        self.shop = "Please approve task"
+        self.shop = None
         self.home = location
         self.car_consumption = car_consumption
 
@@ -23,7 +23,7 @@ class Customer:
     def shop_visit(self, shop_name: str, cost: float) -> None:
         print(f"{self.name}'s trip to the {shop_name} costs {cost}")
 
-    def change_location(self, destination: list) -> None:
+    def change_location(self, destination: list[int]) -> None:
         self.location = destination
 
     def come_back_home(self, spent_money: float) -> None:
