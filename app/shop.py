@@ -1,4 +1,5 @@
 import datetime
+import json
 
 
 class Shop:
@@ -23,3 +24,16 @@ class Shop:
             print(f"{amount} {product}s for {price} dollars")
             total_price.append(price)
         print(f"Total cost is {sum(total_price)} dollars\nSee you again!\n")
+
+
+with open("app/config.json") as config:
+    infos = json.load(config)
+
+shops_dict = {
+    shop["name"]: Shop(
+        shop["name"],
+        shop["location"],
+        shop["products"]
+    )
+    for shop in infos["shops"]
+}

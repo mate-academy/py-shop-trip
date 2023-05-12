@@ -1,4 +1,5 @@
 from math import dist
+from app.shop import shops_dict
 
 
 class Customer:
@@ -13,7 +14,6 @@ class Customer:
         self.home = location
         self.location = location
         self.money = money
-        self.shop = None
         self.home = location
         self.car_consumption = car_consumption
 
@@ -35,3 +35,25 @@ class Customer:
                   fuel_price: float) -> float:
         fuel = self.car_consumption / 100
         return fuel * fuel_price * dist(self.location, shop_location)
+
+    def cheapest_shop(self, fuel_price):
+        self.customer_info()
+        cheapest_shop_price = 1000
+        cheapest_shop = None
+        for shop in shops_dict.values():
+            current_shop = sum(shop.count_product(self.product_cart))
+            current_shop += round(
+                (self.fuel_cost(shop.location, fuel_price) * 2), 2)
+            self.shop_visit(shop.name, current_shop)
+            if current_shop < cheapest_shop_price:
+                cheapest_shop_price = current_shop
+                cheapest_shop = shop
+
+        if cheapest_shop_price <= self.money:
+            self.change_location(cheapest_shop.location)
+            cheapest_shop.bill(self.name, self.product_cart)
+            self.come_back_home(cheapest_shop_price)
+            self.change_location(self.home)
+        else:
+            print(f"{self.name} "
+                  f"doesn't have enough money to make a purchase in any shop")
