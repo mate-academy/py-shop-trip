@@ -11,10 +11,7 @@ class Shop:
 
 
 def create_shops(shops: list) -> list:
-    list_of_shops = list()
-    for shop in shops:
-        shop_obj = Shop(*shop.values())
-        list_of_shops.append(shop_obj)
+    list_of_shops = [Shop(*shop.values()) for shop in shops]
 
     return list_of_shops
 

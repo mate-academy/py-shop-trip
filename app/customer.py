@@ -1,6 +1,6 @@
 import json
 
-from app.shop import shops_list
+from app.shop import shops_list, Shop
 from math import sqrt
 
 
@@ -57,7 +57,9 @@ class Customer:
             self.attending_a_shop(the_best_shop)
             self.arriving_home(the_best_shop[0])
 
-    def attending_a_shop(self, shop: list) -> None:
+    def attending_a_shop(self,
+                         shop: list[(float, int), Shop, (float, int)]
+                         ) -> None:
         print("Date: 04/01/2021 12:33:41")
         print(f"Thanks, {self.name}, for your purchase!")
         print("You have bought: ")
@@ -71,19 +73,16 @@ class Customer:
                 )
             )
         print(f"Total cost is {shop[2]} dollars")
-        print("See you again!" + "\n")
+        print("See you again!\n")
 
     def arriving_home(self, amount: float | int) -> None:
         self.money -= amount
         print(f"{self.name} rides home")
-        print(f"{self.name} now has {self.money} dollars" + "\n")
+        print(f"{self.name} now has {self.money} dollars\n")
 
 
 def create_customers(customers: list) -> list:
-    list_of_customers = list()
-    for customer in customers:
-        customer_obj = Customer(*customer.values())
-        list_of_customers.append(customer_obj)
+    list_of_customers = [Customer(*customer.values()) for customer in customers]
 
     return list_of_customers
 
