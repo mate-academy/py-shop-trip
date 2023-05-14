@@ -82,7 +82,9 @@ class Customer:
 
 
 def create_customers(customers: list) -> list:
-    list_of_customers = [Customer(*customer.values()) for customer in customers]
+    list_of_customers = [
+        Customer(*customer.values()) for customer in customers
+    ]
 
     return list_of_customers
 
