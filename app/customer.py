@@ -60,9 +60,9 @@ class Customer:
     def attending_a_shop(self,
                          shop: list[(float, int), Shop, (float, int)]
                          ) -> None:
-        print("Date: 04/01/2021 12:33:41")
-        print(f"Thanks, {self.name}, for your purchase!")
-        print("You have bought: ")
+        print("Date: 04/01/2021 12:33:41\n"
+              f"Thanks, {self.name}, for your purchase!\n"
+              "You have bought: ")
         for product in self.product_cart:
             print(
                 (
@@ -72,13 +72,13 @@ class Customer:
                     f" dollars"
                 )
             )
-        print(f"Total cost is {shop[2]} dollars")
-        print("See you again!\n")
+        print(f"Total cost is {shop[2]} dollars\n"
+              "See you again!\n")
 
     def arriving_home(self, amount: float | int) -> None:
         self.money -= amount
-        print(f"{self.name} rides home")
-        print(f"{self.name} now has {self.money} dollars\n")
+        print(f"{self.name} rides home\n"
+              f"{self.name} now has {self.money} dollars\n")
 
 
 def create_customers(customers: list) -> list:
