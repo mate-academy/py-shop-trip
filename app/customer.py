@@ -25,17 +25,15 @@ class Customer:
     def price_of_trip(self) -> None:
         all_shops_and_prices = dict()
         for shop in shops_list:
-            distance = (
-                sqrt(
-                    (
-                        ((shop.location[0] - self.location[0]) ** 2)
-                        + ((shop.location[1] - self.location[1]) ** 2)
-                    )
+            distance = sqrt(
+                (
+                    ((shop.location[0] - self.location[0]) ** 2)
+                    + ((shop.location[1] - self.location[1]) ** 2)
                 )
             )
             price_of_fuel = round(
                 ((FUEL_PRICE * self.car["fuel_consumption"]
-                             * distance / 100) * 2), 2
+                  * distance / 100) * 2), 2
             )
             price_of_products = 0
             for product in self.product_cart:
@@ -48,8 +46,10 @@ class Customer:
         the_best_shop = all_shops_and_prices[min(all_shops_and_prices.keys())]
         if self.money - the_best_shop[0] < 0:
             print(
-                (f"{self.name} doesn't have "
-                 f"enough money to make a purchase in any shop")
+                (
+                    f"{self.name} doesn't have "
+                    f"enough money to make a purchase in any shop"
+                )
             )
         else:
             self.location = the_best_shop[1].location
@@ -62,8 +62,14 @@ class Customer:
         print(f"Thanks, {self.name}, for your purchase!")
         print("You have bought: ")
         for product in self.product_cart:
-            print(f"{self.product_cart[product]} "
-                  f"{product}s for {self.product_cart[product] * shop[1].products[product]} dollars")
+            print(
+                (
+                    f"{self.product_cart[product]} "
+                    f"{product}s for "
+                    f"{self.product_cart[product] * shop[1].products[product]}"
+                    f" dollars"
+                )
+            )
         print(f"Total cost is {shop[2]} dollars")
         print("See you again!" + "\n")
 
