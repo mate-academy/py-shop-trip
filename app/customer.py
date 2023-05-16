@@ -14,4 +14,4 @@ class Customer:
 
     def is_home(self) -> None:
         print(f"{self.name} rides home\n"
-              f"{self.name} now has {self.money} dollars")
+              f"{self.name} now has {round(self.money, 2)} dollars\n")
