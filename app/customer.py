@@ -60,7 +60,6 @@ class Customer:
             shops[0],
             self.calculate_distance_and_product(shops[0], price_per_liter),
         ]
-
         print(f"{self.name} has {self.money} dollars")
 
         for shop in shops:
