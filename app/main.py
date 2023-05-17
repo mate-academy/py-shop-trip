@@ -1,11 +1,12 @@
 import json
+import os
 from app.car import Car
 from app.customer import Customer
 from app.shop import Shop
 
 
 def shop_trip() -> None:
-    with open("config.json", "r") as config_file:
+    with open(os.path.join(os.path.dirname(__file__), "config.json"), "r") as config_file:
         config = json.load(config_file)
         goal_store = Shop(0, 0, 0)
         for customer in config["customers"]:
@@ -39,6 +40,3 @@ def shop_trip() -> None:
                 goal_store.to_shop(person)
                 goal_store.check(person)
                 person.is_home()
-
-
-shop_trip()
