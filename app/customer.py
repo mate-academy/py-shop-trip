@@ -76,7 +76,7 @@ class Customer:
         if cheapest_trip[1] > self.money:
             print(
                 f"{self.name} doesn't have enough money"
-                f" to make purchase in any shop"
+                f" to make a purchase in any shop"
             )
             return
 
@@ -86,7 +86,7 @@ class Customer:
         date = datetime(2021, 1, 4, 12, 33, 41).strftime("%d/%m/%Y %H:%M:%S")
         print(
             f"Date: {date}\n"
-            f"Thanks, {self.name}, for you purchase!\n"
+            f"Thanks, {self.name}, for your purchase!\n"
             f"You have bought: "
         )
 
