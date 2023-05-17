@@ -29,8 +29,10 @@ class Shop:
         print("See you again!\n")
 
     def total_trip_cost(self, fuel_cost: float, customer: Customer) -> float:
-        gasoline_cost = customer.car.gasoline_cost_calculation(fuel_cost,
-                                                               self.location,
-                                                               customer.location) * 2
+        gasoline_cost = customer.car.gasoline_calculation(
+            fuel_cost,
+            self.location,
+            customer.location
+        ) * 2
         cart_cost = self.cart_cost(customer.product_cart)
         return round(gasoline_cost + cart_cost, 2)
