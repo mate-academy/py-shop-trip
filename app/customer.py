@@ -2,7 +2,14 @@ from app.car import Car
 
 
 class Customer:
-    def __init__(self, name: str, product_cart: dict, location: list, money: float, car: Car) -> None:
+    def __init__(
+        self,
+        name: str,
+        product_cart: dict,
+        location: list,
+        money: float,
+        car: Car,
+    ) -> None:
         self.name = name
         self.product_cart = product_cart
         self.location = location
@@ -13,5 +20,7 @@ class Customer:
         print(f"{self.name} has {self.money} dollars")
 
     def is_home(self) -> None:
-        print(f"{self.name} rides home\n"
-              f"{self.name} now has {round(self.money, 2)} dollars\n")
+        print(
+            f"{self.name} rides home\n"
+            f"{self.name} now has {round(self.money, 2)} dollars\n"
+        )
