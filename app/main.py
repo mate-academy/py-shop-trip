@@ -5,7 +5,7 @@ from app.shop import Shop
 
 
 def shop_trip() -> None:
-    with open("../app/config.json", "r") as config:
+    with open("app/config.json", "r") as config:
         config = json.load(config)
 
     price_per_liter = config.get("FUEL_PRICE")
