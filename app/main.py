@@ -6,7 +6,9 @@ from app.shop import Shop
 
 
 def shop_trip() -> None:
-    with open(os.path.join(os.path.dirname(__file__), "config.json"), "r") as config_file:
+    with open(
+        os.path.join(os.path.dirname(__file__), "config.json"), "r"
+    ) as config_file:
         config = json.load(config_file)
         goal_store = Shop(0, 0, 0)
         for customer in config["customers"]:
