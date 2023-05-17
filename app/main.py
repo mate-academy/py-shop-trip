@@ -35,5 +35,3 @@ def shop_trip():
                                                                  customer.home_location)
         customer.location = customer.home_location
         print(f"{customer.name} now has {customer.money} dollars\n")
-
-shop_trip()
