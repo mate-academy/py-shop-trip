@@ -21,6 +21,10 @@ def shop_trip() -> None:
         )
     shops = []
     for shop in data.get("shops", 0):
-        shops.append(Shop(shop.get("name"), shop.get("location"), shop.get("products")))
+        shops.append(Shop(
+            shop.get("name"),
+            shop.get("location"),
+            shop.get("products")
+        ))
     for customer in customers:
         can_afford_trip(customer, shops, fuel_price)
