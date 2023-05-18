@@ -27,7 +27,7 @@ class Shop:
                     f"for {customer.product_cart[product] * price} dollars"
                 )
         print(
-            f"Total cost is {self.check_price} dollars\n" f"See you again!\n"
+            f"Total cost is {self.check_price} dollars\nSee you again!\n"
         )
 
     def trip_price_counting(
