@@ -21,16 +21,21 @@ def receipt(shop: Shop, customer: Customer) -> None:
     print("See you again!")
 
 
-def choose_shop(customer: Customer, shops: list[Shop], fuel_price: float) -> int:
+def choose_shop(customer: Customer,
+                shops: list[Shop],
+                fuel_price: float) -> int:
     trip_costs = []
     for shop in shops:
         trip = trip_cost(customer, fuel_price, shop)
         trip_costs.append(trip)
-        print(f"{customer.name}'s trip to {shop.name} " f"costs {trip_cost}")
+        print(f"{customer.name}'s trip to "
+              f"{shop.name} " f"costs {trip_cost}")
     return trip_costs.index(min(trip_costs))
 
 
-def trip_cost(customer: Customer, fuel_price: float, shop: Shop) -> float:
+def trip_cost(customer: Customer,
+              fuel_price: float,
+              shop: Shop) -> float:
     distance = dist(customer.location, shop.location)
     fuel_cost = round(
         (customer.car.fuel_consumption / 100) * (distance * 2) * fuel_price, 2
@@ -42,7 +47,9 @@ def trip_cost(customer: Customer, fuel_price: float, shop: Shop) -> float:
     return fuel_cost + product_cost
 
 
-def go_shop(customer: Customer, shop: Shop, fuel_price: float) -> None:
+def go_shop(customer: Customer,
+            shop: Shop,
+            fuel_price: float) -> None:
     trip_price = trip_cost(customer, fuel_price, shop)
     customer.money -= trip_price
     print(f"{customer.name} rides to {shop.name}\n")
@@ -51,7 +58,9 @@ def go_shop(customer: Customer, shop: Shop, fuel_price: float) -> None:
     print(f"{customer.name} now has {customer.money} dollars\n")
 
 
-def can_afford_trip(customer: Customer, shops: list[Shop], fuel_price: float) -> None:
+def can_afford_trip(customer: Customer,
+                    shops: list[Shop],
+                    fuel_price: float) -> None:
     print(f"{customer.name} has {customer.money} dollars")
     cheapest_shop_index = choose_shop(customer, shops, fuel_price)
     trip = trip_cost(customer, fuel_price, shops[cheapest_shop_index])
