@@ -8,7 +8,7 @@ def shop_trip() -> None:
     with open("app/config.json", "r") as read_file:
         data = json.load(read_file)
         fuel_price = data["FUEL_PRICE"]
-        list_of_shop = [
+        shop = [
             Shop(shop["name"],
                  shop["location"],
                  shop["products"]
@@ -25,7 +25,7 @@ def shop_trip() -> None:
             )
 
             new_customer.current_balance()
-            new_customer.final_result(fuel_price, list_of_shop)
+            new_customer.final_result(fuel_price, shop)
 
 
 if __name__ == "main":

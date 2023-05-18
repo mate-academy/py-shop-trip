@@ -28,10 +28,10 @@ class Customer:
             self,
             shop_detail: Shop
     ) -> float:
-        distance = ((sqrt((shop_detail.location[0]
-                           - self.location[0]) ** 2
-                          + (shop_detail.location[1]
-                             - self.location[1]) ** 2)))
+        distance = sqrt(
+            (shop_detail.location[0] - self.location[0]) ** 2
+            + (shop_detail.location[1] - self.location[1]) ** 2
+        )
         return distance
 
     def calculate_gasoline(
@@ -46,20 +46,20 @@ class Customer:
         )
         return gasoline
 
-    def product_cost(self, list_of_shop: Shop) -> float:
+    def product_cost(self, shop: Shop) -> float:
         total_expanse = sum(
             price * int(self.product_cart.get(product))
-            for product, price in list_of_shop.products.items()
+            for product, price in shop.products.items()
         )
         return total_expanse
 
     def find_min_cost_shop(
             self,
             fuel_price: int,
-            list_of_shop: list
+            shop: list
     ) -> dict:
         min_coast_shop = {}
-        for shop_detail in list_of_shop:
+        for shop_detail in shop:
             total = round(
                 self.calculate_gasoline(fuel_price, shop_detail)
                 * 2 + self.product_cost(shop_detail), 2
@@ -89,9 +89,9 @@ class Customer:
     def final_result(
             self,
             fuel_price: float,
-            list_of_shop: list
+            shop: list
     ) -> None:
-        cheap_shop = self.find_min_cost_shop(fuel_price, list_of_shop)
+        cheap_shop = self.find_min_cost_shop(fuel_price, shop)
         if min(cheap_shop.keys()) < self.money:
             print(f"{self.name} rides to "
                   f"{cheap_shop.get(min(cheap_shop.keys()))}\n")
@@ -100,7 +100,7 @@ class Customer:
                 f"Date: {data}\nThanks, {self.name}, "
                 f"for your purchase!\nYou have bought: "
             )
-            for detail in list_of_shop:
+            for detail in shop:
                 if detail.name == cheap_shop.get(min(cheap_shop.keys())):
                     self.purchase_details(detail.products)
                     fuel = self.calculate_gasoline(fuel_price, detail)
