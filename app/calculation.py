@@ -33,18 +33,14 @@ def choose_shop(customer: Customer,
     return trip_costs.index(min(trip_costs))
 
 
-def trip_cost(customer: Customer,
-              fuel_price: float,
-              shop: Shop) -> float:
+def trip_cost(customer: Customer, fuel_price: float, shop: Shop) -> float:
     distance = dist(customer.location, shop.location)
-    fuel_cost = round(
-        (customer.car.fuel_consumption / 100) * (distance * 2) * fuel_price, 2
-    )
-    product_cost = 0
-    for product, quantity in customer.wanted_products.items():
-        price = shop.provided_products.get(product, 0)
-        product_cost += price * quantity
-    return fuel_cost + product_cost
+    fuel_consumption = customer.car.fuel_consumption
+    if fuel_consumption is not None:
+        fuel_cost = round((fuel_consumption / 100) * (distance * 2) * fuel_price, 2)
+        return fuel_cost
+    else:
+        return 0.0
 
 
 def go_shop(customer: Customer,
