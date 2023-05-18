@@ -1,6 +1,4 @@
 class Car:
-    def __init__(self,
-                 brand: str = "Unknown",
-                 fuel_consumption: int = 0) -> None:
-        self.brand = brand
-        self.fuel_consumption = fuel_consumption
+    def __init__(self, info: dict) -> None:
+        self.brand = info.get("brand", "Unknown")
+        self.fuel_consumption = info.get("fuel_consumption", 0)
