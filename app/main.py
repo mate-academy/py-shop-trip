@@ -11,6 +11,16 @@ def shop_trip() -> None:
     ) as config_file:
         config = json.load(config_file)
         goal_store = Shop(0, 0, 0)
+        shops_list = []
+
+        for shop in config["shops"]:
+            store = Shop(
+                name=shop["name"],
+                location=shop["location"],
+                products=shop["products"],
+            )
+            shops_list.append(store)
+
         for customer in config["customers"]:
             person = Customer(
                 name=customer["name"],
@@ -23,15 +33,12 @@ def shop_trip() -> None:
                 ),
             )
             person.money_check()
-            for shop in config["shops"]:
-                store = Shop(
-                    name=shop["name"],
-                    location=shop["location"],
-                    products=shop["products"],
-                )
-                store.trip_price_counting(person, config["FUEL_PRICE"])
-                if store.full_price < goal_store.full_price:
-                    goal_store = store
+
+            for shop in shops_list:
+                shop.trip_price_counting(person, config["FUEL_PRICE"])
+                if shop.full_price < goal_store.full_price:
+                    goal_store = shop
+
             if goal_store.full_price > person.money:
                 print(
                     f"{person.name} doesn't have enough money "
