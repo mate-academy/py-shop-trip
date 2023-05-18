@@ -1,7 +1,6 @@
-from dataclasses import dataclass
-
-
-@dataclass
 class Car:
-    brand: str = "Unknown"
-    fuel_consumption: int = 0
+    def __init__(self,
+                 brand: str = "Unknown",
+                 fuel_consumption: int = 0) -> None:
+        self.brand = brand
+        self.fuel_consumption = fuel_consumption
