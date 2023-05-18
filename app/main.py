@@ -11,15 +11,14 @@ def shop_trip() -> None:
     ) as config_file:
         config = json.load(config_file)
         goal_store = Shop(0, 0, 0)
-        shops_list = []
-
-        for shop in config["shops"]:
-            store = Shop(
+        shops_list = [
+            Shop(
                 name=shop["name"],
                 location=shop["location"],
                 products=shop["products"],
             )
-            shops_list.append(store)
+            for shop in config["shops"]
+        ]
 
         for customer in config["customers"]:
             person = Customer(
