@@ -6,15 +6,18 @@ from app.customer import Customer
 
 
 def print_receipt(shop: Shop, customer: Customer) -> None:
-    date = datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S")
-    print(f"Date: {date}")
+    current_date = datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S")
+    print(f"Date: {current_date}")
     print(f"Thanks, {customer.name}, for your purchase!")
-    print("You have bought: ")
+    print("You have bought:")
+
     total_cost = 0
     for product, count in customer.wanted_products.items():
-        total_cost += count * shop.provided_products.get(product, 0)
-        print(f"{count} {product if count < 2 else product + 's'} "
-              f"for {count * shop.provided_products.get(product, 0)} dollars")
+        price = shop.provided_products.get(product, 0)
+        item_cost = count * price
+        total_cost += item_cost
+        print(f"{count} {product if count < 2 else product + 's'} for {item_cost} dollars")
+
     print(f"Total cost is {round(total_cost, 2)} dollars")
     print("See you again!")
 
@@ -35,12 +38,15 @@ def calculate_cost_of_the_trip(customer: Customer,
                                fuel_price: float,
                                shop: Shop) -> float:
     distance = dist(customer.location, shop.location)
-    cost_1 = round(
-        (customer.car.fuel_consumption / 100) * (distance * 2) * fuel_price, 2)
-    cost_2 = 0
-    for product, quantity in customer.wanted_products.items():
-        cost_2 += shop.provided_products.get(product, 0) * quantity
-    return cost_1 + cost_2
+    fuel_cost = round(
+        (customer.car.fuel_consumption / 100) * (distance * 2) * fuel_price, 2
+    )
+    product_cost = sum(
+        shop.provided_products.get(product, 0) * quantity
+        for product, quantity in customer.wanted_products.items()
+    )
+    return fuel_cost + product_cost
+
 
 
 def go_to_shop(customer: Customer, shop: Shop, fuel_price: float) -> None:
@@ -56,12 +62,12 @@ def can_afford_trip(customer: Customer,
                     shops: list[Shop],
                     fuel_price: float) -> None:
     print(f"{customer.name} has {customer.money} dollars")
-    cheapest_shop = choose_shop(customer, shops, fuel_price)
-    trip_cost = calculate_cost_of_the_trip(customer,
-                                           fuel_price,
-                                           shops[cheapest_shop])
+    cheapest_shop_index = choose_shop(customer, shops, fuel_price)
+    trip_cost = calculate_cost_of_the_trip(
+        customer, fuel_price, shops[cheapest_shop_index]
+    )
     if trip_cost < customer.money:
-        go_to_shop(customer, shops[cheapest_shop], fuel_price)
+        go_to_shop(customer, shops[cheapest_shop_index], fuel_price)
     else:
-        print(f"{customer.name} "
-              "doesn't have enough money to make a purchase in any shop")
+        print(f"{customer.name} doesn't have enough money "
+              f"to make a purchase in any shop")
