@@ -16,7 +16,8 @@ def print_receipt(shop: Shop, customer: Customer) -> None:
         price = shop.provided_products.get(product, 0)
         item_cost = count * price
         total_cost += item_cost
-        print(f"{count} {product if count < 2 else product + 's'} for {item_cost} dollars")
+        print(f"{count} {product if count < 2 else product + 's'} "
+              f"for {item_cost} dollars")
 
     print(f"Total cost is {round(total_cost, 2)} dollars")
     print("See you again!")
@@ -46,7 +47,6 @@ def calculate_cost_of_the_trip(customer: Customer,
         for product, quantity in customer.wanted_products.items()
     )
     return fuel_cost + product_cost
-
 
 
 def go_to_shop(customer: Customer, shop: Shop, fuel_price: float) -> None:
