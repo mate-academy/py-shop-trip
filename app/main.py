@@ -1,5 +1,5 @@
 from json import load
-from app.trip.trip import can_afford_trip
+from app.trip import can_afford_trip
 from app.customer import Customer
 from app.shop import Shop
 
