@@ -18,10 +18,9 @@ class Customer:
         )
 
     def distance_price(self, shop: Shop, fuel_price: int | float) -> float:
-        dist = (
-                       (shop.location[0] - self.location[0]) ** 2
-                       + (shop.location[1] - self.location[1]) ** 2
-               ) ** 0.5
+        dist = ((shop.location[0] - self.location[0]) ** 2
+                + (shop.location[1] - self.location[1]) ** 2) ** 0.5
+
         price_per_liter = self.car["fuel_consumption"] / 100 * fuel_price
         total_dist_cost = (dist * price_per_liter) * 2
         return round(total_dist_cost, 2)
@@ -36,8 +35,8 @@ class Customer:
             dist_price = self.distance_price(shop, fuel_price)
             prod_price = self.product_price(shop)
             total_cost = dist_price + prod_price
-            if (total_cost <= self.money and
-                    (min_shop is None or total_cost < min_cost)):
+            if (total_cost <= self.money
+                    and (min_shop is None or total_cost < min_cost)):
                 min_cost = total_cost
                 min_shop = shop
         return min_shop
@@ -64,8 +63,8 @@ class Customer:
         print(f"Thanks, {self.name}, for your purchase!\nYou have bought: ")
 
         for product in cheapest_location.products:
-            each_prod_price = cheapest_location.products[product] \
-                              * self.product_cart[product]
+            each_prod_price = (cheapest_location.products[product]
+                               * self.product_cart[product])
             print(f"{self.product_cart[product]} {product}s "
                   f"for {each_prod_price} dollars")
         print(f"Total cost is {self.product_price(cheapest_location)} dollars")
