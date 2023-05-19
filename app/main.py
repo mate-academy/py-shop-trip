@@ -8,26 +8,27 @@ def shop_trip() -> None:
         data = json.load(f)
 
     fuel_price = data.get("FUEL_PRICE")
-    customers = []
-    for customer in data["customers"]:
-        customers.append(Customer(
+    customers = [
+        Customer(
             customer["name"],
             customer["product_cart"],
             customer["location"],
             customer["money"],
             customer["car"],
-        ))
+        )
+        for customer in data["customers"]
+    ]
 
-    shops = []
-    for shop in data["shops"]:
-        shops.append(Shop(
+    shops = [
+        Shop(
             shop["name"],
             shop["location"],
             shop["products"]
-        ))
+        )
+        for shop in data["shops"]
+    ]
 
     for person in customers:
-        person.find_min_cost_shop(shops, fuel_price)
         person.trip(shops, fuel_price)
 
 
