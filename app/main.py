@@ -1,5 +1,3 @@
-from __future__ import annotations
-
 import json
 import math
 from datetime import datetime
@@ -14,30 +12,28 @@ def shop_trip() -> None:
     with open("app/config.json", "r") as file:
         config_file = json.load(file)
 
-    customers_list = []
-    shops_list = []
     fuel_price = config_file["FUEL_PRICE"]
-    for customer in config_file["customers"]:
-        customers_list.append(
-            Customer(
-                customer["name"],
-                customer["product_cart"],
-                customer["location"],
-                customer["money"],
-                Car(
-                    customer["car"]["brand"],
-                    customer["car"]["fuel_consumption"],
-                ),
-            )
+    customers_list = [
+        Customer(
+            customer["name"],
+            customer["product_cart"],
+            customer["location"],
+            customer["money"],
+            Car(
+                customer["car"]["brand"],
+                customer["car"]["fuel_consumption"],
+            ),
         )
-    for shop in config_file["shops"]:
-        shops_list.append(
-            Shop(
-                shop["name"],
-                shop["location"],
-                shop["products"],
-            )
+        for customer in config_file["customers"]
+    ]
+    shops_list = [
+        Shop(
+            shop["name"],
+            shop["location"],
+            shop["products"],
         )
+        for shop in config_file["shops"]
+    ]
 
     for customer in customers_list:
         print(f"{customer.name} has {customer.money} dollars")
@@ -47,17 +43,15 @@ def shop_trip() -> None:
             shop_dist = math.dist(customer.location, shop.location)
             cost_of_get_shop = (shop_dist * fuel_price
                                 * customer.car.fuel_consumption / 100)
-            cost_of_products = 0
-            shop_products = []
-            for product, value in customer.product_cart.items():
-                cost_of_products += value * shop.products[product]
-                shop_products.append(
-                    [
-                        product,
-                        value,
-                        value * shop.products[product]
-                    ]
-                )
+            shop_products = [
+                [
+                    product,
+                    value,
+                    value * shop.products[product]
+                ]
+                for product, value in customer.product_cart.items()
+            ]
+            cost_of_products = sum(shop_prod[2] for shop_prod in shop_products)
             final_price = round(cost_of_get_shop * 2 + cost_of_products, 2)
             print(f"{customer.name}'s trip to the "
                   f"{shop.name} costs {final_price}")
