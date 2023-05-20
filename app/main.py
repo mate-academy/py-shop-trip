@@ -1,4 +1,3 @@
-from __future__ import annotations
 import json
 
 from app.customer import Customer
@@ -12,13 +11,14 @@ def shop_trip() -> None:
 
     fuel_price = content["FUEL_PRICE"]
     for customer in content["customers"]:
-        buyer = Customer(customer["name"],
-                         customer["product_cart"],
-                         customer["location"],
-                         customer["money"],
-                         customer["car"],
-                         fuel_price
-                         )
+        buyer = Customer(
+            customer["name"],
+            customer["product_cart"],
+            customer["location"],
+            customer["money"],
+            customer["car"],
+            fuel_price
+        )
         print(f"{buyer.name} has {buyer.money} dollars")
         for shop in content["shops"]:
             store = Shop(shop["name"],

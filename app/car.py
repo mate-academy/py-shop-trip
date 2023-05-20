@@ -1,4 +1,11 @@
-def trip_cost(customer: object, shop: object) -> int | float:
+from __future__ import annotations
+from typing import TYPE_CHECKING
+if TYPE_CHECKING:
+    from app.customer import Customer
+    from app.shop import Shop
+
+
+def trip_cost(customer: Customer, shop: Shop) -> int | float:
     x1, y1 = customer.location
     x2, y2 = shop.location
     distance = ((x2 - x1)**2 + (y2 - y1)**2)**0.5
