@@ -2,7 +2,7 @@ import json
 import os
 
 
-def read_file() -> None:
+def read_file() -> tuple:
     path_file = os.path.abspath(".")
     path_file = os.path.join(path_file, "app", "config.json")
     with open(path_file, "r") as config:
