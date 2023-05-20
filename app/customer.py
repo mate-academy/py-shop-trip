@@ -1,8 +1,7 @@
 from __future__ import annotations
 from dataclasses import dataclass, field
-from typing import List, TYPE_CHECKING
-if TYPE_CHECKING:
-    from app.shop import Shop
+from typing import List
+
 
 from app.car import trip_cost
 
@@ -17,7 +16,7 @@ class Customer:
     fuel_price: int | float
     cost_trip_to_shop: dict = field(default_factory=dict)
 
-    def total_cost_to_shop(self, shop: Shop) -> int | float:
+    def total_cost_to_shop(self, shop: "Shop") -> int | float:
         total_cost = sum(amount * shop.products[product]
                          for product, amount in self.products.items())
         total_cost += trip_cost(self, shop)

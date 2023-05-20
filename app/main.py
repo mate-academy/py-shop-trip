@@ -21,11 +21,14 @@ def shop_trip() -> None:
         )
         print(f"{buyer.name} has {buyer.money} dollars")
         for shop in content["shops"]:
-            store = Shop(shop["name"],
-                         shop["location"],
-                         shop["products"])
+            store = Shop(
+                shop["name"],
+                shop["location"],
+                shop["products"]
+            )
             cost = buyer.total_cost_to_shop(store)
             print(f"{buyer.name}'s trip to the {store.name} costs {cost}")
+
         best_shop = buyer.the_best_shop()
 
         if best_shop:

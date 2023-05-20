@@ -1,10 +1,7 @@
 from __future__ import annotations
 import datetime
 from dataclasses import dataclass
-from typing import List, TYPE_CHECKING
-
-if TYPE_CHECKING:
-    from app.customer import Customer
+from typing import List
 
 
 @dataclass
@@ -13,7 +10,7 @@ class Shop:
     location: List[int | float]
     products: dict
 
-    def buying_product(self, customer: Customer) -> int | float:
+    def buying_product(self, customer: "Customer") -> int | float:
         customer.location = self.location
 
         current_time = datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S")
