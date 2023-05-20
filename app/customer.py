@@ -1,4 +1,5 @@
-from app.json_reader import data
+from __future__ import annotations
+from app.json_reader import read_file
 from dataclasses import dataclass
 from typing import List
 
@@ -12,7 +13,7 @@ class Customer:
     car: dict
 
     @staticmethod
-    def create_customers() -> list:
+    def create_customers() -> list[Customer]:
         return [
             Customer(
                 name=customer["name"],
@@ -21,5 +22,5 @@ class Customer:
                 money=customer["money"],
                 car=customer["car"]
             )
-            for customer in data["customers"]
+            for customer in read_file()[0]["customers"]
         ]

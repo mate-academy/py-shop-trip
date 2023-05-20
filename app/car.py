@@ -1,7 +1,7 @@
 import math
 from typing import List
 from dataclasses import dataclass
-from app.json_reader import data
+from app.json_reader import read_file
 
 
 @dataclass
@@ -11,7 +11,7 @@ class Car:
 
     @staticmethod
     def create_cars() -> None:
-        for customer in data["customers"]:
+        for customer in read_file[0]["customers"]:
             Car(
                 brand=customer["car"]["brand"],
                 fuel_consumption=customer["car"]["fuel_consumption"]

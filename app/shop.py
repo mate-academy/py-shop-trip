@@ -1,7 +1,8 @@
+from __future__ import annotations
 from dataclasses import dataclass
-from typing import List, Any
+from typing import List
 import datetime
-from app.json_reader import data, fuel_price
+from app.json_reader import read_file
 from app.car import Car
 from app.customer import Customer
 
@@ -16,14 +17,14 @@ class Shop:
         return hash(self.name)
 
     @staticmethod
-    def create_shops() -> list:
+    def create_shops() -> list[Shop]:
         return [
             Shop(
                 name=shop["name"],
                 location=shop["location"],
                 products=shop["products"]
             )
-            for shop in data["shops"]
+            for shop in read_file()[0]["shops"]
         ]
 
     def calculate_shop_trip(self, customer: Customer) -> dict:
@@ -40,14 +41,14 @@ class Shop:
         fuel_cost = Car.calculate_fuel_cost(
             customer.location,
             self.location,
-            fuel_price,
+            read_file()[1],
             customer.car["fuel_consumption"]
         )
         total_cost_per_shop = {self: round(total_cost + fuel_cost, 2)}
         return total_cost_per_shop
 
     @staticmethod
-    def find_cheapest_shop(shops: list, customer: Customer) -> Any:
+    def find_cheapest_shop(shops: list[Shop], customer: Customer) -> Shop:
         total_cost_per_shop_all_shops = {}
         for shop in shops:
             total_cost_per_shop_all_shops.update(
@@ -59,6 +60,16 @@ class Shop:
                     total_cost_per_shop_all_shops.values()
             ):
                 return shop
+
+    @staticmethod
+    def calculate_all_shop_trips(shops: list[Shop], customer: Customer):
+        all_shop_trips = []
+        for shop in shops:
+            shop_trip_cost = Shop.calculate_shop_trip(shop, customer)
+            all_shop_trips.append(shop_trip_cost[shop])
+            print(f"{customer.name}'s trip to the "
+                  f"{shop.name} costs {shop_trip_cost[shop]}")
+        return min(all_shop_trips)
 
     def generate_receipt(self, customer: Customer) -> None:
         total_cost = 0
