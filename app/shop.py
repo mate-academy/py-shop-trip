@@ -62,7 +62,10 @@ class Shop:
                 return shop
 
     @staticmethod
-    def calculate_all_shop_trips(shops: list[Shop], customer: Customer):
+    def calculate_all_shop_trips(
+            shops: list[Shop],
+            customer: Customer
+    ) -> float:
         all_shop_trips = []
         for shop in shops:
             shop_trip_cost = Shop.calculate_shop_trip(shop, customer)
