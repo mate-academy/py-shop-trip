@@ -23,9 +23,12 @@ class Customer:
 
         if self.money - total_cost >= 0:
 
-            self.cost_trip_to_shop[total_cost] = {"name": shop.name,
+            self.cost_trip_to_shop[total_cost] = {
+                                                  "name": shop.name,
                                                   "location": shop.location,
-                                                  "products": shop.products}
+                                                  "products": shop.products
+                                                  }
+
         return round(total_cost, 2)
 
     def the_best_shop(self) -> dict | None:
