@@ -7,7 +7,7 @@ from app.CustomerShopFolder.shop import Shop
 
 
 def shop_trip() -> None:
-    with open("config.json", "r") as f:
+    with open("app/config.json", "r") as f:
         data = json.load(f)
 
     fuel_price = data["FUEL_PRICE"]
@@ -48,7 +48,7 @@ def shop_trip() -> None:
 
         if customer.money < min_trip[1]:
             print(f"{customer.name} doesn't"
-                  f"have enough money to make a purchase in any shop")
+                  f" have enough money to make a purchase in any shop")
             break
 
         print(f"{customer.name} rides to {min_trip[0].name}\n")
