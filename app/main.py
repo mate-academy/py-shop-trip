@@ -4,7 +4,6 @@ from app.customer import Customer
 from app.shop import Shop
 
 
-
 def shop_trip() -> None:
     with open("app/config.json", "r") as file:
         data = json.load(file)
@@ -24,11 +23,7 @@ def shop_trip() -> None:
     ]
 
     shops = [
-        Shop(
-            shop.get("name"),
-            shop.get("location"),
-            shop.get("products")
-        )
+        Shop(shop.get("name"), shop.get("location"), shop.get("products"))
         for shop in data.get("shops", [])
     ]
 
