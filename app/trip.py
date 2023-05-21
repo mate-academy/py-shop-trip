@@ -18,36 +18,33 @@ def calculate_cost_of_the_trip(
     return cost_1 + cost_2
 
 
-def choose_shop(customer: Customer,
-                shops: list[Shop],
-                fuel_price: float) -> int:
-    result = []
-    for shop in shops:
-        trip_costs = calculate_cost_of_the_trip(
-            customer, fuel_price, shop
-        )
-        result.append(trip_costs)
-        print(f"{customer.name}'s trip to the "
-              f"{shop.name} " f"costs {trip_costs}")
-    return result.index(min(result))
+def choose_shop(customer: Customer, shops: list[Shop], fuel_price: float) -> int:
+    min_trip_cost = float('inf')
+    chosen_shop_index = -1
+
+    for i, shop in enumerate(shops):
+        trip_cost = calculate_cost_of_the_trip(customer, fuel_price, shop)
+        print(f"{customer.name}'s trip to {shop.name} costs {trip_cost}")
+
+        if trip_cost < min_trip_cost:
+            min_trip_cost = trip_cost
+            chosen_shop_index = i
+
+    return chosen_shop_index
 
 
-def can_afford_trip(customer: Customer,
-                    shops: list[Shop],
-                    fuel_price: float) -> None:
+def can_afford_trip(customer: Customer, shops: list[Shop], fuel_price: float) -> None:
     print(f"{customer.name} has {customer.money} dollars")
-    cheapest_shop = choose_shop(customer, shops, fuel_price)
-    trip_cost = calculate_cost_of_the_trip(
-        customer, fuel_price, shops[cheapest_shop]
-    )
-    if trip_cost < customer.money:
-        go_to_shop(customer, shops[cheapest_shop], fuel_price)
+    cheapest_shop_index = choose_shop(customer, shops, fuel_price)
+
+    if cheapest_shop_index != -1:
+        trip_cost = calculate_cost_of_the_trip(customer, fuel_price, shops[cheapest_shop_index])
+        if trip_cost < customer.money:
+            go_to_shop(customer, shops[cheapest_shop_index])
+        else:
+            print(f"{customer.name} doesn't have enough money to make a purchase in any shop")
     else:
-        print(
-            f"{customer.name} "
-            "doesn't have enough money "
-            "to make a purchase in any shop"
-        )
+        print(f"No shop available for {customer.name}")
 
 
 def shop_print(shop: Shop, customer: Customer) -> None:
@@ -66,8 +63,9 @@ def shop_print(shop: Shop, customer: Customer) -> None:
     print("See you again!")
 
 
-def go_to_shop(customer: Customer, shop: Shop, fuel_price: float) -> None:
-    trip_price = calculate_cost_of_the_trip(customer, fuel_price, shop)
+def go_to_shop(customer: Customer,
+               shop: Shop,) -> None:
+    trip_price = customer.trip_cost
     customer.money -= trip_price
     print(f"{customer.name} rides to {shop.name}\n")
     shop_print(shop, customer)

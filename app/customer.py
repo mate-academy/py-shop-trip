@@ -10,6 +10,7 @@ class Customer:
         money: int,
         car: dict,
     ) -> None:
+        self.trip_cost = None
         self.name = name
         self.wanted_products = wanted_products
         self.location = location
