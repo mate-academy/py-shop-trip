@@ -7,22 +7,24 @@ from app.customer import Customer
 def shop_trip() -> None:
     with open("app/config.json", "r") as file:
         info_dict = json.load(file)
-        customer_list = [
-            Customer(
-                customer.get("name"),
-                customer.get("product_cart"),
-                customer.get("location"),
-                customer.get("money"),
-                customer.get("car"))
-            for customer in info_dict.get("customers")
-        ]
-        shop_list = [
-            Shop(
-                shop.get("name"),
-                shop.get("location"),
-                shop.get("products"))
-            for shop in info_dict.get("shops")
-        ]
+    customer_list = [
+        Customer(
+            customer.get("name"),
+            customer.get("product_cart"),
+            customer.get("location"),
+            customer.get("money"),
+            customer.get("car")
+        )
+        for customer in info_dict.get("customers")
+    ]
+    shop_list = [
+        Shop(
+            shop.get("name"),
+            shop.get("location"),
+            shop.get("products")
+        )
+        for shop in info_dict.get("shops")
+    ]
     for customer in customer_list:
         cheapest_trip = {}
         print(f"{customer.name} has {customer.money} dollars")
