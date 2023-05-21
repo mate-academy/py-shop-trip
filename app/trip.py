@@ -9,8 +9,8 @@ def calculate_cost_of_the_trip(
 ) -> float:
     distance = dist(customer.location, shop.location)
     cost_1 = round(
-        (customer.car.fuel_consumption / 100) * (distance * 2) *
-        fuel_price, 2
+        (customer.car.fuel_consumption / 100) * (distance * 2) * fuel_price,
+        2
     )
     cost_2 = 0
     for product, quantity in customer.wanted_products.items():
