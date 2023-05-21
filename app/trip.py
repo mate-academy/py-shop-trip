@@ -77,11 +77,13 @@ def shop_print(shop: Shop, customer: Customer) -> None:
     print("See you again!")
 
 
-def go_to_shop(
-    customer: Customer,
-    shop: Shop,
-) -> None:
-    trip_price = customer.trip_cost
+def go_to_shop(customer: Customer, shop: Shop) -> None:
+    fuel_price = 1.5
+    trip_price = calculate_cost_of_the_trip(
+        customer,
+        fuel_price,
+        shop
+    )
     customer.money -= trip_price
     print(f"{customer.name} rides to {shop.name}\n")
     shop_print(shop, customer)
