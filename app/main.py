@@ -66,6 +66,6 @@ def shop_trip() -> None:
 
         print(f"Total cost is {total_cost} dollars")
         print("See you again!\n")
-        print("Bob rides home")
+        print(f"{customer.name} rides home")
         print(f"{customer.name} now has "
               f"{round(customer.money - min_trip[1], 2)} dollars\n")
