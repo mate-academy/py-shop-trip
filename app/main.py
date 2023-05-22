@@ -2,8 +2,8 @@ import json
 import datetime
 
 from app.calculate_price import calculate_trip_price
-from app.CustomerShopFolder.customer import Car, Customer
-from app.CustomerShopFolder.shop import Shop
+from app.customer import Car, Customer
+from app.shop import Shop
 
 
 def shop_trip() -> None:
@@ -11,25 +11,24 @@ def shop_trip() -> None:
         data = json.load(f)
 
     fuel_price = data["FUEL_PRICE"]
-    customers = []
-    shops = []
 
-    for customer in data["customers"]:
-        car = customer["car"]
-        customers.append(Customer(
+    customers = [
+        Customer(
             name=customer["name"],
             product_cart=customer["product_cart"],
             location=customer["location"],
             money=customer["money"],
             car=Car(
-                brand=car["brand"],
-                fuel_consumption=car["fuel_consumption"])))
-
-    for shop in data["shops"]:
-        shops.append(Shop(
-            name=shop["name"],
-            location=shop["location"],
-            products=shop["products"]))
+                brand=customer["car"]["brand"],
+                fuel_consumption=customer["car"]["fuel_consumption"]
+            )
+        )
+        for customer in data["customers"]
+    ]
+    shops = [Shop(
+        name=shop["name"],
+        location=shop["location"],
+        products=shop["products"]) for shop in data["shops"]]
 
     for customer in customers:
         print(f"{customer.name} has {customer.money} dollars")
