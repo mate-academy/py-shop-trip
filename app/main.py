@@ -1,7 +1,7 @@
 import json
 import math
-from datetime import datetime
-from typing import Union
+import datetime
+from typing import Union, Tuple
 
 from app.car import Car
 from app.customer import Customer
@@ -13,7 +13,7 @@ def shop_trip() -> None:
         config_file = json.load(file)
 
     fuel_price = config_file["FUEL_PRICE"]
-    customers_list = [
+    customers = [
         Customer(
             customer["name"],
             customer["product_cart"],
@@ -26,7 +26,7 @@ def shop_trip() -> None:
         )
         for customer in config_file["customers"]
     ]
-    shops_list = [
+    shops = [
         Shop(
             shop["name"],
             shop["location"],
@@ -35,11 +35,11 @@ def shop_trip() -> None:
         for shop in config_file["shops"]
     ]
 
-    for customer in customers_list:
+    for customer in customers:
         print(f"{customer.name} has {customer.money} dollars")
-        cheapest_prices: (Union[Shop | None], float) = (None, None)
+        cheapest_prices: Tuple[Union[Shop | None], float | None] = (None, None)
         cheapest_shop_products = []
-        for shop in shops_list:
+        for shop in shops:
             shop_dist = math.dist(customer.location, shop.location)
             cost_of_get_shop = (shop_dist * fuel_price
                                 * customer.car.fuel_consumption / 100)
@@ -55,15 +55,14 @@ def shop_trip() -> None:
             final_price = round(cost_of_get_shop * 2 + cost_of_products, 2)
             print(f"{customer.name}'s trip to the "
                   f"{shop.name} costs {final_price}")
-            if cheapest_prices[0] is None or cheapest_prices[1] > final_price:
+            if cheapest_prices[1] is None or cheapest_prices[1] > final_price:
                 cheapest_prices = (shop, final_price)
                 cheapest_shop_products = shop_products
 
         if cheapest_prices[1] <= customer.money:
             print(f"{customer.name} rides to {cheapest_prices[0].name}\n")
-            datetime_ = datetime(2021, 1, 4, 12, 33, 41)
-            time_format = "%d/%m/%Y %H:%M:%S"
-            print(f"Date: {str(datetime_.strftime(time_format))}\n"
+            data_time = datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S")
+            print(f"Date: {str(data_time)}\n"
                   f"Thanks, {customer.name}, for your purchase!\n"
                   f"You have bought: ")
             total_sum = 0
