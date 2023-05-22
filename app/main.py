@@ -61,8 +61,8 @@ def shop_trip() -> None:
 
         if cheapest_prices[1] <= customer.money:
             print(f"{customer.name} rides to {cheapest_prices[0].name}\n")
-            data_time = datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S")
-            print(f"Date: {str(data_time)}\n"
+            date_time = datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S")
+            print(f"Date: {str(date_time)}\n"
                   f"Thanks, {customer.name}, for your purchase!\n"
                   f"You have bought: ")
             total_sum = 0
