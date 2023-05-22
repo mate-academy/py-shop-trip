@@ -12,16 +12,12 @@ class Shop:
         self.products = products
 
     @staticmethod
-    def create_shops(data: dict) -> List[Shop]:
-        shops_json = data["shops"]
-        shops = []
-        for shop in shops_json:
-            shop = Shop(
-                name=shop["name"],
-                location=shop["location"],
-                products=shop["products"]
-            )
-            shops.append(shop)
+    def create_shops(shops_data: dict) -> List[Shop]:
+        shops_json = shops_data["shops"]
+        shops = [Shop(name=shop["name"],
+                      location=shop["location"],
+                      products=shop["products"])
+                 for shop in shops_json]
         return shops
 
     def __repr__(self) -> str:

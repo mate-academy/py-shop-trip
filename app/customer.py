@@ -21,24 +21,22 @@ class Customer:
         self.car = car
 
     @staticmethod
-    def create_customers(data: dict) -> List[Customer]:
-        customers_json = data["customers"]
-        Car.fuel_price = data["FUEL_PRICE"]
-        customers = []
-        for customer in customers_json:
-            car = Car(
-                brand=customer["car"]["brand"],
-                fuel_consumption=customer["car"]["fuel_consumption"]
-            )
-            customer = Customer(
+    def create_customers(customers_data: dict) -> List[Customer]:
+        customers_json = customers_data["customers"]
+        Car.fuel_price = customers_data["FUEL_PRICE"]
+        customers = [
+            Customer(
                 name=customer["name"],
                 product_cart=customer["product_cart"],
                 location=customer["location"],
                 money=customer["money"],
-                car=car
+                car=Car(
+                    brand=customer["car"]["brand"],
+                    fuel_consumption=customer["car"]["fuel_consumption"]
+                )
             )
-            customers.append(customer)
-
+            for customer in customers_json
+        ]
         return customers
 
     def calculate_distance(self, shop: Shop) -> float:
