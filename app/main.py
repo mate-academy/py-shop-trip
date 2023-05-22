@@ -1,5 +1,5 @@
 import json
-from datetime import datetime
+import datetime
 
 from app.calculate_price import calculate_trip_price
 from app.CustomerShopFolder.customer import Car, Customer
@@ -52,7 +52,7 @@ def shop_trip() -> None:
             break
 
         print(f"{customer.name} rides to {min_trip[0].name}\n")
-        print(f"Date: {datetime.now().strftime('%Y/%m/%d %H:%M:%S')}")
+        print(f"Date: {datetime.datetime.now().strftime('%d/%m/%Y %H:%M:%S')}")
         print(f"Thanks, {customer.name}, for your purchase!")
         print("You have bought: ")
 
