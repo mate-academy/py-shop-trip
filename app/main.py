@@ -13,4 +13,5 @@ def shop_trip() -> None:
     [customer.select_cheapest_shop(shops) for customer in customers]
 
 
-shop_trip()
+if __name__ == "__main__":
+    shop_trip()

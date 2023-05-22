@@ -42,9 +42,10 @@ class Customer:
         return customers
 
     def calculate_distance(self, shop: Shop) -> float:
-        x1, y1 = self.location
-        x2, y2 = shop.location
-        distance = math.sqrt((x2 - x1) ** 2 + (y2 - y1) ** 2)
+        customer_x_coord, customer_y_coord = self.location
+        shop_x_coord, shop_y_coord = shop.location
+        distance = math.sqrt((shop_x_coord - customer_x_coord) ** 2
+                             + (shop_y_coord - customer_y_coord) ** 2)
         return distance
 
     def calculate_products_price(self, shop: Shop) -> float:
@@ -73,14 +74,12 @@ class Customer:
         )
         print(formatted_datetime)
         final_price = 0
-        print(f"Thanks, {self}, for your purchase!")
-        print("You have bought: ")
+        print(f"Thanks, {self}, for your purchase!\nYou have bought: ")
         for product, quantity in self.product_cart.items():
             price = quantity * shop.products[product]
             final_price += price
             print(f"{quantity} {product}s for {price} dollars")
-        print(f"Total cost is {final_price} dollars")
-        print("See you again!\n")
+        print(f"Total cost is {final_price} dollars\nSee you again!\n")
 
     def select_cheapest_shop(self, shops: List[Shop]) -> Shop:
         best_price = float("inf")
@@ -96,8 +95,7 @@ class Customer:
             print(f"{self} rides to {best_shop}\n")
             self.visit_shop(best_shop)
             self.money -= best_price
-            print(f"{self} rides home")
-            print(f"{self} now has {self.money} dollars\n")
+            print(f"{self} rides home\n{self} now has {self.money} dollars\n")
         else:
             print((f"{self} doesn't have enough money "
                    f"to make a purchase in any shop"))
