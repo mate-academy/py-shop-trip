@@ -19,7 +19,7 @@ class Customer:
         self.car = car
 
     def calculate_distance_cost(
-        self, shop: Shop, price_per_liter: int | float
+        self, shop: Shop, price_per_liter: float
     ) -> float:
         distance = (
             (shop.location[0] - self.location[0]) ** 2
@@ -30,15 +30,15 @@ class Customer:
         ] / 100 * price_per_liter
         return round(road_cost * 2, 2)
 
-    def calculate_product_cost(self, shop: Shop) -> float | int:
+    def calculate_product_cost(self, shop: Shop) -> int:
         return sum(
             self.product_cart[product] * shop.products[product]
             for product in shop.products
         )
 
     def calculate_distance_and_product(
-        self, shop: Shop, price_per_liter: int | float
-    ) -> int | float:
+        self, shop: Shop, price_per_liter: float
+    ) -> float:
         return round(
             self.calculate_distance_cost(shop, price_per_liter)
             + self.calculate_product_cost(shop),
@@ -48,7 +48,7 @@ class Customer:
     def calculate_trip_cost(
             self,
             shops: list[Shop],
-            price_per_liter: float | int
+            price_per_liter: float
     ) -> None:
         home = self.location
         cheapest_trip = [
