@@ -37,15 +37,10 @@ class Customer:
         )
 
     def calculate_distance_and_product(
-            self,
-            shop: Shop,
-            price_per_liter: int | float
+        self, shop: Shop, price_per_liter: int | float
     ) -> int | float:
         return round(
-            self.calculate_distance_cost(
-                shop,
-                price_per_liter
-            )
+            self.calculate_distance_cost(shop, price_per_liter)
             + self.calculate_product_cost(shop),
             2,
         )
@@ -92,11 +87,13 @@ class Customer:
 
         purchase = 0
         for product in cheapest_trip[0].products:
-            price = cheapest_trip[0].products[product] * self.product_cart[product]  # noqa:E126, E501
-            print(
-                f"{self.product_cart[product]} {product}s "
-                f"for {price} dollars"
+            price = (
+                cheapest_trip[0].products[product]
+            ) * (
+                self.product_cart[product]
             )
+            print(f"{self.product_cart[product]} "
+                  f"{product}s " f"for {price} dollars")
             purchase += price
 
         print(
