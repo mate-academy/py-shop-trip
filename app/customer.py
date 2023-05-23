@@ -7,10 +7,10 @@ class Customer:
     def __init__(
         self,
         name: str,
-        product_cart: dict,
-        location: list,
+        product_cart: dict[str, int],
+        location: list[int],
         money: int | float,
-        car: dict,
+        car: dict[str, (float | int)],
     ) -> None:
         self.name = name
         self.product_cart = product_cart
@@ -47,7 +47,7 @@ class Customer:
 
     def calculate_trip_cost(
             self,
-            shops: list,
+            shops: list[Shop],
             price_per_liter: float | int
     ) -> None:
         home = self.location
