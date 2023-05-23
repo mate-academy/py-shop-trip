@@ -8,12 +8,14 @@ from app.shop import Shop
 
 
 class Customer:
-    def __init__(self,
-                 name: str,
-                 product_cart: dict,
-                 location: list,
-                 money: int,
-                 car: Car) -> None:
+    def __init__(
+            self,
+            name: str,
+            product_cart: dict,
+            location: list,
+            money: int,
+            car: Car
+    ) -> None:
         self.name = name
         self.product_cart = product_cart
         self.location = location
@@ -47,13 +49,12 @@ class Customer:
         return distance
 
     def calculate_products_price(self, shop: Shop) -> float:
-        price = 0
-        for item in self.product_cart:
-            number_of_products = self.product_cart[item]
-            price_of_products = shop.products[item]
-            final_price = number_of_products * price_of_products
-            price += final_price
-        return price
+        return sum(
+            [
+                self.product_cart[item] * shop.products[item]
+                for item in self.product_cart
+            ]
+        )
 
     def calculate_distance_price(self,
                                  shop: Shop) -> float:
