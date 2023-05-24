@@ -1,3 +1,54 @@
-def shop_trip():
-    # write your code here
-    pass
+import json
+import os
+
+from app.customer import Customer
+from app.shop import Shop
+
+
+def shop_trip() -> None:
+
+    parent_dir = os.path.join(
+        "C:/",
+        "self_learning",
+        "Python",
+        "py-shop-trip",
+        "app"
+    )
+
+    with open(os.path.join(parent_dir, "config.json"), "r") as file:
+        config = json.load(file)
+    fuel_price = config["FUEL_PRICE"]
+    customers = [
+        Customer(
+            customer["name"],
+            customer["product_cart"],
+            customer["location"],
+            customer["money"],
+            customer["car"]
+        )for customer in config["customers"]
+    ]
+    shops = [
+        Shop(
+            shop["name"],
+            shop["location"],
+            shop["products"]
+        ) for shop in config["shops"]
+    ]
+    travel_shop = ""
+    for customer in customers:
+        customer.print_amount_of_money()
+        min_cost_trip = 0
+        for shop in shops:
+            cost_trip = customer.cost_trip_for_the_products(shop, fuel_price)
+            if min_cost_trip == 0 or cost_trip < min_cost_trip:
+                min_cost_trip = cost_trip
+                travel_shop = shop
+        if min_cost_trip > customer.money:
+            print(f"{customer.name} doesn't have enough money "
+                  f"to make a purchase in any shop")
+            continue
+        print(f"{customer.name} rides to {travel_shop.name}\n")
+        travel_shop.receipt_printing(customer.name, customer.product_cart)
+        print(f"{customer.name} rides home\n"
+              f"{customer.name} now has "
+              f"{customer.money - min_cost_trip} dollars\n")
