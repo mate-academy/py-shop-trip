@@ -1,12 +1,12 @@
 import json
-from os import getcwd, path
+from os import path
 
 from app.customer import Customer
 from app.shop import Shop
 
 
 def shop_trip() -> None:
-    parent_dir = path.dirname(getcwd())
+    parent_dir = path.dirname("config.json")
     with open(path.join(parent_dir, "app", "config.json")) as file:
         config = json.load(file)
     fuel_price = config["FUEL_PRICE"]
