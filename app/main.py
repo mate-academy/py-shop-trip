@@ -1,13 +1,13 @@
 from app.customer import Customer
 from app.shop import Shop
-from os import getcwd, path
+from pathlib import Path
 import json
 # from datetime import datetime
 
 
 def shop_trip() -> None:
-    path_to_the_file = path.join(path.dirname(getcwd()), "app", "config.json")
-    with open(path_to_the_file, "r") as f:
+    file_path = Path.cwd().parent / "app" / "config.json"
+    with open(file_path, "r") as f:
         data = json.load(f)
 
     fuel_price = data["FUEL_PRICE"]
