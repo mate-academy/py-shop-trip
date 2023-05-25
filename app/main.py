@@ -5,10 +5,15 @@ from app.customer import Customer
 from app.shop import Shop
 
 
-def shop_trip() -> None:
+def loading_config_json() -> dict:
     parent_dir = path.dirname("config.json")
     with open(path.join(parent_dir, "app", "config.json")) as file:
         config = json.load(file)
+    return config
+
+
+def shop_trip() -> None:
+    config = loading_config_json()
     fuel_price = config["FUEL_PRICE"]
     customers = [
         Customer(
