@@ -1,21 +1,13 @@
 import json
-import os
+from os import getcwd, path
 
 from app.customer import Customer
 from app.shop import Shop
 
 
 def shop_trip() -> None:
-
-    parent_dir = os.path.join(
-        "C:/",
-        "self_learning",
-        "Python",
-        "py-shop-trip",
-        "app"
-    )
-
-    with open(os.path.join(parent_dir, "config.json"), "r") as file:
+    parent_dir = path.dirname(getcwd())
+    with open(path.join(parent_dir, "app", "config.json")) as file:
         config = json.load(file)
     fuel_price = config["FUEL_PRICE"]
     customers = [
@@ -34,13 +26,13 @@ def shop_trip() -> None:
             shop["products"]
         ) for shop in config["shops"]
     ]
-    travel_shop = ""
+    travel_shop = None
     for customer in customers:
         customer.print_amount_of_money()
-        min_cost_trip = 0
+        min_cost_trip = None
         for shop in shops:
             cost_trip = customer.cost_trip_for_the_products(shop, fuel_price)
-            if min_cost_trip == 0 or cost_trip < min_cost_trip:
+            if min_cost_trip is None or cost_trip < min_cost_trip:
                 min_cost_trip = cost_trip
                 travel_shop = shop
         if min_cost_trip > customer.money:

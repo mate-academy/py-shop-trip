@@ -9,10 +9,10 @@ class Shop:
     products: dict
 
     def calculation_of_product_costs(self, product_cart: dict) -> float:
-        costs_of_products = 0.0
-        for product, quantity in product_cart.items():
-            costs_of_products += self.products[product] * quantity
-        return costs_of_products
+        return sum(
+            [self.products[product] * quantity
+             for product, quantity in product_cart.items()]
+        )
 
     def receipt_printing(self, name: str, product_cart: dict) -> None:
         date_now = datetime.datetime.now()
