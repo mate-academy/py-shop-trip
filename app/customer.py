@@ -17,9 +17,9 @@ class Customer:
             self.car = Car(**self.car)
 
     def cost_to_shop(self, shop: Shop, fuel_price: float) -> float:
-        leg1 = (self.location[0] - shop.location[0])
-        leg2 = (self.location[1] - shop.location[1])
-        diagonal = sqrt(leg1 ** 2 + leg2 ** 2)
+        leg_along_x = (self.location[0] - shop.location[0])
+        leg_along_y = (self.location[1] - shop.location[1])
+        diagonal = sqrt(leg_along_x ** 2 + leg_along_y ** 2)
         return diagonal / 100 * fuel_price * self.car.fuel_consumption * 2
 
     def cost_of_products(self, shop: Shop) -> float:

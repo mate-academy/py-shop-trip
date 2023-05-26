@@ -2,10 +2,14 @@ from app.customer import Customer
 from app.shop import Shop
 from os import path
 import json
-# from datetime import datetime
+from datetime import datetime
 
 
 def shop_trip() -> None:
+    # path_to_the_file = path.join(
+    # path.dirname(getcwd()), "app", "config.json"
+    # )
+    # with open(path_to_the_file, "r") as f:
     parent_dir = path.dirname("config.json")
     with open(path.join(parent_dir, "app", "config.json"), "r") as f:
         data = json.load(f)
@@ -34,9 +38,12 @@ def shop_trip() -> None:
         if customer.money >= best_shop["shop_cost"]:
             shop = best_shop["shop_instance"]
             amount_and_cost = customer.shopping(shop)
+            specified_date = datetime.strptime(
+                "04/01/2021 12:33:41", "%d/%m/%Y %H:%M:%S"
+            )
             print(f"{customer.name} rides to {shop.name}\n\n"
                   # f"Date: {datetime.now().strftime('%d/%m/%Y %H:%M:%S')}\n"
-                  f"Date: 04/01/2021 12:33:41\n"
+                  f"Date: {specified_date.strftime('%d/%m/%Y %H:%M:%S')}\n"
                   f"Thanks, {customer.name}, for your purchase!\n"
                   f"You have bought: ")
             for index, product_name in enumerate(customer.product_cart.keys()):
