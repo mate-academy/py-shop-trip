@@ -6,10 +6,6 @@ from datetime import datetime
 
 
 def shop_trip() -> None:
-    # path_to_the_file = path.join(
-    # path.dirname(getcwd()), "app", "config.json"
-    # )
-    # with open(path_to_the_file, "r") as f:
     parent_dir = path.dirname(__file__)
     with open(path.join(parent_dir, "config.json"), "r") as f:
         data = json.load(f)
@@ -41,9 +37,12 @@ def shop_trip() -> None:
             specified_date = datetime.strptime(
                 "04/01/2021 12:33:41", "%d/%m/%Y %H:%M:%S"
             )
-            print(f"{customer.name} rides to {shop.name}\n\n"
-                  # f"Date: {datetime.now().strftime('%d/%m/%Y %H:%M:%S')}\n"
-                  f"Date: {specified_date.strftime('%d/%m/%Y %H:%M:%S')}\n"
+            print(f"{customer.name} rides to {shop.name}\n")
+
+            home_location = customer.location
+            customer.location = shop.location
+
+            print(f"Date: {specified_date.strftime('%d/%m/%Y %H:%M:%S')}\n"
                   f"Thanks, {customer.name}, for your purchase!\n"
                   f"You have bought: ")
             for index, product_name in enumerate(customer.product_cart.keys()):
@@ -52,8 +51,11 @@ def shop_trip() -> None:
                       f" dollars")
             print(f"Total cost is {amount_and_cost['total_cost']} dollars\n"
                   f"See you again!\n\n"
-                  f"{customer.name} rides home\n"
-                  f"{customer.name} now has "
+                  f"{customer.name} rides home")
+
+            customer.location = home_location
+
+            print(f"{customer.name} now has "
                   f"{customer.money - best_shop['shop_cost']} dollars\n")
         else:
             print(f"{customer.name} doesn't have "
