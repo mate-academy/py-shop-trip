@@ -10,8 +10,7 @@ def shop_trip() -> None:
     # path.dirname(getcwd()), "app", "config.json"
     # )
     # with open(path_to_the_file, "r") as f:
-    file_path = "config.json"
-    parent_dir = path.dirname(file_path)
+    parent_dir = path.dirname(__file__)
     with open(path.join(parent_dir, "config.json"), "r") as f:
         data = json.load(f)
 
