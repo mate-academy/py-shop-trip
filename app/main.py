@@ -6,8 +6,8 @@ from app.shop import Shop
 
 
 def loading_config_json() -> dict:
-    parent_dir = path.dirname("config.json")
-    with open(path.join(parent_dir, "app", "config.json")) as file:
+    parent_dir = path.dirname(__file__)
+    with open(path.join(parent_dir, "config.json")) as file:
         config = json.load(file)
     return config
 
