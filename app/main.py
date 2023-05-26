@@ -10,8 +10,9 @@ def shop_trip() -> None:
     # path.dirname(getcwd()), "app", "config.json"
     # )
     # with open(path_to_the_file, "r") as f:
-    parent_dir = path.dirname("config.json")
-    with open(path.join(parent_dir, "app", "config.json"), "r") as f:
+    file_path = "config.json"
+    parent_dir = path.dirname(file_path)
+    with open(path.join(parent_dir, "config.json"), "r") as f:
         data = json.load(f)
 
     fuel_price = data["FUEL_PRICE"]
