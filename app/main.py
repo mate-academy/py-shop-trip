@@ -52,7 +52,9 @@ def shop_trip() -> None:
             if cheapest_prices[1] is None or cheapest_prices[1] > final_price:
                 cheapest_prices = (shop, final_price)
 
-        if cheapest_prices[1] <= customer.money:
+        if cheapest_prices[0] is None:
+            return
+        elif cheapest_prices[1] <= customer.money:
             print(f"{customer.name} rides to {cheapest_prices[0].name}\n")
             date_time = datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S")
             print(f"Date: {str(date_time)}\n"
