@@ -1,5 +1,5 @@
 import dataclasses
-from app.customer import data
+from app.data import data
 
 
 @dataclasses.dataclass
@@ -16,4 +16,3 @@ shops = [Shop(
     location=shop['location'],
     products=shop['products']
 ) for shop in shops_data]
-
