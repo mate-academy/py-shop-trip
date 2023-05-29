@@ -67,7 +67,8 @@ class Customer:
             print(f"Date: {data}\nThanks, {self.name}, "
                   f"for your purchase!\nYou have bought: ")
             self.cost_shop(chosen_shop.products)
-            print(f"Total cost is {self.cost_of_product(chosen_shop)} dollars\n"
+            print(f"Total cost is {self.cost_of_product(chosen_shop)} "
+                  f"dollars\n"
                   f"See you again!\n\n{self.name} rides home\n"
                   f"{self.name} now has {round(self.money, 2)} dollars\n")
         else:
