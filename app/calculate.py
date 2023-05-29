@@ -21,7 +21,7 @@ def print_receipt(shop: Shop, customer: Customer) -> None:
 
 def choose_shop(customer: Customer,
                 shops: list[Shop],
-                fuel_price: float) -> int:
+                fuel_price: float) -> Shop:
     result = []
     for shop in shops:
         trip_costs = calculate_cost_of_the_trip(customer, fuel_price, shop)
@@ -63,7 +63,7 @@ def can_afford_trip(customer: Customer,
                                            cheapest_shop)
     if trip_cost < customer.money:
         go_to_shop(customer, cheapest_shop, fuel_price)
-        customer.change_location(["location"])
+        customer.change_location(cheapest_shop.location)
     else:
         print(f"{customer.name} "
               "doesn't have enough money to make a purchase in any shop")
