@@ -56,6 +56,8 @@ def shop_trip() -> None:
             return
         elif cheapest_prices[1] <= customer.money:
             print(f"{customer.name} rides to {cheapest_prices[0].name}\n")
+            customer_home_location = customer.location
+            customer.location = cheapest_prices[0].location
             date_time = datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S")
             print(f"Date: {str(date_time)}\n"
                   f"Thanks, {customer.name}, for your purchase!\n"
@@ -66,8 +68,9 @@ def shop_trip() -> None:
                 print(f"{quantity} {product}s for {total} dollars")
                 total_sum += total
             print(f"Total cost is {total_sum} dollars\n"
-                  f"See you again!\n\n"
-                  f"{customer.name} rides home\n"
+                  f"See you again!\n")
+            customer.location = customer_home_location
+            print(f"{customer.name} rides home\n"
                   f"{customer.name} now has "
                   f"{round(customer.money - cheapest_prices[1], 2)} dollars\n")
         else:
