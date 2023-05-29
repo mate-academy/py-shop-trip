@@ -69,14 +69,13 @@ def cheapest_shop(customer: Customer, shops: list[Shop]) -> Shop:
     return selected_shop
 
 
-def calculate_total_cost(customer, shops):
-    product_cart = customer["product_cart"]
+def calculate_total_cost(customer: Customer, shop: Shop) -> str:
     total_cost = 0
     output = "You have bought:\n"
 
-    for product, quantity in product_cart.items():
-        if product in shops["products"]:
-            price = shops["products"][product]
+    for product, quantity in customer.product_cart.items():
+        if product in shop.products:
+            price = shop.products[product]
             cost = price * quantity
             total_cost += cost
             output += f"{quantity} {product}s for {cost} dollars\n"
