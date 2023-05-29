@@ -1,6 +1,6 @@
 import datetime
-
 from math import dist
+
 from app.shop import Shop
 from app.customer import Customer
 

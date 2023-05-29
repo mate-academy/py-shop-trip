@@ -1,4 +1,5 @@
 from json import load
+
 from app.calculate import can_afford_trip
 from app.customer import Customer
 from app.shop import Shop
@@ -10,12 +11,15 @@ def shop_trip() -> None:
     fuel_price = data.get("FUEL_PRICE", 0)
     customers = []
     for customer in data.get("customers", "Unknown"):
-        customers.append(Customer(customer.get("name"),
-                                  customer.get("product_cart"),
-                                  customer.get("location"),
-                                  customer.get("money"),
-                                  customer.get("car"))
-                         )
+        try:
+            customers.append(Customer(customer.get("name"),
+                                      customer.get("product_cart"),
+                                      customer.get("location"),
+                                      customer.get("money"),
+                                      customer.get("car"))
+                             )
+        except KeyError:
+            print("Key doesn't exist")
     shops = []
     for shop in data.get("shops", "Unknown"):
         shops.append(Shop(shop.get("name"),
