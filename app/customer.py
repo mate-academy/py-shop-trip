@@ -14,3 +14,6 @@ class Customer:
         self.location = location
         self.money = money
         self.car = Car(car)
+
+    def change_location(self, destination: list) -> None:
+        self.location = destination

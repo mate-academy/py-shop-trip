@@ -63,6 +63,7 @@ def can_afford_trip(customer: Customer,
                                            cheapest_shop)
     if trip_cost < customer.money:
         go_to_shop(customer, cheapest_shop, fuel_price)
+        customer.change_location(["location"])
     else:
         print(f"{customer.name} "
               "doesn't have enough money to make a purchase in any shop")
