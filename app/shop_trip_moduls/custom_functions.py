@@ -31,15 +31,15 @@ def create_data_customers(data: dict) -> list:
 
 
 def play_shop_trip(
-        list_data_shops: list,
-        list_data_customers: list
+        shops: list,
+        customers: list
 ) -> None:
-    for customer in list_data_customers:
-        the_cheapest_option = 100000000
+    for customer in customers:
         print(f"{customer.name} has {customer.money} dollars")
-        best_store = ""
         purchase_price = 0
-        for shop in list_data_shops:
+        best_store = ""
+        list_price = []
+        for shop in shops:
             distance = calculate_distance(
                 customer.location,
                 shop.get_location()
@@ -55,9 +55,11 @@ def play_shop_trip(
             )
             print(f"{customer.name}'s trip to "
                   f"the {shop.name} costs {full_price}")
-            if full_price < the_cheapest_option:
-                the_cheapest_option = full_price
-                best_store = shop
+            list_price.append(full_price)
+        the_cheapest_option = min(list_price)
+        for num in range(len(list_price)):
+            if list_price[num] == the_cheapest_option:
+                best_store = shops[num]
         customer.money = customer.money - the_cheapest_option
         if customer.money < 0:
             print(f"{customer.name} doesn't have enough money "
