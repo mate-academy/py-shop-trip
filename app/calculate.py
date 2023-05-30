@@ -13,7 +13,8 @@ def print_receipt(shop: Shop, customer: Customer) -> None:
     total_cost = 0
     for product, count in customer.wanted_products.items():
         total_cost += count * shop.provided_products.get(product, 0)
-        print(f"{count} {product if count < 2 else product + 's'} "
+        plural = "" if count < 2 else "s"
+        print(f"{count} {product}{plural} "
               f"for {count * shop.provided_products.get(product, 0)} dollars")
     print(f"Total cost is {round(total_cost, 2)} dollars")
     print("See you again!")
@@ -22,14 +23,14 @@ def print_receipt(shop: Shop, customer: Customer) -> None:
 def choose_shop(customer: Customer,
                 shops: list[Shop],
                 fuel_price: float) -> Shop:
-    result = []
+    result = {}
     for shop in shops:
         trip_costs = calculate_cost_of_the_trip(customer, fuel_price, shop)
-        result.append(trip_costs)
+        result[trip_costs] = shop
         print(f"{customer.name}'s trip to the {shop.name} "
               f"costs {trip_costs}")
 
-    return shops[result.index(min(result))]
+    return result[min(result)]
 
 
 def calculate_cost_of_the_trip(customer: Customer,
@@ -38,9 +39,10 @@ def calculate_cost_of_the_trip(customer: Customer,
     distance = dist(customer.location, shop.location)
     logistic_expenses = round(
         (customer.car.fuel_consumption / 100) * (distance * 2) * fuel_price, 2)
-    purchase_expenses = 0
-    for product, quantity in customer.wanted_products.items():
-        purchase_expenses += shop.provided_products.get(product, 0) * quantity
+    purchase_expenses = sum(
+        shop.provided_products.get(product, 0) * quantity for
+        product, quantity in customer.wanted_products.items()
+    )
     return logistic_expenses + purchase_expenses
 
 
