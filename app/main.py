@@ -1,6 +1,6 @@
 import json
 
-from datetime import datetime
+import datetime
 
 from app.customer import Customer
 from app.shop import Shop
@@ -29,7 +29,6 @@ def shop_trip() -> None:
             )
             for shop in data["shops"]
         ]
-        date = datetime(2021, 1, 4, 12, 33, 41).strftime("%d/%m/%Y %H:%M:%S")
 
         for customer in customers:
             print(f"{customer.name} has {customer.money} dollars")
@@ -59,7 +58,9 @@ def shop_trip() -> None:
                 )
             else:
                 print(f"{customer.name} rides to {optimal_shop.name}\n")
-                print(f"Date: {date}")
+                print(
+                    datetime.datetime.now().strftime("Date: %d/%m/%Y %H:%M:%S")
+                )
                 print(f"Thanks, {customer.name}, for your purchase!")
                 print("You have bought: ")
                 total_cost = 0
