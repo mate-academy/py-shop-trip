@@ -1,12 +1,18 @@
-from app.customer import customers, cheapest_shop, the_cost_of_shopping,\
+from app.utils import cheapest_shop, the_cost_of_shopping,\
     calculate_total_cost, cash_balance
-from app.shop import shops
+from app.data import parse_config
 
 
 def shop_trip():
+    customers, shops, fuel_price = parse_config("config.json")
     for customer in customers:
         print(f"{customer.name} has {customer.money} dollars")
-        the_cost_of_shopping(customer, shops)
-        shop = cheapest_shop(customer, shops)
-        calculate_total_cost(customer, cheapest_shop(customer, shops))
-        cash_balance(customer, shop)
+        shop = cheapest_shop(customer, shops, fuel_price)
+        if not shop:
+            continue
+        the_cost_of_shopping(customer, shop, fuel_price)
+        calculate_total_cost(customer, shop)
+        cash_balance(customer, shop, fuel_price)
+
+
+shop_trip()

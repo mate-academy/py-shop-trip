@@ -1,5 +1,4 @@
 import dataclasses
-from app.data import data
 
 
 @dataclasses.dataclass
@@ -9,10 +8,12 @@ class Shop:
     products: dict
 
 
-shops_data = data["shops"]
+def create_shop_from_file(data) -> list[Shop]:
+    shops_data = data["shops"]
 
-shops = [Shop(
-    name=shop['name'],
-    location=shop['location'],
-    products=shop['products']
-) for shop in shops_data]
+    shops = [Shop(
+        name=shop['name'],
+        location=shop['location'],
+        products=shop['products']
+    ) for shop in shops_data]
+    return shops
