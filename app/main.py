@@ -10,7 +10,7 @@ def shop_trip() -> None:
         data = load(file)
     fuel_price = data.get("FUEL_PRICE", 0)
     customers = []
-    for customer in data.get("customers", "Unknown"):
+    for customer in data.get("customers", []):
         customers.append(
             Customer(
                 customer.get("name"),
@@ -21,7 +21,7 @@ def shop_trip() -> None:
             )
         )
     shops = []
-    for shop in data.get("shops", "Unknown"):
+    for shop in data.get("shops", []):
         shops.append(
             Shop(
                 shop.get("name"),
