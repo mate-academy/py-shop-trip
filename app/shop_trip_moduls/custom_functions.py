@@ -70,14 +70,14 @@ def play_shop_trip(
         print(f"Thanks, {customer.name}, for your purchase!")
         print("You have bought: ")
 
-        for one_product in best_store.price_list.keys():
+        for product in best_store.price_list.keys():
             price_for_one_type = (
-                customer.product_cart[one_product]
-                * best_store.price_list[one_product]
+                customer.product_cart[product]
+                * best_store.price_list[product]
             )
             print(
-                f"{customer.product_cart[one_product]} "
-                f"{one_product}s for "
+                f"{customer.product_cart[product]} "
+                f"{product}s for "
                 f"{price_for_one_type} dollars"
             )
             purchase_price += price_for_one_type

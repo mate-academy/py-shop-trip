@@ -10,6 +10,6 @@ from app.shop_trip_moduls.custom_functions import (
 def shop_trip() -> None:
     with open("app/config.json", "r") as story:
         data = json.load(story)
-        list_data_shops = create_data_shops(data)
-        list_data_customers = create_data_customers(data)
-        play_shop_trip(list_data_shops, list_data_customers)
+        shops = create_data_shops(data)
+        customers = create_data_customers(data)
+        play_shop_trip(shops, customers)
