@@ -1,6 +1,5 @@
 import dataclasses
 
-from typing import Dict
 from app.shop_trip_moduls.Locations import Point
 
 

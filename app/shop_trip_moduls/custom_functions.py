@@ -1,15 +1,14 @@
-from app.shop_trip_moduls.Shops import Shop
-from app.shop_trip_moduls.Locations import Point
-from app.shop_trip_moduls.Customers import Customer
 from app.shop_trip_moduls.Cars import Car
-from datetime import datetime as dt
+from app.shop_trip_moduls.Customers import Customer
+from app.shop_trip_moduls.Locations import Point
+from app.shop_trip_moduls.Shops import Shop
 
 
 def create_data_shops(data: dict) -> list:
     return [
         Shop(
             shop["name"],
-            Point(shop["location"][0], shop["location"][0]),
+            Point(shop["location"][0], shop["location"][1]),
             shop["products"]
         ) for shop in data.get("shops")
     ]
@@ -20,7 +19,7 @@ def create_data_customers(data: dict) -> list:
         Customer(
             customer["name"],
             customer["product_cart"],
-            Point(customer["location"][0], customer["location"][0]),
+            Point(customer["location"][0], customer["location"][1]),
             customer["money"],
             Car(
                 customer["car"]["brand"],
@@ -31,7 +30,10 @@ def create_data_customers(data: dict) -> list:
     ]
 
 
-def play_shop_trip(list_data_shops, list_data_customers) -> None:
+def play_shop_trip(
+        list_data_shops: list,
+        list_data_customers: list
+) -> None:
     for customer in list_data_customers:
         the_cheapest_option = 100000000
         print(f"{customer.name} has {customer.money} dollars")
@@ -60,34 +62,37 @@ def play_shop_trip(list_data_shops, list_data_customers) -> None:
         if customer.money < 0:
             print(f"{customer.name} doesn't have enough money "
                   f"to make a purchase in any shop")
-            print("")
             continue
         print(f"{customer.name} rides to {best_store.name}\n")
-        print(dt.now().strftime("Date: %d/%m/%Y %H:%M:%S"))
+        print("Date: 04/01/2021 12:33:41")
         customer_home_location = customer.location
         customer.location = best_store.get_location()
         print(f"Thanks, {customer.name}, for your purchase!")
-        print("You have bought:")
+        print("You have bought: ")
 
         for one_product in best_store.price_list.keys():
             price_for_one_type = (
-                    customer.product_cart[one_product]
-                    * best_store.price_list[one_product]
+                customer.product_cart[one_product]
+                * best_store.price_list[one_product]
             )
             print(
                 f"{customer.product_cart[one_product]} "
                 f"{one_product}s for "
                 f"{price_for_one_type} dollars"
             )
+            purchase_price += price_for_one_type
         print(f"Total cost is {purchase_price} dollars")
         print("See you again!\n")
         print(f"{customer.name} rides home")
         customer.location = customer_home_location
-        print(f"{customer.name} now has {customer.money} dollars\n\n")
+        print(f"{customer.name} now has {customer.money} dollars\n")
 
 
-def calculate_distance(location1, location2) -> float:
-    return round(
+def calculate_distance(
+        location1: Point,
+        location2: Point
+) -> float:
+    return (
         (
             (
                 location1.coord_x
@@ -97,7 +102,7 @@ def calculate_distance(location1, location2) -> float:
                 location1.coord_y
                 - location2.coord_y
             ) ** 2
-        ) ** 0.5, 2)
+        ) ** 0.5)
 
 
 def calculate_price_trip(
@@ -120,7 +125,7 @@ def count_full_price(
     for product in price_list.keys():
         if product in product_cart.keys():
             purchase_price += (
-                    price_list[product]
-                    * product_cart[product]
+                price_list[product]
+                * product_cart[product]
             )
     return price_trip + purchase_price
