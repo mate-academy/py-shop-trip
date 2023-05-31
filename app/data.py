@@ -9,7 +9,7 @@ def parse_config(file_path: str) -> Union[tuple]:
         data = json.load(file)
 
     return (
-        create_customer_from_file(data.get("customers")),
-        create_shop_from_file(data.get("shops")),
+        create_customer_from_file(data.get("customers", [])),
+        create_shop_from_file(data.get("shops", [])),
         data["FUEL_PRICE"],
     )
