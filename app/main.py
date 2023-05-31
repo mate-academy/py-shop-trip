@@ -1,14 +1,14 @@
 from __future__ import annotations
+import json
 from app.trip import Trip
 
 
 def shop_trip() -> None:
     trip = Trip()
-    trip.get_trip_data(
-        r"config.json"
-    )
+    with open(r"app/config.json", "r") as config:
+        initial_data = json.load(config)
+    trip.get_trip_data(initial_data)
     trip.go_trip()
 
 
-if __name__ == "__main__":
-    shop_trip()
+shop_trip()

@@ -1,5 +1,4 @@
 from __future__ import annotations
-import json
 from app.customer import Customer
 from app.car import Car, Location
 from app.shop import Shop, Product
@@ -11,9 +10,7 @@ class Trip:
         self.shops = []
         self.fuel_price = None
 
-    def get_trip_data(self, config_file: str) -> None:
-        with open(config_file, "r") as config:
-            initial_data = json.load(config)
+    def get_trip_data(self, initial_data: dict) -> None:
         self.fuel_price = initial_data["FUEL_PRICE"]
         for cust in initial_data["customers"]:
             self.customers.append(
