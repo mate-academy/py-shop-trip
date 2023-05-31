@@ -8,12 +8,11 @@ class Shop:
     products: dict
 
 
-def create_shop_from_file(data: dict) -> list[Shop]:
-    shops_data = data["shops"]
-
-    shops = [Shop(
-        name=shop["name"],
-        location=shop["location"],
-        products=shop["products"]
-    ) for shop in shops_data]
+def create_shop_from_file(shops_data: dict) -> list[Shop]:
+    shops = [
+        Shop(name=shop["name"],
+             location=shop["location"],
+             products=shop["products"])
+        for shop in shops_data
+    ]
     return shops

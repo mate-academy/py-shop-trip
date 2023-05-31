@@ -1,6 +1,10 @@
-from app.utils import cheapest_shop, the_cost_of_shopping,\
-    calculate_total_cost, cash_balance
 from app.data import parse_config
+from app.utils import (
+    cash_balance,
+    calculate_total_cost,
+    cheapest_shop,
+    the_cost_of_shopping,
+)
 
 
 def shop_trip() -> None:
