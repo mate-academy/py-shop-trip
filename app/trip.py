@@ -2,7 +2,7 @@ from __future__ import annotations
 import json
 from app.customer import Customer
 from app.car import Car, Location
-from app.shop import Shop, Product
+from app.shop import Shop
 
 
 class Trip:
@@ -19,8 +19,7 @@ class Trip:
             self.customers.append(
                 Customer(
                     name=cust["name"],
-                    product_cart=[Product(name=key, quantity=val) for
-                                  key, val in cust["product_cart"].items()],
+                    product_cart=cust["product_cart"],
                     home_location=Location(*cust["location"]),
                     current_location=Location(*cust["location"]),
                     money=cust["money"],
@@ -33,8 +32,7 @@ class Trip:
                 Shop(
                     name=shop["name"],
                     location=Location(*shop["location"]),
-                    products=[Product(name=key, price=value)
-                              for key, value in shop["products"].items()]
+                    products=shop["products"]
                 )
             )
 

@@ -2,18 +2,17 @@ from __future__ import annotations
 import datetime
 from dataclasses import dataclass
 from app.car import Car, Location
-from app.shop import Shop, Product
+from app.shop import Shop
 
 
 @dataclass
 class Customer:
     name: str
-    product_cart: list[Product]
+    product_cart: dict
     home_location: Location
     current_location: Location
     money: int | float
     car: Car
-    cheapest_shop: Shop = None
 
     def __repr__(self) -> str:
         return self.name
@@ -28,13 +27,8 @@ class Customer:
         return round(fuel_cost, 2)
 
     def calculate_products_price(self, shop: Shop) -> int | float:
-        total_cost = 0
-        for product_from_cart in self.product_cart:
-            for product_in_shop in shop.products:
-                if product_from_cart.name == product_in_shop.name:
-                    total_cost += (product_from_cart.quantity
-                                   * product_in_shop.price)
-        return total_cost
+        return sum(self.product_cart[prod]
+                   * shop.products[prod] for prod in shop.products.keys())
 
     def calculate_trip_cost(self, shop: Shop, fuel_price: float) -> float:
         total_trip_cost = (self.calculate_fuel_cost(fuel_price, shop.location)
@@ -45,39 +39,36 @@ class Customer:
                   shop_list: list[Shop],
                   fuel_price: float) -> Shop | None:
         print(f"{self.name} has {self.money} dollars")
+        cheapest_shop = None
         for shop in shop_list:
             trip_cost = self.calculate_trip_cost(shop, fuel_price)
             print(f"{self.name}'s trip to the {shop.name} costs {trip_cost}")
-            if self.cheapest_shop is None:
-                self.cheapest_shop = shop
-            if trip_cost < self.calculate_trip_cost(self.cheapest_shop,
+            if cheapest_shop is None:
+                cheapest_shop = shop
+            if trip_cost < self.calculate_trip_cost(cheapest_shop,
                                                     fuel_price):
-                self.cheapest_shop = shop
-        if self.calculate_trip_cost(self.cheapest_shop,
+                cheapest_shop = shop
+        if self.calculate_trip_cost(cheapest_shop,
                                     fuel_price) < self.money:
-            print(f"{self.name} rides to {self.cheapest_shop}")
-            return self.cheapest_shop
+            print(f"{self.name} rides to {cheapest_shop}")
+            return cheapest_shop
         else:
             print(f"{self.name} doesn't have enough "
                   f"money to make a purchase in any shop")
-            return
 
     def shopping(self, shop: Shop) -> None:
         self.current_location = shop.location
         print(f"\nDate: "
               f"{datetime.datetime.now().strftime('%d/%m/%Y %H:%M:%S')}")
         print(f"Thanks, {self.name}, for your purchase!\nYou have bought: ")
-        for cart_product in self.product_cart:
-            for shop_product in shop.products:
-                if cart_product.name == shop_product.name:
-                    print(f"{cart_product.quantity} {cart_product.name}s for "
-                          f"{(cart_product.quantity * shop_product.price)} "
-                          f"dollars")
+        for prod in shop.products:
+            price = shop.products[prod] * self.product_cart[prod]
+            print(f"{self.product_cart[prod]} {prod}s for {price} dollars")
         print(f"Total cost is {self.calculate_products_price(shop)} dollars")
         print("See you again!\n")
 
     def go_home(self, shop: Shop, fuel_price: float) -> None:
         self.current_location = self.home_location
         print(f"{self.name} rides home")
-        self.money = self.money - self.calculate_trip_cost(shop, fuel_price)
+        self.money -= self.calculate_trip_cost(shop, fuel_price)
         print(f"{self.name} now has {self.money} dollars\n")

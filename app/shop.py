@@ -7,17 +7,7 @@ from app.car import Location
 class Shop:
     name: str
     location: Location
-    products: list[Product]
-
-    def __repr__(self) -> str:
-        return self.name
-
-
-@dataclass
-class Product:
-    name: str
-    price: int | float = None
-    quantity: int = None
+    products: dict
 
     def __repr__(self) -> str:
         return self.name
