@@ -5,16 +5,6 @@ from app.customer import Customer
 from app.shop import Shop
 
 
-def remove_trailing_zeros(num: float) -> float:
-    str_num = str(num)
-    if "." in str_num:
-        str_num = str_num.rstrip("0").rstrip(".")
-    if str_num.isdigit():
-        return int(str_num)
-    else:
-        return float(str_num)
-
-
 def fuel_cost(customer: Customer, shop: Shop, fuel_price: float) -> float:
     fuel_consumption = float(customer.car["fuel_consumption"])
     cost_of_fuel = 0
@@ -24,8 +14,8 @@ def fuel_cost(customer: Customer, shop: Shop, fuel_price: float) -> float:
                                   - customer_location[0])
                                  ** 2 + (shop_location[1]
                                          - customer_location[1]) ** 2)
-    cost_of_fuel += 2 * distance_to_shop * \
-        (fuel_consumption / 100) * float(fuel_price)
+    cost_of_fuel += (2 * distance_to_shop * (fuel_consumption / 100)
+                     * float(fuel_price))
 
     cost_of_fuel = round(cost_of_fuel, 2)
     return cost_of_fuel
@@ -72,22 +62,22 @@ def the_cost_of_shopping(customer: Customer,
 
 def calculate_total_cost(customer: Customer, shop: Shop) -> None:
     total_cost = 0
-    output = f"\nDate: " \
-             f"{datetime.datetime.now().strftime('%d/%m/%Y %H:%M:%S')}" \
-             f"\nThanks," \
-             f" {customer.name}, for your purchase!\nYou have bought: \n"
+    output = (f"\nDate: "
+              f"{datetime.datetime.now().strftime('%d/%m/%Y %H:%M:%S')}"
+              f"\nThanks,"
+              f" {customer.name}, for your purchase!\nYou have bought: \n")
 
     for product, quantity in customer.product_cart.items():
         if product in shop.products:
-            price = float(shop.products[product])
-            cost = price * float(quantity)
+            price = shop.products[product]
+            cost = price * quantity
             total_cost += cost
-            output += f"{quantity} {product}s" \
-                      f" for {remove_trailing_zeros(cost)} dollars\n"
+            output += (f"{quantity} {product}s for"
+                       f" {round(cost, 2)} dollars\n")
 
     total_cost = round(total_cost, 2)
-    output += f"Total cost is {remove_trailing_zeros(total_cost)}" \
-              f" dollars\nSee you again!"
+    output += (f"Total cost is {round(total_cost, 2)}"
+               f" dollars\nSee you again!")
     customer.location = customer.home_location
     print(output)
 
@@ -100,4 +90,4 @@ def cash_balance(customer: Customer,
     customer_balance = round(customer_balance, 2)
     print(f"\n{customer.name} rides home\n"
           f"{customer.name} now has "
-          f"{remove_trailing_zeros(customer_balance)} dollars\n")
+          f"{round(customer_balance, 2)} dollars\n")
