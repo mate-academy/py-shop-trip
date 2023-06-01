@@ -1,3 +1,4 @@
+import datetime
 from app.shop_trip_moduls.Cars import Car
 from app.shop_trip_moduls.Customers import Customer
 from app.shop_trip_moduls.Locations import Point
@@ -66,7 +67,7 @@ def play_shop_trip(
                   f"to make a purchase in any shop")
             continue
         print(f"{customer.name} rides to {best_store.name}\n")
-        print("Date: 04/01/2021 12:33:41")
+        print(datetime.datetime.now().strftime("Date: %d/%m/%Y %H:%M:%S"))
         customer_home_location = customer.location
         customer.location = best_store.get_location()
         print(f"Thanks, {customer.name}, for your purchase!")
