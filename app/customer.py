@@ -37,16 +37,10 @@ class Customer:
                 2,
             )
             print(f"{self.name}'s trip to the {shop.name} costs {total_cost}")
-            shops_costs[shop.name] = total_cost
+            shops_costs[total_cost] = shop
 
-        cheapest_shop = min(shops_costs, key=shops_costs.get)
-        value = shops_costs[cheapest_shop]
-        matching_shop = None
-        for shop in shops:
-            if shop.name == cheapest_shop:
-                matching_shop = shop
-                break
-
+        value = min(shops_costs.keys())
+        matching_shop = shops_costs[value]
         self.is_enought_money(value, matching_shop)
 
     def print_bill(self, shop: Shop) -> None:
