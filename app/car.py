@@ -21,9 +21,10 @@ class Car:
             data = json.load(config)
             fuel_price = Decimal(str(data.get("FUEL_PRICE")))
         #  distance = √((хs – хf)2 + (уs – уf)2)
-        sx, sy, fx, fy = start[0], start[1], finish[0], finish[1]
+        start_x, start_y = start[0], start[1]
+        finish_x, finish_y = finish[0], finish[1]
         distance = Decimal(str(
-            math.sqrt((sx - fx) ** 2 + (sy - fy) ** 2)
+            math.sqrt((start_x - finish_x) ** 2 + (start_y - finish_y) ** 2)
         ))
         double_distance = distance * 2
         fuel_need_for_one_km = Decimal(str(self.fuel_consumption / 100))
