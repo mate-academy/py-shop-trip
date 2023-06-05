@@ -4,16 +4,16 @@ from app.car import Car
 
 class Customer:
     def __init__(self, dictionary: dict) -> None:
-        self.name = dictionary["name"]
-        self.product_cart = dictionary["product_cart"]
-        self.location = dictionary["location"]
-        self.money = dictionary["money"]
-        self.car = Car(dictionary["car"])
+        self.name = dictionary.get("name")
+        self.product_cart = dictionary.get("product_cart")
+        self.location = dictionary.get("location")
+        self.money = dictionary.get("money")
+        self.car = Car(dictionary.get("car"))
 
     def trip_cost(self, shop: Shop) -> float:
         products_price = 0
         for product, quantity in self.product_cart.items():
-            products_price += quantity * shop.products[product]
+            products_price += quantity * shop.products.get(product)
         money_for_fuel = self.car.fuel_price_for_distance(
             self.location, shop.location
         )
@@ -32,7 +32,7 @@ class Customer:
         print("You have bought: ")
         products_price = 0
         for product, quantity in self.product_cart.items():
-            cur_prod = quantity * shop.products[product]
+            cur_prod = quantity * shop.products.get(product)
             products_price += cur_prod
             print(
                 f"{quantity} {product}s for {cur_prod} dollars"

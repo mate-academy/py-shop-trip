@@ -9,8 +9,8 @@ from decimal import Decimal
 
 class Car:
     def __init__(self, dictionary: dict) -> None:
-        self.brand = dictionary["brand"]
-        self.fuel_consumption = dictionary["fuel_consumption"]
+        self.brand = dictionary.get("brand")
+        self.fuel_consumption = dictionary.get("fuel_consumption")
 
     def fuel_price_for_distance(
             self,
@@ -19,7 +19,7 @@ class Car:
     ) -> float:
         with open("app/config.json") as config:
             data = json.load(config)
-            fuel_price = Decimal(str(data["FUEL_PRICE"]))
+            fuel_price = Decimal(str(data.get("FUEL_PRICE")))
         #  distance = √((хs – хf)2 + (уs – уf)2)
         sx, sy, fx, fy = start[0], start[1], finish[0], finish[1]
         distance = Decimal(str(
