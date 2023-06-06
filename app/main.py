@@ -1,4 +1,4 @@
-from datetime import datetime
+# from datetime import datetime
 from app.utils import get_and_transform_data_from_json, calculate_distance
 
 
@@ -25,7 +25,7 @@ def shop_trip() -> None:
         if customer.money > cheapest_trip[1]:
             customer.money -= cheapest_trip[1]
             print(f"{customer.name} rides to {cheapest_trip[0].name}\n")
-            #print(f"{datetime.now().strftime('Date %d/%m/%Y %H:%M:%S')}")
+#            print(f"{datetime.now().strftime('Date %d/%m/%Y %H:%M:%S')}")
             print("Date: 04/01/2021 12:33:41")
             print(f"Thanks, {customer.name}, for your purchase!")
             print("You have bought: ")
