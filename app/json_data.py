@@ -1,8 +1,6 @@
-import datetime
 import json
 import math
 
-from app.car import Car
 from app.shop import Shop
 from app.customer import Customer
 
@@ -19,8 +17,7 @@ def create_elements() -> tuple:
 def distance(point1: list, point2: list) -> float:
     return math.sqrt(
         (point2[0] - point1[0]) ** 2
-        +
-        (point2[1] - point1[1]) ** 2
+        + (point2[1] - point1[1]) ** 2
     )
 
 
@@ -30,6 +27,9 @@ def shopping(customer: Customer, shop: Shop) -> tuple:
     for product in customer.product_cart:
         product_price = customer.product_cart[product] * shop.products[product]
         ttl_product_price += product_price
-        receipt += f"{customer.product_cart[product]} {product}s for {product_price} dollars\n"
+        receipt += (
+            f"{customer.product_cart[product]} {product}s "
+            f"for {product_price} dollars\n"
+        )
     receipt += f"Total cost is {ttl_product_price} dollars"
     return ttl_product_price, receipt
