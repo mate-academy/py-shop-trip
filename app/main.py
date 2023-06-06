@@ -14,8 +14,8 @@ def shop_trip() -> None:
                 / 100 * customer.car.fuel_consumption * fuel_price * 2,
                 2
             )
-            ttl_product_price = shopping(customer, shop)
-            trip_price += ttl_product_price
+            total = shopping(customer, shop)
+            trip_price += total
             distance_cost[trip_price] = shop
             print(
                 f"{customer.name}'s trip to the {shop.name} costs {trip_price}"

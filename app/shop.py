@@ -8,7 +8,7 @@ class Shop:
     products: dict[str: int | float]
 
     @classmethod
-    def set_shop_from_file(cls, shops: dict) -> list:
+    def create_shops(cls, shops: dict) -> list:
         return [
             Shop(
                 name=shop["name"],
