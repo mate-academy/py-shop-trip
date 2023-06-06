@@ -6,7 +6,7 @@ from app.shop import Shop
 
 
 def get_and_transform_data_from_json() -> tuple:
-    with open("config.json", "r") as file:
+    with open("app/config.json", "r") as file:
         data_from_file = json.load(file)
         fuel_price = data_from_file.get("FUEL_PRICE")
         customers = [
