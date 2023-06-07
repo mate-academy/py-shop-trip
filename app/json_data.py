@@ -14,7 +14,7 @@ def create_elements() -> tuple:
     return fuel_price, customers, shops
 
 
-def distance(point1: list, point2: list) -> float:
+def distance(point1: list[int], point2: list[int]) -> float:
     return math.sqrt(
         (point2[0] - point1[0]) ** 2
         + (point2[1] - point1[1]) ** 2

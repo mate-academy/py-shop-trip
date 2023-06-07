@@ -7,5 +7,5 @@ class Car:
     fuel_consumption: float
 
     @classmethod
-    def create_customers_car(cls, car: dict) -> "Car":
+    def create_customers_car(cls, car: dict[str: str | float]) -> "Car":
         return cls(car["brand"], car["fuel_consumption"])

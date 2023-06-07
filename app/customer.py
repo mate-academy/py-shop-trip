@@ -11,7 +11,10 @@ class Customer:
     car: Car
 
     @classmethod
-    def create_customers(cls, customers: dict) -> list:
+    def create_customers(
+            cls,
+            customers: dict[str: str | dict | list | int | Car]
+    ) -> list:
         return [
             Customer(
                 name=customer["name"],
