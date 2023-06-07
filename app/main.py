@@ -28,7 +28,8 @@ def shop_trip() -> None:
             )
         else:
             the_best_shop = distance_cost[min_shop_cost]
-            print(f"{customer.name} rides to {the_best_shop.name}\n"
+            print(
+                  f"{customer.name} rides to {the_best_shop.name}\n"
                   f"\nDate: "
                   f"{datetime.datetime.now().strftime('%d/%m/%Y %H:%M:%S')}\n"
                   f"Thanks, {customer.name}, for your purchase!\n"
