@@ -25,7 +25,9 @@ def shop_trip() -> None:
         if customer.money > cheapest_trip[1]:
             customer.money -= cheapest_trip[1]
             print(f"{customer.name} rides to {cheapest_trip[0].name}\n")
-            print(f"{datetime.datetime.now().strftime('Date: %d/%m/%Y %H:%M:%S')}")
+            date_time_now = datetime.datetime.now()
+            date_time_to_print = date_time_now.strftime("Date: %d/%m/%Y %H:%M:%S")
+            print(f"{date_time_to_print}")
             print(f"Thanks, {customer.name}, for your purchase!")
             print("You have bought: ")
             for product, price in customer.product_cart.items():
