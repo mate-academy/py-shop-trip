@@ -25,21 +25,18 @@ class Customer:
         print(f"{self.name} has {self.money} dollars")
 
         min_shopping = None
-        chosen_shop = None
+        best_shop = None
         for shop in shops:
-            shopping_cost = round(self.cost_of_shopping(shop), 2)
-            if min_shopping is None or shopping_cost < min_shopping:
-                min_shopping = shopping_cost
-                chosen_shop = shop
-            print(f"{self.name}'s trip to the {shop.name}"
-                  f" costs {shopping_cost}")
-
+            shop_cost = round(self.cost_of_shopping(shop), 2)
+            if min_shopping is None or shop_cost < min_shopping:
+                min_shopping = shop_cost
+                best_shop = shop
+            print(f"{self.name}'s trip to the {shop.name} costs {shop_cost}")
         if self.money >= min_shopping:
             products_cost = round(
-                min_shopping - (self.car.trip_cost(chosen_shop.location)
-                                * 2), 2)
-            print(f"{self.name} rides to {chosen_shop.name}\n")
-
+                min_shopping - (self.car.trip_cost(best_shop.location) * 2), 2
+            )
+            print(f"{self.name} rides to {best_shop.name}\n")
             self.money -= min_shopping
             date = datetime.datetime.now().strftime("%d/%m/20%y %H:%M:%S")
             print(
@@ -50,11 +47,9 @@ class Customer:
             for product, quantity in self.product_cart.items():
                 print(
                     f"{quantity} {product}s for "
-                    f"{quantity * chosen_shop.products[product]} dollars"
+                    f"{quantity * best_shop.products[product]} dollars"
                 )
-            print(f"Total cost is {products_cost} dollars\n"
-                  f"See you again!\n")
-
+            print(f"Total cost is {products_cost} dollars\n See you again!\n")
             print(
                 f"{self.name} rides home\n"
                 f"{self.name} now has {self.money} dollars\n"
