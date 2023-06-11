@@ -49,7 +49,7 @@ class Customer:
                     f"{quantity} {product}s for "
                     f"{quantity * best_shop.products[product]} dollars"
                 )
-            print(f"Total cost is {products_cost} dollars\n See you again!\n")
+            print(f"Total cost is {products_cost} dollars\nSee you again!\n")
             print(
                 f"{self.name} rides home\n"
                 f"{self.name} now has {self.money} dollars\n"
