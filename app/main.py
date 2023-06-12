@@ -12,20 +12,8 @@ def shop_trip() -> None:
         data = json.load(file)
 
         fuel_price = data["FUEL_PRICE"]
-        shops = []
-        customers = []
-
-        for customer in data["customers"]:
-            customer = Customer(customer["name"],
-                                customer["product_cart"],
-                                customer["location"],
-                                customer["money"],
-                                customer["car"])
-            customers.append(customer)
-
-        for shop in data["shops"]:
-            shop = Shop(shop["name"], shop["location"], shop["products"])
-            shops.append(shop)
+        shops = [Shop(**shop) for shop in data["shops"]]
+        customers = [Customer(**customer) for customer in data["customers"]]
 
         cheapest_shop = None
         min_cost = sys.float_info.max
@@ -43,6 +31,3 @@ def shop_trip() -> None:
             else:
                 print(f"{customer.name} doesn't have enough "
                       f"money to make a purchase in any shop")
-
-
-shop_trip()
