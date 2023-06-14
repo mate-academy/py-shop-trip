@@ -23,13 +23,14 @@ def get_and_transform_data_from_json() -> tuple:
             for customer in data_from_file["customers"]
         ]
 
-        shops = [Shop(
-            shop.get("name"),
-            shop.get("location"),
-            shop.get("products")
-
-        )
-            for shop in data_from_file["shops"]]
+        shops = [
+            Shop(
+                shop.get("name"),
+                shop.get("location"),
+                shop.get("products")
+            )
+            for shop in data_from_file["shops"]
+        ]
         return fuel_price, customers, shops
 
 
