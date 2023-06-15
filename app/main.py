@@ -1,3 +1,6 @@
-def shop_trip():
-    # write your code here
-    pass
+from app.container import TripProcessor
+
+
+def shop_trip() -> None:
+    container = TripProcessor()
+    container.process_users()
