@@ -9,7 +9,7 @@ class Customer:
 
     @classmethod
     def from_dict(cls, customers_data: dict) -> list:
-        return [Customer(
+        return [cls(
                 customer["name"],
                 customer["product_cart"],
                 Point(*customer["location"]),

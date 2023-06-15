@@ -6,7 +6,7 @@ class Shop:
 
     @classmethod
     def from_dict(cls, shop_data: dict) -> list:
-        return [Shop(
+        return [cls(
             shop["name"],
             Point(shop["location"][0], shop["location"][1]),
             shop["products"],
