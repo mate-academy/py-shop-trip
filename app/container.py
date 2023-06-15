@@ -10,7 +10,7 @@ import json
 
 class Deserializer:
     def __init__(self) -> None:
-        with open(path.join("../", "app", "config.json"), "r") as f:
+        with open(path.join("app", "config.json"), "r") as f:
             data = json.load(f)
         self.fuel_price = data["FUEL_PRICE"]
         self.customers = [
