@@ -29,7 +29,7 @@ def choose_shop(customer: Customer,
             customer, fuel_price, shop
         )
         print(f"{customer.name}'s trip "
-              f"to {shop.name} costs {trip_cost}")
+              f"to {shop.name} costs {trip_cost:.2f}")
 
         if trip_cost < min_trip_cost:
             min_trip_cost = trip_cost
@@ -79,12 +79,9 @@ def shop_print(shop: Shop, customer: Customer) -> None:
 
 def go_to_shop(customer: Customer, shop: Shop) -> None:
     fuel_price = 1.5
-    trip_price = calculate_cost_of_the_trip(
-        customer,
-        fuel_price,
-        shop
-    )
+    trip_price = calculate_cost_of_the_trip(customer, fuel_price, shop)
     customer.money -= trip_price
+
     print(f"{customer.name} rides to {shop.name}\n")
     shop_print(shop, customer)
     print(f"\n{customer.name} rides home")
