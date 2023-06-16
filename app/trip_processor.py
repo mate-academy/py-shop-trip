@@ -8,5 +8,8 @@ class TripProcessor:
     def process_users(self) -> None:
         for customer in self.data.customers:
             customer.print_info()
-            customer.calculate_all_shops_trip(self.data.shops, self.data.fuel_price)
+            customer.calculate_all_shops_trip(
+                self.data.shops,
+                self.data.fuel_price
+            )
             customer.shop_trip()
