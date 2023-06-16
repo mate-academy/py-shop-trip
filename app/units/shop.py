@@ -1,4 +1,4 @@
-from dataclasses import dataclass
+from dataclasses import dataclass, asdict
 
 from app.units.location import Location
 from app.units.showcase import Showcase
@@ -13,12 +13,12 @@ class Shop:
 
     def purchase(self, customer_name: str, cart: ProductCart) -> float:
         print(
-            f"Date: 04/01/2021 12:33:41\n"
+            "Date: 04/01/2021 12:33:41\n"
             f"Thanks, {customer_name}, for your purchase!\n"
             "You have bought: "
         )
         total_cost = 0
-        for article, quantity in cart.__dict__.items():
+        for article, quantity in asdict(cart).items():
             amount = self.calculate_purchases(quantity, article)
             print(f"{quantity} {article}s for {amount} dollars")
             total_cost += amount

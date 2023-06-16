@@ -60,11 +60,3 @@ class Deserializer:
             bread=shop["products"]["bread"]
         )
         return Shop(name=name, location=location, products=products)
-
-
-class TripProcessor(Deserializer):
-    def process_users(self) -> None:
-        for customer in self.customers:
-            customer.print_info()
-            customer.calculate_all_shops_trip(self.shops, self.fuel_price)
-            customer.shop_trip()

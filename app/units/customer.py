@@ -1,4 +1,4 @@
-from dataclasses import dataclass
+from dataclasses import dataclass, asdict
 from typing import List
 
 from app.units.location import Location
@@ -28,8 +28,8 @@ class Customer:
         for shop in shops:
             trip_cost = self.calculate_shop_trip(shop, fuel_price)
             if (
-                    (self.shop is None or self.trip_cost > trip_cost)
-                    and self.money >= trip_cost
+                (self.shop is None or self.trip_cost > trip_cost)
+                and self.money >= trip_cost
             ):
                 self.shop = shop
                 self.trip_cost = trip_cost
@@ -39,7 +39,7 @@ class Customer:
         total_amount = sum(
             [
                 shop.calculate_purchases(article=article, quantity=quantity)
-                for article, quantity in self.product_cart.__dict__.items()
+                for article, quantity in asdict(self.product_cart).items()
             ]
         )
         trip_cost = sum([road_cost * 2, total_amount])
