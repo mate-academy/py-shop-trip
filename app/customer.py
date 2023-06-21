@@ -11,7 +11,8 @@ class Customer:
         self.product_cart = customer_info["product_cart"]
         self.location = customer_info["location"]
         self.money = customer_info["money"]
-        self.car = Car(customer_info["car"]["brand"], customer_info["car"]["fuel_consumption"])
+        self.car = Car(customer_info["car"]["brand"],
+                       customer_info["car"]["fuel_consumption"])
 
     def calculate_trip_cost(self, shop: Shop, fuel_price: float) -> float:
         distance = math.dist(self.location, shop.location)
@@ -35,7 +36,8 @@ class Customer:
         print(f"Thanks, {self.name}, for your purchase!")
         print("You have bought:")
         for product, quantity in self.product_cart.items():
-            print(f"{quantity} {product}s for {quantity * products[product]} dollars")
+            print(f"{quantity} {product}s "
+                  f"for {quantity * products[product]} dollars")
         print(f"Total cost is {total_cost} dollars")
         print("See you again!")
 
@@ -45,7 +47,8 @@ class Customer:
             self.money -= products_cost
             self.print_about_purchase(shop.products, products_cost)
         else:
-            print(f"{self.name} doesn't have enough money to make a purchase in {shop.name}.")
+            print(f"{self.name} doesn't have enough money "
+                  f"to make a purchase in {shop.name}.")
 
     def return_home(self) -> None:
         print(f"\n{self.name} rides home")

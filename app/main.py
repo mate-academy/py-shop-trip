@@ -4,7 +4,7 @@ from app.customer import Customer
 from app.shop import Shop
 
 
-def shop_trip():
+def shop_trip() -> None:
     with open("app/config.json", "r") as f:
         data = json.load(f)
 
@@ -23,7 +23,8 @@ def shop_trip():
         if trip_costs and customer.money >= trip_costs[0][1]:
             print(f"\n{customer.name} has {customer.money} dollars")
             for shop, cost in trip_costs:
-                print(f"{customer.name}'s trip to the {shop.name} costs {cost:.2f}")
+                print(f"{customer.name}'s trip to the "
+                      f"{shop.name} costs {cost:.2f}")
             shop, cost = trip_costs[0]
             print(f"{customer.name} rides to {shop.name}")
             customer.location = shop.location
@@ -31,9 +32,8 @@ def shop_trip():
             customer.return_home()
         else:
             for shop, cost in trip_costs:
-                print(f"{customer.name}'s trip to the {shop.name} costs {cost:.2f}")
+                print(f"{customer.name}'s trip to the "
+                      f"{shop.name} costs {cost:.2f}")
             print(f"\n{customer.name} has {customer.money} dollars")
-            print(f"{customer.name} doesn't have enough money to make a purchase in any shop")
-
-
-shop_trip()
+            print(f"{customer.name} doesn't have enough money to "
+                  f"make a purchase in any shop")
