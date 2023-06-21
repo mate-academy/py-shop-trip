@@ -63,7 +63,8 @@ class Customer:
         else:
             print(
                 f"{self.name} doesn't have enough money"
-                f" to make a purchase in any shop")
+                f" to make a purchase in any shop"
+            )
 
     def __check_money(self) -> None:
         print(f"{self.name} has {self.money} dollars")
