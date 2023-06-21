@@ -8,9 +8,9 @@ class Customer:
                  product_cart: dict,
                  location: list,
                  money: int,
-                 car: Car) -> None:
+                 car: dict) -> None:
         self.name = name
         self.product_cart = product_cart
         self.location = location
         self.money = money
-        self.car = Car(car["brand"], car["fuel_consumption"])
+        self.car = Car(**car)
