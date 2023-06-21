@@ -100,30 +100,25 @@ def shop_trip() -> None:
             shopping_list[product] = product_price
         return shopping_list
 
-    def print_bought_products_list(
+    def bought_products_list(
         customer: Customer
-    ) -> str:
-        products_bought_list = ""
+    ) -> None:
         for product, amount in customer.product_cart.items():
-            products_bought_list += (
+            print(
                 f"{amount} {product}s for "
-                f"{customer.products_bought[product]} dollars\n"
+                f"{customer.products_bought[product]} dollars"
             )
-        return products_bought_list
 
     def print_receipt(
         customer: Customer
-    ) -> str:
-        date = datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S")
+    ) -> None:
         total_cost = customer.products_bought.get("total_products_price")
-        return (
-            f"\nDate: {date}\n"
-            f"Thanks, {customer.name}, for your purchase!\n"
-            f"You have bought:\n"
-            f"{print_bought_products_list(customer)}"
-            f"Total cost is {total_cost} dollars\n"
-            f"See you again!\n"
-        )
+        print(f"Date: {datetime.datetime.now().strftime('%d/%m/%Y %H:%M:%S')}")
+        print(f"Thanks, {customer.name}, for your purchase!")
+        print("You have bought: ")
+        bought_products_list(customer)
+        print(f"Total cost is {total_cost} dollars")
+        print("See you again!\n")
 
     def calculate_trip_cost() -> None:
         customers = create_customers()
@@ -157,16 +152,14 @@ def shop_trip() -> None:
 
             if customer.money > shop_trip_cost:
                 customer.money = customer.money - shop_trip_cost
-                print(
-                    f"{customer.name} rides to {shop_to_ride.name}\n"
-                    f"{print_receipt(customer)}\n"
-                    f"{customer.name} rides home\n"
-                    f"{customer.name} now has {customer.money} dollars\n"
-                )
+                print(f"{customer.name} rides to {shop_to_ride.name}\n")
+                print_receipt(customer)
+                print(f"{customer.name} rides home")
+                print(f"{customer.name} now has {customer.money} dollars\n")
             else:
                 print(
-                    f"{customer.name} doesn't have enough money "
-                    f"to make a purchase in any shop"
+                    f"{customer.name} doesn't have enough money"
+                    f" to make a purchase in any shop"
                 )
 
     calculate_trip_cost()
