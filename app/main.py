@@ -7,7 +7,7 @@ from app.customer import create_customer
 def shop_trip() -> None:
     data = {}
     for _ in range(3):
-        with open("D:/mate/py-shop-trip/app/config.json", "r") as data_file:
+        with open("config.json", "r") as data_file:
             data.update(json.load(data_file))
     fuel_price = data["FUEL_PRICE"]
     shops = []
