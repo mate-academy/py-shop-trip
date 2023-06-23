@@ -1,0 +1,64 @@
+from dataclasses import dataclass
+from app.customer import Customer
+from app.car import Car
+import math
+# from datetime import datetime
+
+
+@dataclass
+class Shop:
+    name: str
+    location: list
+    products: dict
+
+
+def calculate_trip_price(
+        fuel_price: float,
+        client: Customer,
+        shop: Shop,
+        car: Car) -> float:
+    distance = math.sqrt(
+        ((client.location[0] - shop.location[0]) ** 2)
+        + ((client.location[1] - shop.location[1]) ** 2))
+    trip_price = fuel_price * distance * (car.fuel_consumption / 100) * 2
+    for product, price in shop.products.items():
+        if product in client.products_cart:
+            trip_price += (price * client.products_cart.get(product))
+    trip_price = round(trip_price, 2)
+    print(f"{client.name}'s trip to the {shop.name} costs {trip_price}")
+    return trip_price
+
+
+def check_best_price(
+        trip_prices: dict,
+        client: Customer,
+        shops: dict) -> None:
+    best_choice = min(trip_prices.values())
+    rest = client.money - best_choice
+    if best_choice > client.money:
+        print(
+            f"{client.name} doesn't have enough money "
+            f"to make a purchase in any shop")
+    else:
+        for best_shop, best_price in trip_prices.items():
+            if best_price == best_choice:
+                print(f"{client.name} rides to {best_shop}\n")
+                create_bill(client, shops, best_shop)
+                print(f"{client.name} rides home\n"
+                      f"{client.name} now has {rest} dollars\n")
+
+
+def create_bill(client: Customer, shops: dict, best_shop: str) -> None:
+    shop_price = 0
+    # date_now = datetime.now().strftime("%d/%m/%Y %H:%M:%S")
+    print("Date: 04/01/2021 12:33:41")
+    print(f"Thanks, {client.name}, for your purchase!\n"
+          f"You have bought: ")
+    for product in client.products_cart:
+        product_price = (shops[best_shop].products[product]
+                         * client.products_cart[product])
+        shop_price += product_price
+        print(f"{client.products_cart[product]} "
+              f"{product}s for {product_price} dollars")
+    print(f"Total cost is {shop_price} dollars\n"
+          f"See you again!\n")
