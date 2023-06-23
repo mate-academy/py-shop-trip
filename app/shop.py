@@ -13,7 +13,7 @@ def shop_create_list() -> list[Shop]:
     shops_list = []
 
     with open(
-            "/Users/anton/Projects/py-shop-trip/app/config.json"
+            "app/config.json"
     ) as f:
         config = json.load(f)
         for shop_attributes in config["shops"]:
