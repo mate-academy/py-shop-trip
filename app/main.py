@@ -1,9 +1,16 @@
-from app import car, customer, shop
+from app.customer import customer_create_list, customer_calculations, receipts
+from app.shop import shop_create_list
+from app.car import gas_trip_cost
+import json
 
 
 def shop_trip() -> None:
-    list_of_customers = customer.customer_create_list()
-    list_of_shops = shop.shop_create_list()
-    car.gas_trip_cost(list_of_customers, list_of_shops)
-    customer.customer_calculations(list_of_customers, list_of_shops)
-    customer.receipts(list_of_customers, list_of_shops)
+    with open(
+            "app/config.json"
+    ) as f:
+        config_file = json.load(f)
+    shops = shop_create_list(config_file)
+    customers = customer_create_list(config_file, shops)
+    gas_trip_cost(customers, shops, config_file)
+    customer_calculations(customers, shops)
+    receipts(customers, shops)

@@ -1,4 +1,3 @@
-import json
 from app.shop import Shop
 from datetime import datetime
 
@@ -17,42 +16,37 @@ class Customer:
         self.location = location
         self.money = money
         self.car = car
-        self.gas_prices = {
-            "Outskirts Shop": 0,
-            "Shop '24/7'": 0,
-            "Central Shop": 0
-        }
-        self.cart_cost = {
-            "Outskirts Shop": {},
-            "Shop '24/7'": {},
-            "Central Shop": {}
-        }
-
-        for key in self.product_cart.keys():
-            self.cart_cost["Outskirts Shop"][key] = 0
-            self.cart_cost["Shop '24/7'"][key] = 0
-            self.cart_cost["Central Shop"][key] = 0
-
-        self.gas_cart = {
-            "Outskirts Shop": 0, "Shop '24/7'": 0, "Central Shop": 0
-        }
+        self.shops_names = []
+        self.cart_cost = {}
+        self.gas_cart = {}
+        self.gas_prices = {}
         self.money_after = 0
         self.best_price = 0
         self.best_shop = ""
         self.best_sum = 0
 
 
-def customer_create_list() -> list[Customer]:
+def customer_create_list(
+        config_file: dict,
+        shops: list[Shop]
+) -> list[Customer]:
     customer_list = []
+    for customer_attributes in config_file["customers"]:
+        customer_obj = Customer(**customer_attributes)
+        customer_list.append(customer_obj)
 
-    with open(
-            "app/config.json"
-    ) as f:
-        config = json.load(f)
-        for customer_attributes in config["customers"]:
-            customer_obj = Customer(**customer_attributes)
-            customer_list.append(customer_obj)
+    for customer in customer_list:
+        for shop in shops:
+            customer.shops_names.append(shop.name)
 
+        for shop in customer.shops_names:
+            customer.cart_cost[shop] = {}
+            customer.gas_cart[shop] = 0
+            customer.gas_prices[shop] = 0
+
+        for key in customer.cart_cost.keys():
+            for product in customer.product_cart.keys():
+                customer.cart_cost[key][product] = 0
     return customer_list
 
 
