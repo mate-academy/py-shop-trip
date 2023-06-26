@@ -8,16 +8,14 @@ def shop_trip() -> None:
     shops = {}
     with open("app/config.json", "r") as config:
         data = json.load(config)
-        customers_data = data["customers"]
-        shops_data = data["shops"]
-        fuel_price = data["FUEL_PRICE"]
-
+    customers_data = data["customers"]
+    shops_data = data["shops"]
+    fuel_price = data["FUEL_PRICE"]
     for one_shop in shops_data:
         shop = Shop(one_shop["name"],
                     one_shop["location"],
                     one_shop["products"])
         shops[shop.name] = shop
-
     for one_customer in customers_data:
         client = Customer(one_customer["name"],
                           one_customer["product_cart"],

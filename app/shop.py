@@ -2,7 +2,6 @@ from dataclasses import dataclass
 from app.customer import Customer
 from app.car import Car
 import math
-# from datetime import datetime
 
 
 @dataclass
@@ -22,7 +21,8 @@ def calculate_trip_price(
         fuel_price: float,
         client: Customer,
         shops: dict,
-        car: Car) -> dict:
+        car: Car
+) -> dict:
     trip_prices = {}
     for shop in shops.values():
         trip_price = (fuel_price * calculate_distance(client, shop)
@@ -39,7 +39,8 @@ def calculate_trip_price(
 def check_best_price(
         trip_prices: dict,
         client: Customer,
-        shops: dict) -> None:
+        shops: dict
+) -> None:
     best_choice = min(trip_prices.values())
     best_shop = min(trip_prices, key=trip_prices.get)
     rest = client.money - best_choice
@@ -56,7 +57,6 @@ def check_best_price(
 
 def create_bill(client: Customer, shops: dict, best_shop: str) -> None:
     shop_price = 0
-    # date_now = datetime.now().strftime("%d/%m/%Y %H:%M:%S")
     print("Date: 04/01/2021 12:33:41")
     print(f"Thanks, {client.name}, for your purchase!\n"
           f"You have bought: ")
