@@ -51,9 +51,10 @@ class Customer:
 
             print(f"{self.name}'s trip to the {shop.name} costs {total_cost}")
 
-            if total_cost <= self.money:
-                if not total_shop or total_shop > total_cost:
-                    best_shop = {"total_cost": total_cost, "shop": shop}
+            if total_cost <= self.money and (
+                    not total_shop or total_shop > total_cost
+            ):
+                best_shop = {"total_cost": total_cost, "shop": shop}
         if best_shop["shop"]:
             total_cost, shop = best_shop.values()
             print(f"{self.name} rides to {shop.name}\n")
@@ -70,8 +71,7 @@ class Customer:
         print(f"{self.name} has {self.money} dollars")
 
     def __calculate_money_for_products(self, products: dict) -> float:
-        amount = 0
-
-        for product, quantity in self.product_cart.items():
-            amount += round(products[product] * quantity, 2)
-        return amount
+        return sum(
+            round(products[product] * quantity, 2)
+            for product, quantity in self.product_cart.items()
+        )
