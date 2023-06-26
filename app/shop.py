@@ -1,31 +1,40 @@
-import datetime
+from dataclasses import dataclass
 
 
+@dataclass
 class Shop:
-    def __init__(self, shops: dict) -> None:
-        self.name = shops["name"]
-        self.location = shops["location"]
-        self.products = shops["products"]
+    name: str
+    location: list[int]
+    products: dict
 
-    def calculate_products_price(self, product_cart: dict) -> float:
+    def total_price(self, product_cart: dict) -> float:
         price = 0
-
         for key, value in product_cart.items():
-            price += value * self.products[key]
+            price += self.products[key] * value
 
-        return price
+        return round(price, 2)
 
-    def receipt(self, name: str, product_cart: dict) -> None:
-        date = datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S")
-        print(f"Date: {date}")
-        print(f"Thanks, {name}, for you purchase!")
-        print("You have bought: ")
+    def __repr__(self) -> str:
+        return self.name
 
-        total_cost = 0
-        for product in self.products:
-            price = self.products[product] * product_cart[product]
-            total_cost += price
-            print(f"{product_cart[product]} {product}s for {price} dollars")
+    @classmethod
+    def list_constructor(cls, shops_list: list) -> list:
+        for index, shop in enumerate(shops_list):
+            shops_list[index] = Shop(
+                name=shop["name"],
+                location=shop["location"],
+                products=shop["products"]
+            )
 
-        print(f"Total cost is {total_cost} dollars\n"
-              f"See you again!\n")
+        return shops_list
+
+    def buy_product(self, product_cart: dict) -> None:
+        total_price = 0
+
+        for product, quantity in product_cart.items():
+            price = self.products[product] * quantity
+            total_price += price
+
+            print(f"{quantity} {product}s for {price} dollars")
+
+        print(f"Total cost is {total_price} dollars\nSee you again!\n")

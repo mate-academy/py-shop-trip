@@ -1,51 +1,56 @@
 import json
+import datetime
+
 from app.customer import Customer
-from app.car import Car
 from app.shop import Shop
 
 
 def shop_trip() -> None:
+    the_file = json.load(open("app/config.json", "r"))
 
-    with open("app/config.json", "r") as file_open:
-        data = json.load(file_open)
+    fuel_price, customers_list, shops_list = \
+        the_file["FUEL_PRICE"], the_file["customers"], the_file["shops"]
 
-    customers = [Customer(customer) for customer in data["customers"]]
-    shops = [Shop(shop) for shop in data["shops"]]
+    customers_list = Customer.list_constructor(customers_list)
+    shops_list = Shop.list_constructor(shops_list)
 
-    for customer in customers:
-        car = Car(customer.car)
-
+    for customer in customers_list:
         print(f"{customer.name} has {customer.money} dollars")
+        best_shop = None
+        shop_cost = None
 
-        shops_to_go = {}
-        for shop in shops:
-            distance = customer.calculate_distance(shop)
-            cost = car.travel_costs(distance, data["FUEL_PRICE"])
-            total_cost = round((shop.calculate_products_price(
-                customer.product_cart) + cost), 2)
+        for index, shop in enumerate(shops_list):
+            total_cost = customer.car.fuel_price(shop.location, fuel_price)
+            total_cost += shop.total_price(customer.product_cart)
 
-            if total_cost <= customer.money:
-                shops_to_go[total_cost] = shop
+            print(
+                f"{customer.name}'s trip to the "
+                f"{shop.name} costs {total_cost}"
+            )
 
-            print(f"{customer.name}'s trip to "
-                  f"the {shop.name} costs {total_cost}")
+            if shop_cost is None or shop_cost > total_cost:
+                best_shop = shop
+                shop_cost = total_cost
 
-        if not shops_to_go:
-            print(f"{customer.name} doesn't have "
-                  f"enough money to make purchase in any shop")
-            break
+        if customer.money < shop_cost:
+            print(
+                f"{customer.name} doesn't have enough "
+                f"money to make purchase in any shop"
+            )
+            continue
 
-        minimal_cost = min(key for key in shops_to_go.keys())
+        customer.money -= shop_cost
 
-        print(f"{customer.name} rides to "
-              f"{shops_to_go[minimal_cost].name}\n")
+        print(f"{customer.name} rides to {best_shop}\n")
+        print(
+            f"Date: "
+            f"{datetime.datetime.now().strftime(f'%d/%m/%Y %H:%M:%S')}"
+        )
+        print(f"Thanks, {customer.name}, for you purchase!\nYou have bought: ")
 
-        shops_to_go[minimal_cost].receipt(customer.name,
-                                          customer.product_cart)
-        print(f"{customer.name} rides home")
-        print(f"{customer.name} now "
-              f"has {customer.money - minimal_cost} dollars\n")
+        best_shop.buy_product(customer.product_cart)
 
-
-if __name__ == "__main__":
-    shop_trip()
+        print(
+            f"{customer.name} rides home\n"
+            f"{customer.name} now has {customer.money} dollars\n"
+        )

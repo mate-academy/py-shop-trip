@@ -1,14 +1,30 @@
-from app.shop import Shop
-from math import dist
+from __future__ import annotations
+from dataclasses import dataclass
+
+from app.car import Car
 
 
+@dataclass
 class Customer:
-    def __init__(self, customer: dict) -> None:
-        self.name = customer["name"]
-        self.product_cart = customer["product_cart"]
-        self.location = customer["location"]
-        self.money = customer["money"]
-        self.car = customer["car"]
+    name: str
+    product_cart: dict
+    money: int
+    car: Car
 
-    def calculate_distance(self, shop_location: Shop) -> float:
-        return dist(self.location, shop_location.location)
+    def __repr__(self) -> str:
+        return self.name
+
+    @classmethod
+    def list_constructor(cls, customers_list: list) -> list:
+        for index, customer in enumerate(customers_list):
+            customers_list[index] = Customer(
+                name=customer["name"],
+                product_cart=customer["product_cart"],
+                money=customer["money"],
+                car=Car(
+                    brand=customer["car"]["brand"],
+                    fuel_consumption=customer["car"]["fuel_consumption"],
+                    location=customer["location"]
+                )
+            )
+        return customers_list
