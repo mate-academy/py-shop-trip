@@ -1,3 +1,4 @@
+from __future__ import annotations
 from math import sqrt
 
 
@@ -55,3 +56,25 @@ class Shop:
                   f"{self.calculate_product_price(product, cart)} dollars")
         print(f"Total cost is {self.calculate_total_bill(cart)} dollars"
               f"\nSee you again!")
+
+    def best_shop_visit(self,
+                        customer: Customer,
+                        min_trip_cost: float) -> None:
+        print(f"{customer.name} rides to {self.name}")
+        self.customer_receipt(customer)
+        customer.money -= min_trip_cost
+        print(f"\n{customer.name} rides home\n"
+              f"{customer.name} now has {customer.money} dollars\n")
+
+    def choosing_shop(self,
+                      customer: Customer,
+                      fuel_price: float,
+                      min_trip_cost: float,
+                      best_shop: Shop) -> list:
+        trip_cost = self.calculate_shopping_cost(customer, fuel_price)
+        print(f"{customer.name}'s trip to "
+              f"the {self.name} costs {trip_cost}")
+        if trip_cost < min_trip_cost and trip_cost <= customer.money:
+            min_trip_cost = trip_cost
+            best_shop = self
+        return [min_trip_cost, best_shop]
