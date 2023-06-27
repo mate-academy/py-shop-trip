@@ -48,9 +48,8 @@ class Shop:
 
     def customer_receipt(self, customer: Customer) -> None:
         cart = customer.product_cart
-        print("\nDate: 04/01/2021 12:33:41")
-        print(f"Thanks, {customer.name}, for your purchase!")
-        print("You have bought: ")
+        print(f"\nDate: 04/01/2021 12:33:41\nThanks, {customer.name}, "
+              f"for your purchase!\nYou have bought: ")
         for product, quantity in cart.items():
             print(f"{quantity} {product}s for "
                   f"{self.calculate_product_price(product, cart)} dollars")
