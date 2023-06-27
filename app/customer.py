@@ -58,8 +58,10 @@ class Customer:
         if best_shop["shop"]:
             total_cost, shop = best_shop.values()
             print(f"{self.name} rides to {shop.name}\n")
+            self.location = best_shop["shop"].location
             shop.bill(self.name, self.product_cart)
             print(f"{self.name} rides home")
+            self.location = [self_x, self_y]
             print(f"{self.name} now has {self.money - total_cost} dollars\n")
         else:
             print(
