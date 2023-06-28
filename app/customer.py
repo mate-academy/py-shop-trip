@@ -1,30 +1,23 @@
-from __future__ import annotations
-from dataclasses import dataclass
-
-from app.car import Car
+from app.shop import Shop
 
 
-@dataclass
 class Customer:
-    name: str
-    product_cart: dict
-    money: int
-    car: Car
+    def __init__(self, name: str,
+                 product_cart: dict,
+                 location: list,
+                 money: int,
+                 car: dict) -> None:
+        self.name = name
+        self.product_cart = product_cart
+        self.location = location
+        self.money = money
+        self.car = car
 
-    def __repr__(self) -> str:
-        return self.name
+    def distance(self, shop: Shop) -> float:
+        return (((self.location[0] - shop.location[0]) ** 2
+                 + (self.location[1] - shop.location[1]) ** 2)
+                ** 0.5)
 
-    @classmethod
-    def list_constructor(cls, customers_list: list) -> list:
-        for index, customer in enumerate(customers_list):
-            customers_list[index] = Customer(
-                name=customer["name"],
-                product_cart=customer["product_cart"],
-                money=customer["money"],
-                car=Car(
-                    brand=customer["car"]["brand"],
-                    fuel_consumption=customer["car"]["fuel_consumption"],
-                    location=customer["location"]
-                )
-            )
-        return customers_list
+    def products_cost(self, shop: Shop) -> float:
+        return sum(quantity * shop.products[product]
+                   for product, quantity in self.product_cart.items())
