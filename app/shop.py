@@ -21,7 +21,8 @@ class Shop:
     def print_check(self,
                     customer_name: str,
                     customer_product_cart: dict) -> None:
-        print(f"Date: {datetime.datetime.now().strftime('%d/%m/%Y %H:%M:%S')}\n"
+        print("Date: "
+              f"{datetime.datetime.now().strftime('%d/%m/%Y %H:%M:%S')}\n"
               f"Thanks, {customer_name}, for your purchase!\n"
               "You have bought: ")
         total_cost = 0
