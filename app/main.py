@@ -29,7 +29,7 @@ def shop_trip() -> None:
                 shop_to_go,
                 fuel_price
             )
-            print(f"{customer.name} rides home"
+            print(f"{customer.name} rides home\n"
                   f"{customer.name} now has {customer.money} dollars\n")
         else:
             print(f"{customer.name} doesn't have enough money "
