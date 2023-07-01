@@ -81,11 +81,13 @@ def count_trip_costs_and_choose_shop(
 ) -> None:
     print(f"{customer.name} has {customer.money} dollars")
     prices_of_trips = {}
+
     for shop in shops:
         price = (count_price_for_all_products(customer, shop)
                  + count_price_for_both_ways(customer, shop, price_per_liter))
         prices_of_trips[price] = shop
         print(f"{customer.name}'s trip to the {shop.name} costs {price}")
+
     if customer.money >= min(prices_of_trips.keys()):
         cheapest_shop = prices_of_trips[min(prices_of_trips.keys())]
         print(f"{customer.name} rides to {cheapest_shop.name}\n")
@@ -101,28 +103,18 @@ def print_recipe(
         shop: Shop,
         price_for_trip: float
 ) -> None:
-    milk_total = (customer.products.get("milk")
-                  * shop.products.get("milk"))
-    bread_total = (customer.products.get("bread")
-                   * shop.products.get("bread"))
-    butter_total = (customer.products.get("butter")
-                    * shop.products.get("butter"))
-    sum_total = milk_total + butter_total + bread_total
+    sum_total = 0
     print(f"Date: {datetime.datetime.now().strftime('%d/%m/%Y %H:%M:%S')}\n"
           f"Thanks, {customer.name}, for your purchase!\n"
-          f"You have bought: \n"
-          f"{customer.products.get('milk')} milks "
-          f"for {milk_total} dollars\n"
-          f"{customer.products.get('bread')} breads "
-          f"for {bread_total} dollars\n"
-          f"{customer.products.get('butter')} butters "
-          f"for {butter_total} dollars\n"
-          f"Total cost is {sum_total} dollars\n"
+          f"You have bought: ")
+
+    for key, value in customer.products.items():
+        price = value * shop.products.get(key)
+        sum_total += price
+        print(f"{value} {key}s for {price} dollars")
+
+    print(f"Total cost is {sum_total} dollars\n"
           f"See you again!\n\n"
           f"{customer.name} rides home\n"
           f"{customer.name} now has "
           f"{customer.money - price_for_trip} dollars\n")
-
-
-if __name__ == "__main__":
-    shop_trip()
