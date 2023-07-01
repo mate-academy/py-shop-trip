@@ -1,5 +1,4 @@
 class Shop:
-    shop_list = []
 
     def __init__(
             self,
@@ -10,7 +9,6 @@ class Shop:
         self.name = name
         self.location = location
         self.products = products
-        Shop.shop_list.append(self)
 
     def __str__(self) -> str:
         return self.name

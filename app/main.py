@@ -10,13 +10,15 @@ def shop_trip() -> None:
     with open("app/config.json", "r") as config_file:
         config = json.load(config_file)
 
+    shop_list = []
     for shop in config["shops"]:
-        create_shop(shop)
+        new_shop = create_shop(shop)
+        shop_list.append(new_shop)
     for node in config["customers"]:
         customer = create_customers(node)
         count_trip_costs_and_choose_shop(
             customer,
-            Shop.shop_list,
+            shop_list,
             config["FUEL_PRICE"]
         )
 
