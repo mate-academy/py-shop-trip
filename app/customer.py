@@ -18,5 +18,5 @@ class Customer:
         self.car = car
 
     def __str__(self) -> str:
-        return f"{self.name} has {self.car} and has to buy " \
-               f"{', '.join([product for product in self.products])}"
+        return (f"{self.name} has {self.car} and has to buy "
+                f"{', '.join([product for product in self.products])}")
