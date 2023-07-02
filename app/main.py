@@ -12,10 +12,10 @@ def shop_trip() -> None:
     with open(file_name, "r") as file:
         data = json.load(file)
 
-        fuel_price = data["FUEL_PRICE"]
-        shops = [Shop(**shop) for shop in data["shops"]]
+    fuel_price = data["FUEL_PRICE"]
+    shops = [Shop(**shop) for shop in data["shops"]]
 
-        for customer in data["customers"]:
-            customer = Customer(**customer)
-            shopping_trip = ShoppingTrip(shops, customer, fuel_price)
-            shopping_trip.go_to_shop()
+    for customer in data["customers"]:
+        customer = Customer(**customer)
+        shopping_trip = ShoppingTrip(shops, customer, fuel_price)
+        shopping_trip.go_to_shop()
