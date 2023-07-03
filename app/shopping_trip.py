@@ -37,7 +37,6 @@ class ShoppingTrip:
                 in self.customer.product_cart.items()
             )
 
-
             trip_options[shop.name] = {}
             trip_options[shop.name]["trip_cost"] = fuel_cost + products_cost
             trip_options[shop.name]["products"] = shop.products
