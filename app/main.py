@@ -113,12 +113,16 @@ def shop_trip() -> None:
         customer: Customer
     ) -> None:
         total_cost = customer.products_bought.get("total_products_price")
-        print(f"Date: {datetime.datetime.now().strftime('%d/%m/%Y %H:%M:%S')}")
-        print(f"Thanks, {customer.name}, for your purchase!")
-        print("You have bought: ")
+        print(
+            f"Date: {datetime.datetime.now().strftime('%d/%m/%Y %H:%M:%S')}\n"
+            f"Thanks, {customer.name}, for your purchase!\n"
+            "You have bought: "
+        )
         bought_products_list(customer)
-        print(f"Total cost is {total_cost} dollars")
-        print("See you again!\n")
+        print(
+            f"Total cost is {total_cost} dollars\n"
+            "See you again!\n"
+        )
 
     def calculate_trip_cost() -> None:
         customers = create_customers()
@@ -152,10 +156,14 @@ def shop_trip() -> None:
 
             if customer.money > shop_trip_cost:
                 customer.money = customer.money - shop_trip_cost
-                print(f"{customer.name} rides to {shop_to_ride.name}\n")
+                print(
+                    f"{customer.name} rides to {shop_to_ride.name}\n"
+                )
                 print_receipt(customer)
-                print(f"{customer.name} rides home")
-                print(f"{customer.name} now has {customer.money} dollars\n")
+                print(
+                    f"{customer.name} rides home\n"
+                    f"{customer.name} now has {customer.money} dollars\n"
+                )
             else:
                 print(
                     f"{customer.name} doesn't have enough money"
