@@ -31,11 +31,12 @@ class ShoppingTrip:
                 * self.fuel_price, 2
             )
 
-            products_cost = sum([
+            products_cost = sum(
                 shop.products[product] * amount
                 for product, amount
                 in self.customer.product_cart.items()
-            ])
+            )
+
 
             trip_options[shop.name] = {}
             trip_options[shop.name]["trip_cost"] = fuel_cost + products_cost
