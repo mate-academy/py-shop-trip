@@ -29,6 +29,7 @@ def shop_trip() -> None:
             print(f"{traveler.name} doesn't have enough "
                   "money to make a purchase in any shop")
             continue
+
         chousen = costs[min(costs)]
         traveler.arrived_to_shop(chousen, min(costs))
         print(f"{traveler.name} rides to {chousen.name}")

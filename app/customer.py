@@ -28,27 +28,23 @@ class Customer:
         return round(products_cost + fuel_cost, 2)
 
     def remaining_money(self) -> None:
-        print()
-        print(f"{self.name} rides home")
-        print(f"{self.name} now has {self.money - self.spent_money} dollars")
-        print()
+        print(f"\n{self.name} rides home\n{self.name} "
+              f"now has {self.money - self.spent_money} dollars\n")
 
     def arrived_to_shop(self, shop: Shop, spent_money: float) -> None:
         self.spent_money = spent_money
         self.location = shop.location
 
     def create_receipt(self, shop: Shop) -> None:
-        print()
-        print(f"Date: {datetime.datetime.now().strftime('%d/%m/%Y %H:%M:%S')}")
-        print(f"Thanks, {self.name}, for your purchase!")
-        print("You have bought: ")
+        print(f"\nDate: "
+              f"{datetime.datetime.now().strftime('%d/%m/%Y %H:%M:%S')}")
+        print(f"Thanks, {self.name}, for your purchase!\nYou have bought: ")
         bill = 0
         for product, count in self.product_cart.items():
             bill += shop.products[product] * count
             print(f"{count} {product}s "
                   f"for {shop.products[product] * count} dollars")
-        print(f"Total cost is {bill} dollars")
-        print("See you again!")
+        print(f"Total cost is {bill} dollars\nSee you again!")
 
 
 def create_customer(customer: dict) -> Customer:
