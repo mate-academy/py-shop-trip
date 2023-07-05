@@ -8,7 +8,8 @@ from app.shop import Shop
 
 
 def shop_trip() -> None:
-    with open("config.json", "r") as file:
+    # with open("config.json", "r") as file:
+    with open("app\\config.json", "r") as file:
         config_data = json.load(file)
 
     fuel_price = config_data["FUEL_PRICE"]
@@ -100,7 +101,7 @@ def shop_trip() -> None:
             print(f"{customer.name} rides to {shops[index_shop].name}\n")
             print(f"Date: {buy_date}")
             print(f"Thanks, {customer.name}, for your purchase!")
-            print("You have bought:")
+            print("You have bought: ")
             print(f"{customer.product_cart['milk']}"
                   f" milks for {milks_coast} dollars")
             print(f"{customer.product_cart['bread']}"
@@ -111,7 +112,7 @@ def shop_trip() -> None:
             print("See you again!\n")
             print(f"{customer.name} rides home")
             print(f"{customer.name} now has"
-                  f" {customer.money - min(best_choice)}\n")
+                  f" {customer.money - min(best_choice)} dollars\n")
 
 
 if __name__ == "__main__":
