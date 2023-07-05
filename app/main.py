@@ -28,8 +28,5 @@ def shop_trip() -> None:
     for customer in customers:
         customer.pick_shop(shops)
         if customer.chosen_shop.shop:
-            customer.chosen_shop.shop.print_receipt(customer)
+            customer.make_a_purchase()
             customer.ride_home()
-#
-#
-# shop_trip()

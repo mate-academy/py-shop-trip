@@ -1,9 +1,11 @@
+import datetime
+
 from dataclasses import dataclass
 from typing import Dict, List
 
 from app.customer.car import Car
-from app.shop import Shop
 from app.customer.chosen_shop import ChosenShop
+from app.shop import Shop
 
 
 @dataclass
@@ -57,9 +59,23 @@ class Customer:
             print(f"{self.name} doesn't have enough money to make a purchase "
                   f"in any shop")
 
+    def make_a_purchase(self) -> None:
+        self.money -= self.chosen_shop.shopping_cost
+        print(datetime.datetime.now().strftime("Date: %d/%m/%Y %H:%M:%S"))
+        print(f"Thanks, {self.name}, for your purchase!")
+        print("You have bought: ")
+        for product in self.product_cart:
+            print(
+                f"{self.product_cart[product]} {product}s for",
+                (self.product_cart[product]
+                 * self.chosen_shop.shop.products[product]),
+                "dollars"
+            )
+        print(f"Total cost is {self.chosen_shop.shopping_cost} dollars")
+        print("See you again!\n")
+
     def ride_home(self) -> None:
         print(f"{self.name} rides home")
         self.location = self.home_location
         self.money = round(self.money - self.chosen_shop.one_way_trip_cost, 2)
-        self.chosen_shop = ChosenShop(self.money)
         print(f"{self.name} now has {self.money} dollars\n")
