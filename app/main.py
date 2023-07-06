@@ -52,13 +52,13 @@ def shop_trip() -> None:
             total_cost = fuel_cost * 2 + product_cost
             trip_costs[shop] = total_cost
 
-            print(f"{customer.name}'s trip to "
+            print(f"{customer.name}'s trip to the "
                   f"{shop.shop_name} costs {round(total_cost, 2)}")
 
         min_cost_shop = min(trip_costs, key=trip_costs.get)
 
         if customer.money >= min(trip_costs.values()):
-            print(f"{customer.name} rides to {min_cost_shop.shop_name} \n")
+            print(f"{customer.name} rides to {min_cost_shop.shop_name}\n")
 
             customer.make_purchase(min_cost_shop)
             print(f"\n{customer.name} rides home")
