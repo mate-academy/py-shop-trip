@@ -2,13 +2,16 @@ import datetime
 import math
 import json
 
+from pathlib import Path
+
 from app.car import Car
 from app.customer import Customers
 from app.shop import Shop
 
 
 def shop_trip() -> None:
-    with open("app\\config.json", "r") as file:
+    path = Path("app/config.json")
+    with open(path, "r") as file:
         config_data = json.load(file)
 
     fuel_price = config_data["FUEL_PRICE"]
