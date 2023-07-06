@@ -8,14 +8,14 @@ from app.shop import Shop
 
 
 def shop_trip() -> None:
-    # with open("config.json", "r") as file:
     with open("app\\config.json", "r") as file:
         config_data = json.load(file)
 
     fuel_price = config_data["FUEL_PRICE"]
     shops_data = config_data["shops"]
     customers_data = config_data["customers"]
-    dt = datetime.datetime(2021, 1, 4, 12, 33, 41)
+    # dt = datetime.datetime(2021, 1, 4, 12, 33, 41)
+    dt = datetime.datetime.now()
     buy_date = dt.strftime("%d/%m/%Y %H:%M:%S")
 
     shops = []
