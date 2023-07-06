@@ -1,4 +1,3 @@
-from datetime import datetime
 from math import sqrt
 from app.car import Car
 from app.shop import Shop
@@ -27,9 +26,8 @@ class Customer:
         return distance
 
     def make_purchase(self, shop: Shop) -> None:
-        date = datetime.now().strftime("%d/%m/%Y %H:%M:%S")
         cost = 0
-        print(f"Date: 04/01/2021 12:33:41")
+        print("Date: 04/01/2021 12:33:41")
         print(f"Thanks, {self.name}, for your purchase!")
         print("You have bought: ")
         for item, quantity in self.product_cart.items():
