@@ -115,7 +115,3 @@ def shop_trip() -> None:
             print(f"{customer.name} rides home")
             print(f"{customer.name} now has"
                   f" {customer.money - min(best_choice)} dollars\n")
-
-
-if __name__ == "__main__":
-    shop_trip()
