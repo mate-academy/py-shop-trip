@@ -1,5 +1,3 @@
-import datetime
-import math
 import json
 
 from pathlib import Path
@@ -17,8 +15,6 @@ def shop_trip() -> None:
     fuel_price = config_data["FUEL_PRICE"]
     shops_data = config_data["shops"]
     customers_data = config_data["customers"]
-    dt = datetime.datetime.now()
-    buy_date = dt.strftime("%d/%m/%Y %H:%M:%S")
 
     shops = []
     cars = []
@@ -51,44 +47,34 @@ def shop_trip() -> None:
         customers.append(customer)
 
     for customer in customers:
-        print(f"{customer.name} has {customer.money} dollars")
+        customer.customer_money()
         for shop in range(len(shops)):
 
-            distance = math.sqrt(
-                (shops[shop].location[0] - customer.location[0]) ** 2
-                + (shops[shop].location[1] - customer.location[1]) ** 2
+            total_trip_cost = customer.car.trip_cost(
+                shops[shop],
+                customer,
+                fuel_price
             )
-            total_trip_cost = round(
-                (((distance / 100)
-                  * customer.car.fuel_consumption
-                  * fuel_price) * 2), 2
-            )
-            milk_cost = (
-                customer.product_cart["milk"]
-                * shops[shop].products["milk"]
-            )
-            bread_cost = (
-                customer.product_cart["bread"]
-                * shops[shop].products["bread"]
-            )
-            butter_cost = (
-                customer.product_cart["butter"]
-                * shops[shop].products["butter"]
-            )
+            milk_cost = customer.product_coast(shops[shop])[0]
+            bread_cost = customer.product_coast(shops[shop])[1]
+            butter_cost = customer.product_coast(shops[shop])[2]
             total_cost = round(
-                (total_trip_cost + milk_cost + bread_cost + butter_cost), 2
+                total_trip_cost
+                + sum(customer.product_coast(shops[shop])),
+                2
             )
+
             best_choice[total_cost] = [
                 shop,
                 milk_cost,
                 bread_cost,
                 butter_cost
             ]
+
             rest_money = customer.money - min(best_choice)
             best_choice[total_cost].append(rest_money)
 
-            print(f"{customer.name}'s trip to the"
-                  f" {shops[shop].name} costs {total_cost}")
+            customer.customer_best_choice(shops[shop], total_cost)
 
         milks_coast = best_choice[min(best_choice)][1]
         breads_coast = best_choice[min(best_choice)][2]
@@ -97,21 +83,16 @@ def shop_trip() -> None:
         index_shop = best_choice[min(best_choice)][0]
 
         if best_choice[min(best_choice)][4] < 0:
-            print(f"{customer.name} doesn't have enough"
-                  f" money to make a purchase in any shop")
+            customer.not_enough_money()
         else:
-            print(f"{customer.name} rides to {shops[index_shop].name}\n")
-            print(f"Date: {buy_date}")
-            print(f"Thanks, {customer.name}, for your purchase!")
-            print("You have bought: ")
-            print(f"{customer.product_cart['milk']}"
-                  f" milks for {milks_coast} dollars")
-            print(f"{customer.product_cart['bread']}"
-                  f" breads for {breads_coast} dollars")
-            print(f"{customer.product_cart['butter']}"
-                  f" butters for {butters} dollars")
-            print(f"Total cost is {buy_coast} dollars")
-            print("See you again!\n")
-            print(f"{customer.name} rides home")
-            print(f"{customer.name} now has"
-                  f" {customer.money - min(best_choice)} dollars\n")
+            customer.customer_rides_to_shop(shops[index_shop])
+
+            shops[index_shop].customer_check(
+                customer,
+                milks_coast,
+                breads_coast,
+                butters,
+                buy_coast
+            )
+
+            customer.customer_rides_home(min(best_choice))
