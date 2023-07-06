@@ -27,6 +27,6 @@ def shop_trip() -> None:
 
     for customer in customers:
         customer.pick_shop(shops)
-        if customer.chosen_shop.shop:
+        if customer.money >= customer.chosen_shop.total_trip_cost:
             customer.make_a_purchase()
             customer.ride_home()
