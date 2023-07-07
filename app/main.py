@@ -21,34 +21,29 @@ def creating_classes() -> Dict[
     shops_data = config_data["shops"]
     customers_data = config_data["customers"]
 
-    shops = []
-    cars = []
-    customers = []
-
-    for shop_data in shops_data:
-        shop = Shop(
+    shops = [
+        (Shop(
             name=shop_data["name"],
             location=shop_data["location"],
             products=shop_data["products"]
-        )
-        shops.append(shop)
+        ))
+        for shop_data in shops_data
+    ]
 
-    for customer_data in customers_data:
-        car_data = customer_data["car"]
-        car = Car(
-            brand=car_data["brand"],
-            fuel_consumption=car_data["fuel_consumption"]
-        )
-        cars.append(car)
+    cars = [Car(brand=customer_data["car"]["brand"], fuel_consumption=customer_data["car"]["fuel_consumption"]) for
+            customer_data in customers_data]
 
-        customer = Customers(
+    customers = [
+        Customers(
             name=customer_data["name"],
             product_cart=customer_data["product_cart"],
             location=customer_data["location"],
             money=customer_data["money"],
             car=car
         )
-        customers.append(customer)
+        for customer_data, car in zip(customers_data, cars)
+    ]
+
     result = {
         "shops": shops,
         "cars": cars,
