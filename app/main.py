@@ -30,8 +30,11 @@ def creating_classes() -> Dict[
         for shop_data in shops_data
     ]
 
-    cars = [Car(brand=customer_data["car"]["brand"], fuel_consumption=customer_data["car"]["fuel_consumption"]) for
-            customer_data in customers_data]
+    cars = [Car(
+        brand=customer_data["car"]["brand"],
+        fuel_consumption=customer_data["car"]["fuel_consumption"]
+    )
+        for customer_data in customers_data]
 
     customers = [
         Customers(
