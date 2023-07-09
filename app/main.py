@@ -37,12 +37,13 @@ def shop_trip() -> None:
             print(f"{customer.name} doesn't have "
                   f"enough money to make a purchase in any shop")
         else:
-            customer.money -= min(roads_costs.keys())
-            need_shop = roads_costs[min(roads_costs.keys())]
-            print(f"{customer.name} rides to {need_shop.name}")
-            print("\n" + need_shop.print_check(customer) + "\n")
-            print(f"{customer.name} rides home")
-            print(f"{customer.name} now has {customer.money} dollars\n")
+            customer.money -= min(roads_costs)
+            need_shop = roads_costs[min(roads_costs)]
+            print(f"{customer.name} rides to {need_shop.name}\n"
+                  f"\n{need_shop.print_check(customer)}\n"
+                  f"\n{customer.name} rides home\n"
+                  f"{customer.name} now has {customer.money} dollars\n"
+                  )
 
 
 def add_customers() -> list[Customer]:
@@ -51,20 +52,20 @@ def add_customers() -> list[Customer]:
     with open("app/config.json", "r") as config:
         config_data = json.load(config)
 
-        for customer in config_data["customers"]:
-            customers_from_config.append(
-                Customer(
-                    name=customer["name"],
-                    products=customer["product_cart"],
-                    location=customer["location"],
-                    money=customer["money"],
-                    car=Car(
-                        brand=customer["car"]["brand"],
-                        fuel_consumption=customer["car"]["fuel_consumption"],
-                        fuel_price=config_data["FUEL_PRICE"]
-                    )
+        customers_from_config = [
+            Customer(
+                name=customer["name"],
+                products=customer["product_cart"],
+                location=customer["location"],
+                money=customer["money"],
+                car=Car(
+                    brand=customer["car"]["brand"],
+                    fuel_consumption=customer["car"]["fuel_consumption"],
+                    fuel_price=config_data["FUEL_PRICE"]
                 )
             )
+            for customer in config_data["customers"]
+        ]
 
     return customers_from_config
 
@@ -75,13 +76,13 @@ def add_shops() -> list[Shop]:
     with open("app/config.json", "r") as config:
         config_data = json.load(config)
 
-        for shop in config_data["shops"]:
-            shops_from_config.append(
-                Shop(
-                    name=shop["name"],
-                    location=shop["location"],
-                    products=shop["products"]
-                )
+        shops_from_config = [
+            Shop(
+                name=shop["name"],
+                location=shop["location"],
+                products=shop["products"]
             )
+            for shop in config_data["shops"]
+        ]
 
     return shops_from_config
