@@ -13,7 +13,6 @@ class Shop:
 
     def print_datetime(self) -> str:
         return f"Date: {datetime.datetime.now().strftime('%d/%m/%Y %H:%M:%S')}"
-        # return "Date: 04/01/2021 12:33:41"
 
     def count_purchase_price(self, product_cart: dict) -> float:
         total_costs = 0
