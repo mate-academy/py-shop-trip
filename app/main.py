@@ -22,10 +22,10 @@ def shop_trip() -> None:
             distance = ((x_distance ** 2) + (y_distance ** 2)) ** (1 / 2)
 
             distance_cost = 2 * distance * customer.car.cost_per_km
-            products_cost = 0
-
-            for product, numbers in customer.products.items():
-                products_cost += numbers * shop.products[product]
+            products_cost = sum(
+                numbers * shop.products[product]
+                for product, numbers in customer.products.items()
+            )
 
             cost_trip = round(products_cost + distance_cost, 2)
 
