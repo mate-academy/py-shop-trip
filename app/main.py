@@ -7,7 +7,7 @@ from app.shop import Shop
 
 def shop_trip() -> None:
     with open(
-            "C:\\Styding\\Python_Mate_Academy\\py-shop-trip\\app\\config.json",
+            "config.json",
             "rb"
     ) as json_file:
 
