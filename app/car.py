@@ -17,5 +17,6 @@ class Car:
     def fuel_consumption(self) -> float:
         return self._fuel_consumption
 
+    @property
     def cost_per_km(self) -> float:
         return self._fuel_consumption * self._fuel_price

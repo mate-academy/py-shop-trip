@@ -6,6 +6,8 @@ from app.shop import Shop
 
 
 def shop_trip() -> None:
+    with open("app/config.json", "r") as config_file:
+        config_data = json.load(config_file)
     customers = add_customers(config_data)
     shops = add_shops(config_data)
 
@@ -19,7 +21,7 @@ def shop_trip() -> None:
             y_distance = shop.location[1] - customer.location[1]
             distance = ((x_distance ** 2) + (y_distance ** 2)) ** (1 / 2)
 
-            distance_cost = 2 * distance * customer.car.cost_per_km()
+            distance_cost = 2 * distance * customer.car.cost_per_km
             products_cost = 0
 
             for product, numbers in customer.products.items():
@@ -66,6 +68,7 @@ def add_customers(config_data: dict) -> list[Customer]:
 
 
 def add_shops(config_data: dict) -> list[Shop]:
+
     shops_from_config = [
         Shop(
             name=shop["name"],
@@ -76,7 +79,3 @@ def add_shops(config_data: dict) -> list[Shop]:
     ]
 
     return shops_from_config
-
-
-with open("app/config.json", "r") as config_file:
-    config_data = json.load(config_file)
