@@ -6,8 +6,8 @@ from app.shop import Shop
 
 
 def shop_trip() -> None:
-    customers = add_customers()
-    shops = add_shops()
+    customers = add_customers(config_data)
+    shops = add_shops(config_data)
 
     for customer in customers:
         print(f"{customer.name} has {customer.money} dollars")
@@ -46,43 +46,37 @@ def shop_trip() -> None:
                   )
 
 
-def add_customers() -> list[Customer]:
-    customers_from_config = list()
-
-    with open("app/config.json", "r") as config:
-        config_data = json.load(config)
-
-        customers_from_config = [
-            Customer(
-                name=customer["name"],
-                products=customer["product_cart"],
-                location=customer["location"],
-                money=customer["money"],
-                car=Car(
-                    brand=customer["car"]["brand"],
-                    fuel_consumption=customer["car"]["fuel_consumption"],
-                    fuel_price=config_data["FUEL_PRICE"]
-                )
+def add_customers(config_data: dict) -> list[Customer]:
+    customers_from_config = [
+        Customer(
+            name=customer["name"],
+            products=customer["product_cart"],
+            location=customer["location"],
+            money=customer["money"],
+            car=Car(
+                brand=customer["car"]["brand"],
+                fuel_consumption=customer["car"]["fuel_consumption"],
+                fuel_price=config_data["FUEL_PRICE"]
             )
-            for customer in config_data["customers"]
-        ]
+        )
+        for customer in config_data["customers"]
+    ]
 
     return customers_from_config
 
 
-def add_shops() -> list[Shop]:
-    shops_from_config = list()
-
-    with open("app/config.json", "r") as config:
-        config_data = json.load(config)
-
-        shops_from_config = [
-            Shop(
-                name=shop["name"],
-                location=shop["location"],
-                products=shop["products"]
-            )
-            for shop in config_data["shops"]
-        ]
+def add_shops(config_data: dict) -> list[Shop]:
+    shops_from_config = [
+        Shop(
+            name=shop["name"],
+            location=shop["location"],
+            products=shop["products"]
+        )
+        for shop in config_data["shops"]
+    ]
 
     return shops_from_config
+
+
+with open("app/config.json", "r") as config_file:
+    config_data = json.load(config_file)

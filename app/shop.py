@@ -29,9 +29,10 @@ class Shop:
     def print_check(self, customer: Customer) -> str:
         total_cost = 0
         current_time = datetime.datetime.now()
-        text_check = f"Date: {current_time.strftime('%d/%m/%Y %H:%M:%S')}" \
-            + f"\nThanks, {customer.name}, for your purchase!\n" \
-            + "You have bought: \n"
+        text_check = (f"Date: {current_time.strftime('%d/%m/%Y %H:%M:%S')}"
+                      f"\nThanks, {customer.name}, for your purchase!\n"
+                      f"You have bought: \n"
+                      )
 
         for product, item in customer.products.items():
             product_cost = round(item * self.products[product], 2)
