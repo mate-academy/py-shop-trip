@@ -1,5 +1,6 @@
-# from datetime import datetime
 from __future__ import annotations
+
+import datetime
 
 
 class Shop:
@@ -11,8 +12,8 @@ class Shop:
         self.products_cost = data["products"]
 
     def print_datetime(self) -> str:
-        # return f"Date: {datetime.now().strftime('%d/%m/%Y %H:%M:%S')}"
-        return "Date: 04/01/2021 12:33:41"
+        return f"Date: {datetime.datetime.now().strftime('%d/%m/%Y %H:%M:%S')}"
+        # return "Date: 04/01/2021 12:33:41"
 
     def count_purchase_price(self, product_cart: dict) -> float:
         total_costs = 0
