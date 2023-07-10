@@ -7,7 +7,7 @@ from app.shop import Shop
 
 def shop_trip() -> None:
     with open(
-            "config.json",
+            "../app/config.json",
             "rb"
     ) as json_file:
 
