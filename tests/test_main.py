@@ -3,7 +3,7 @@ from contextlib import redirect_stdout
 from io import StringIO
 from unittest.mock import MagicMock
 
-from main import shop_trip
+from app.main import shop_trip
 
 
 def test_shop_trip_output(monkeypatch):

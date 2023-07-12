@@ -1,13 +1,13 @@
 import json
 import os
 
-from models.customer import Customer
-from models.shop import Shop
+from app.models.customer import Customer
+from app.models.shop import Shop
 
 
 def shop_trip() -> None:
-    current_dir = os.getcwd()
-    file_path = os.path.join(current_dir, "config.json")
+    current_dir = os.path.dirname(os.path.abspath(__file__))
+    file_path = os.path.join(current_dir, "../app/config.json")
     with open(file_path, "r") as file:
         data = json.load(file)
         fuel_price = data.get("FUEL_PRICE", 1)

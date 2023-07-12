@@ -1,7 +1,7 @@
 from typing import List
 
-from models.car import Car
-from models.shop import Shop
+from app.models.car import Car
+from app.models.shop import Shop
 
 
 class Customer:
