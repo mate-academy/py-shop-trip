@@ -1,7 +1,6 @@
 from dataclasses import dataclass
-import json
-
 from datetime import datetime
+from typing import List
 
 
 @dataclass
@@ -11,14 +10,10 @@ class Shop:
     products: dict
 
 
-
-def make_list_of_shop_instance():
-    with open("config.json", 'r') as file_data:
-        data = json.load(file_data)
-
+def make_list_of_shop_instance(data: dict) -> List[Shop]:
     list_of_shops = []
 
-    for shop_data in data["shops"]:
+    for shop_data in data:
         shop = Shop(
             shop_data["name"],
             shop_data["location"],
@@ -36,18 +31,18 @@ def price_of_products(customer_product: dict, product: dict) -> int:
 
 
 def make_a_receipt(
-        customer_name,
-        shops_inst,
-        my_shop,
-        product_cart,
-        location,
-        date_time
-):
+        customer_name: str,
+        shops_inst: List[Shop],
+        my_shop: str,
+        product_cart: dict,
+        location: list,
+        date_time: datetime
+) -> None:
 
     print(f"Date: {date_time}")
     print(f"Thanks, {customer_name}, for your purchase!")
     print("You have bought: ")
-    product_dict = {
+    prod = {
         "milk": 0,
         "bread": 0,
         "butter": 0,
@@ -55,14 +50,13 @@ def make_a_receipt(
     }
     for shop in shops_inst:
         if my_shop == shop.name:
-            location = shop.location
-            product_dict["milk"] = product_cart["milk"] * shop.products["milk"]
-            product_dict["bread"] = product_cart["bread"] * shop.products["bread"]
-            product_dict["butter"] = product_cart["butter"] * shop.products["butter"]
-    product_dict["total"] = product_dict["milk"] + product_dict["bread"] + product_dict["butter"]
+            prod["milk"] = product_cart["milk"] * shop.products["milk"]
+            prod["bread"] = product_cart["bread"] * shop.products["bread"]
+            prod["butter"] = product_cart["butter"] * shop.products["butter"]
+    prod["total"] = prod["milk"] + prod["bread"] + prod["butter"]
 
-    print(f"{product_cart['milk']} milks for {product_dict['milk']} dollars")
-    print(f"{product_cart['bread']} breads for {product_dict['bread']} dollars")
-    print(f"{product_cart['butter']} butters for {product_dict['butter']} dollars")
-    print(f"Total cost is {product_dict['total']} dollars")
+    print(f"{product_cart['milk']} milks for {prod['milk']} dollars")
+    print(f"{product_cart['bread']} breads for {prod['bread']} dollars")
+    print(f"{product_cart['butter']} butters for {prod['butter']} dollars")
+    print(f"Total cost is {prod['total']} dollars")
     print("See you again!\n")
