@@ -23,10 +23,10 @@ def make_list_of_shop_instance(data: dict) -> List[Shop]:
 
 
 def price_of_products(customer_product: dict, product: dict) -> int:
-    price = 0
-    for keys, value in customer_product.items():
-        price = price + (product.get(keys) * value)
-    return price
+    return sum(
+        product.get(key, 0) * value for
+        key, value in customer_product.items()
+    )
 
 
 def make_a_receipt(
