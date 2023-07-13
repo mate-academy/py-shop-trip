@@ -1,5 +1,6 @@
 import datetime
 import json
+import copy
 from .customer import make_list_of_instance, price_of_travel
 from .shop import make_list_of_shop_instance, price_of_products, make_a_receipt
 
@@ -40,6 +41,8 @@ def shop_trip() -> None:
                     shop_inst if instance.name == min_pr_shop
                 )
             )
+            cust_lock = copy.deepcopy(customer.location)
+            customer.location = selected_instance.location
             make_a_receipt(
                 customer.name,
                 selected_instance.products,
@@ -48,6 +51,7 @@ def shop_trip() -> None:
             )
 
             print(f"{customer.name} rides home")
+            customer.location = cust_lock
             print(f"{customer.name} now has"
                   f" {customer.money - min(min_price.values())} dollars\n")
         else:
