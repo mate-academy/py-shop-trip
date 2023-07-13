@@ -32,31 +32,23 @@ def price_of_products(customer_product: dict, product: dict) -> int:
 
 def make_a_receipt(
         customer_name: str,
-        shops_inst: List[Shop],
-        my_shop: str,
+        shops_inst: dict,
         product_cart: dict,
-        location: list,
-        date_time: datetime
+        date_time: str
 ) -> None:
 
     print(f"Date: {date_time}")
     print(f"Thanks, {customer_name}, for your purchase!")
     print("You have bought: ")
-    prod = {
-        "milk": 0,
-        "bread": 0,
-        "butter": 0,
-        "total": 0
-    }
-    for shop in shops_inst:
-        if my_shop == shop.name:
-            prod["milk"] = product_cart["milk"] * shop.products["milk"]
-            prod["bread"] = product_cart["bread"] * shop.products["bread"]
-            prod["butter"] = product_cart["butter"] * shop.products["butter"]
-    prod["total"] = prod["milk"] + prod["bread"] + prod["butter"]
 
+    prod = {
+        "milk": product_cart["milk"] * shops_inst["milk"],
+        "bread": product_cart["bread"] * shops_inst["bread"],
+        "butter": product_cart["butter"] * shops_inst["butter"]
+    }
+    total = prod["milk"] + prod["bread"] + prod["butter"]
     print(f"{product_cart['milk']} milks for {prod['milk']} dollars")
     print(f"{product_cart['bread']} breads for {prod['bread']} dollars")
     print(f"{product_cart['butter']} butters for {prod['butter']} dollars")
-    print(f"Total cost is {prod['total']} dollars")
+    print(f"Total cost is {total} dollars")
     print("See you again!\n")
