@@ -12,11 +12,10 @@ class Shop:
     products: dict[str, float]
 
     def calculate_cart_cost(self, cart: dict) -> float:
-        total = 0
-        for product, count in cart.items():
-            cost = self.products[product]
-            total += cost * count
-        return total
+        return sum(
+            self.products[product] * count
+            for product, count in cart.items()
+        )
 
     def accept_client(self, customer: Customer) -> str:
         """Returns check"""
