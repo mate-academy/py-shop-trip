@@ -34,8 +34,9 @@ def price_of_travel(
         location: list,
         fuel_price: float
 ) -> float:
-    distance = ((((location[0] - customer_coord[0]) ** 2)
-                 + ((location[1] - customer_coord[1]) ** 2)) ** 0.5)
-    fuel_price_per_car = (round((((fuel_consumption / 100)
-                                  * distance) * fuel_price) * 2, 2))
+    dist_point_x = (location[0] - customer_coord[0]) ** 2
+    dist_point_y = (location[1] - customer_coord[1]) ** 2
+    distance = (dist_point_x + dist_point_y) ** 0.5
+    oil_for_dist = (fuel_consumption / 100) * distance
+    fuel_price_per_car = round((oil_for_dist * fuel_price) * 2, 2)
     return fuel_price_per_car
