@@ -1,17 +1,20 @@
+from typing import List, Union, Dict
+
+
 class Customer:
-    def __init__(self, name, product_cart, location, money, car):
+    def __init__(
+            self,
+            name: str,
+            product_cart: dict,
+            location: List[int],
+            money: Union[int, float],
+            car: Dict[str, Union[str, float]]
+    ) -> None:
         self.name = name
         self.product_cart = product_cart
         self.location = location
         self.money = money
         self.car = car
 
-    def __repr__(self):
-        return (
-            f"{self.name}")#, {self.product_cart},"
-            #f"{self.location},{self.money},{self.car}"
-        #)
-
-
-if __name__ == '__main__':
-    pass
+    def __repr__(self) -> str:
+        return f"{self.name}"

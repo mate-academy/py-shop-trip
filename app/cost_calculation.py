@@ -4,14 +4,19 @@ from app.shop import Shop
 
 
 class CostCalculation:
-    def __init__(self, customers, shops, fuel_price):
+    def __init__(
+        self,
+        customers: dict,
+        shops: dict,
+        fuel_price: Union[int, float]
+    ) -> None:
         self.customers = customers
         self.shops = shops
         self.fuel_price = fuel_price
 
         self.results = {}
 
-    def calculation(self) -> Union[int, float]:
+    def calculation(self) -> None:
 
         for customer in self.customers.values():
             self.results = {}
@@ -22,20 +27,21 @@ class CostCalculation:
             for shop in self.shops.values():
                 products_cost = 0
                 fuel_costs = (
-                        (self.fuel_price * customer.car["fuel_consumption"])
-                        / 100 * math.dist(customer.location, shop.location)
-                        * 2
+                    (self.fuel_price * customer.car["fuel_consumption"])
+                    / 100 * math.dist(customer.location, shop.location)
+                    * 2
                 )
 
                 for product in customer.product_cart.items():
                     if product[0] in shop.products:
                         products_cost += (
-                                shop.products[product[0]] * product[1]
+                            shop.products[product[0]] * product[1]
                         )
                     else:
                         products_cost = best_deal + 1
                 trip_total_cost = fuel_costs + products_cost
-                print(f"{customer.name}'s trip to the {shop.name} costs {round(trip_total_cost, 2)}")
+                print(f"{customer.name}'s trip to the {shop.name} "
+                      f"costs {round(trip_total_cost, 2)}")
 
                 if trip_total_cost < best_deal:
                     best_deal = trip_total_cost
@@ -52,7 +58,3 @@ class CostCalculation:
             Shop.sale_of_goods(shop, customer)
             print(f"\n{customer} rides home")
             print(f"{customer} now has {the_rest_of_money} dollars\n")
-
-
-if __name__ == '__main__':
-    pass

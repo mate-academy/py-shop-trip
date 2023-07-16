@@ -34,7 +34,3 @@ def shop_trip() -> None:
     CostCalculation(
         customers, shops, data["FUEL_PRICE"]
     ).calculation()
-
-
-if __name__ == "__main__":
-    shop_trip()

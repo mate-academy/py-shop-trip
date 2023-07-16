@@ -1,13 +1,20 @@
 import datetime
+from typing import List
+from app.customer import Customer
 
 
 class Shop:
-    def __init__(self, name, location, products):
+    def __init__(
+            self,
+            name: str,
+            location: List[int],
+            products: dict
+    ) -> None:
         self.name = name
         self.location = location
         self.products = products
 
-    def sale_of_goods(self, customer):
+    def sale_of_goods(self, customer: Customer) -> None:
         print("Date:", datetime.datetime.now().strftime("%m/%d/%Y %H:%M:%S"))
         print(f"Thanks, {customer.name}, for your purchase!\n"
               f"You have bought:")
@@ -18,25 +25,7 @@ class Shop:
                     total_cost += (amount * price)
                     print(f"{amount} {buyable}s for {amount * price} dollars")
         print(f"Total cost is {round(total_cost, 2)} dollars")
-
-        # print(customer.product_cart)
-        # print(self.products)
         print("See you again!")
-        # You have bought:
-        # 4 milks for 12 dollars
-        # 2 breads for 2 dollars
-        # 5 butters for 12.5 dollars
-        # Total cost is 26.5 dollars
-        # See you again!
-        #
-        # Bob rides home
-        # Bob now has 26.79 dollars
-        #
-        pass
 
-    def __repr__(self):
-        return (f"{self.name}")
-
-
-if __name__ == '__main__':
-    x = Shop(name="", location="", products="")
+    def __repr__(self) -> str:
+        return f"{self.name}"
