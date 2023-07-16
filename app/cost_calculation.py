@@ -1,5 +1,6 @@
 import math
 from typing import Union
+from app.shop import Shop
 
 
 class CostCalculation:
@@ -13,11 +14,14 @@ class CostCalculation:
     def calculation(self) -> Union[int, float]:
 
         for customer in self.customers.values():
-            self.results[customer] = []
+            self.results = {}
+            best_deal = float("inf")
+
+            print(f"{customer.name} has {customer.money} dollars")
 
             for shop in self.shops.values():
-                trip_total_cost = 0
-                trip_total_cost += (
+                products_cost = 0
+                fuel_costs = (
                         (self.fuel_price * customer.car["fuel_consumption"])
                         / 100 * math.dist(customer.location, shop.location)
                         * 2
@@ -25,13 +29,29 @@ class CostCalculation:
 
                 for product in customer.product_cart.items():
                     if product[0] in shop.products:
-                        trip_total_cost += (
+                        products_cost += (
                                 shop.products[product[0]] * product[1]
                         )
+                    else:
+                        products_cost = best_deal + 1
+                trip_total_cost = fuel_costs + products_cost
+                print(f"{customer.name}'s trip to the {shop.name} costs {round(trip_total_cost, 2)}")
 
-                self.results[customer].append({shop: trip_total_cost})
+                if trip_total_cost < best_deal:
+                    best_deal = trip_total_cost
+                    self.results[customer] = {shop: trip_total_cost}
 
-        return self.results
+            the_rest_of_money = round(customer.money - best_deal, 2)
+            if the_rest_of_money < 0:
+                print(f"{customer.name} doesn't have enough money to "
+                      f"make a purchase in any shop")
+                break
+
+            shop = list(self.results[customer].keys())[0]
+            print(f"{customer} rides to {shop}\n")
+            Shop.sale_of_goods(shop, customer)
+            print(f"\n{customer} rides home")
+            print(f"{customer} now has {the_rest_of_money} dollars\n")
 
 
 if __name__ == '__main__':

@@ -5,14 +5,14 @@ from app.customer import Customer
 from app.shop import Shop
 
 
-def shop_trip():
+def shop_trip() -> None:
     customers = {}
     shops = {}
 
     source = "config.json"
     data = None
 
-    with open(source, "r") as file:  # read
+    with open(source, "r") as file:
         data = json.load(file)
 
     for customer in data["customers"]:
@@ -31,14 +31,9 @@ def shop_trip():
             products=shop["products"],
         )
 
-    expense_counting_session = CostCalculation(
+    CostCalculation(
         customers, shops, data["FUEL_PRICE"]
-    )
-    calculations = expense_counting_session.calculation()
-
-    for customer, shop in calculations.items():
-        print(customer, shop)
-        print(type(customer), type(shop))
+    ).calculation()
 
 
 if __name__ == "__main__":

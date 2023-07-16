@@ -8,9 +8,9 @@ class Customer:
 
     def __repr__(self):
         return (
-            f"{self.name}, {self.product_cart},"
-            f"{self.location},{self.money},{self.car}"
-        )
+            f"{self.name}")#, {self.product_cart},"
+            #f"{self.location},{self.money},{self.car}"
+        #)
 
 
 if __name__ == '__main__':
