@@ -16,7 +16,7 @@ def shop_trip() -> None:
         data = json.load(file)
 
     for customer in data["customers"]:
-        customers[f"{customer['name']}"] = Customer(
+        customers[customer["name"]] = Customer(
             name=customer["name"],
             product_cart=customer["product_cart"],
             location=customer["location"],
@@ -25,7 +25,7 @@ def shop_trip() -> None:
         )
 
     for shop in data["shops"]:
-        shops[f"{shop['name']}"] = Shop(
+        shops[shop["name"]] = Shop(
             name=shop["name"],
             location=shop["location"],
             products=shop["products"],
