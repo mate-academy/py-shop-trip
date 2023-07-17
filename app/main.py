@@ -1,5 +1,5 @@
 import json
-
+import os
 from app.cost_calculation import CostCalculation
 from app.customer import Customer
 from app.shop import Shop
@@ -8,8 +8,8 @@ from app.shop import Shop
 def shop_trip() -> None:
     customers = {}
     shops = {}
-
-    source = "config.json"
+    print()
+    source = os.path.join(os.path.dirname(__file__), "config.json")
     data = None
 
     with open(source, "r") as file:

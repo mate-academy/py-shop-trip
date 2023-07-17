@@ -54,7 +54,9 @@ class CostCalculation:
                 break
 
             shop = list(self.results[customer].keys())[0]
-            print(f"{customer} rides to {shop}\n")
+            home_location = customer.location
+            print(f"{customer} rides to {shop}")
             Shop.sale_of_goods(shop, customer)
-            print(f"\n{customer} rides home")
+            print(f"{customer} rides home")
+            customer.location = home_location
             print(f"{customer} now has {the_rest_of_money} dollars\n")

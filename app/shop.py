@@ -15,7 +15,8 @@ class Shop:
         self.products = products
 
     def sale_of_goods(self, customer: Customer) -> None:
-        print("Date:", datetime.datetime.now().strftime("%m/%d/%Y %H:%M:%S"))
+        customer.location = self.location
+        print("\nDate:", datetime.datetime.now().strftime("%m/%d/%Y %H:%M:%S"))
         print(f"Thanks, {customer.name}, for your purchase!\n"
               f"You have bought:")
         total_cost = 0
@@ -25,7 +26,7 @@ class Shop:
                     total_cost += (amount * price)
                     print(f"{amount} {buyable}s for {amount * price} dollars")
         print(f"Total cost is {round(total_cost, 2)} dollars")
-        print("See you again!")
+        print("See you again!\n")
 
     def __repr__(self) -> str:
         return f"{self.name}"
