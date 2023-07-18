@@ -5,22 +5,21 @@ from app.shop import Shop
 
 class CostCalculation:
     def __init__(
-        self,
-        customers: dict,
-        shops: dict,
-        fuel_price: Union[int, float]
+            self,
+            customers: dict,
+            shops: dict,
+            fuel_price: Union[int, float]
     ) -> None:
         self.customers = customers
         self.shops = shops
         self.fuel_price = fuel_price
 
-        self.results = {}
-
     def calculation(self) -> None:
 
         for customer in self.customers.values():
-            self.results = {}
+
             best_deal = float("inf")
+            best_shop = None
 
             print(f"{customer.name} has {customer.money} dollars")
 
@@ -45,7 +44,7 @@ class CostCalculation:
 
                 if trip_total_cost < best_deal:
                     best_deal = trip_total_cost
-                    self.results[customer] = {shop: trip_total_cost}
+                    best_shop = shop
 
             the_rest_of_money = round(customer.money - best_deal, 2)
             if the_rest_of_money < 0:
@@ -53,10 +52,9 @@ class CostCalculation:
                       f"make a purchase in any shop")
                 break
 
-            shop = list(self.results[customer].keys())[0]
             home_location = customer.location
-            print(f"{customer} rides to {shop}\n")
-            Shop.sale_of_goods(shop, customer)
+            print(f"{customer} rides to {best_shop}\n")
+            Shop.sale_of_goods(best_shop, customer)
             print(f"{customer} rides home")
             customer.location = home_location
             print(f"{customer} now has {the_rest_of_money} dollars\n")

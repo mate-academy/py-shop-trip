@@ -17,4 +17,4 @@ class Customer:
         self.car = car
 
     def __repr__(self) -> str:
-        return f"{self.name}"
+        return self.name
