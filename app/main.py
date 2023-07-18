@@ -8,7 +8,6 @@ from app.shop import Shop
 def shop_trip() -> None:
     customers = {}
     shops = {}
-    print()
     source = os.path.join(os.path.dirname(__file__), "config.json")
     data = None
 

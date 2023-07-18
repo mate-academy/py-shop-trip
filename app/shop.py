@@ -16,9 +16,9 @@ class Shop:
 
     def sale_of_goods(self, customer: Customer) -> None:
         customer.location = self.location
-        print("\nDate:", datetime.datetime.now().strftime("%m/%d/%Y %H:%M:%S"))
+        print("Date:", datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S"))
         print(f"Thanks, {customer.name}, for your purchase!\n"
-              f"You have bought:")
+              f"You have bought: ")
         total_cost = 0
         for buyable, amount in customer.product_cart.items():
             for sellable, price in self.products.items():
