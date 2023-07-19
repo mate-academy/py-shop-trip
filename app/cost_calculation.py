@@ -1,6 +1,5 @@
 import math
 from typing import Union
-from app.shop import Shop
 
 
 class CostCalculation:
