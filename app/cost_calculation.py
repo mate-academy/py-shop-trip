@@ -54,7 +54,7 @@ class CostCalculation:
 
             home_location = customer.location
             print(f"{customer} rides to {best_shop}\n")
-            Shop.sale_of_goods(best_shop, customer)
+            best_shop.sale_of_goods(customer)
             print(f"{customer} rides home")
             customer.location = home_location
             print(f"{customer} now has {the_rest_of_money} dollars\n")

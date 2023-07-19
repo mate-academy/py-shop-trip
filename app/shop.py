@@ -16,17 +16,19 @@ class Shop:
 
     def sale_of_goods(self, customer: Customer) -> None:
         customer.location = self.location
+
         print("Date:", datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S"))
         print(f"Thanks, {customer.name}, for your purchase!\n"
               f"You have bought: ")
+
         total_cost = 0
-        for buyable, amount in customer.product_cart.items():
-            for sellable, price in self.products.items():
-                if buyable == sellable:
-                    total_cost += (amount * price)
-                    print(f"{amount} {buyable}s for {amount * price} dollars")
+        for product, amount in customer.product_cart.items():
+            total_cost += (amount * self.products[product])
+            print(f"{amount} {product}s for "
+                  f"{amount * self.products[product]} dollars")
+
         print(f"Total cost is {round(total_cost, 2)} dollars")
         print("See you again!\n")
 
     def __repr__(self) -> str:
-        return f"{self.name}"
+        return self.name
