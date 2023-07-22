@@ -24,11 +24,7 @@ def shop_trip() -> None:
         customer.customer_information()
 
         for shop_item in data.get("shops"):
-            shop = Shop(
-                shop_item.get("name"),
-                shop_item.get("location"),
-                shop_item.get("products"),
-            )
+            shop = Shop(**shop_item)
             fuel_cost = car.count_fuel_price(
                 fuel_price,
                 customer.location,
@@ -39,8 +35,8 @@ def shop_trip() -> None:
             customer.shop_visit(shop.name, full_cost)
             shops[full_cost] = shop
 
-        nearest_shop = shops[min(shops.keys())]
-        lowest_price = min(shops.keys())
+        nearest_shop = shops[min(shops)]
+        lowest_price = min(shops)
 
         if lowest_price <= customer.money:
             customer.change_location(nearest_shop.location)
