@@ -9,10 +9,10 @@ class Shop:
     products: dict
 
     def calculate_product_price(self, customer_products: dict) -> float:
-        return sum([
+        return sum(
             value * self.products.get(key)
             for key, value in customer_products.items()
-        ])
+        )
 
     def print_check(self, customer_name: str, customer_products: dict) -> None:
         total_price = []
