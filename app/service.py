@@ -23,8 +23,10 @@ def shop_data() -> list[Shop]:
     return Shop.shop_object(read_data_from_file().get("shops"))
 
 
-def distance(customer_location: list,
-             shop_location: list) -> float:
+def distance(
+        customer_location: list,
+        shop_location: list
+) -> float:
     x1, y1 = customer_location
     x2, y2 = shop_location
     return (

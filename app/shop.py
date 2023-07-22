@@ -10,13 +10,10 @@ class Shop:
 
     @classmethod
     def shop_object(cls, shops: list) -> list[Shop]:
-        markets = []
-        for shop in shops:
-            markets.append(
-                Shop(
-                    name=shop.get("name"),
-                    location=shop.get("location"),
-                    products=shop.get("products")
-                )
-            )
-        return markets
+        return [
+            Shop(
+                name=shop.get("name"),
+                location=shop.get("location"),
+                products=shop.get("products")
+            ) for shop in shops
+        ]

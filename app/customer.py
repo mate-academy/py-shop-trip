@@ -13,15 +13,12 @@ class Customer:
 
     @classmethod
     def customer_object(cls, customers: list) -> list[Customer]:
-        customers_list = []
-        for customer in customers:
-            customers_list.append(
-                Customer(
-                    name=customer.get("name"),
-                    products=customer.get("product_cart"),
-                    location=customer.get("location"),
-                    money=customer.get("money"),
-                    car=Car.car_object(customer.get("car"))
-                )
-            )
-        return customers_list
+        return [
+            Customer(
+                name=customer.get("name"),
+                products=customer.get("product_cart"),
+                location=customer.get("location"),
+                money=customer.get("money"),
+                car=Car.car_object(customer.get("car"))
+            ) for customer in customers
+        ]

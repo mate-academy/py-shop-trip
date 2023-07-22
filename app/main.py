@@ -1,7 +1,9 @@
-from app.service import (fuel_data,
-                         customer_data,
-                         shop_data,
-                         distance)
+from app.service import (
+    fuel_data,
+    customer_data,
+    shop_data,
+    distance
+)
 from datetime import datetime
 
 
