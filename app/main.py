@@ -11,30 +11,28 @@ def shop_trip() -> None:
 
     fuel_price = base["FUEL_PRICE"]
 
-    customers_base = []
-    for customer in base["customers"]:
-        customers_base.append(
-            Customer(
-                customer["name"],
-                customer["product_cart"],
-                customer["location"],
-                customer["money"],
-                Car(
-                    customer["car"]["brand"],
-                    customer["car"]["fuel_consumption"]
-                )
+    customers_base = [
+        Customer(
+            customer["name"],
+            customer["product_cart"],
+            customer["location"],
+            customer["money"],
+            Car(
+                customer["car"]["brand"],
+                customer["car"]["fuel_consumption"]
             )
         )
+        for customer in base["customers"]
+    ]
 
-    shops_base = []
-    for shop in base["shops"]:
-        shops_base.append(
-            Shop(
-                shop["name"],
-                shop["location"],
-                shop["products"]
-            )
+    shops_base = [
+        Shop(
+            shop["name"],
+            shop["location"],
+            shop["products"]
         )
+        for shop in base["shops"]
+    ]
 
     for customer in customers_base:
         customer.print_financial_status()
