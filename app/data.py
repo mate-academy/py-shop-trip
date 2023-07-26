@@ -48,7 +48,7 @@ def calculate_distance(
         ), 2
     )
     trip_to_shop = (distance_km / 100) * car_consume * fuel_price * 2
-    return round(trip_to_shop, 2)
+    return trip_to_shop
 
 
 def calculate_trip_to_shop(customer_cart: dict, shop_products: dict) -> float:
@@ -58,4 +58,4 @@ def calculate_trip_to_shop(customer_cart: dict, shop_products: dict) -> float:
         if product in shop_products:
             total_cost += quantity * shop_products[product]
 
-    return round(total_cost, 2)
+    return total_cost

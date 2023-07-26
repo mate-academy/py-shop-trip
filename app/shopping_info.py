@@ -1,4 +1,4 @@
-from datetime import datetime
+import datetime
 from app.customer import Customer
 
 
@@ -7,8 +7,8 @@ def shopping_info(
         cheapest_shop: list
 ) -> None:
     print(f"{customer.name} rides to {cheapest_shop[0].name}\n")
-    date_time = datetime.now()
-    print(f"Date: {date_time.strftime('%m/%d/%Y %H:%M:%S')}")
+    date_time = datetime.datetime.now()
+    print(f"Date: {date_time.strftime('%d/%m/%Y %H:%M:%S')}")
     print(f"Thanks, {customer.name}, for your purchase!")
     print("You have bought:")
     for product, value in customer.product_cart.items():
