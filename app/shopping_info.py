@@ -10,7 +10,7 @@ def shopping_info(
     date_time = datetime.datetime.now()
     print(f"Date: {date_time.strftime('%d/%m/%Y %H:%M:%S')}")
     print(f"Thanks, {customer.name}, for your purchase!")
-    print("You have bought:")
+    print("You have bought: ")
     for product, value in customer.product_cart.items():
         shopping = cheapest_shop[0].products[product] * value
         print(f"{value} {product}s for {shopping} dollars")

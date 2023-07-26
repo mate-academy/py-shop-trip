@@ -45,7 +45,7 @@ def calculate_distance(
         sqrt(
             (shop_location[0] - customer_location[0])**2
             + (shop_location[1] - customer_location[1])**2
-        ), 2
+        ), 3
     )
     trip_to_shop = (distance_km / 100) * car_consume * fuel_price * 2
     return trip_to_shop

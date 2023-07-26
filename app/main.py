@@ -21,7 +21,8 @@ def shop_trip() -> None:
                 customer.product_cart,
                 shop.products)
 
-            total_cost_to_shop = round(trip_to_shop + cost_of_distance_to_shop, 2)
+            total_cost_to_shop = round(
+                trip_to_shop + cost_of_distance_to_shop, 2)
 
             print(f"{customer.name}'s trip to the"
                   f" {shop.name} costs {total_cost_to_shop}")
