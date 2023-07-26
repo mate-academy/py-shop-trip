@@ -1,6 +1,7 @@
 from __future__ import annotations
 from dataclasses import dataclass
-from app.other import Location, Car
+from app.location import Location
+from app.car import Car
 
 
 @dataclass
@@ -8,10 +9,10 @@ class Order:
     product: Product
     amount: int
 
-    @staticmethod
-    def deserialize_from_dict(info: dict) -> list[Order]:
+    @classmethod
+    def deserialize_from_dict(cls, info: dict) -> list[Order]:
         return [
-            Order(Product(key, 0), value) for key, value in info.items()
+            cls(Product(key, 0), value) for key, value in info.items()
         ]
 
 
@@ -20,10 +21,10 @@ class Product:
     name: str
     price: float
 
-    @staticmethod
-    def deserialize_from_dict(info: dict) -> dict[str, Product]:
+    @classmethod
+    def deserialize_from_dict(cls, info: dict) -> dict[str, Product]:
         return {
-            key: Product(key, value) for key, value in info.items()
+            key: cls(key, value) for key, value in info.items()
         }
 
 
@@ -33,9 +34,9 @@ class Shop:
     products: dict[str, Product]
     location: Location
 
-    @staticmethod
-    def deserialize_from_dict(info: dict) -> Shop:
-        return Shop(
+    @classmethod
+    def deserialize_from_dict(cls, info: dict) -> Shop:
+        return cls(
             name=info["name"],
             products=Product.deserialize_from_dict(info["products"]),
             location=Location.deserialize_from_list(info["location"]),
@@ -56,9 +57,9 @@ class Customer:
     money: float
     car: Car
 
-    @staticmethod
-    def deserialize_from_dict(info: dict) -> Customer:
-        return Customer(
+    @classmethod
+    def deserialize_from_dict(cls, info: dict) -> Customer:
+        return cls(
             name=info["name"],
             orders=Order.deserialize_from_dict(info["product_cart"]),
             location=Location.deserialize_from_list(info["location"]),
