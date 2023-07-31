@@ -25,11 +25,16 @@ class Customer:
     def initial_money(self) -> None:
         print(f"{self.name} has {self.money} dollars")
 
-    def distance(self, shop_location: list, fuel_consumption: float, fuel_price: float) -> float:
+    def distance(
+            self,
+            shop_location: list,
+            fuel_consumption: float,
+            fuel_price: float
+    ) -> float:
         x1, y1 = self.customer_location
         x2, y2 = shop_location
-        distance_to_shop = sqrt((x2 - x1) ** 2 + (y2 - y1) ** 2)
-        trip_to_shop = distance_to_shop / 100 * fuel_consumption * fuel_price * 2
+        dist = sqrt((x2 - x1) ** 2 + (y2 - y1) ** 2)
+        trip_to_shop = dist / 100 * fuel_consumption * fuel_price * 2
 
         return round(trip_to_shop, 2)
 
@@ -38,7 +43,7 @@ class Customer:
         date = datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S")
         print(f"Date: {date}")
         print(f"Thanks, {self.name}, for your purchase!")
-        print("You have bought:")
+        print("You have bought: ")
 
         product_price_list = [value for value in shop.products.values()]
         product_list = iter(product_price_list)
@@ -49,4 +54,4 @@ class Customer:
             print(f"{value} {key}s for {cost} dollars")
 
         print(f"Total cost is {total_cost} dollars")
-        print("See you again!")
+        print("See you again!\n")
