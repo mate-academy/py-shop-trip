@@ -45,13 +45,10 @@ class Customer:
         print(f"Thanks, {self.name}, for your purchase!")
         print("You have bought: ")
 
-        product_price_list = [value for value in shop.products.values()]
-        product_list = iter(product_price_list)
-
-        for key, value in self.product_cart.items():
-            cost = value * next(product_list)
+        for product_name, price in self.product_cart.items():
+            cost = price * shop.products[product_name]
             total_cost += cost
-            print(f"{value} {key}s for {cost} dollars")
+            print(f"{price} {product_name}s for {cost} dollars")
 
         print(f"Total cost is {total_cost} dollars")
         print("See you again!\n")

@@ -13,6 +13,15 @@ def shop_trip() -> None:
     customers_data = data["customers"]
     shops_data = data["shops"]
 
+    shops = {}
+    for shop_data in shops_data:
+        shop_name = shop_data["name"]
+        shop_location = shop_data["location"]
+        products = shop_data["products"]
+
+        shop = Shop(shop_name, shop_location, products)
+        shops[shop_name] = shop
+
     for customer_data in customers_data:
         customer_car = Car(
             customer_data["car"]["brand"],
@@ -30,14 +39,7 @@ def shop_trip() -> None:
         best_shop = None
 
         customer.initial_money()
-
-        for shop_data in shops_data:
-            shop_name = shop_data["name"]
-            shop_location = shop_data["location"]
-            products = shop_data["products"]
-
-            shop = Shop(shop_name, shop_location, products)
-
+        for shop_name, shop in shops.items():
             total_cost = (
                 customer.distance(
                     shop.shop_location,
@@ -46,10 +48,8 @@ def shop_trip() -> None:
                 )
             )
 
-            product_price_list = [value for value in products.values()]
-            product_list = iter(product_price_list)
-            for key, value in customer.product_cart.items():
-                cost = value * next(product_list)
+            for product_name, price in customer.product_cart.items():
+                cost = price * shop.products[product_name]
                 total_cost += cost
 
             print(f"{customer.name}'s trip to the "
@@ -71,6 +71,3 @@ def shop_trip() -> None:
         else:
             print(f"{customer.name} "
                   f"doesn't have enough money to make a purchase in any shop")
-
-
-shop_trip()
