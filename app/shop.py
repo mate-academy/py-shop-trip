@@ -1,4 +1,4 @@
-from datetime import datetime
+import datetime
 
 
 class Shop:
@@ -13,7 +13,7 @@ class Shop:
         self.products = products
 
     def receipt(self, customer: object) -> str:
-        date = datetime.now()
+        date = datetime.datetime.now()
         receipt = (f"\nDate: {date.strftime('%d/%m/%Y %H:%M:%S')}"
                    f"\nThanks, {customer.name}, for your purchase!"
                    f"\nYou have bought: \n")
