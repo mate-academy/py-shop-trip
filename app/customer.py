@@ -27,8 +27,11 @@ class Customer:
             self.car["fuel_consumption"] / 100
         ) * distance * 2
 
-        products_price = 0
-        for product, amount in self.products_cart.items():
-            products_price += shop.products[product] * amount
+        products_price = sum(
+            [
+                shop.products[product] * amount
+                for product, amount in self.products_cart.items()
+            ]
+        )
 
         return fuel_cost + products_price
