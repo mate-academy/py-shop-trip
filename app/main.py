@@ -38,8 +38,7 @@ def shop_trip() -> None:
         for shop in shops:
             trip_price = customer.trip_price(fuel_price, shop)
             if trip_price < best_shop[1]:
-                best_shop[0] = shop
-                best_shop[1] = trip_price
+                best_shop = [shop, trip_price]
 
             print(
                 f"{customer.name}'s trip to the {shop.name} "
