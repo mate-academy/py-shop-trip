@@ -46,9 +46,13 @@ class Customer:
         print("You have bought: ")
 
         for product_name, price in self.product_cart.items():
-            cost = price * shop.products[product_name]
-            total_cost += cost
-            print(f"{price} {product_name}s for {cost} dollars")
+            print(f"{price} {product_name}s for "
+                  f"{price * shop.products[product_name]} dollars")
 
+        total_cost = sum(
+            price * shop.products[product_name]
+            for product_name, price in self.product_cart.items()
+        )
         print(f"Total cost is {total_cost} dollars")
+
         print("See you again!\n")
