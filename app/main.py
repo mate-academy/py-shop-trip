@@ -13,14 +13,14 @@ def shop_trip() -> None:
     customers_data = data["customers"]
     shops_data = data["shops"]
 
-    shops = {}
+    shops = []
     for shop_data in shops_data:
         shop_name = shop_data["name"]
         shop_location = shop_data["location"]
         products = shop_data["products"]
 
         shop = Shop(shop_name, shop_location, products)
-        shops[shop_name] = shop
+        shops.append(shop)
 
     for customer_data in customers_data:
         customer_car = Car(
@@ -39,7 +39,7 @@ def shop_trip() -> None:
         best_shop = None
 
         customer.initial_money()
-        for shop_name, shop in shops.items():
+        for shop in shops:
             total_cost = (
                 customer.distance(
                     shop.shop_location,
@@ -48,12 +48,13 @@ def shop_trip() -> None:
                 )
             )
 
-            for product_name, price in customer.product_cart.items():
-                cost = price * shop.products[product_name]
-                total_cost += cost
+            total_cost += sum(
+                price * shop.products[product_name]
+                for product_name, price in customer.product_cart.items()
+            )
 
             print(f"{customer.name}'s trip to the "
-                  f"{shop_name} costs {round(total_cost, 2)}")
+                  f"{shop.shop_name} costs {round(total_cost, 2)}")
 
             if total_cost < min_total_cost and total_cost <= customer.money:
                 min_total_cost = total_cost
