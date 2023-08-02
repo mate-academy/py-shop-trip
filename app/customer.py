@@ -22,10 +22,16 @@ class Customer:
         self.enough_money = False
         self.total_cost = 0
 
-    def choose_the_best_shop(self, shops_list: List[Shop], fuel_price: float) -> None:
+    def choose_the_best_shop(
+            self,
+            shops_list: List[Shop],
+            fuel_price: float
+    ) -> None:
         shops = {}
         for shop in shops_list:
-            costs_of_product = shop.calculate_amount_for_products(self.product_cart)
+            costs_of_product = shop.calculate_amount_for_products(
+                self.product_cart
+            )
             fuel_cost = self.car.calculate_fuel_cost(
                 self.location, shop.location, fuel_price
             )
@@ -47,7 +53,10 @@ class Customer:
             print(f"{self.name} rides to {self.cheapest_shop.name}\n")
             self.location = self.cheapest_shop.location
         else:
-            print(f"{self.name} doesn't have enough money to make a purchase in any shop")
+            print(
+                f"{self.name} doesn't have enough "
+                f"money to make a purchase in any shop"
+            )
 
     def buy_products(self) -> None:
         if self.enough_money:

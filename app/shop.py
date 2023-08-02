@@ -23,9 +23,12 @@ class Shop:
 
     def print_bill(self, product_cart: dict, name: str) -> float:
 
-        print(f"Date: {datetime.datetime.now().strftime('%d/%m/%Y %H:%M:%S')}\n"
-              f"Thanks, {name}, for your purchase!\n"
-              "You have bought: ")
+        print(
+            f"Date: "
+            f"{datetime.datetime.now().strftime('%d/%m/%Y %H:%M:%S')}\n"
+            f"Thanks, {name}, for your purchase!\n"
+            "You have bought: "
+        )
 
         total_amount = 0
         for product_name, count in product_cart.items():
