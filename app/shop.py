@@ -16,10 +16,10 @@ class Shop:
         self.products = products
 
     def calculate_amount_for_products(self, product_cart: dict) -> int | float:
-        total_amount = 0
-        for product_name, count in product_cart.items():
-            total_amount += self.products.get(product_name, 0) * count
-        return total_amount
+        return sum(
+            self.products.get(product_name, 0) * count
+            for product_name, count in product_cart.items()
+        )
 
     def print_bill(self, product_cart: dict, name: str) -> float:
 
