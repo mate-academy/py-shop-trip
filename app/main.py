@@ -15,13 +15,20 @@ def shop_trip() -> None:
     shops = Shop.create_shops(config.get("shops"))
 
     for customer in customers:
-        customer.choose_the_best_shop(
+        best_shop, enough_money = customer.choose_the_best_shop(
             shops_list=shops,
             fuel_price=fuel_price
         )
-        customer.ride_to_the_shop()
-        customer.buy_products()
-        customer.ride_to_home()
+        customer.ride_to_the_shop(
+            shop=best_shop,
+            enough_money=enough_money,
+            fuel_price=fuel_price
+        )
+        if enough_money:
+            customer.buy_products(
+                shop=best_shop,
+            )
+            customer.ride_to_home()
 
 
 if __name__ == "__main__":

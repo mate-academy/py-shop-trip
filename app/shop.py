@@ -22,7 +22,6 @@ class Shop:
         )
 
     def print_bill(self, product_cart: dict, name: str) -> float:
-
         print(
             f"Date: "
             f"{datetime.datetime.now().strftime('%d/%m/%Y %H:%M:%S')}\n"
@@ -40,6 +39,7 @@ class Shop:
             f"Total cost is {round(total_amount, 2)} dollars\n"
             f"See you again!\n"
         )
+        return total_amount
 
     @classmethod
     def create_shops(cls, shops: List) -> List[Shop]:
