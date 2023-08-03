@@ -19,6 +19,7 @@ def shop_trip() -> None:
             shops_list=shops,
             fuel_price=fuel_price
         )
+        home_location = customer.location
         customer.ride_to_the_shop(
             shop=best_shop,
             enough_money=enough_money,
@@ -28,7 +29,10 @@ def shop_trip() -> None:
             customer.buy_products(
                 shop=best_shop,
             )
-            customer.ride_to_home()
+            customer.ride_to_home(
+                home_location=home_location,
+                fuel_price=fuel_price
+            )
 
 
 if __name__ == "__main__":

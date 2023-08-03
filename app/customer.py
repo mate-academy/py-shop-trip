@@ -32,7 +32,7 @@ class Customer:
             fuel_cost = self.car.calculate_fuel_cost(
                 self.location, shop.location, fuel_price
             )
-            shops[shop] = round(costs_of_product + fuel_cost, 2)
+            shops[shop] = round(costs_of_product + fuel_cost * 2, 2)
 
         print(f"{self.name} has {self.money} dollars")
 
@@ -72,7 +72,16 @@ class Customer:
             self.product_cart, self.name
         )
 
-    def ride_to_home(self) -> None:
+    def ride_to_home(
+            self,
+            home_location: list,
+            fuel_price: float | int
+    ) -> None:
+        self.money -= self.car.calculate_fuel_cost(
+            self.location, home_location, fuel_price
+        )
+        self.location = home_location
+
         print(
             f"{self.name} rides home\n"
             f"{self.name} now has {round(self.money, 2)} dollars\n"

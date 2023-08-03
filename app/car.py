@@ -12,4 +12,4 @@ class Car:
         distance = ((first_point[0] - second_point[0]) ** 2 + (
             first_point[1] - second_point[1]) ** 2) ** 0.5
 
-        return (self.fuel_consumption / 100) * distance * fuel_price * 2
+        return (self.fuel_consumption / 100) * distance * fuel_price
