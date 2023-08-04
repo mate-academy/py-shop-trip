@@ -1,4 +1,5 @@
 import json
+import os.path
 from pathlib import Path
 
 from app.customer import Customer
@@ -6,7 +7,7 @@ from app.shop import Shop
 
 
 def shop_trip() -> None:
-    file_path = Path(__file__).parent / "config.json"
+    file_path = os.path.join(Path(__file__).parent, "config.json")
     with open(file_path) as config:
         config = json.load(config)
 
