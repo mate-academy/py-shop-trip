@@ -4,14 +4,20 @@ class Shop:
         self.location = location
         self.products = products
 
-    def print_purchase_receipt(self, customer, current_time):
-        print(f"\nDate: {current_time.strftime('%m/%d/%Y %H:%M:%S')}")
+    def print_receipt(self, customer, purchase_time):
+        print(f"\nDate: {purchase_time}")
         print(f"Thanks, {customer.name}, for your purchase!")
         print("You have bought:")
+        total_cost = 0
         for product, quantity in customer.product_cart.items():
             if product in self.products:
-                product_price = self.products[product]
-                total_price = product_price * quantity
-                print(f"{quantity} {product}s for {total_price:.2f} dollars")
-        print(f"Total cost is {customer.calculate_product_cost(self.products):.2f} dollars")
+                product_cost = self.products[product] * quantity
+                total_cost += product_cost
+                print(f"{quantity} {product}s for {product_cost:.1f} dollars")
+        print(f"Total cost is {total_cost:.2f} dollars")
         print("See you again!")
+
+    def remove_products(self, customer):
+        for product, quantity in customer.product_cart.items():
+            if product in self.products:
+                self.products[product] -= quantity

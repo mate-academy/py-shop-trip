@@ -2,54 +2,55 @@ import json
 from app.car import Car
 from app.customer import Customer
 from app.shop import Shop
-import datetime
+from datetime import datetime
 
 
 def shop_trip():
-    with open("app/config.json") as f:
-        config_data = json.load(f)
-        fuel_price = config_data["FUEL_PRICE"]
-        customers_data = config_data["customers"]
-        shops_data = config_data["shops"]
+    with open("app/config.json") as config_file:
+        config_data = json.load(config_file)
 
-    shops = []
-    for shop_data in shops_data:
-        shop = Shop(shop_data["name"], shop_data["location"], shop_data["products"])
-        shops.append(shop)
+    fuel_price = config_data["FUEL_PRICE"]
+    customers_data = config_data["customers"]
+    shops_data = config_data["shops"]
 
-    customers = []
+    shops = [Shop(shop["name"], shop["location"], shop["products"]) for shop in shops_data]
+
     for customer_data in customers_data:
-        car = Car(customer_data["car"]["brand"], customer_data["car"]["fuel_consumption"])
-        customer = Customer(
-            customer_data["name"],
-            customer_data["product_cart"],
-            customer_data["location"],
-            customer_data["money"],
-            car
-        )
-        customers.append(customer)
+        customer_name = customer_data["name"]
+        product_cart = customer_data["product_cart"]
+        location = customer_data["location"]
+        money = customer_data["money"]
+        car_data = customer_data["car"]
+        car_brand = car_data["brand"]
+        fuel_consumption = car_data["fuel_consumption"]
 
-    for customer in customers:
-        print(f"\n{customer.name} has {customer.money} dollars")
+        car = Car(car_brand, fuel_consumption)
+        customer = Customer(customer_name, product_cart, location, money, car)
+
         cheapest_shop = None
-        min_trip_cost = float('inf')
+        cheapest_trip_cost = float("inf")
 
         for shop in shops:
             trip_cost = customer.calculate_trip_cost(shop, fuel_price)
-            print(f"{customer.name}'s trip to {shop.name} costs {trip_cost:.2f}")
-            if trip_cost < min_trip_cost and trip_cost <= customer.money:
+            if trip_cost < cheapest_trip_cost and trip_cost <= customer.money:
                 cheapest_shop = shop
-                min_trip_cost = trip_cost
+                cheapest_trip_cost = trip_cost
 
-        if cheapest_shop is not None:
+        if cheapest_shop:
+            print(f"{customer.name} has {customer.money} dollars")
+            print(f"{customer.name}'s trip to {cheapest_shop.name} costs {cheapest_trip_cost:.2f}")
+            customer.update_money(cheapest_trip_cost)
             print(f"{customer.name} rides to {cheapest_shop.name}")
-            customer.money -= min_trip_cost
-            current_time = datetime.datetime.now()
-            cheapest_shop.print_purchase_receipt(customer, current_time)
-            print(f"{customer.name} rides home")
+
+            purchase_time = datetime.now().strftime("%m/%d/%Y %H:%M:%S")
+            cheapest_shop.print_receipt(customer, purchase_time)
+
+            customer.location = cheapest_shop.location
+
+            print(f"\n{customer.name} rides home")
+            print(f"{customer.name} now has {customer.money:.2f} dollars")
         else:
-            print(f"{customer.name} doesn't have enough money to make a purchase in any shop")
-        print(f"{customer.name} now has {customer.money:.2f} dollars")
+            print(f"\n{customer.name} doesn't have enough money to make a purchase in any shop")
 
 
 if __name__ == "__main__":

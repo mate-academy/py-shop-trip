@@ -3,5 +3,5 @@ class Car:
         self.brand = brand
         self.fuel_consumption = fuel_consumption
 
-    def get_fuel_cost(self, distance, fuel_price):
-        return distance * self.fuel_consumption * fuel_price / 100.0
+    def fuel_cost(self, distance, fuel_price):
+        return (distance / 100) * self.fuel_consumption * fuel_price
