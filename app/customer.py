@@ -11,7 +11,7 @@ class Customer:
             money: int,
             car: Car,
             product_cart: dict,
-            customer_location: list
+            customer_location: list[int, int]
     ) -> None:
         self.name = name
         self.money = money
@@ -31,27 +31,21 @@ class Customer:
                 + (shop.location[1] - self.location[1]) ** 2) ** 0.5
         )
 
-        fuel_cost = \
+        fuel_cost = (
             fuel_price * (
                 self.car.fuel_consumption / 100
             ) * distance * 2
-
+        )
         products_price = self.get_product_price(shop)
         return round(fuel_cost + products_price, 2)
 
-    def get_product_price(self, shop: Shop) -> None:
+    def get_product_price(self, shop: Shop) -> float:
         return sum(
             [
                 shop.products[product] * amount
                 for product, amount in self.product_cart.items()
             ]
         )
-
-    def products_cost(self, product_cart: dict) -> int:
-        total = 0
-        for product in product_cart:
-            total += self.product_cart[product]
-        return total
 
     def print_the_purchase_receipt(self, cheapest_shop: Shop) -> None:
         print(f"\nDate: "
