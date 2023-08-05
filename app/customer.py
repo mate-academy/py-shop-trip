@@ -1,5 +1,4 @@
 import datetime
-import math
 
 from app.car import Car
 from app.shop import Shop
@@ -11,12 +10,28 @@ class Customer:
         self.money = money
         self.car = car
         self.product_cart = product_cart
-        self.customer_location = customer_location
+        self.location = customer_location
 
-    def calculate_road(self, shop: Shop, fuel_price: float) -> float:
-        distance = math.dist(self.customer_location, shop.shop_location)
+    def get_trip_price(self, fuel_price: int | float, shop: Shop) -> int | float:
+        distance = (
+                (
+                        (shop.location[0] - self.location[0]) ** 2
+                        + (shop.location[1] - self.location[1]) ** 2
+                ) ** 0.5
+        )
+        fuel_cost = fuel_price * (
+                self.car.fuel_consumption / 100
+        ) * distance * 2
+        products_price = self.get_product_price(shop)
+        return round(fuel_cost + products_price, 2)
 
-        return distance * (self.car.fuel_consumption / 100) * fuel_price * 2
+    def get_product_price(self, shop: Shop):
+        return sum(
+            [
+                shop.products[product] * amount
+                for product, amount in self.product_cart.items()
+            ]
+        )
 
     def products_cost(self, product_cart):
         total = 0
@@ -32,5 +47,3 @@ class Customer:
             count = self.product_cart.get(product, 0)
             if count > 0:
                 print(f"{count} {product}s for {count * amount} dollars")
-        print(f"Total cost is {self.products_cost(self.product_cart)} dollars")
-        print("See you again!\n")
