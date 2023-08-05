@@ -33,7 +33,8 @@ def shop_trip() -> None:
 
             trip_cost = customer.get_trip_price(fuel_price, shop)
 
-            print(f"{customer.name}\'s trip to the {shop.name} costs {trip_cost}")
+            print(f"{customer.name}\'s trip to the "
+                  f"{shop.name} costs {trip_cost}")
 
             if cheapest_cost is None or trip_cost < cheapest_cost:
                 cheapest_cost = trip_cost
@@ -45,13 +46,15 @@ def shop_trip() -> None:
             customer.money -= cheapest_cost
 
             customer.print_the_purchase_receipt(cheapest_shop)
-            print(f"Total cost is {customer.get_product_price(cheapest_shop)} dollars")
+            print(f"Total cost is "
+                  f"{customer.get_product_price(cheapest_shop)} dollars")
             print("See you again!\n")
 
             print(f"{customer.name} rides home")
             print(f"{customer.name} now has {customer.money} dollars\n")
         else:
-            print(f"{customer.name} doesn't have enough money to make a purchase in any shop")
+            print(f"{customer.name} doesn't have enough money "
+                  f"to make a purchase in any shop")
 
 
 # if __name__ == "__main__":
