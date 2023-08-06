@@ -40,15 +40,3 @@ class Customer:
             ]
         )
         return fuel_cost + products_price
-
-    def calculate_distance(self, destination_location: list[int]) -> float:
-        x1, y1 = self.location
-        x2, y2 = destination_location
-        return round(((x2 - x1) ** 2 + (y2 - y1) ** 2) ** 0.5, 2)
-
-    def calculate_product_cost(self, shop_products: dict) -> float | int:
-        total_cost = 0
-        for product, quantity in self.product_cart.items():
-            if product in shop_products:
-                total_cost += shop_products[product] * quantity
-        return round(total_cost, 2)
