@@ -21,10 +21,9 @@ class Customer:
                          + (self.location[1] - shop.location[1]) ** 2)
 
     def count_product_cart_price(self, shop: Shop) -> float:
-        sum_ = 0
-        for product, amount in self.product_cart.items():
-            sum_ += amount * shop.products[product]
-        return sum_
+        return sum(amount * shop.products[product]
+                   for product, amount
+                   in self.product_cart.items())
 
     def ride_to_shop_price(self, fuel_price: float, shop: Shop) -> float:
         return (round(self.distance_to_the_shop(shop) * 2
@@ -52,10 +51,11 @@ class Customer:
         min_price_shop = None
         min_price = self.ride_to_shop_price(fuel_price, shops[0])
         for shop in shops:
+            ride_to_shop_price = self.ride_to_shop_price(fuel_price, shop)
             print(f"{self.name}'s trip to the {shop.name} "
-                  f"costs {self.ride_to_shop_price(fuel_price, shop)}")
-            if min_price >= self.ride_to_shop_price(fuel_price, shop):
-                min_price = self.ride_to_shop_price(fuel_price, shop)
+                  f"costs {ride_to_shop_price}")
+            if min_price >= ride_to_shop_price:
+                min_price = ride_to_shop_price
                 min_price_shop = shop
 
         if self.money >= min_price:
