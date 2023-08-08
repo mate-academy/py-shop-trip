@@ -21,9 +21,11 @@ class Customer:
                          + (self.location[1] - shop.location[1]) ** 2)
 
     def count_product_cart_price(self, shop: Shop) -> float:
-        return sum(amount * shop.products[product]
-                   for product, amount
-                   in self.product_cart.items())
+        return sum(
+            amount * shop.products[product]
+            for product, amount
+            in self.product_cart.items()
+        )
 
     def ride_to_shop_price(self, fuel_price: float, shop: Shop) -> float:
         return (round(self.distance_to_the_shop(shop) * 2
