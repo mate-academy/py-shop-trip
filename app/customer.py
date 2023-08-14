@@ -23,7 +23,7 @@ class Customer:
     def shop_cost(self, shopping_price: dict) -> None:
         for product, amount in self.product_cart.items():
             price = amount * shopping_price[product]
-            print(f"{amount} {product} for {price} dollars")
+            print(f"{amount} {product}s for {price} dollars")
 
     def product_cost(self, shop: Shop) -> float:
         total = 0
@@ -40,22 +40,20 @@ class Customer:
 
             total_trip_cost = spent_for_shopping
 
-            if total_trip_cost <= self.money and \
-                    total_trip_cost <= min_total_cost:
+            if (total_trip_cost <= self.money and
+                    total_trip_cost <= min_total_cost):
                 min_total_cost = total_trip_cost
-                print(min_total_cost)
                 cheapest_shop = shop
             print(f"{self.name}'s trip to the {shop.name} "
                   f"costs {total_trip_cost:.2f}")
 
         if cheapest_shop:
-            print(f"{self.name} rides to {cheapest_shop.name}")
+            print(f"{self.name} rides to {cheapest_shop.name}\n")
             self.location = cheapest_shop.location
-            current_time = (datetime.datetime(2021, 4, 1, 12, 33, 41)
-                            .strftime("%m/%d/%Y %H:%M:%S"))
-            print(f"\nDate: {current_time}")
-            print(f"Thanks, {self.name}, for your purchase!")
-            print("You have bought:")
+            data = datetime.datetime.now().strftime("%d/%m/20%y %H:%M:%S")
+            print(f"Date: {data}\nThanks, {self.name}, "
+                  f"for your purchase!\nYou have bought: ")
+
             self.shop_cost(cheapest_shop.products)
             print(f"Total cost is "
                   f"{self.product_cost(cheapest_shop):.1f} dollars")
