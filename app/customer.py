@@ -40,8 +40,8 @@ class Customer:
 
             total_trip_cost = spent_for_shopping
 
-            if (total_trip_cost <= self.money and
-                    total_trip_cost <= min_total_cost):
+            if (total_trip_cost <= self.money
+                    and total_trip_cost <= min_total_cost):
                 min_total_cost = total_trip_cost
                 cheapest_shop = shop
             print(f"{self.name}'s trip to the {shop.name} "
