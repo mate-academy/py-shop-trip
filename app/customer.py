@@ -38,14 +38,12 @@ class Customer:
             spent_for_shopping = round(self.road_cost(shop, fuel_cost) * 2
                                        + self.product_cost(shop), 2)
 
-            total_trip_cost = spent_for_shopping
-
-            if (total_trip_cost <= self.money
-                    and total_trip_cost <= min_total_cost):
-                min_total_cost = total_trip_cost
+            if (spent_for_shopping <= self.money
+                    and spent_for_shopping <= min_total_cost):
+                min_total_cost = spent_for_shopping
                 cheapest_shop = shop
             print(f"{self.name}'s trip to the {shop.name} "
-                  f"costs {total_trip_cost:.2f}")
+                  f"costs {spent_for_shopping:.2f}")
 
         if cheapest_shop:
             print(f"{self.name} rides to {cheapest_shop.name}\n")

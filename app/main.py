@@ -9,7 +9,7 @@ def shop_trip() -> None:
 
         file_data = json.load(file)
 
-    fuel_cost = file_data["FUEL_PRICE"]
+    fuel_cost = file_data.get("FUEL_PRICE")
     customers = [
         Customer(
             customer_dict["name"],
