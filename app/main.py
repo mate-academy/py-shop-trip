@@ -7,8 +7,11 @@ from app.receipt import shopping_info
 def shop_trip() -> None:
     fuel_price, customers, shops = import_data_from_json()
     for customer in customers:
-        cheapest_shop = []
         print(f"{customer.name} has {customer.money} dollars")
+
+        cheapest_shop = None
+        min_total_cost = float("inf")
+
         for shop in shops:
             cost_of_distance_to_shop = calculate_distance(
                 customer.location,
@@ -27,13 +30,11 @@ def shop_trip() -> None:
             print(f"{customer.name}'s trip to the"
                   f" {shop.name} costs {total_cost_to_shop}")
 
-            cheapest_shop.append([
-                shop,
-                total_cost_to_shop,
-                trip_to_shop])
+            if total_cost_to_shop < min_total_cost:
+                cheapest_shop = (shop, total_cost_to_shop, trip_to_shop)
+                min_total_cost = total_cost_to_shop
 
-        cheapest_shop = min(cheapest_shop, key=lambda x: x[1])
-        if customer.money >= cheapest_shop[1]:
+        if cheapest_shop and customer.money >= cheapest_shop[1]:
             shopping_info(customer, cheapest_shop)
         else:
             print(f"{customer.name} doesn't have enough money "

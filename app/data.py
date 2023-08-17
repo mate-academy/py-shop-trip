@@ -54,8 +54,10 @@ def calculate_distance(
 def calculate_trip_to_shop(customer_cart: dict, shop_products: dict) -> float:
     total_cost = 0
 
-    for product, quantity in customer_cart.items():
-        if product in shop_products:
-            total_cost += quantity * shop_products[product]
+    total_cost = sum(
+        quantity * shop_products[product]
+        for product, quantity in customer_cart.items()
+        if product in shop_products
+    )
 
     return total_cost
