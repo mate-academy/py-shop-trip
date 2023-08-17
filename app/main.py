@@ -24,6 +24,7 @@ def shop_trip() -> None:
             print(f"{customer.name} rides to "
                   f"{shop_class[cost_customer.index(min_cost)].name}\n")
 
+            home_location = customer.location
             customer.location = (shop_class[cost_customer
                                  .index(min_cost)].location)
 
@@ -45,6 +46,8 @@ def shop_trip() -> None:
             print("See you again!\n")
 
             print(f"{customer.name} rides home")
+
+            customer.location = home_location
             print(f"{customer.name} now has "
                   f"{customer.money - min_cost} dollars\n")
         else:
