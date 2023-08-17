@@ -1,7 +1,6 @@
-import json
-import os
 from dataclasses import dataclass
 from typing import List
+from app.load_from_file import get_dict_from_json_file
 
 
 @dataclass
@@ -12,10 +11,7 @@ class Shop:
 
 
 def create_shops() -> List[Shop]:
-    json_path = os.path.join("app", "config.json")
-    with open(json_path, "r") as json_file:
-        shops = json.load(json_file)["shops"]
-
+    shops = get_dict_from_json_file()["shops"]
     return [
         Shop(
             name=shop["name"],

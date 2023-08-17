@@ -1,17 +1,12 @@
-import json
-import os
-
 from app.customer import create_customers
+from app.load_from_file import get_dict_from_json_file
 from app.shop import create_shops
 from math import sqrt
 
 
 def trip_cost() -> list:
     fuel_cost_for_trip = []
-    json_path = os.path.join("app", "config.json")
-    with open(json_path, "r") as json_file:
-        fuel_price = json.load(json_file)["FUEL_PRICE"]
-
+    fuel_price = get_dict_from_json_file()["FUEL_PRICE"]
     customer_class = create_customers()
     shop_class = create_shops()
 

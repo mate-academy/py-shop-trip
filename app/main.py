@@ -8,10 +8,13 @@ def shop_trip() -> None:
     customer_class = create_customers()
     cost_of_trip = trip_cost()
     shop_class = create_shops()
+
     for customer in customer_class:
         index_customer = customer_class.index(customer)
         cost_customer = []
+
         print(f"{customer.name} has {customer.money} dollars")
+
         for index in range(index_customer * 3, (index_customer + 1) * 3):
             print(f"{customer.name}'s trip to the "
                   f"{shop_class[index % 3].name} costs {cost_of_trip[index]}")
