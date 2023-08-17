@@ -13,7 +13,7 @@ class Customer:
     car: dict
 
 
-def create_customers() -> list:
+def create_customers() -> List[Customer]:
     json_path = os.path.join("app", "config.json")
     with open(json_path, "r") as json_file:
         customers = json.load(json_file)["customers"]

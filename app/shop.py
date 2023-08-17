@@ -11,7 +11,7 @@ class Shop:
     products: dict
 
 
-def create_shops() -> list:
+def create_shops() -> List[Shop]:
     json_path = os.path.join("app", "config.json")
     with open(json_path, "r") as json_file:
         shops = json.load(json_file)["shops"]
