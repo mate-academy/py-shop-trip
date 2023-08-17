@@ -10,17 +10,20 @@ def shop_trip() -> None:
         fuel_price = data_file["FUEL_PRICE"]
         shop_dict = {}
     for item in data_file["customers"]:
-        customer = Customer(item["name"],
-                            item["product_cart"],
-                            item["location"],
-                            item["money"]
-                            )
+        customer = Customer(
+            item["name"],
+            item["product_cart"],
+            item["location"],
+            item["money"]
+        )
         car = Car(item["car"]["brand"], item["car"]["fuel_consumption"])
         customer.customer_info()
         for shop_item in data_file["shops"]:
-            shop = Shop(shop_item["name"],
-                        shop_item["location"],
-                        shop_item["products"])
+            shop = Shop(
+                shop_item["name"],
+                shop_item["location"],
+                shop_item["products"]
+            )
             fuel_cost = car.count_fuel_price(
                 fuel_price, customer.location, shop.location
             )
