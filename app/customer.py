@@ -8,18 +8,16 @@ from typing import List
 class Customer:
     name: str
     product_cart: dict
-    location: List
+    location: List[int]
     money: float
     car: dict
 
 
-json_path = os.path.join("app", "config.json")
-with open(json_path, "r") as json_file:
-    customers = json.load(json_file)["customers"]
-
-    customer_class = []
-    for customer in customers:
-        customer_class.append(
+def create_customers() -> list:
+    json_path = os.path.join("app", "config.json")
+    with open(json_path, "r") as json_file:
+        customers = json.load(json_file)["customers"]
+        return [
             Customer(
                 name=customer["name"],
                 product_cart=customer["product_cart"],
@@ -27,4 +25,5 @@ with open(json_path, "r") as json_file:
                 money=customer["money"],
                 car=customer["car"]
             )
-        )
+            for customer in customers
+        ]
