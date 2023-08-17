@@ -1,4 +1,5 @@
 import json
+import os
 from dataclasses import dataclass
 from typing import List
 
@@ -10,7 +11,8 @@ class Shop:
     products: dict
 
 
-with open(r"E:\projects\py-shop-trip\app\config.json", "r") as json_file:
+json_path = os.path.join("app", "config.json")
+with open(json_path, "r") as json_file:
     shops = json.load(json_file)["shops"]
 
     shop_class = []

@@ -1,10 +1,13 @@
 import json
+import os
+
 from app.customer import customer_class
 from app.shop import shop_class
 from math import sqrt
 
 fuel_cost_for_trip = []
-with open(r"E:\projects\py-shop-trip\app\config.json", "r") as json_file:
+json_path = os.path.join("app", "config.json")
+with open(json_path, "r") as json_file:
     fuel_price = json.load(json_file)["FUEL_PRICE"]
 
 for customer in customer_class:
