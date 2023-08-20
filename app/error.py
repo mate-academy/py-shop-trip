@@ -1,0 +1,2 @@
+class InitialDataError(Exception):
+    pass
