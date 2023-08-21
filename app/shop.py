@@ -26,6 +26,13 @@ class Shop:
         fuel_cost = distance * fuel_price * fuel_consumption / 100
         return fuel_cost
 
+    @staticmethod
+    def calculate_cost_of_trip(
+            fuel_cost: float,
+            products_cost: float
+    ) -> float:
+        return round(2 * fuel_cost + products_cost, 2)
+
     def calculate_products_cost(self, product_cart: dict) -> float:
         price = 0
         for product, count in product_cart.items():
@@ -65,8 +72,7 @@ def make_shop_trip(
             customer.car.fuel_consumption,
             fuel_price)
         products_cost = store.calculate_products_cost(customer.product_cart)
-        cost_of_trip = 2 * fuel_cost + products_cost
-        cost_of_trip = round(cost_of_trip, 2)
+        cost_of_trip = store.calculate_cost_of_trip(fuel_cost, products_cost)
 
         print(f"{customer.name}'s trip to the {store.name} "
               f"costs {cost_of_trip}")
@@ -74,8 +80,7 @@ def make_shop_trip(
         cost_of_trips[cost_of_trip] = [store, products_cost]
 
     cheapest_cost = min(cost_of_trips)
-    cheapest_shop = cost_of_trips[cheapest_cost][0]
-    cheapest_products_cost = cost_of_trips[cheapest_cost][1]
+    cheapest_shop, cheapest_products_cost = cost_of_trips[cheapest_cost]
 
     if cheapest_cost > customer.money:
         print(f"{customer.name} doesn't have enough money "
