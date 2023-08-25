@@ -1,46 +1,9 @@
 import json
-import math
 import datetime
 import os
 from app.car import Car
 from app.shop import Shop
 from app.customer import Customer
-from decimal import Decimal
-
-
-def calculate_distance(
-        point1: list[int],
-        point2: list[int]
-) -> float:
-    x1, y1 = point1
-    x2, y2 = point2
-    distance = math.sqrt((x2 - x1)**2 + (y2 - y1)**2)
-    return distance
-
-
-def calculate_trip_cost(
-        distance: float,
-        fuel_consumption: Decimal,
-        fuel_cost: Decimal
-) -> Decimal:
-    total_cost = (distance / 100) * fuel_consumption * fuel_cost
-    return Decimal(total_cost)
-
-
-def find_shop_by_name(shops: list[Shop], name: str) -> Shop:
-    for shop in shops:
-        if shop.name == name:
-            return shop
-
-
-def calculate_products_total(
-        customer_products: dict,
-        shops_products: dict
-) -> Decimal:
-    return Decimal(sum(
-        customer_products[item] * shops_products[item]
-        for item in customer_products.keys()
-    ))
 
 
 def shop_trip() -> None:
@@ -50,7 +13,7 @@ def shop_trip() -> None:
         data = json.load(json_file)
     fuel_price = data["FUEL_PRICE"]
     customer_list = []
-    shop_list = []
+    shop_dict = {}
     for customer in data["customers"]:
         customer_list.append(
             Customer(
@@ -65,29 +28,21 @@ def shop_trip() -> None:
             )
         )
     for shop in data["shops"]:
-        shop_list.append(
-            Shop(
-                name=shop["name"],
-                location=shop["location"],
-                products=shop["products"]
-            )
+        shop_dict[shop["name"]] = Shop(
+            name=shop["name"],
+            location=shop["location"],
+            products=shop["products"]
         )
     for customer in customer_list:
         print(f"{customer.name} has {customer.money} dollars")
         total_cost_dict = {}
-        for shop in shop_list:
-            distance = calculate_distance(
-                customer.location,
-                shop.location
-            )
-            trip_cost = calculate_trip_cost(
-                distance,
-                customer.car.consumption,
+        for shop in shop_dict.values():
+            trip_cost = customer.calculate_trip_cost(
+                shop.location,
                 fuel_price
             )
-            products_cost = calculate_products_total(
-                customer.products,
-                shop.products
+            products_cost = shop.customer_total_price(
+                customer.products
             )
             total_cost = (trip_cost * 2) + products_cost
             total_cost_dict[shop.name] = total_cost
@@ -103,10 +58,9 @@ def shop_trip() -> None:
                   f"enough money to make a purchase in any shop")
             return
         remain_money = customer.money - cost
-        cheapest_shop = find_shop_by_name(shop_list, cheapest_shop_name)
-        cheapest_total = calculate_products_total(
-            customer.products,
-            cheapest_shop.products
+        cheapest_shop = shop_dict[cheapest_shop_name]
+        cheapest_total = cheapest_shop.customer_total_price(
+            customer.products
         )
         print(f"{customer.name} rides to {cheapest_shop.name}\n")
         time_stamp = datetime.datetime.now()
