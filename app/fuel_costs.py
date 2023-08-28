@@ -1,13 +1,14 @@
 import math
+from app.classes.car import Car
 
 
 def fuel_costs(
         fuel_price: float,
-        car: dict,
+        car: Car,
         customer_location: list,
         shop_location: list,
 ) -> float:
-    consumption = car["fuel_consumption"]
+    consumption = car.fuel_consumption
     distance_km = round(
         math.sqrt(
             (shop_location[0] - customer_location[0])**2
