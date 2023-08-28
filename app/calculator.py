@@ -77,7 +77,7 @@ class ShopTripCalculator:
 
             money_remainder = round(customer.money - min_trip_cost, 2)
             return_message = generate_return_message(
-                customer.name,
+                customer,
                 money_remainder,
                 what_have_bought,
                 total_have_bought,
