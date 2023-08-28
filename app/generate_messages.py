@@ -1,8 +1,9 @@
 import datetime
-from typing import Dict
+from app.shop import Shop
+from typing import List
 
 
-def generate_product_cost_message(item_costs: list) -> str:
+def generate_product_cost_message(item_costs: List) -> str:
     return "\n".join(
         f"{item[1]} {item[0]}s for {item[2]} dollars" for item in item_costs
     )
@@ -13,8 +14,9 @@ def generate_return_message(
     money_remainder: float,
     what_have_bought: str,
     total_have_bought: float,
-    chosen_shop: Dict
+    chosen_shop: Shop
 ) -> str:
+
     current_timestamp = datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S")
     if money_remainder >= 0:
         return (

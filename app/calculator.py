@@ -1,7 +1,7 @@
 import json
-from typing import Dict, List
+from typing import Dict
 
-from app.customer import create_customer, Customer
+from app.customer import create_customer
 from app.shop import create_shop
 from app.calculate_functions import (
     calculate_distance,
@@ -31,28 +31,10 @@ class ShopTripCalculator:
         with open(config_file, "r") as config_json:
             return json.load(config_json)
 
-    def find_cheapest_shop(
-            self, customer: Customer, distances_to_shops: List
-    ) -> Dict:
-        min_trip_cost = float("inf")
-        chosen_shop = None
-
-        for distance, shop in distances_to_shops:
-            products_cost_at_shop = calculate_total_cost(
-                customer.product_cart, shop.products
-            )
-            fuel_to_shop = calculate_fuel_cost(
-                distance, customer.fuel_consumption, self.fuel_price
-            )
-            total_trip_cost = fuel_to_shop + products_cost_at_shop
-
-            if total_trip_cost < min_trip_cost:
-                min_trip_cost = total_trip_cost
-                chosen_shop = shop
-
-        return chosen_shop
-
     def run(self) -> None:
+        min_trip_cost = float("inf")
+        cheapest_shop = None
+
         for customer in self.customers:
             trip_cost_for_every_shop = ""
 
@@ -64,10 +46,6 @@ class ShopTripCalculator:
                 ) for shop in self.shops
             ]
 
-            cheapest_shop = self.find_cheapest_shop(
-                customer, distances_to_shops
-            )
-
             for distance, shop in distances_to_shops:
                 products_cost_at_shop = calculate_total_cost(
                     customer.product_cart, shop.products
@@ -75,9 +53,15 @@ class ShopTripCalculator:
                 fuel_to_shop = calculate_fuel_cost(
                     distance, customer.fuel_consumption, self.fuel_price
                 )
+
                 total_trip_cost = round(
                     (fuel_to_shop + products_cost_at_shop), 2
                 )
+
+                if total_trip_cost < min_trip_cost:
+                    min_trip_cost = total_trip_cost
+                    cheapest_shop = shop
+
                 trip_cost_for_every_shop += (
                     f"{customer.name}'s trip to the {shop.name} "
                     f"costs {total_trip_cost}\n"
@@ -90,7 +74,8 @@ class ShopTripCalculator:
             total_have_bought = calculate_total_cost(
                 customer.product_cart, cheapest_shop.products
             )
-            money_remainder = customer.money - total_have_bought
+
+            money_remainder = round(customer.money - min_trip_cost, 2)
             return_message = generate_return_message(
                 customer.name,
                 money_remainder,

@@ -11,7 +11,7 @@ def calculate_distance(location1: List[int], location2: List[int]) -> float:
 def calculate_fuel_cost(
         distance: float, fuel_consumption: float, fuel_price: float
 ) -> float:
-    return distance * fuel_consumption * fuel_price / 50
+    return (distance / 100) * 2 * fuel_consumption * fuel_price
 
 
 def calculate_total_cost(cart: Dict, products: Dict) -> float:
