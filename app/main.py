@@ -43,7 +43,7 @@ def shop_trip() -> None:
                 best_shop = shop
 
         if best_shop:
-            print(f"{customer.name} rides to {best_shop.name}")
+            print(f"{customer.name} rides to {best_shop.name}\n")
             customer.location = best_shop.location
             best_shop.purchase_products(
                 customer.name, customer.product_cart
