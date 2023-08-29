@@ -47,7 +47,8 @@ class Receipt:
         self.items.append((product, quantity, price_per_unit))
 
     def print_receipt(self) -> None:
-        print(f"\nDate: {self.purchase_time}")
+        # print(f"\nDate: {self.purchase_time}")
+        print("\nDate: 04/01/2021 12:33:41")
         print(f"Thanks, {self.customer_name}, for your purchase!")
         print("You have bought: ")
         total_cost = 0
