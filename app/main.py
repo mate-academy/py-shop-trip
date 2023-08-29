@@ -7,12 +7,7 @@ from app.func import distance, shopping
 
 
 def shop_trip() -> None:
-    if __name__ == "__main__":
-        path = os.path.join(os.getcwd(), "config.json")
-    else:
-        path = os.path.join("app", "config.json")
-
-    with open(path, "r") as config:
+    with open(os.path.join("app", "config.json"), "r") as config:
         config_dict = json.load(config)
 
     customers = []
@@ -45,4 +40,4 @@ def shop_trip() -> None:
         shopping(customer, cheapest_shop, cost_of_trips)
 
 
-# shop_trip()
+shop_trip()
