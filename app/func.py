@@ -2,7 +2,7 @@ from app.customer import Customer
 from app.shop import Shop
 
 
-def distance(point1: list, point2: list) -> float:
+def distance(point1: list[int], point2: list[int]) -> float:
     return ((point2[0] - point1[0]) ** 2 + (point2[1] - point1[1]) ** 2) ** 0.5
 
 

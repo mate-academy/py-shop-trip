@@ -9,10 +9,8 @@ class Shop:
         self.provided_prod = provided_prod
 
     def price_of_products(self, customer: Customer) -> float:
-        total_cost = 0
-        for key, value in customer.desired_products.items():
-            total_cost += value * self.provided_prod[key]
-        return total_cost
+        return sum([value * self.provided_prod[key]
+                    for key, value in customer.desired_products.items()])
 
     def print_receipt(self, customer: Customer) -> None:
         print(f"Date: {datetime.datetime.now().strftime('%d/%m/%Y %H:%M:%S')}")

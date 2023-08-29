@@ -1,5 +1,5 @@
 import json
-
+import os
 from app.car import Car
 from app.customer import Customer
 from app.shop import Shop
@@ -7,12 +7,17 @@ from app.func import distance, shopping
 
 
 def shop_trip() -> None:
-    with open("app/config.json", "r") as config:
+    if __name__ == "__main__":
+        path = os.path.join(os.getcwd(), "config.json")
+    else:
+        path = os.path.join("app", "config.json")
+
+    with open(path, "r") as config:
         config_dict = json.load(config)
 
-    list_of_customers = []
+    customers = []
     for customer in config_dict["customers"]:
-        list_of_customers.append(
+        customers.append(
             Customer(customer["name"],
                      customer["product_cart"],
                      customer["location"],
@@ -22,11 +27,11 @@ def shop_trip() -> None:
                      )
         )
 
-    list_of_shops = [Shop(*shop.values()) for shop in config_dict.get("shops")]
+    shops = [Shop(*shop.values()) for shop in config_dict.get("shops")]
 
-    for customer in list_of_customers:
+    for customer in customers:
         cost_of_trips = {}
-        for shop in list_of_shops:
+        for shop in shops:
             price = (
                 shop.price_of_products(customer)
                 + customer.riding_cost(distance(customer.location,
@@ -38,3 +43,6 @@ def shop_trip() -> None:
         cheapest_shop = cost_of_trips[min(cost_of_trips.keys())]
         customer.needed_money = min(cost_of_trips.keys())
         shopping(customer, cheapest_shop, cost_of_trips)
+
+
+# shop_trip()
