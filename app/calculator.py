@@ -1,8 +1,8 @@
 import json
 from typing import Dict
 
-from app.customer import create_customer
-from app.shop import create_shop
+from app.customer import Customer
+from app.shop import Shop
 from app.calculate_functions import (
     calculate_distance,
     calculate_fuel_cost,
@@ -19,11 +19,11 @@ class ShopTripCalculator:
         self.loaded_json = self.load_config(config_file)
         self.fuel_price = self.loaded_json["FUEL_PRICE"]
         self.customers = [
-            create_customer(customer)
+            Customer.create_customer(customer)
             for customer in self.loaded_json["customers"]
         ]
         self.shops = [
-            create_shop(shop) for shop in self.loaded_json["shops"]
+            Shop.create_shop(shop) for shop in self.loaded_json["shops"]
         ]
 
     @staticmethod

@@ -15,8 +15,13 @@ def calculate_fuel_cost(
 
 
 def calculate_total_cost(cart: Dict, products: Dict) -> float:
-    return sum(cart[item] * products[item] for item in cart)
+    return sum(
+        item_value * products[item] for item, item_value in cart.items()
+    )
 
 
 def calculate_product_cost(cart: Dict, products: Dict) -> List:
-    return [[item, cart[item], cart[item] * products[item]] for item in cart]
+    return [
+        [item, item_value, item_value * products[item]]
+        for item, item_value in cart.items()
+    ]

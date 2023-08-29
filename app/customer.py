@@ -1,3 +1,4 @@
+from __future__ import annotations
 from typing import Dict, List
 
 
@@ -16,6 +17,6 @@ class Customer:
         self.money = money
         self.fuel_consumption = car["fuel_consumption"]
 
-
-def create_customer(customer_data: Dict) -> Customer:
-    return Customer(**customer_data)
+    @classmethod
+    def create_customer(cls, customer_data: Dict) -> Customer:
+        return Customer(**customer_data)

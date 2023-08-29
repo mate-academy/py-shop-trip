@@ -1,3 +1,4 @@
+from __future__ import annotations
 from dataclasses import dataclass
 from typing import List, Dict
 
@@ -8,6 +9,6 @@ class Shop:
     location: List[int]
     products: Dict
 
-
-def create_shop(shop_data: Dict) -> Shop:
-    return Shop(**shop_data)
+    @classmethod
+    def create_shop(cls, shop_data: Dict) -> Shop:
+        return Shop(**shop_data)
