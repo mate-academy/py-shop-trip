@@ -18,10 +18,4 @@ class Customer:
 
 
 def create_customer(customer_data: Dict) -> Customer:
-    return Customer(
-        customer_data["name"],
-        customer_data["product_cart"],
-        customer_data["location"],
-        customer_data["money"],
-        customer_data["car"]
-    )
+    return Customer(**customer_data)

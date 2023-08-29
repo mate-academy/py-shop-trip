@@ -10,8 +10,4 @@ class Shop:
 
 
 def create_shop(shop_data: Dict) -> Shop:
-    return Shop(
-        shop_data["name"],
-        shop_data["location"],
-        shop_data["products"]
-    )
+    return Shop(**shop_data)
