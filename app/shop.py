@@ -1,3 +1,6 @@
+from datetime import datetime
+
+
 class Shop:
     def __init__(self, data: dict) -> None:
         self.name = data["name"]
@@ -14,10 +17,9 @@ class Shop:
     def purchase_products(
             self,
             customer_name: str,
-            product_cart: dict,
-            purchase_time: str
+            product_cart: dict
     ) -> None:
-        receipt = Receipt(self.name, customer_name, purchase_time)
+        receipt = Receipt(self.name, customer_name)
         for product, quantity in product_cart.items():
             if product in self.products:
                 price_per_unit = self.products[product]
@@ -30,12 +32,10 @@ class Receipt:
     def __init__(
             self,
             shop_name: str,
-            customer_name: str,
-            purchase_time: str
+            customer_name: str
     ) -> None:
         self.shop_name = shop_name
         self.customer_name = customer_name
-        self.purchase_time = purchase_time
         self.items = []
 
     def add_item(
@@ -47,8 +47,7 @@ class Receipt:
         self.items.append((product, quantity, price_per_unit))
 
     def print_receipt(self) -> None:
-        # print(f"\nDate: {self.purchase_time}")
-        print("\nDate: 04/01/2021 12:33:41")
+        print(f"\nDate: {datetime.now().strftime('%d/%m/%Y %H:%M:%S')}")
         print(f"Thanks, {self.customer_name}, for your purchase!")
         print("You have bought: ")
         total_cost = 0

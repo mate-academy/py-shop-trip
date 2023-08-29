@@ -16,8 +16,6 @@ def shop_trip() -> None:
     customers = [Customer(data) for data in customers]
     shops = [Shop(data) for data in shops]
 
-    current_time = datetime.now().strftime("%d/%m/%Y %H:%M:%S")
-
     for customer in customers:
         print(f"{customer.name} has {customer.money} dollars")
         min_trip_cost = float("inf")
@@ -49,7 +47,7 @@ def shop_trip() -> None:
             print(f"{customer.name} rides to {best_shop.name}")
             customer.location = best_shop.location
             best_shop.purchase_products(
-                customer.name, customer.product_cart, current_time
+                customer.name, customer.product_cart
             )
 
             customer.money -= min_trip_cost
