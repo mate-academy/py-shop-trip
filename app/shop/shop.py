@@ -1,5 +1,6 @@
+from __future__ import annotations
 import datetime
-from typing import List, Self
+from typing import List
 
 from app.customer.customer import Customer
 from app.customer.product_cart import ProductCart
@@ -35,8 +36,8 @@ class Shop:
         print(f"Total cost is {total_price} dollars\n" f"See you again!\n")
 
     @classmethod
-    def from_dict(cls, shop: dict) -> Self:
-        return cls(
+    def from_dict(cls, shop: dict) -> Shop:
+        return Shop(
             name=shop["name"],
             location=shop["location"],
             products=shop["products"],

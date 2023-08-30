@@ -1,5 +1,5 @@
+from __future__ import annotations
 from dataclasses import dataclass
-from typing import Self
 
 
 @dataclass
@@ -8,7 +8,7 @@ class Car:
     fuel_consumption: float
 
     @classmethod
-    def from_dict(cls, car: dict) -> Self:
-        return cls(
+    def from_dict(cls, car: dict) -> Car:
+        return Car(
             brand=car["brand"], fuel_consumption=car["fuel_consumption"]
         )

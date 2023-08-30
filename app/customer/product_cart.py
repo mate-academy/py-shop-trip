@@ -1,4 +1,4 @@
-from typing import Self
+from __future__ import annotations
 
 
 class ProductCart:
@@ -17,5 +17,5 @@ class ProductCart:
         self.product_list[product] = self.product_list.get(product, 1) - 1
 
     @classmethod
-    def from_fict(cls, product_cart: dict) -> Self:
-        return cls(product_list=product_cart)
+    def from_fict(cls, product_cart: dict) -> ProductCart:
+        return ProductCart(product_list=product_cart)

@@ -1,4 +1,5 @@
-from typing import List, Self, Union
+from __future__ import annotations
+from typing import List, Union
 
 from app.customer.car import Car
 from app.customer.product_cart import ProductCart
@@ -33,8 +34,8 @@ class Customer:
         return round(cost, 2)
 
     @classmethod
-    def from_dict(cls, customer: dict) -> Self:
-        return cls(
+    def from_dict(cls, customer: dict) -> Customer:
+        return Customer(
             name=customer["name"],
             product_cart=ProductCart.from_fict(customer["product_cart"]),
             location=customer["location"],

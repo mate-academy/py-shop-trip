@@ -1,5 +1,6 @@
+from __future__ import annotations
 from dataclasses import dataclass
-from typing import Union, Self
+from typing import Union
 
 
 @dataclass
@@ -8,5 +9,5 @@ class Product:
     price: Union[int, float]
 
     @classmethod
-    def from_dict(cls, product: dict) -> Self:
-        return cls(name=product["name"], price=product["price"])
+    def from_dict(cls, product: dict) -> Product:
+        return Product(name=product["name"], price=product["price"])
