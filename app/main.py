@@ -1,6 +1,6 @@
 from app.customer import customers_and_content
 from datetime import datetime
-from app.car import PriseKm
+from app.car import PriсeKm
 
 
 def shop_trip() -> str:
@@ -17,11 +17,11 @@ def shop_trip() -> str:
         for elements in shops:
             name1 = elements.get("name")
             products = elements.get("products")
-            distens_prise_ = PriseKm.distens_prise()[count_]
+            distance_priсe_ = PriсeKm.distance_priсe()[count_]
             total_cost = (
                 sum(products[item]
                     * quantities.get(item, 0) for item in products)
-                + float(distens_prise_)
+                + float(distance_priсe_)
             )
             total_cost1 = (
                 sum(products[item]
@@ -44,17 +44,20 @@ def shop_trip() -> str:
             datetime_print = datetime_form.strftime("%d/%m/%Y %X")
             print(f"Date: {datetime_print}")
             print(
-                (f"Thanks, {name_cust}, for your purchase!\n"
-                 f"You have bought: \n"
-                 f"{quantities['milk']} milks for"
-                 f" {products_list['milk'] * quantities['milk']} dollars\n"
-                 f"{quantities['bread']} breads for"
-                 f" {products_list['bread'] * quantities['bread']} dollars\n"
-                 f"{quantities['butter']} butters for"
-                 f" {products_list['butter'] * quantities['butter']} dollars\n"
-                 f"Total cost is {total_cost_dol} dollars\nSee you again!\n\n"
-                 f"{name_cust} rides home\n"
-                 f"{name_cust} now has {money_cost - total_cost_} dollars\n")
+                f"Thanks, {name_cust}, "
+                f"for your purchase!\n"
+                f"You have bought: "
+            )
+            for produc in products:
+                print(
+                    f"{quantities[produc]} {produc}s "
+                    f"for {products_list[produc] * quantities[produc]} dollars"
+                )
+            print(
+                f"Total cost is {total_cost_dol} dollars\n"
+                f"See you again!\n\n"
+                f"{name_cust} rides home\n"
+                f"{name_cust} now has {money_cost - total_cost_} dollars\n"
             )
         else:
             print(

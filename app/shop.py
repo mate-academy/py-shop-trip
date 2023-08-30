@@ -1,19 +1,12 @@
-import os
-import json
-
-
-current_directory = os.path.dirname(os.path.abspath(__file__))
-relative_path = os.path.join(current_directory, "config.json")
-location_shop1 = {}
+from app.customer import customers_and_content
 
 
 class Shop:
     def __init__(self, content: dict) -> list:
         self.content = content
 
-    def shop1_location_shop1() -> dict:
-        with open(relative_path, "r") as file:
-            content = json.load(file)
+    def shop_location_shop() -> dict:
+        customers, content = customers_and_content()
         shops = content.get("shops")
         location_shop1 = {}
         for elem_ in shops:
