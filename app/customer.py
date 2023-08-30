@@ -46,7 +46,7 @@ class Customer:
             self.product_cart, product_price)
         print()
         print(f"Date: {datetime.datetime.now().strftime('%d/%m/%Y %H:%M:%S')}")
-        print("Thanks, Bob, for your purchase!")
+        print(f"Thanks, {self.name}, for your purchase!")
         print("You have bought: ")
 
         index = 0

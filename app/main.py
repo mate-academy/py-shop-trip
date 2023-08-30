@@ -1,10 +1,16 @@
 import json
+import os
+
 from app.customer import Customer
 from app.shop import Shop
 
 
+cur_dir = os.path.dirname(os.path.abspath(__file__))
+config_path = os.path.join(cur_dir, "config.json")
+
+
 def shop_trip() -> None:
-    with open("config.json", "r") as file:
+    with open(config_path, "r") as file:
         config = json.load(file)
 
     customers = config["customers"]
@@ -45,7 +51,7 @@ def shop_trip() -> None:
                     customer.prints_purchase_receipt(shop.products)
 
             print(f"{customer.name} rides home")
-            print(f"{customer.name} has "
+            print(f"{customer.name} now has "
                   f"{customer.money - min_total_price} dollars")
             print()
         else:
