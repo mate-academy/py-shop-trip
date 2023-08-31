@@ -22,10 +22,5 @@ def extract_data_json(
         )
 
 
-# TODO:
-# make func that will run another funcs
-# to create instances of shops, users, cars
-
-
 if __name__ == "__main__":
     extract_data_json()

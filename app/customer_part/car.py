@@ -36,8 +36,3 @@ class Car:
         )
 
         return round(fuel_used_round_trip * Car.fuel_price, 2)
-
-
-# test = Car("BMW", 9.9)
-# Car.fuel_price = 2.4
-# print(test.make_fuel_calculation([12, -2], [10, -5]))
