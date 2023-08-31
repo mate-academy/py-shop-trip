@@ -1,4 +1,5 @@
 import datetime
+from typing import Any
 
 
 class Shop:
@@ -7,7 +8,7 @@ class Shop:
         self.location = info["location"]
         self.products = info["products"]
 
-    def products_purchase(self, customer: object) -> None:
+    def products_purchase(self, customer: Any) -> None:
         today = datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S")
         print(f"Date: {today}")
         customer.location = self.location
