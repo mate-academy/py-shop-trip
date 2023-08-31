@@ -1,4 +1,8 @@
 import datetime
+import typing
+
+if typing.TYPE_CHECKING:
+    from app.customer import Customer
 
 
 class Shop:
