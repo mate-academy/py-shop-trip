@@ -38,7 +38,9 @@ class Customer:
         return customers
 
     def find_the_cheapest_shop(
-        self, shops: List[Shop], fuel_price: float
+            self,
+            shops: List[Shop],
+            fuel_price: float
     ) -> Any:
         distances = {}
         for shop in shops:
