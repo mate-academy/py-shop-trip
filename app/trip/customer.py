@@ -3,7 +3,7 @@ import dataclasses
 import math
 
 from app.trip.car import Car
-import app.shop as shop_m
+import app.shopping_implementation.shop as shop_m
 
 
 @dataclasses.dataclass

@@ -1,12 +1,12 @@
 import json
 
 from app.trip.customer import Customer
-from app.shop import Shop
+from app.shopping_implementation.shop import Shop
 
 
 def shop_trip() -> None:
-    with open("C:\\Users\\user\\Desktop\\mate_tasks\\"
-              "py-shop-trip\\app\\config.json", "r") as config:
+    with open("C:\\Users\\user\\Desktop\\mate_tasks"
+              "\\py-shop-trip\\app\\config.json") as config:
         inf_total = json.load(config)
     fuel_price = inf_total.get("FUEL_PRICE")
     customers = [
