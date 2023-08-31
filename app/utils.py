@@ -1,10 +1,6 @@
-import json
-
 from app.customer import Customer
 from app.shop import Shop
-
-with open("app/config.json", "r") as file:
-    data = json.load(file)
+from app.data_initial import data
 
 
 def calculate_distance(location1: list, location2: list) -> float:

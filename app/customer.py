@@ -1,7 +1,6 @@
-import json
-
 from typing import List
 from dataclasses import dataclass
+from app.data_initial import data
 
 
 @dataclass
@@ -15,16 +14,14 @@ class Customer:
 
 def customer_initial() -> List[Customer]:
     customers = []
-    with open("app/config.json", "r") as file:
-        data = json.load(file)
-        for idx in range(len(data["customers"])):
-            customers.append(
-                Customer(
-                    data["customers"][idx]["name"],
-                    data["customers"][idx]["product_cart"],
-                    data["customers"][idx]["location"],
-                    data["customers"][idx]["money"],
-                    data["customers"][idx]["car"]
-                )
+    for idx in range(len(data["customers"])):
+        customers.append(
+            Customer(
+                data["customers"][idx]["name"],
+                data["customers"][idx]["product_cart"],
+                data["customers"][idx]["location"],
+                data["customers"][idx]["money"],
+                data["customers"][idx]["car"]
             )
+        )
     return customers
