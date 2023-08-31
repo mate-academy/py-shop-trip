@@ -42,18 +42,18 @@ class Customer:
             shops: List[Shop],
             fuel_price: float
     ) -> Any:
-        distances = {}
+        distance_to_shops = {}
         for shop in shops:
             trip_fuel_cost = Car.calculate_trip_cost(
                 customer=self, shop=shop, fuel_price=fuel_price
             )
             bill = self.bill_total(shop, True)
             trip_cost = round(trip_fuel_cost + bill, 2)
-            distances[trip_cost] = shop
-        cheapest_shop_cost = min(distances.keys())
-        cheapest_shop_instance = distances[cheapest_shop_cost]
+            distance_to_shops[trip_cost] = shop
+        cheapest_shop_cost = min(distance_to_shops.keys())
+        cheapest_shop_instance = distance_to_shops[cheapest_shop_cost]
 
-        return cheapest_shop_instance, cheapest_shop_cost, distances
+        return cheapest_shop_instance, cheapest_shop_cost, distance_to_shops
 
     def go_shopping(
         self,
