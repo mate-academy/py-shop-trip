@@ -1,9 +1,9 @@
 import json
 # from datetime import datetime
 import datetime
-from customer import Customer
-from car import Car
-from shop import Shop
+from app.customer import Customer
+from app.car import Car
+from app.shop import Shop
 
 
 def calculate_distance(location1, location2):
@@ -28,7 +28,7 @@ def format_datetime(dt):
 
 
 def shop_trip():
-    file_path = '../app/config.json'
+    file_path = 'app/config.json'
 
     with open(file_path) as config_file:
         config = json.load(config_file)
