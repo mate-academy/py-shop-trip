@@ -10,42 +10,44 @@ def shop_trip() -> str:
         fuel_consumption_car3,
         priсe_fuel,
         product_cart3,
-        money_costum,
-        name_custom
+        money_custom,
+        name_customer
     ) = Customer.customer_location()
     count_ = 0
-    for number in location_customer1:
-        name_cust = name_custom.get(number)
-        quantities = product_cart3.get(number)
-        total_cost_ = 1000000000000
-        money_cost = money_costum.get(number)
-        print(f"{name_cust} has {money_cost} dollars")
+    for name_cust in name_customer:
+        quantities = product_cart3.get(name_cust)
+        total_cust_ = 1000000000000
+        money_cust = money_custom.get(name_cust)
+        print(f"{name_cust} has {money_cust} dollars")
         location_shop, name_shop, product_shop = Shop.shop_location_shop()
-        for elements in location_shop:
-            name_shop1 = name_shop.get(elements)
-            products_shop1 = product_shop.get(elements)
+        for name_shop_element in name_shop:
+            products_shop1 = product_shop.get(name_shop_element)
             distance_priсe_ = PriсeKm.distance_priсe()[count_]
-            total_cost = (
+            total_cust = (
                 sum(products_shop1[item]
                     * quantities.get(item, 0) for item in products_shop1)
                 + float(distance_priсe_)
             )
-            total_cost1 = (
+            total_cust1 = (
                 sum(products_shop1[item]
                     * quantities.get(item, 0)
                     for item in products_shop1)
             )
             count_ += 1
-            print(f"{name_cust}'s trip to the {name_shop1} costs {total_cost}")
-            if total_cost < total_cost_:
-                total_cost_ = total_cost
-                name_coust_min = name_shop1
+            print(
+                f"{name_cust}'s trip to the "
+                f"{name_shop_element} costs "
+                f"{total_cust}"
+            )
+            if total_cust < total_cust_:
+                total_cust_ = total_cust
+                name_cust_min = name_shop_element
                 products_list = products_shop1
-                total_cost_dol = total_cost1
+                total_cust_dol = total_cust1
             else:
-                total_cost_ = total_cost_
-        if money_cost - total_cost_ >= 0:
-            print(f"{name_cust} rides to {name_coust_min}\n")
+                total_cust_ = total_cust_
+        if money_cust - total_cust_ >= 0:
+            print(f"{name_cust} rides to {name_cust_min}\n")
             datetime_form = datetime(2021, 1, 4, 12, 33, 41)
             datetime_print = datetime_form.strftime("%d/%m/%Y %X")
             print(f"Date: {datetime_print}")
@@ -54,16 +56,17 @@ def shop_trip() -> str:
                 f"for your purchase!\n"
                 f"You have bought: "
             )
-            for produc in products_shop1:
+            for product in products_shop1:
                 print(
-                    f"{quantities[produc]} {produc}s "
-                    f"for {products_list[produc] * quantities[produc]} dollars"
+                    f"{quantities[product]} {product}s "
+                    f"for {products_list[product] * quantities[product]} "
+                    f"dollars"
                 )
             print(
-                f"Total cost is {total_cost_dol} dollars\n"
+                f"Total cost is {total_cust_dol} dollars\n"
                 f"See you again!\n\n"
                 f"{name_cust} rides home\n"
-                f"{name_cust} now has {money_cost - total_cost_} dollars\n"
+                f"{name_cust} now has {money_cust - total_cust_} dollars\n"
             )
         else:
             print(
