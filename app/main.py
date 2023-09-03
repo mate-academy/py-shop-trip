@@ -102,7 +102,6 @@ def generate_purchase_receipt(customer, shop, fuel_cost_to_shop):
             item_cost = shop.products[item] * quantity
             receipt += f"{quantity} {item}s for {format_money_decimals(item_cost)} dollars\n"
             total_purchase_cost += item_cost
-            # print(item, quantity, item_cost, total_purchase_cost)
 
     receipt += f"Total cost is {format_money_decimals(total_purchase_cost)} dollars\nSee you again!\n"
     return receipt
