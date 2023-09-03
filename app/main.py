@@ -9,7 +9,7 @@ from app.shops import shop_list
 
 def shop_trip() -> None:
     with open(
-            "config.json", "r"
+            "py-shop-trip/app/config.json", "r"
     ) as json_file:
         customers_data = json.load(json_file)
 
