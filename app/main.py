@@ -1,7 +1,7 @@
 import json
 import datetime
 import math
-import os
+
 
 from app.customers import customer_list
 from app.shops import shop_list
