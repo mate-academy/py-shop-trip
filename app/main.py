@@ -3,13 +3,13 @@ import datetime
 import math
 
 
-from customers import customer_list
-from shops import shop_list
+from app.customers import customer_list
+from app.shops import shop_list
 
 
 def shop_trip() -> None:
     with open(
-            "C:/Users/Expert/PycharmProjects/py-shop-trip/config.json", "r"
+        "C:/Users/Expert/PycharmProjects/py-shop-trip/app/config.json", "r"
     ) as json_file:
 
         customers_data = json.load(json_file)
