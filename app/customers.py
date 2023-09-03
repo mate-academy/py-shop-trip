@@ -29,7 +29,7 @@ class Customer:
 def customer_list() -> list:
     customers_list = []
     with open(
-            "/Users/Expert/PycharmProjects/py-shop-trip/app/config.json", "r"
+        r"C:/Users/Expert/PycharmProjects/py-shop-trip/app/config.json"
     ) as json_file:
         customers_data = json.loads(json_file.read())
         for customer in customers_data["customers"]:

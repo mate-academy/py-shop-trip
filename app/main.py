@@ -1,7 +1,7 @@
 import json
 import datetime
 import math
-
+import os
 
 from app.customers import customer_list
 from app.shops import shop_list
@@ -9,8 +9,9 @@ from app.shops import shop_list
 
 def shop_trip() -> None:
     with open(
-            "/Users/Expert/PycharmProjects/py-shop-trip/app/config.json", "r"
+        r"C:/Users/Expert/PycharmProjects/py-shop-trip/app/config.json"
     ) as json_file:
+
         customers_data = json.load(json_file)
 
     for customer in customer_list():
