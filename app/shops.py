@@ -24,7 +24,7 @@ class Shop:
 def shop_list() -> list:
     shops_list = []
     with open(
-            "C:/Users/Expert/PycharmProjects/py-shop-trip/app/config.json", "r"
+        "C:/Users/Expert/PycharmProjects/py-shop-trip/app/config.json", "r"
     ) as json_file:
         shops_data = json.loads(json_file.read())
         for shop in shops_data["shops"]:
