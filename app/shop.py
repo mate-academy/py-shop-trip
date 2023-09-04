@@ -1,4 +1,4 @@
-from datetime import datetime
+import datetime
 from app.customer import Customer
 
 
@@ -26,13 +26,13 @@ class Shop:
         return price
 
     def print_purchase_receipt(self, customer: Customer) -> None:
-        today = datetime.now().strftime("%d/%m/%Y %H:%M:%S")
+        today = datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S")
         total_price = 0
 
         print(
             f"Date: {today}\n"
             f"Thanks, {customer.name}, for your purchase!\n"
-            "You have bought:"
+            "You have bought: "
         )
         for product, value in customer.product_cart.items():
             product_price = value * self.products[product]
@@ -41,5 +41,5 @@ class Shop:
 
         print(
             f"Total cost is {total_price} dollars\n"
-            f"See you again\n"
+            f"See you again!\n"
         )

@@ -40,7 +40,7 @@ def shop_trip() -> None:
         )
 
     for customer in customers:
-        print(f"{customer.name} has {customer.money}")
+        print(f"{customer.name} has {customer.money} dollars")
 
         prices_dict = {}
 
@@ -62,7 +62,7 @@ def shop_trip() -> None:
 
         if not customer.have_enough_money(cheapest_price):
             print(f"{customer.name} doesn't have enough money"
-                  f" to make a purchase in any shop\n")
+                  f" to make a purchase in any shop")
             return
 
         drive_to_shop(cheapest_store, customer)
