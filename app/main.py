@@ -64,7 +64,7 @@ def shop_trip() -> None:
                 f"Date:"
                 f" {datetime.datetime.now().strftime('%d/%m/%Y %H:%M:%S')}"
             )
-            print(f"Thanks, {customer.name}, for you purchase!")
+            print(f"Thanks, {customer.name}, for your purchase!")
             print("You have bought: ")
             print(
                 f"{customer.amount_of_milk} milks "
@@ -92,5 +92,5 @@ def shop_trip() -> None:
         else:
             print(
                 f"{customer.name} doesn't have enough money "
-                f"to make purchase in any shop"
+                f"to make a purchase in any shop"
             )
