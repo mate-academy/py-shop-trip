@@ -1,5 +1,4 @@
 import json
-# from datetime import datetime
 import datetime
 from app.customer import Customer
 from app.car import Car
@@ -43,21 +42,12 @@ def shop_trip():
     for customer_data in customers_data:
         car_data = customer_data["car"]
         car = Car(car_data["brand"], car_data["fuel_consumption"])
-        customer = Customer(
-            customer_data["name"],
-            customer_data["product_cart"],
-            customer_data["location"],
-            customer_data["money"],
-            car
-        )
+        customer_data["car"] = car
+        customer = Customer(**customer_data)
         customers.append(customer)
 
     for shop_data in shops_data:
-        shop = Shop(
-            shop_data["name"],
-            shop_data["location"],
-            shop_data["products"]
-        )
+        shop = Shop(**shop_data)
         shops.append(shop)
 
     for customer in customers:
