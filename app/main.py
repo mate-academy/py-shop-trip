@@ -1,21 +1,18 @@
 import json
 import datetime
 import math
-
+import os
 
 from app.customers import customer_list
 from app.shops import shop_list
 
 
 def shop_trip() -> None:
-    with open(
-        "C:/Users/Expert/PycharmProjects/py-shop-trip/app/config.json", "r"
-    ) as json_file:
-
+    directory = os.path.dirname(os.path.abspath(__file__))
+    path = os.path.join(directory, "config.json")
+    with open(path, "r") as json_file:
         customers_data = json.load(json_file)
-
     for customer in customer_list():
-
         print(f"{customer.name} has {customer.money} dollars")
         less_cost = {}
         shop_dict = {}

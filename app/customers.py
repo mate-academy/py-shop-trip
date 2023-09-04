@@ -1,4 +1,5 @@
 import json
+import os
 from typing import Union
 
 
@@ -28,8 +29,10 @@ class Customer:
 
 def customer_list() -> list:
     customers_list = []
+    directory = os.path.dirname(os.path.abspath(__file__))
+    path = os.path.join(directory, "config.json")
     with open(
-        "C:/Users/Expert/PycharmProjects/py-shop-trip/app/config.json", "r"
+        path, "r"
     ) as json_file:
         customers_data = json.loads(json_file.read())
         for customer in customers_data["customers"]:
