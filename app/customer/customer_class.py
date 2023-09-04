@@ -14,7 +14,7 @@ class Customer:
 
         cheapest_store = self.find_cheapest_store(shops)
 
-        if cheapest_store:
+        if cheapest_store is not None:
             self.detailed_store_transactions(cheapest_store)
 
     def cost_of_way(self, shop_location: list) -> float:
@@ -26,9 +26,9 @@ class Customer:
     ) -> list[float, dict]:
         sum_of_all_products_in_shop = 0
 
-        for key, value in shop["products"].items():
+        for name_of_product, count in shop["products"].items():
             sum_of_all_products_in_shop += round(
-                self.product_cart.get(key) * value, 2
+                self.product_cart.get(name_of_product) * count, 2
             )
 
         sum_of_all_products_in_shop += self.cost_of_way(shop["location"])
@@ -50,14 +50,15 @@ class Customer:
                 sum_of_all_costs = result[0]
                 shop_detail = result[1]
 
-        if self.money > sum_of_all_costs:
-            print(f"{self.name} rides to {shop_detail['name']}\n")
-            return shop_detail
-        else:
+        if self.money < sum_of_all_costs:
             print(
                 f"{self.name} doesn't have enough money "
                 f"to make a purchase in any shop"
             )
+            return None
+
+        print(f"{self.name} rides to {shop_detail['name']}\n")
+        return shop_detail
 
     def detailed_store_transactions(self, shop: dict) -> None:
         print(
@@ -68,11 +69,12 @@ class Customer:
 
         sum_of_all_products_in_shop = 0
 
-        for key, value in shop["products"].items():
-            sum_of_product = round(self.product_cart.get(key) * value, 2)
+        for name_of_product, count in shop["products"].items():
+            sum_of_product = round(
+                self.product_cart.get(name_of_product) * count, 2)
 
             print(
-                f"{self.product_cart.get(key)} {key}s "
+                f"{self.product_cart.get(name_of_product)} {name_of_product}s "
                 f"for {sum_of_product} dollars"
             )
 
