@@ -4,7 +4,7 @@ from app.car.car_class import Car
 class Customer:
     def __init__(self, customer: dict, fuel_price: str) -> None:
         self.name = customer["name"]
-        self.cart = customer["product_cart"]
+        self.product_cart = customer["product_cart"]
         self.location = customer["location"]
         self.money = customer["money"]
         self.car = Car(customer["car"], float(fuel_price))
@@ -12,65 +12,40 @@ class Customer:
     def go_to_shop(self, shops: dict) -> None:
         print(f"{self.name} has {self.money} dollars")
 
-        shop = self.cost_of_trip(shops)
+        cheapest_store = self.find_cheapest_store(shops)
 
-        if shop:
-            self.cost_of_product(shop, True)
+        if cheapest_store:
+            self.detailed_store_transactions(cheapest_store)
 
     def cost_of_way(self, shop_location: list) -> float:
         return self.car.cost_of_way(self.location, shop_location)
 
-    def cost_of_product(
+    def cost_of_products_in_shop(
             self,
             shop: dict,
-            detail: bool = False
     ) -> list[float, dict]:
-        if detail:
-            print(
-                f"Date: 04/01/2021 12:33:41\n"
-                f"Thanks, {self.name}, for your purchase!\n"
-                f"You have bought: "
-            )
-
-        sum_of_prices = 0
+        sum_of_all_products_in_shop = 0
 
         for key, value in shop["products"].items():
-            cost_of_product = round(self.cart.get(key) * value, 2)
-            sum_of_prices += cost_of_product
-            if detail:
-                print(
-                    f"{self.cart.get(key)} {key}s "
-                    f"for {cost_of_product} dollars"
-                )
-
-        sum_of_prices += self.cost_of_way(shop["location"])
-
-        if detail:
-            self.money -= sum_of_prices
-            cost_of_product = round(
-                sum_of_prices - self.cost_of_way(shop["location"]
-                                                 ), 2)
-            print(
-                f"Total cost is {cost_of_product} dollars\n"
-                "See you again!\n\n"
-                f"{self.name} rides home\n"
-                f"{self.name} now has {self.money} dollars\n"
+            sum_of_all_products_in_shop += round(
+                self.product_cart.get(key) * value, 2
             )
 
-        if not detail:
-            print(
-                f"{self.name}'s trip to the "
-                f"{shop['name']} costs {sum_of_prices}"
-            )
+        sum_of_all_products_in_shop += self.cost_of_way(shop["location"])
 
-        return [sum_of_prices, shop]
+        print(
+            f"{self.name}'s trip to the "
+            f"{shop['name']} costs {sum_of_all_products_in_shop}"
+        )
 
-    def cost_of_trip(self, shops: dict) -> None:
+        return [sum_of_all_products_in_shop, shop]
+
+    def find_cheapest_store(self, shops: dict) -> None | dict:
         sum_of_all_costs = 0
         shop_detail = None
 
         for shop in shops:
-            result = self.cost_of_product(shop)
+            result = self.cost_of_products_in_shop(shop)
             if sum_of_all_costs == 0 or sum_of_all_costs > result[0]:
                 sum_of_all_costs = result[0]
                 shop_detail = result[1]
@@ -83,3 +58,36 @@ class Customer:
                 f"{self.name} doesn't have enough money "
                 f"to make a purchase in any shop"
             )
+
+    def detailed_store_transactions(self, shop: dict) -> None:
+        print(
+            f"Date: 04/01/2021 12:33:41\n"
+            f"Thanks, {self.name}, for your purchase!\n"
+            f"You have bought: "
+        )
+
+        sum_of_all_products_in_shop = 0
+
+        for key, value in shop["products"].items():
+            sum_of_product = round(self.product_cart.get(key) * value, 2)
+
+            print(
+                f"{self.product_cart.get(key)} {key}s "
+                f"for {sum_of_product} dollars"
+            )
+
+            sum_of_all_products_in_shop += sum_of_product
+
+        print(
+            f"Total cost is {sum_of_all_products_in_shop} dollars\n"
+            "See you again!\n"
+        )
+
+        sum_of_all_products_in_shop += self.cost_of_way(shop["location"])
+
+        self.money -= sum_of_all_products_in_shop
+
+        print(
+            f"{self.name} rides home\n"
+            f"{self.name} now has {self.money} dollars\n"
+        )
