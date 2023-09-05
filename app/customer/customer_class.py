@@ -73,6 +73,9 @@ class Customer:
             sum_of_product = round(
                 self.product_cart.get(name_of_product) * count, 2)
 
+            if int(sum_of_product) == float(sum_of_product):
+                sum_of_product = int(sum_of_product)
+
             print(
                 f"{self.product_cart.get(name_of_product)} {name_of_product}s "
                 f"for {sum_of_product} dollars"
