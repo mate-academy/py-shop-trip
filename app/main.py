@@ -5,24 +5,24 @@ from app.car import Car
 from app.shop import Shop
 
 
-def calculate_distance(location1, location2):
+def calculate_distance(location1: list, location2: list) -> float:
     return ((location1[0] - location2[0]) ** 2 + (location1[1] - location2[1]) ** 2) ** 0.5
 
 
-def calculate_fuel_cost(distance, fuel_consumption, fuel_price):
+def calculate_fuel_cost(distance: float, fuel_consumption: float, fuel_price: float) -> float:
     return (distance / 100) * fuel_consumption * fuel_price
 
 
-def calculate_product_cost(product_cart, shop_products):
+def calculate_product_cost(product_cart: dict, shop_products: dict) -> float:
     return sum(product_cart[item] * shop_products.get(item, 0) for item in product_cart)
 
 
-def format_money_decimals(cost):
+def format_money_decimals(cost: int | float) -> int | float:
     float_cost = float(round(cost, 2))
     return int(float_cost) if float_cost.is_integer() else float_cost
 
 
-def format_datetime(dt):
+def format_datetime(dt: datetime.datetime) -> str:
     return dt.strftime('%d/%m/%Y %H:%M:%S')
 
 
@@ -43,12 +43,9 @@ def shop_trip():
         car_data = customer_data["car"]
         car = Car(car_data["brand"], car_data["fuel_consumption"])
         customer_data["car"] = car
-        customer = Customer(**customer_data)
-        customers.append(customer)
+    customers = [Customer(**customer_data) for customer_data in customers_data]
 
-    for shop_data in shops_data:
-        shop = Shop(**shop_data)
-        shops.append(shop)
+    shops = [Shop(**shop_data) for shop_data in shops_data]
 
     for customer in customers:
         print(f"{customer.name} has {format_money_decimals(customer.money)} dollars")
