@@ -14,5 +14,5 @@ class Customer:
         self.car = car
         self.home_location = location
 
-    def have_enough_money(self, price: float | int) -> bool:
+    def has_enough_money(self, price: float | int) -> bool:
         return self.money >= price

@@ -1,4 +1,5 @@
 import json
+import os
 
 from app.customer import Customer
 from app.shop import Shop
@@ -6,12 +7,15 @@ from app.car import fuel_price, drive_to_shop, drive_to_home
 
 
 def shop_trip() -> None:
+
+    os.chdir("C:\\Users\\kolom\\python-course\\py-shop-trip\\app\\")
+
     with open("config.json") as file:
         file_info = json.load(file)
-        liter_price = file_info["FUEL_PRICE"]
-        customers_info = file_info["customers"]
-        shops_info = file_info["shops"]
 
+    liter_price = file_info["FUEL_PRICE"]
+    customers_info = file_info["customers"]
+    shops_info = file_info["shops"]
     customers = []
     shops = []
 
@@ -60,7 +64,7 @@ def shop_trip() -> None:
         cheapest_price = min(prices_dict)
         cheapest_store = prices_dict[cheapest_price]
 
-        if not customer.have_enough_money(cheapest_price):
+        if not customer.has_enough_money(cheapest_price):
             print(f"{customer.name} doesn't have enough money"
                   f" to make a purchase in any shop")
             return
