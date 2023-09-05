@@ -13,7 +13,3 @@ def shop_trip() -> None:
     for customer_detail in data["customers"]:
         customer = Customer(customer_detail, data["FUEL_PRICE"])
         customer.go_to_shop(data["shops"])
-
-
-if __name__ == "__main__":
-    shop_trip()

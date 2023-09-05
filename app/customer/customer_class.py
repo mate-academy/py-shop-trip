@@ -17,7 +17,7 @@ class Customer:
         if cheapest_store is not None:
             self.detailed_store_transactions(cheapest_store)
 
-    def cost_of_way(self, shop_location: list) -> float:
+    def cost_of_way(self, shop_location: list[int, int]) -> float:
         return self.car.cost_of_way(self.location, shop_location)
 
     def cost_of_products_in_shop(
@@ -55,7 +55,7 @@ class Customer:
                 f"{self.name} doesn't have enough money "
                 f"to make a purchase in any shop"
             )
-            return None
+            return
 
         print(f"{self.name} rides to {shop_detail['name']}\n")
         return shop_detail
