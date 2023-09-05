@@ -14,7 +14,13 @@ class Shop:
     def __get__(self, instance, owner) -> list:
         pass
 
+    @classmethod
+    def load_info_shop(cls, read_data_sh: dict) -> "Shop":
+        return cls(
+            name=read_data_sh["name"],
+            location=read_data_sh["location"],
+            products=read_data_sh["products"]
+        )
 
 
-def read_data_shops(data_file: str) -> List[dict]:
-    pass
+

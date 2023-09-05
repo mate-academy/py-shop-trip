@@ -21,13 +21,13 @@ class Customer:
         pass
 
     @classmethod
-    def load_info_customer(cls, read_data: dict) -> "Customer":
+    def load_info_customer(cls, read_data_cs: dict) -> "Customer":
         return cls(
-            name=read_data["name"],
-            product_cart=read_data["product_cart"],
-            location=read_data["location"],
-            money=read_data["money"],
-            car=read_data["car"]
+            name=read_data_cs["name"],
+            product_cart=read_data_cs["product_cart"],
+            location=read_data_cs["location"],
+            money=read_data_cs["money"],
+            car=read_data_cs["car"]
         )
 
 
