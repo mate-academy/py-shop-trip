@@ -47,7 +47,7 @@ def shop_trip() -> str:
             count_ += 1
             print(
                 f"{name_cust}'s trip to the "
-                f"{shop.name_shop_element} costs "
+                f"{name_shop_element} costs "
                 f"{total_cust}"
             )
             total_cust_list.append(total_cust)
