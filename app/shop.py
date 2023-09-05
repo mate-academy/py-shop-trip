@@ -1,17 +1,18 @@
 from dataclasses import dataclass
 import datetime
+from typing import List, Tuple
 
 
 @dataclass
 class Shop:
     name: str
-    location: list
+    location: List[Tuple[float, float]]
     products: dict
 
     def calculation_of_product_costs(self, product_cart: dict) -> float:
         return sum(
-            [self.products[product] * quantity
-             for product, quantity in product_cart.items()]
+            self.products[product] * quantity
+            for product, quantity in product_cart.items()
         )
 
     def receipt_printing(self, name: str, product_cart: dict) -> None:

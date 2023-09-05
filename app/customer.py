@@ -1,14 +1,14 @@
 from dataclasses import dataclass
-
 from app.car import Car
 from app.shop import Shop
+from typing import List, Tuple
 
 
 @dataclass
 class Customer:
     name: str
     product_cart: dict
-    location: list
+    location: List[Tuple[float, float]]
     money: int
     car: dict
 

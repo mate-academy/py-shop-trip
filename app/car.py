@@ -1,5 +1,6 @@
 from dataclasses import dataclass
 import math
+from typing import List, Tuple
 
 
 @dataclass
@@ -9,8 +10,8 @@ class Car:
 
     def calculation_of_road_costs(
             self,
-            location_customer: list,
-            location_shop: list,
+            location_customer: List[Tuple[float, float]],
+            location_shop: List[Tuple[float, float]],
             fuel_price: float
     ) -> float:
         distance_to_the_store = math.sqrt(

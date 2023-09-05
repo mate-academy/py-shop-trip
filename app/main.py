@@ -1,6 +1,5 @@
 import json
 from os import path
-
 from app.customer import Customer
 from app.shop import Shop
 
@@ -22,7 +21,7 @@ def shop_trip() -> None:
             customer["location"],
             customer["money"],
             customer["car"]
-        )for customer in config["customers"]
+        ) for customer in config["customers"]
     ]
     shops = [
         Shop(
