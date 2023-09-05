@@ -8,9 +8,8 @@ from app.car import fuel_price, drive_to_shop, drive_to_home
 
 def shop_trip() -> None:
 
-    os.chdir("C:\\Users\\kolom\\python-course\\py-shop-trip\\app\\")
-
-    with open("config.json") as file:
+    directory = os.path.dirname(__file__)
+    with open(os.path.join(directory, "config.json")) as file:
         file_info = json.load(file)
 
     liter_price = file_info["FUEL_PRICE"]
