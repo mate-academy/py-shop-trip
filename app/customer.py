@@ -13,6 +13,7 @@ def customers_and_content() -> list:
     return customers, content
 
 
+
 class Customer:
     def __init__(self, content: dict) -> dict:
         self.content = content
