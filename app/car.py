@@ -9,25 +9,13 @@ def distance_calculation(point_custom: List[Union[int, float]], point_shop: List
 
 
 def get_directions(list_customers: List[Customer], list_shop: List[Shop]) -> List[dict]:
-    #   Получить из customers информацию о прожорливости машины
-    #   Получить из customers информацию о локации customer
-
-    #   Получить из shops информацию о локации shop
-
-    #   Высчитать расстояние от местоположения покупателя до каждого магазина (по вектору)
-
-    #   Вернуть список магазинов с расстоянием до каждого
-
     list_directions = []
-    work_dict = {}
     for work_customer in list_customers:
         for work_shop in list_shop:
-            work_dict["customer"] = work_customer.name
-            work_dict["shop"] = work_shop.name
-            work_dict["distance"] = distance_calculation(work_shop.location, work_customer.location)
+
+            work_dict = {"customer": work_customer.name, "shop": work_shop.name,
+                         "distance": distance_calculation(work_shop.location, work_customer.location)}
 
             list_directions.append(work_dict)
 
     return list_directions
-
-

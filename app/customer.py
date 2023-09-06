@@ -30,9 +30,21 @@ class Customer:
             car=read_data_cs["car"]
         )
 
+#   поиск совпадений товаров и если есть сумма их преобретений
+    def search_right_products(self, shop_visited: Shop) -> List[dict]:
+        list_right_products = []
+        for product_ct in self.product_cart:
+            for products_sp in shop_visited.products:
+                if product_ct == products_sp:
+                    summ_product = self.product_cart[product_ct] * shop_visited.products[products_sp]
+                    dict_right_products = {product_ct: summ_product}
+
+                    list_right_products.append(dict_right_products)
+
+        return list_right_products
+
 
 def read_from_json(data_file: str, what_information: str) -> Union[List[Union[Customer, Shop]], float]:
-
     with open(data_file, "r") as work_file:
         work_data = json.load(work_file)
         if what_information in work_data:
@@ -42,15 +54,3 @@ def read_from_json(data_file: str, what_information: str) -> Union[List[Union[Cu
             for data in work_data[what_information]:
                 test.append(data)
             return test
-
-
-test_list = read_from_json("config.json", "customers")
-custom_list = []
-for test_ in test_list:
-    custom_list.append(Customer.load_info_customer(test_))
-
-# ttt = read_from_json("config.json", "customers")
-# mmm = read_from_json("config.json", "shops")
-# rrr = read_from_json("config.json", "FUEL_PRICE")
-# ddd = read_from_json("config.json", "FUEL_PRIC")
-yyy = 0

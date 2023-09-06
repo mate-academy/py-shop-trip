@@ -21,6 +21,3 @@ class Shop:
             location=read_data_sh["location"],
             products=read_data_sh["products"]
         )
-
-
-
