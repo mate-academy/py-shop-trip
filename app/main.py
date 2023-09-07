@@ -1,44 +1,54 @@
+import math
 import datetime
-from app.car import PriсeKm
-from app.shop import Shop
 from app.customer import customers_and_content
 
 
 def shop_trip() -> str:
     content = customers_and_content()
-    count_ = 0
     shops = content.get("shops")
-    shop_instances = []
-    for element in shops:
-        name = element.get("name")
-        location = element.get("location")
-        product = element.get("products")
-        shop_instance = Shop(
-            name,
-            location,
-            product
-        )
-        shop_instances.append(shop_instance)
     customers = content.get("customers")
-    for name in customers:
-        quantities = name.get("product_cart")
-        money = name.get("money")
-        product = name.get("product_cart")
-        name = name.get("name")
+    priсe_fuel = content.get("FUEL_PRICE")
+    for name__ in customers:
+        fuel_consumption_car = (
+            name__.get("car").get("fuel_consumption")
+        )
+        location_customer = name__.get("location")
+        distance_custom_x = location_customer[0]
+        distance_custom_y = location_customer[1]
+        quantities = name__.get("product_cart")
+        money = name__.get("money")
+        product = name__.get("product_cart")
+        name = name__.get("name")
         total_cust_list = []
         print(f"{name} has {money} dollars")
-        for shop_instance in shop_instances:
-            distance_priсe_ = PriсeKm.distance_priсe()[count_]
-            total_cust = (
-                sum(shop_instance.product[item]
-                    * quantities.get(item, 0)
-                    for item in shop_instance.product)
-                + float(distance_priсe_)
+        for element in shops:
+            name_ = element.get("name")
+            location = element.get("location")
+            product = element.get("products")
+            coordinates_shop = location
+            distance_location_shop_x = coordinates_shop[0]
+            distance_location_shop_y = coordinates_shop[1]
+            distance = (
+                math.sqrt((distance_custom_x
+                           - distance_location_shop_x) ** 2
+                          + (distance_custom_y
+                             - distance_location_shop_y) ** 2)
             )
-            count_ += 1
+            priсe_distance = (
+                (distance * 2 / 100)
+                * fuel_consumption_car
+                * priсe_fuel
+            )
+            distance_priсe = round(priсe_distance, 2)
+            total_cust = (
+                sum(product[item]
+                    * quantities.get(item, 0)
+                    for item in product)
+                + float(distance_priсe)
+            )
             print(
                 f"{name}'s trip to the "
-                f"{shop_instance.name} costs "
+                f"{name_} costs "
                 f"{total_cust}"
             )
             total_cust_list.append(total_cust)
@@ -46,9 +56,9 @@ def shop_trip() -> str:
             total_cust_ = total_cust_list[0]
             if total_cust <= total_cust_:
                 total = total_cust
-                name_cust_min = shop_instance.name
-                products_list = shop_instance.product
-                total_cust_dol = total_cust - distance_priсe_
+                name_cust_min = name_
+                products_list = product
+                total_cust_dol = total_cust - distance_priсe
 
         if money - total >= 0:
             print(f"{name} rides to {name_cust_min}\n")
