@@ -8,8 +8,9 @@ class PriсeKm:
     def __init__(self, customer: Customer) -> list:
         self.location_customer = customer.location_customer
 
+    @staticmethod
     def distance_priсe() -> list:
-        customers, content = customers_and_content()
+        content = customers_and_content()
         dict_priсe_ = []
         customer = content.get("customers")
         customer_instances = []
@@ -33,7 +34,7 @@ class PriсeKm:
             customer_instances.append(customer_instance)
             distance_custom_x = location_customer[0]
             distance_custom_y = location_customer[1]
-            customers, content = customers_and_content()
+            content = customers_and_content()
             shops = content.get("shops")
             for element in shops:
                 name = element.get("name")

@@ -9,8 +9,7 @@ relative_path = os.path.join(current_directory, "config.json")
 def customers_and_content() -> list:
     with open(relative_path, "r") as file:
         content = json.load(file)
-    customers = content.get("customers")
-    return customers, content
+    return content
 
 
 class Customer:
