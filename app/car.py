@@ -9,33 +9,42 @@ class PriсeKm:
         self.location_customer = customer.location_customer
 
     def distance_priсe() -> list:
+        customers, content = customers_and_content()
         dict_priсe_ = []
-        (
-            location_customer,
-            fuel_consumption_car,
-            priсe_fuel,
-            product_cart,
-            money_custom,
-            name_customer
-        ) = Customer.customer_location()
-        for name_cust in name_customer:
-            coordinates_customer = location_customer.get(name_cust)
-            fuel_consumption_car_ = fuel_consumption_car.get(name_cust)
-            distance_custom_x = coordinates_customer[0]
-            distance_custom_y = coordinates_customer[1]
+        customer = content.get("customers")
+        customer_instances = []
+        for name in customer:
+            money_custom = name.get("money")
+            product_cart = name.get("product_cart")
+            priсe_fuel = content.get("FUEL_PRICE")
+            fuel_consumption_car = (
+                name.get("car").get("fuel_consumption")
+            )
+            location_customer = name.get("location")
+            name_customer = name.get("name")
+            customer_instance = Customer(
+                location_customer,
+                fuel_consumption_car,
+                priсe_fuel,
+                product_cart,
+                money_custom,
+                name_customer
+            )
+            customer_instances.append(customer_instance)
+            distance_custom_x = location_customer[0]
+            distance_custom_y = location_customer[1]
             customers, content = customers_and_content()
             shops = content.get("shops")
             for element in shops:
-                name_shop_element = element.get("name")
-                location_shop_ = element.get("location")
-                product_shop_ = element.get("products")
+                name = element.get("name")
+                location = element.get("location")
+                product = element.get("products")
                 shop = Shop(
-                    element,
-                    name_shop_element,
-                    location_shop_,
-                    product_shop_
+                    name,
+                    location,
+                    product
                 )
-                coordinates_shop = shop.location_shop_
+                coordinates_shop = shop.location
                 distance_location_shop_x = coordinates_shop[0]
                 distance_location_shop_y = coordinates_shop[1]
                 distance = (
@@ -47,7 +56,7 @@ class PriсeKm:
                 priсe_distance = (
                     (distance
                         * 2 / 100)
-                    * fuel_consumption_car_
+                    * fuel_consumption_car
                     * priсe_fuel
                 )
                 priсe_distance = round(priсe_distance, 2)
