@@ -15,7 +15,6 @@ def shop_trip() -> str:
         location = element.get("location")
         product = element.get("products")
         shop_instance = Shop(
-            element,
             name,
             location,
             product
