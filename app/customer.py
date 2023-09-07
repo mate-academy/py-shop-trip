@@ -47,12 +47,14 @@ class Customer:
 
     def customer_shopping(self, local_shops: List[Shop], fuel_price) -> str:
 
-        customer_nearest_shop = get_min_distance_shop(self.location, local_shops)
+        # customer_nearest_shop = get_min_distance_shop(self.location, local_shops) # убрать - вібор магазина по полной стоимости товаров и поездки
         list_nearest_shops = get_list_nearest_shops(self.location, local_shops)
 
         result_part_1 = f"{self.name} has {self.money} dollars\n"
 
         result_part_2 = ""
+
+        list_cost_all_shops = {}
 
         for nearest_s in list_nearest_shops:
             nearest_s_shop = nearest_s["shop"].name
@@ -62,8 +64,24 @@ class Customer:
             result_cost = cost_trip + cost_fuel
             result_part_2 += f"{self.name}'s trip to the {nearest_s_shop} costs {result_cost}\n"
 
+            list_cost_all_shops[nearest_s["shop"]] = {"result_cost": result_cost, "cost_trip": cost_trip, "cost_fuel": cost_fuel}
+
+        min_cost_all_shop = 0
+        for index, shop_costs in enumerate(list_cost_all_shops):
+            if index == 0:
+                min_cost_all_shop = list_cost_all_shops[shop_costs]["result_cost"]
+                cheapest_store = shop_costs
+                cheapest_store_info = list_cost_all_shops[shop_costs]
+            else:
+                if min_cost_all_shop > list_cost_all_shops[shop_costs]["result_cost"]:
+                    min_cost_all_shop = list_cost_all_shops[shop_costs]["result_cost"]
+                    cheapest_store = shop_costs
+                    cheapest_store_info = list_cost_all_shops[shop_costs]
+
+        eeee = 0
+
         customer_nearest_shop_name = customer_nearest_shop["shop"].name
-        result_part_3 = f"Bob rides to {customer_nearest_shop_name}\n\n"
+        result_part_3 = f"{self.name} rides to {customer_nearest_shop_name}\n\n"
 
         now = datetime.datetime.now().strftime("%m/%d/%Y %H:%M:%S")
         result_part_4 = f"Date: {now}\n"
@@ -78,7 +96,7 @@ class Customer:
         result_part_6 = f"Total cost is {sum_cost_trip} dollars\nSee you again!\n\n"
 
         rest_money = self.money - sum_cost_trip - ((customer_nearest_shop["min_distance"] * self.car["fuel_consumption"]) / 100 * fuel_price * 2)
-        result_part_7 = f"Bob rides home\n{self.name} now has {rest_money} dollars\n"
+        result_part_7 = f"{self.name} rides home\n{self.name} now has {rest_money} dollars\n"
 
         result_str = result_part_1 + result_part_2 + result_part_3 + result_part_4 + result_part_5 + result_part_6 + result_part_7
         return result_str
