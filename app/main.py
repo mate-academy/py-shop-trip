@@ -35,11 +35,6 @@ def shop_trip() -> str:
                     for item in shop_instance.product)
                 + float(distance_priсe_)
             )
-            # total_cust___ = (
-            #     sum(shop_instance.product[item]
-            #         * quantities.get(item, 0)
-            #         for item in shop_instance.product)
-            # )
             count_ += 1
             print(
                 f"{name}'s trip to the "
