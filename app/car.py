@@ -40,7 +40,6 @@ class PriсeKm:
                 location = element.get("location")
                 product = element.get("products")
                 shop = Shop(
-                    element,
                     name,
                     location,
                     product
