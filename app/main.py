@@ -1,9 +1,9 @@
-from customer import Customer, read_from_json
-from shop import Shop
+from app.customer import Customer, read_from_json
+from app.shop import Shop
 
 
 def shop_trip() -> None:
-    data_file = "config.json"
+    data_file = "app/config.json"
 
     data_customs = read_from_json(data_file, "customers")
     data_shop = read_from_json(data_file, "shops")

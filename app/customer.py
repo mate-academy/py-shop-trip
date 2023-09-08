@@ -1,8 +1,8 @@
 import datetime
 import json
 from typing import Union, List
-from shop import Shop
-from car import get_list_nearest_shops
+from app.shop import Shop
+from app.car import get_list_nearest_shops
 
 
 class Customer:
@@ -108,7 +108,7 @@ class Customer:
         if cheapest_store_info["result_cost"] > self.money:
             sorry_not_many = f"{self.name} " \
                              f"doesn't have enough money " \
-                             f"to make a purchase in any shop\n"
+                             f"to make a purchase in any shop"
             result_not_many = result_part_1 + result_part_2 + sorry_not_many
             return result_not_many
 
@@ -116,18 +116,18 @@ class Customer:
         result_part_3 = f"{self.name} " \
                         f"rides to {customer_nearest_shop_name}\n\n"
 
-        now = datetime.datetime.now().strftime("%m/%d/%Y %H:%M:%S")
+        now = datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S")
         result_part_4 = f"Date: {now}\n"
 
         result_part_5 = f"Thanks, {self.name}, " \
-                        f"for your purchase!\nYou have bought:\n"
+                        f"for your purchase!\nYou have bought: \n"
         cost_position_shop = (
             self.cheapest_store.cost_sum_position(self.product_cart)
         )
         for cost_position in cost_position_shop:
             abbreviated_c = round(cost_position_shop[cost_position], 2)
             str_cost_position = f"{self.product_cart[cost_position]} " \
-                                f"{cost_position} for " \
+                                f"{cost_position}s for " \
                                 f"{abbreviated_c} dollars\n"
             result_part_5 += str_cost_position
 

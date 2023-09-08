@@ -1,5 +1,5 @@
 from typing import List, Union
-from shop import Shop
+from app.shop import Shop
 import math
 
 
