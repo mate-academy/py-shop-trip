@@ -4,7 +4,6 @@ from app.shop import Shop
 
 def shop_trip() -> None:
     data_file = "app/config.json"
-    # data_file = "config.json"
 
     data_customs = read_from_json(data_file, "customers")
     data_shop = read_from_json(data_file, "shops")
@@ -19,7 +18,3 @@ def shop_trip() -> None:
 
     for custom_info in custom_list:
         print(custom_info.customer_shopping(shop_list, fuel_price))
-
-
-if __name__ == "__main__":
-    shop_trip()
