@@ -8,7 +8,7 @@ from app.car import get_list_nearest_shops
 class Customer:
     name: str
     product_cart: dict
-    location: list
+    location: List[Union[int, float]]
     money: float
     car: dict
 
@@ -18,7 +18,7 @@ class Customer:
             self,
             name: str,
             product_cart: dict,
-            location: list,
+            location: List[Union[int, float]],
             money: float,
             car: dict
     ) -> None:
@@ -53,22 +53,14 @@ class Customer:
 
         return list_right_products
 
-    def customer_shopping(
+    def costs_for_all_shop(
             self,
-            local_shops: List[Shop],
+            list_shops: List[dict],
             fuel_price: float
-    ) -> str:
-
-        list_nearest_shops = get_list_nearest_shops(self.location, local_shops)
-
-        result_part_1 = f"{self.name} has {self.money} dollars\n"
-
-        result_part_2 = ""
-
+    ) -> dict:
         list_cost_all_shops = {}
 
-        for nearest_s in list_nearest_shops:
-            nearest_s_shop = nearest_s["shop"].name
+        for nearest_s in list_shops:
             nearest_s_distance = nearest_s["distance"]
             cost_fuel = (
                 (nearest_s_distance * self.car["fuel_consumption"])
@@ -76,34 +68,62 @@ class Customer:
             )
             cost_trip = nearest_s["shop"].customer_trip_sum(self.product_cart)
             result_cost = cost_trip + cost_fuel
-            result_part_2 += f"{self.name}'s " \
-                             f"trip to the {nearest_s_shop} " \
-                             f"costs {round(result_cost, 2)}\n"
 
             list_cost_all_shops[nearest_s["shop"]] = {
                 "result_cost": result_cost,
                 "cost_trip": cost_trip,
                 "cost_fuel": cost_fuel
             }
+        return list_cost_all_shops
 
+    def find_cheapest_store_info(self, info_all_shop: dict) -> dict:
         cheapest_store_info = {}
         min_cost_all_shop = 0
-        for index, shop_costs in enumerate(list_cost_all_shops):
+        for index, shop_costs in enumerate(info_all_shop):
             if index == 0:
                 min_cost_all_shop = (
-                    list_cost_all_shops[shop_costs]["result_cost"]
+                    info_all_shop[shop_costs]["result_cost"]
                 )
                 self.cheapest_store = shop_costs
-                cheapest_store_info = list_cost_all_shops[shop_costs]
+                cheapest_store_info = info_all_shop[shop_costs]
             else:
                 if min_cost_all_shop > (
-                        list_cost_all_shops[shop_costs]["result_cost"]
+                        info_all_shop[shop_costs]["result_cost"]
                 ):
                     min_cost_all_shop = (
-                        list_cost_all_shops[shop_costs]["result_cost"]
+                        info_all_shop[shop_costs]["result_cost"]
                     )
                     self.cheapest_store = shop_costs
-                    cheapest_store_info = list_cost_all_shops[shop_costs]
+                    cheapest_store_info = info_all_shop[shop_costs]
+
+        return cheapest_store_info
+
+    def customer_shopping(
+            self,
+            local_shops: List[Shop],
+            fuel_price: float
+    ) -> str:
+
+        result_part_1 = f"{self.name} has {self.money} dollars\n"
+
+        list_nearest_shops = get_list_nearest_shops(self.location, local_shops)
+        costs_for_all_shop = self.costs_for_all_shop(
+            list_nearest_shops,
+            fuel_price
+        )
+
+        result_part_2 = ""
+        for cost_sheet in costs_for_all_shop:
+            print_name_shop = cost_sheet.name
+            print_cost_result = round(
+                costs_for_all_shop[cost_sheet]["result_cost"],
+                2
+            )
+            result_part_2 += f"{self.name}'s " \
+                             f"trip to the {print_name_shop} " \
+                             f"costs {print_cost_result}\n"
+
+        cheapest_store_info = self.find_cheapest_store_info(costs_for_all_shop)
 
         if cheapest_store_info["result_cost"] > self.money:
             sorry_not_many = f"{self.name} " \
@@ -140,11 +160,7 @@ class Customer:
                         f"{round(sum_cost_trip, 2)} " \
                         f"dollars\nSee you again!\n\n"
 
-        rest_money = (
-            self.money
-            - sum_cost_trip
-            - cheapest_store_info["cost_fuel"]
-        )
+        rest_money = self.money - cheapest_store_info["result_cost"]
         result_part_7 = f"{self.name} rides home\n" \
                         f"{self.name} now has " \
                         f"{round(rest_money, 2)} dollars\n"

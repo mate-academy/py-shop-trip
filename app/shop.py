@@ -19,22 +19,22 @@ class Shop:
             products=read_data_sh["products"]
         )
 
-    def customer_trip_sum(self, list_product: dict) -> float:
+    def customer_trip_sum(self, buyer_shopp_list: dict) -> float:
         result_trip_sum = 0
-        for product_tr in list_product:
+        for product_tr in buyer_shopp_list:
             if product_tr in self.products:
                 result_trip_sum += (
                     self.products[product_tr]
-                    * list_product[product_tr]
+                    * buyer_shopp_list[product_tr]
                 )
         return result_trip_sum
 
-    def cost_sum_position(self, list_product: dict) -> dict:
+    def cost_sum_position(self, buyer_shopp_list: dict) -> dict:
         list_position = {}
-        for product_tr in list_product:
+        for product_tr in buyer_shopp_list:
             if product_tr in self.products:
                 list_position[product_tr] = (
                     self.products[product_tr]
-                    * list_product[product_tr]
+                    * buyer_shopp_list[product_tr]
                 )
         return list_position

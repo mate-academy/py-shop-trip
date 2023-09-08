@@ -14,7 +14,7 @@ def distance_calculation(
 
 
 def get_min_distance_shop(
-        location_customers: list,
+        location_customers: List[Union[int, float]],
         list_shop: List[Shop]
 ) -> dict:
     min_distance = 0
@@ -43,7 +43,7 @@ def get_min_distance_shop(
 
 
 def get_list_nearest_shops(
-        location_customers_l: list,
+        location_customers_l: List[Union[int, float]],
         list_shop_l: List[Shop]
 ) -> List[dict]:
     list_nearest_shop = []
