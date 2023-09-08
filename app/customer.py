@@ -126,6 +126,8 @@ class Customer:
         )
         for cost_position in cost_position_shop:
             abbreviated_c = round(cost_position_shop[cost_position], 2)
+            if abbreviated_c % 1 == 0:
+                abbreviated_c = abbreviated_c // 1
             str_cost_position = f"{self.product_cart[cost_position]} " \
                                 f"{cost_position}s for " \
                                 f"{abbreviated_c} dollars\n"
