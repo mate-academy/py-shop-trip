@@ -2,7 +2,7 @@ import datetime
 import json
 from typing import Union, List
 from shop import Shop
-from car import get_min_distance_shop, get_list_nearest_shops
+from car import get_list_nearest_shops
 
 
 class Customer:
@@ -12,15 +12,21 @@ class Customer:
     money: float
     car: dict
 
-    def __init__(self, name, product_cart, location, money, car) -> None:
+    cheapest_store: Shop
+
+    def __init__(
+            self,
+            name: str,
+            product_cart: dict,
+            location: list,
+            money: float,
+            car: dict
+    ) -> None:
         self.name = name
         self.product_cart = product_cart
         self.location = location
         self.money = money
         self.car = car
-
-    def __get__(self, instance, owner) -> list:
-        pass
 
     @classmethod
     def load_info_customer(cls, read_data_cs: dict) -> "Customer":
@@ -32,22 +38,27 @@ class Customer:
             car=read_data_cs["car"]
         )
 
-#   поиск совпадений товаров и если есть сумма их преобретений
     def search_right_products(self, shop_visited: Shop) -> List[dict]:
         list_right_products = []
         for product_ct in self.product_cart:
             for products_sp in shop_visited.products:
                 if product_ct == products_sp:
-                    summ_product = self.product_cart[product_ct] * shop_visited.products[products_sp]
+                    summ_product = (
+                        self.product_cart[product_ct]
+                        * shop_visited.products[products_sp]
+                    )
                     dict_right_products = {product_ct: summ_product}
 
                     list_right_products.append(dict_right_products)
 
         return list_right_products
 
-    def customer_shopping(self, local_shops: List[Shop], fuel_price) -> str:
+    def customer_shopping(
+            self,
+            local_shops: List[Shop],
+            fuel_price: float
+    ) -> str:
 
-        # customer_nearest_shop = get_min_distance_shop(self.location, local_shops) # убрать - вібор магазина по полной стоимости товаров и поездки
         list_nearest_shops = get_list_nearest_shops(self.location, local_shops)
 
         result_part_1 = f"{self.name} has {self.money} dollars\n"
@@ -59,50 +70,95 @@ class Customer:
         for nearest_s in list_nearest_shops:
             nearest_s_shop = nearest_s["shop"].name
             nearest_s_distance = nearest_s["distance"]
-            cost_fuel = (nearest_s_distance * self.car["fuel_consumption"])/100 * fuel_price * 2
+            cost_fuel = (
+                (nearest_s_distance * self.car["fuel_consumption"])
+                / 100 * fuel_price * 2
+            )
             cost_trip = nearest_s["shop"].customer_trip_sum(self.product_cart)
             result_cost = cost_trip + cost_fuel
-            result_part_2 += f"{self.name}'s trip to the {nearest_s_shop} costs {result_cost}\n"
+            result_part_2 += f"{self.name}'s " \
+                             f"trip to the {nearest_s_shop} " \
+                             f"costs {round(result_cost, 2)}\n"
 
-            list_cost_all_shops[nearest_s["shop"]] = {"result_cost": result_cost, "cost_trip": cost_trip, "cost_fuel": cost_fuel}
+            list_cost_all_shops[nearest_s["shop"]] = {
+                "result_cost": result_cost,
+                "cost_trip": cost_trip,
+                "cost_fuel": cost_fuel
+            }
 
+        cheapest_store_info = {}
         min_cost_all_shop = 0
         for index, shop_costs in enumerate(list_cost_all_shops):
             if index == 0:
-                min_cost_all_shop = list_cost_all_shops[shop_costs]["result_cost"]
-                cheapest_store = shop_costs
+                min_cost_all_shop = (
+                    list_cost_all_shops[shop_costs]["result_cost"]
+                )
+                self.cheapest_store = shop_costs
                 cheapest_store_info = list_cost_all_shops[shop_costs]
             else:
-                if min_cost_all_shop > list_cost_all_shops[shop_costs]["result_cost"]:
-                    min_cost_all_shop = list_cost_all_shops[shop_costs]["result_cost"]
-                    cheapest_store = shop_costs
+                if min_cost_all_shop > (
+                        list_cost_all_shops[shop_costs]["result_cost"]
+                ):
+                    min_cost_all_shop = (
+                        list_cost_all_shops[shop_costs]["result_cost"]
+                    )
+                    self.cheapest_store = shop_costs
                     cheapest_store_info = list_cost_all_shops[shop_costs]
 
-        eeee = 0
+        if cheapest_store_info["result_cost"] > self.money:
+            sorry_not_many = f"{self.name} " \
+                             f"doesn't have enough money " \
+                             f"to make a purchase in any shop\n"
+            result_not_many = result_part_1 + result_part_2 + sorry_not_many
+            return result_not_many
 
-        customer_nearest_shop_name = customer_nearest_shop["shop"].name
-        result_part_3 = f"{self.name} rides to {customer_nearest_shop_name}\n\n"
+        customer_nearest_shop_name = self.cheapest_store.name
+        result_part_3 = f"{self.name} " \
+                        f"rides to {customer_nearest_shop_name}\n\n"
 
         now = datetime.datetime.now().strftime("%m/%d/%Y %H:%M:%S")
         result_part_4 = f"Date: {now}\n"
 
-        result_part_5 = f"Thanks, {self.name}, for your purchase!\nYou have bought:\n"
-        cost_position_shop = customer_nearest_shop["shop"].cost_sum_position(self.product_cart)
+        result_part_5 = f"Thanks, {self.name}, " \
+                        f"for your purchase!\nYou have bought:\n"
+        cost_position_shop = (
+            self.cheapest_store.cost_sum_position(self.product_cart)
+        )
         for cost_position in cost_position_shop:
-            str_cost_position = f"{self.product_cart[cost_position]} {cost_position} for {cost_position_shop[cost_position]} dollars\n"
+            abbreviated_c = round(cost_position_shop[cost_position], 2)
+            str_cost_position = f"{self.product_cart[cost_position]} " \
+                                f"{cost_position} for " \
+                                f"{abbreviated_c} dollars\n"
             result_part_5 += str_cost_position
 
-        sum_cost_trip = customer_nearest_shop["shop"].customer_trip_sum(self.product_cart)
-        result_part_6 = f"Total cost is {sum_cost_trip} dollars\nSee you again!\n\n"
+        sum_cost_trip = (
+            self.cheapest_store.customer_trip_sum(self.product_cart)
+        )
+        result_part_6 = f"Total cost is " \
+                        f"{round(sum_cost_trip, 2)} " \
+                        f"dollars\nSee you again!\n\n"
 
-        rest_money = self.money - sum_cost_trip - ((customer_nearest_shop["min_distance"] * self.car["fuel_consumption"]) / 100 * fuel_price * 2)
-        result_part_7 = f"{self.name} rides home\n{self.name} now has {rest_money} dollars\n"
+        rest_money = (
+            self.money
+            - sum_cost_trip
+            - cheapest_store_info["cost_fuel"]
+        )
+        result_part_7 = f"{self.name} rides home\n" \
+                        f"{self.name} now has " \
+                        f"{round(rest_money, 2)} dollars\n"
 
-        result_str = result_part_1 + result_part_2 + result_part_3 + result_part_4 + result_part_5 + result_part_6 + result_part_7
+        result_str = (
+            result_part_1 + result_part_2 + result_part_3
+            + result_part_4 + result_part_5
+            + result_part_6 + result_part_7
+        )
         return result_str
 
 
-def read_from_json(data_file: str, what_information: str) -> Union[List[Union[Customer, Shop]], float]:
+def read_from_json(
+        data_file: str,
+        what_information: str
+) -> Union[List[Union[Customer, Shop]], float]:
     with open(data_file, "r") as work_file:
         work_data = json.load(work_file)
         if what_information in work_data:
