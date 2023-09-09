@@ -1,33 +1,30 @@
 import math
 import datetime
+from app.car import CustomerCar
+from app.shop import Shop
 from app.customer import customers_and_content
 
 
 def shop_trip() -> str:
-    content = customers_and_content()
-    shops = content.get("shops")
-    customers = content.get("customers")
-    priсe_fuel = content.get("FUEL_PRICE")
+    customers, content, shops, priсe_fuel = customers_and_content()
     for name_customer in customers:
-        fuel_consumption_car = (
-            name_customer.get("car").get("fuel_consumption")
-        )
-        location_customer = name_customer.get("location")
-        distance_customer_x = location_customer[0]
-        distance_customer_y = location_customer[1]
-        quantities = name_customer.get("product_cart")
-        money = name_customer.get("money")
-        product = name_customer.get("product_cart")
-        name = name_customer.get("name")
+        customer_instance = CustomerCar(name_customer)
+        customer_inf = customer_instance.customer_location()
+        fuel_consumption_car = customer_inf["fuel_consumption_car"]
+        distance_customer_x = customer_inf["distance_customer_x"]
+        distance_customer_y = customer_inf["distance_customer_y"]
+        quantities = customer_inf["quantities"]
+        money = customer_inf["money"]
+        product = customer_inf["product"]
+        name = customer_inf["name"]
         total_price_list = []
-        print(f"{name} has {money} dollars")
         for element in shops:
-            name_shop = element.get("name")
-            location = element.get("location")
-            product = element.get("products")
-            coordinates_shop = location
-            distance_location_shop_x = coordinates_shop[0]
-            distance_location_shop_y = coordinates_shop[1]
+            shop_instance = Shop(element)
+            shop_inf = shop_instance.shop_location()
+            name_shop = shop_inf["name_shop"]
+            distance_location_shop_x = shop_inf["distance_location_shop_x"]
+            distance_location_shop_y = shop_inf["distance_location_shop_y"]
+            product = shop_inf["product"]
             distance = (
                 math.sqrt((distance_customer_x
                            - distance_location_shop_x) ** 2
