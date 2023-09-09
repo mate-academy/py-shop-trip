@@ -70,7 +70,7 @@ def shop_trip() -> str:
             for items in product:
                 print(
                     f"{quantities[items]} {items}s "
-                    f"for {products_list[items] * quantities[items]} "
+                    f"for {int(products_list[items] * quantities[items])} "
                     f"dollars"
                 )
             print(

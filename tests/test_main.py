@@ -29,7 +29,7 @@ Thanks, Bob, for your purchase!
 You have bought: 
 4 milks for 12 dollars
 2 breads for 2 dollars
-5 butters for 12.5 dollars
+5 butters for 12 dollars
 Total cost is 26.5 dollars
 See you again!
 
@@ -46,8 +46,8 @@ Date: 04/01/2021 12:33:41
 Thanks, Alex, for your purchase!
 You have bought: 
 2 milks for 4 dollars
-2 breads for 3.0 dollars
-2 butters for 6.4 dollars
+2 breads for 3 dollars
+2 butters for 6 dollars
 Total cost is 13.4 dollars
 See you again!
 
