@@ -63,8 +63,13 @@ class Customer:
         products = ["milk", "bread", "butter"]
         for product in products:
             product_amount = self.product_cart.get(product)
+            payment_for_product = (
+                shop_prices.products.get(product) * product_amount
+            )
+            if payment_for_product % 1 == 0:
+                payment_for_product = int(payment_for_product)
             print(f"{product_amount} {product}s "
-                  f"for {shop_prices.products.get(product) * product_amount}"
+                  f"for {payment_for_product}"
                   f" dollars")
         print(f"Total cost is "
               f"{self.calculate_total_cost_in_shop(shop_prices)} dollars")
