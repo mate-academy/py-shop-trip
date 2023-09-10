@@ -31,7 +31,7 @@ class Customer:
         return total
 
     def print_about_purchase(self, products: dict, total_cost: float) -> None:
-        current_time = datetime.datetime.now().strftime("%m/%d/%Y %H:%M:%S")
+        current_time = datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S")
         print(f"\nDate: {current_time}")
         print(f"Thanks, {self.name}, for your purchase!")
         print("You have bought:")
@@ -43,13 +43,16 @@ class Customer:
 
     def make_purchase(self, shop: Shop) -> None:
         products_cost = self.calculate_products_cost(shop.products)
-        if self.money >= products_cost:
-            self.money -= products_cost
-            self.print_about_purchase(shop.products, products_cost)
+        trip_cost = self.calculate_trip_cost(shop, shop.fuel_price)
+        total_cost = products_cost + trip_cost
+
+        if self.money >= total_cost:
+            self.money -= total_cost
+            self.print_about_purchase(shop.products, total_cost)
         else:
             print(f"{self.name} doesn't have enough money "
                   f"to make a purchase in {shop.name}.")
 
     def return_home(self) -> None:
         print(f"\n{self.name} rides home")
-        print(f"{self.name} now has {self.money} dollars")
+        print(f"{self.name} now has {self.money:.2f} dollars")

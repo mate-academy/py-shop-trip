@@ -21,19 +21,24 @@ def shop_trip() -> None:
         trip_costs.sort(key=lambda x: x[1])
 
         if trip_costs and customer.money >= trip_costs[0][1]:
-            print(f"\n{customer.name} has {customer.money} dollars")
+            print(f"{customer.name} has {customer.money} dollars")
+
             for shop, cost in trip_costs:
                 print(f"{customer.name}'s trip to the "
                       f"{shop.name} costs {cost:.2f}")
+
             shop, cost = trip_costs[0]
             print(f"{customer.name} rides to {shop.name}")
+
             customer.location = shop.location
             customer.make_purchase(shop)
             customer.return_home()
         else:
+            print(f"{customer.name} has {customer.money} dollars")
+
             for shop, cost in trip_costs:
                 print(f"{customer.name}'s trip to the "
                       f"{shop.name} costs {cost:.2f}")
-            print(f"\n{customer.name} has {customer.money} dollars")
+
             print(f"{customer.name} doesn't have enough money to "
                   f"make a purchase in any shop")
