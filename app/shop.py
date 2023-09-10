@@ -1,15 +1,16 @@
+from typing import List, Dict
+
+
 class Shop:
-    def __init__(self, element: dict) -> None:
-        self.element = element
+    def __init__(self, name_shop: str, location: List[int], products: Dict[str, int]) -> None:
+        self.name_shop = name_shop
+        self.location = location
+        self.products = products
 
     def shop_location(self) -> dict:
-        name_shop = self.element.get("name")
-        distance_location_shop_x = self.element.get("location")[0]
-        distance_location_shop_y = self.element.get("location")[1]
-        product = self.element.get("products")
         return {
-            "name_shop": name_shop,
-            "distance_location_shop_x": distance_location_shop_x,
-            "distance_location_shop_y": distance_location_shop_y,
-            "product": product
+            "name_shop": self.name_shop,
+            "distance_location_shop_x": self.location[0],
+            "distance_location_shop_y": self.location[1],
+            "products": self.products
         }

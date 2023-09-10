@@ -1,6 +1,6 @@
 import math
 import datetime
-from app.car import CustomerCar
+from app.customer import CustomerCar
 from app.shop import Shop
 from app.customer import customers_and_content
 
@@ -8,23 +8,30 @@ from app.customer import customers_and_content
 def shop_trip() -> str:
     customers, content, shops, priсe_fuel = customers_and_content()
     for name_customer in customers:
-        customer_instance = CustomerCar(name_customer)
+        name = name_customer.get("name")
+        product_cart = name_customer.get("product_cart")
+        location = name_customer.get("location")
+        money = name_customer.get("money")
+        car = name_customer.get("car")
+        customer_instance = CustomerCar(name, product_cart, location, money, car)
         customer_inf = customer_instance.customer_location()
         fuel_consumption_car = customer_inf["fuel_consumption_car"]
         distance_customer_x = customer_inf["distance_customer_x"]
         distance_customer_y = customer_inf["distance_customer_y"]
-        quantities = customer_inf["quantities"]
         money = customer_inf["money"]
-        product = customer_inf["product"]
+        product_cart = customer_inf["product_cart"]
         name = customer_inf["name"]
         total_price_list = []
         for element in shops:
-            shop_instance = Shop(element)
+            name_shop = element.get("name")
+            location = element.get("location")
+            products = element.get("products")
+            shop_instance = Shop(name_shop, location, products)
             shop_inf = shop_instance.shop_location()
             name_shop = shop_inf["name_shop"]
             distance_location_shop_x = shop_inf["distance_location_shop_x"]
             distance_location_shop_y = shop_inf["distance_location_shop_y"]
-            product = shop_inf["product"]
+            product = shop_inf["products"]
             distance = (
                 math.sqrt((distance_customer_x
                            - distance_location_shop_x) ** 2
@@ -33,13 +40,13 @@ def shop_trip() -> str:
             )
             priсe_distance = (
                 (distance * 2 / 100)
-                * fuel_consumption_car
+                * fuel_consumption_car.fuel_consumption
                 * priсe_fuel
             )
             distance_priсe = round(priсe_distance, 2)
             total_price = (
                 sum(product[items]
-                    * quantities.get(items, 0)
+                    * product_cart.get(items, 0)
                     for items in product)
                 + float(distance_priсe)
             )
@@ -69,8 +76,8 @@ def shop_trip() -> str:
             )
             for items in product:
                 print(
-                    f"{quantities[items]} {items}s "
-                    f"for {products_list[items] * quantities[items]} "
+                    f"{product_cart[items]} {items}s "
+                    f"for {products_list[items] * product_cart[items]} "
                     f"dollars"
                 )
             print(
