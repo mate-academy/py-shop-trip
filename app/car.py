@@ -3,6 +3,6 @@ class Car:
         self.brand = brand
         self.fuel_consumption = fuel_consumption
 
-    def car_dict(self):
+    def car_dict(self) -> list:
         car = [self.brand, self.fuel_consumption]
         return car

@@ -13,7 +13,9 @@ def shop_trip() -> str:
         location = name_customer.get("location")
         money = name_customer.get("money")
         car = name_customer.get("car")
-        customer_instance = CustomerCar(name, product_cart, location, money, car)
+        customer_instance = (
+            CustomerCar(name, product_cart, location, money, car)
+        )
         customer_inf = customer_instance.customer_location()
         fuel_consumption_car = customer_inf["fuel_consumption_car"]
         distance_customer_x = customer_inf["distance_customer_x"]

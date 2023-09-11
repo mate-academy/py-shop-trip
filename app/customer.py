@@ -17,8 +17,6 @@ def customers_and_content() -> list:
 
 
 class CustomerCar:
-
-
     def __init__(
             self,
             name: str,
@@ -33,8 +31,6 @@ class CustomerCar:
         self.money = money
         self.car = car
         self.car = Car(**car)
-
-
 
     def customer_location(self) -> dict:
         fuel_consumption_car = self.car
