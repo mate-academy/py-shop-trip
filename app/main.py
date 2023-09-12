@@ -48,7 +48,6 @@ def shop_trip() -> str:
                 )
                 + float(distance_priсe)
             )
-
             print(
                 f"{name}'s trip to the "
                 f"{name_shop} costs "
