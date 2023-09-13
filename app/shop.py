@@ -23,6 +23,8 @@ class Shop:
             price = self.products[product_name]
             position_cost = quantity * price
             total_price += position_cost
+            if position_cost == int(position_cost):
+                position_cost = int(position_cost)
             print(f"{quantity} {product_name}s for {position_cost} dollars")
         print(f"Total cost is {total_price} dollars")
         print("See you again!")
