@@ -9,7 +9,9 @@ from app.main import shop_trip
 
 def test_shop_trip_output(monkeypatch):
     datetime_mock = MagicMock(wrap=datetime.datetime)
-    datetime_mock.now.return_value = datetime.datetime(2021, 1, 4, 12, 33, 41)
+    datetime_mock.now.return_value = datetime.datetime(
+        2021, 1, 4, 12, 33, 41
+    )
     monkeypatch.setattr(datetime, "datetime", datetime_mock)
 
     f = StringIO()
@@ -18,7 +20,7 @@ def test_shop_trip_output(monkeypatch):
         shop_trip()
 
     output = f.getvalue()
-    out = '''Bob has 55 dollars
+    out = """Bob has 55 dollars
 Bob's trip to the Outskirts Shop costs 28.21
 Bob's trip to the Shop '24/7' costs 31.48
 Bob's trip to the Central Shop costs 39.28
@@ -59,6 +61,5 @@ Monica's trip to the Outskirts Shop costs 15.65
 Monica's trip to the Shop '24/7' costs 16.84
 Monica's trip to the Central Shop costs 22.58
 Monica doesn't have enough money to make a purchase in any shop
-'''
+"""
     assert output == out
-
