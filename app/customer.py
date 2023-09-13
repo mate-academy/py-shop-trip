@@ -17,8 +17,9 @@ def customers_and_content() -> list:
 
 
 class Customer:
-    def __init__(
-            self,
-            car: list
-    ) -> None:
+    def __init__(self, car: None, info: dict) -> None:
         self.car = Car(**car)
+        self.name = info["name"]
+        self.location = info["location"]
+        self.product_cart = info["product_cart"]
+        self.money = info["money"]

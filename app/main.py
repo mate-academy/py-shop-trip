@@ -10,21 +10,29 @@ def shop_trip() -> str:
     for name_customer in customers:
         name = name_customer.get("name")
         product_cart = name_customer.get("product_cart")
-        distance_customer_x = name_customer.get("location")[0]
-        distance_customer_y = name_customer.get("location")[1]
+        location = name_customer.get("location")
         money = name_customer.get("money")
         car = name_customer.get("car")
-        customer_instance = (
-            Customer(car)
+        info_dict = (
+            {"name": name,
+             "location": location,
+             "product_cart": product_cart,
+             "money": money}
         )
+        customer_instance = Customer(car, info_dict)
         fuel_consumption_car = customer_instance.car
+        name = customer_instance.name
+        product_cart = customer_instance.product_cart
+        distance_customer_x = customer_instance.location[0]
+        distance_customer_y = customer_instance.location[1]
         total_price_list = []
         print(f"{name} has {money} dollars")
         for element in shops:
             name_shop = element.get("name")
             location = element.get("location")
             products = element.get("products")
-            shop_instance = Shop(location, products)
+            info_dict = {"location": location, "products": products}
+            shop_instance = Shop(info_dict)
             distance_location_shop_x = shop_instance.location[0]
             distance_location_shop_y = shop_instance.location[1]
             product = shop_instance.products
