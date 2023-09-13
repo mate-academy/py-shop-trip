@@ -25,12 +25,17 @@ def shop_trip() -> None:
         total_price_dict = {}
         for shop in shops_list:
             distance = customer.calculate_distance(customer.location,
-                                                   shop.location)
+                                                   shop.location
+                                                   )
             fuel_cost = customer.calculate_fuel_cost(
                 customer.car.fuel_consumption,
-                distance, config["FUEL_PRICE"])
+                distance,
+                config["FUEL_PRICE"]
+            )
             product_price = customer.calculate_products_cost(
-                customer.product_cart, shop.products)
+                customer.product_cart,
+                shop.products
+            )
             total_price_trip = round(fuel_cost * 2 + sum(product_price), 2)
             print(f"{customer.name}'s trip to the {shop.name}"
                   f" costs {total_price_trip}")

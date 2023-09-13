@@ -43,7 +43,9 @@ class Customer:
 
     def prints_purchase_receipt(self, product_price: dict) -> None:
         product_price = self.calculate_products_cost(
-            self.product_cart, product_price)
+            self.product_cart,
+            product_price
+        )
         print()
         print(f"Date: {datetime.datetime.now().strftime('%d/%m/%Y %H:%M:%S')}")
         print(f"Thanks, {self.name}, for your purchase!")
