@@ -1,41 +1,27 @@
 import math
 import datetime
 from app.customer import Customer
-from app.shop import Shop
 from app.customer import customers_and_content
 
 
 def shop_trip() -> str:
-    customers, content, shops, priсe_fuel = customers_and_content()
-    for name_customer in customers:
-        name = name_customer.get("name")
-        product_cart = name_customer.get("product_cart")
-        location = name_customer.get("location")
-        money = name_customer.get("money")
-        car = name_customer.get("car")
-        info_dict = (
-            {"name": name,
-             "location": location,
-             "product_cart": product_cart,
-             "money": money}
-        )
-        customer_instance = Customer(car, info_dict)
+    customers, shops, priсe_fuel = customers_and_content()
+    for customer in customers:
+        car = customer.get("car")
+        customer_instance = Customer(car, customer)
         fuel_consumption_car = customer_instance.car
-        name = customer_instance.name
-        product_cart = customer_instance.product_cart
-        distance_customer_x = customer_instance.location[0]
-        distance_customer_y = customer_instance.location[1]
+        money = customer.get("money")
+        name = customer.get("name")
+        product_cart = customer.get("product_cart")
+        distance_customer_x = customer.get("location")[0]
+        distance_customer_y = customer.get("location")[1]
         total_price_list = []
         print(f"{name} has {money} dollars")
-        for element in shops:
-            name_shop = element.get("name")
-            location = element.get("location")
-            products = element.get("products")
-            info_dict = {"location": location, "products": products}
-            shop_instance = Shop(info_dict)
-            distance_location_shop_x = shop_instance.location[0]
-            distance_location_shop_y = shop_instance.location[1]
-            product = shop_instance.products
+        for shop in shops:
+            name_shop = shop.get("name")
+            distance_location_shop_x = shop.get("location")[0]
+            distance_location_shop_y = shop.get("location")[1]
+            product = shop.get("products")
             distance = (
                 math.sqrt((distance_customer_x
                            - distance_location_shop_x) ** 2
@@ -62,16 +48,14 @@ def shop_trip() -> str:
                 f"{total_price}"
             )
             total_price_list.append(total_price)
-            total_price_list.sort()
-            total_price_min = total_price_list[0]
-            if total_price <= total_price_min:
+            if total_price <= min(total_price_list):
                 total = total_price
-                name_cust_min = name_shop
+                cust_min = name_shop
                 products_list = product
                 total_price_dol = total_price - distance_priсe
 
         if money >= total:
-            print(f"{name} rides to {name_cust_min}\n")
+            print(f"{name} rides to {cust_min}\n")
             datetime_form = datetime.datetime.now()
             datetime_print = datetime_form.strftime("%d/%m/%Y %X")
             print(f"Date: {datetime_print}")
@@ -81,9 +65,10 @@ def shop_trip() -> str:
                 f"You have bought: "
             )
             for items in product:
+                price = products_list[items] * product_cart[items]
                 print(
                     f"{product_cart[items]} {items}s "
-                    f"for {products_list[items] * product_cart[items]} "
+                    f"for {str(str(price).rstrip('0')).rstrip('.')} "
                     f"dollars"
                 )
             print(
