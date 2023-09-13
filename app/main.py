@@ -1,5 +1,6 @@
-from app.parser import Parser
 import os
+
+from app.parser import Parser
 
 
 def shop_trip() -> None:
