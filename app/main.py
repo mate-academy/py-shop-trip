@@ -48,9 +48,7 @@ def shop_trip() -> str:
                 f"{total_price}"
             )
             total_price_list.append(total_price)
-            total_price_list.sort()
-            total_price_min = total_price_list[0]
-            if total_price <= total_price_min:
+            if total_price <= min(total_price_list):
                 total = total_price
                 cust_min = name_shop
                 products_list = product

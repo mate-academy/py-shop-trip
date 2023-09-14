@@ -1,13 +1,14 @@
 import json
 import os
 from app.car import Car
+from typing import Union
 
 
 current_directory = os.path.dirname(os.path.abspath(__file__))
 relative_path = os.path.join(current_directory, "config.json")
 
 
-def customers_and_content() -> list:
+def customers_and_content() -> tuple:
     with open(relative_path, "r") as file:
         content = json.load(file)
     customers = content.get("customers")
@@ -17,7 +18,7 @@ def customers_and_content() -> list:
 
 
 class Customer:
-    def __init__(self, car: None, info: dict) -> None:
+    def __init__(self, car: Union[Car, None], info: dict) -> None:
         self.car = Car(**car)
         self.name = info["name"]
         self.location = info["location"]
