@@ -5,6 +5,7 @@ from app.car import Car
 from app.customer import Customer
 from app.shop import Shop
 
+
 directory = os.path.dirname(os.path.abspath(__file__))
 config_path = os.path.join(directory, "config.json")
 
