@@ -1,5 +1,6 @@
 import math
 import datetime
+from app.shop import Shop
 from app.customer import Customer
 from app.customer import customers_and_content
 
@@ -19,9 +20,10 @@ def shop_trip() -> str:
         print(f"{name} has {money} dollars")
         for shop in shops:
             name_shop = shop.get("name")
-            distance_location_shop_x = shop.get("location")[0]
-            distance_location_shop_y = shop.get("location")[1]
-            product = shop.get("products")
+            shop_instance = Shop(shop)
+            distance_location_shop_x = shop_instance.location[0]
+            distance_location_shop_y = shop_instance.location[1]
+            product = shop_instance.products
             distance = (
                 math.sqrt((distance_customer_x
                            - distance_location_shop_x) ** 2

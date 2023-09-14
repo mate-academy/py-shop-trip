@@ -1,7 +1,6 @@
 import json
 import os
 from app.car import Car
-from typing import Union
 
 
 current_directory = os.path.dirname(os.path.abspath(__file__))
@@ -18,7 +17,7 @@ def customers_and_content() -> tuple:
 
 
 class Customer:
-    def __init__(self, car: Union[Car, None], info: dict) -> None:
+    def __init__(self, car: dict, info: dict) -> None:
         self.car = Car(**car)
         self.name = info["name"]
         self.location = info["location"]
