@@ -65,9 +65,10 @@ def shop_trip() -> str:
                 f"You have bought: "
             )
             for items in product:
+                price = products_list[items] * product_cart[items]
                 print(
                     f"{product_cart[items]} {items}s "
-                    f"for {products_list[items] * product_cart[items]} "
+                    f"for {str(str(price).rstrip('0')).rstrip('.')} "
                     f"dollars"
                 )
             print(
