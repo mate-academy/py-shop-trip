@@ -25,7 +25,8 @@ class Shop:
             product_price: float = self.products[product] * quantity
             total += product_price
             products_info.append(
-                f"{quantity} {product}s for {round(product_price, 2)} dollars"
+                f"{quantity} {product}s for "
+                f"{round(product_price, 2):g} dollars"
             )
         return total, "\n".join(products_info)
 

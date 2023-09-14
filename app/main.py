@@ -1,9 +1,9 @@
 import json
 import os
 from os.path import dirname
+
 from app.car import Car
 from app.customer import Customer
-
 from app.shop import Shop
 
 BASE_DIR: str = dirname(dirname(__file__))
