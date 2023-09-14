@@ -17,9 +17,15 @@ def customers_and_content() -> tuple:
 
 
 class Customer:
-    def __init__(self, car: dict, info: dict) -> None:
+    def __init__(
+            self, car: dict,
+            product_cart: dict,
+            name: str,
+            location: list,
+            money: int
+    ) -> None:
         self.car = Car(**car)
-        self.name = info["name"]
-        self.location = info["location"]
-        self.product_cart = info["product_cart"]
-        self.money = info["money"]
+        self.name = name
+        self.location = location
+        self.product_cart = product_cart
+        self.money = money

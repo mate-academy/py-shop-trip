@@ -7,23 +7,22 @@ from app.customer import customers_and_content
 
 def shop_trip() -> str:
     customers, shops, priсe_fuel = customers_and_content()
-    for customer in customers:
-        car = customer.get("car")
-        customer_instance = Customer(car, customer)
-        fuel_consumption_car = customer_instance.car
-        money = customer.get("money")
-        name = customer.get("name")
-        product_cart = customer.get("product_cart")
-        distance_customer_x = customer.get("location")[0]
-        distance_customer_y = customer.get("location")[1]
+    customers_list = [Customer(**customer_data) for customer_data in customers]
+    for customer in customers_list:
+        product_cart = customer.product_cart
+        name = customer.name
+        money = customer.money
+        fuel_consumption_car = customer.car.fuel_consumption
+        distance_customer_x = customer.location[0]
+        distance_customer_y = customer.location[1]
         total_price_list = []
         print(f"{name} has {money} dollars")
-        for shop in shops:
-            name_shop = shop.get("name")
-            shop_instance = Shop(shop)
-            distance_location_shop_x = shop_instance.location[0]
-            distance_location_shop_y = shop_instance.location[1]
-            product = shop_instance.products
+        shop_list = [Shop(**shop_data) for shop_data in shops]
+        for shop in shop_list:
+            name_shop = shop.name
+            distance_location_shop_x = shop.location[0]
+            distance_location_shop_y = shop.location[1]
+            product = shop.products
             distance = (
                 math.sqrt((distance_customer_x
                            - distance_location_shop_x) ** 2
@@ -32,7 +31,7 @@ def shop_trip() -> str:
             )
             priсe_distance = (
                 (distance * 2 / 100)
-                * fuel_consumption_car.fuel_consumption
+                * fuel_consumption_car
                 * priсe_fuel
             )
             distance_priсe = round(priсe_distance, 2)
