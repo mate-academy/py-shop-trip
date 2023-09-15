@@ -28,6 +28,7 @@ class Customer:
     def shop_cost(self, products_price: dict) -> None:
         for product, amount in self.product_cart.items():
             price = amount * products_price[product]
+            price = int(price) if isinstance(price, float) and price.is_integer() else price
             print(f"{amount} {product}s for {price} dollars")
 
     def products_cost(self, shop: Shop) -> float:
