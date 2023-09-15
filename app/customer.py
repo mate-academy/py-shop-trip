@@ -35,10 +35,10 @@ class Customer:
             print(f"{amount} {product}s for {price} dollars")
 
     def products_cost(self, shop: Shop) -> float:
-        total = 0
-        for product, amount in shop.products.items():
-            total += amount * self.product_cart.get(product)
-        return total
+        return sum(
+            amount * self.product_cart.get(product, 0)
+            for product, amount in shop.products.items()
+        )
 
     def cost_of_the_trip(self, shops: list[Shop], fuel_cost: float) -> None:
         cheapest_shop = None

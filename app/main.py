@@ -25,13 +25,7 @@ def shop_trip() -> None:
         ) for customer_dict in file_data["customers"]
     ]
 
-    shops = [
-        Shop(
-            shop_dict["name"],
-            shop_dict["location"],
-            shop_dict["products"]
-        ) for shop_dict in file_data["shops"]
-    ]
+    shops = [Shop(**shop_dict) for shop_dict in file_data["shops"]]
 
     for customer in customers:
         customer.start_money()
