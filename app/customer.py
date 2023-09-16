@@ -3,12 +3,12 @@ import os
 from app.car import Car
 
 
-current_directory = os.path.dirname(os.path.abspath(__file__))
-relative_path = os.path.join(current_directory, "config.json")
+CURRENT_DIRECTORY = os.path.dirname(os.path.abspath(__file__))
+RELATIVE_PATH = os.path.join(CURRENT_DIRECTORY, "config.json")
 
 
 def customers_and_content() -> tuple:
-    with open(relative_path, "r") as file:
+    with open(RELATIVE_PATH, "r") as file:
         content = json.load(file)
     customers = content.get("customers")
     shops = content.get("shops")

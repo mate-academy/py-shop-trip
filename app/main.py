@@ -15,7 +15,7 @@ def shop_trip() -> str:
         fuel_consumption_car = customer.car.fuel_consumption
         distance_customer_x = customer.location[0]
         distance_customer_y = customer.location[1]
-        total_price_list = []
+        total_prices = []
         print(f"{name} has {money} dollars")
         shop_list = [Shop(**shop_data) for shop_data in shops]
         for shop in shop_list:
@@ -48,8 +48,8 @@ def shop_trip() -> str:
                 f"{name_shop} costs "
                 f"{total_price}"
             )
-            total_price_list.append(total_price)
-            if total_price <= min(total_price_list):
+            total_prices.append(total_price)
+            if total_price <= min(total_prices):
                 total = total_price
                 cust_min = name_shop
                 products_list = product
