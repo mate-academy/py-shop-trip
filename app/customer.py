@@ -7,7 +7,7 @@ CURRENT_DIRECTORY = os.path.dirname(os.path.abspath(__file__))
 RELATIVE_PATH = os.path.join(CURRENT_DIRECTORY, "config.json")
 
 
-def customers_and_content() -> tuple:
+def components_file() -> None:
     with open(RELATIVE_PATH, "r") as file:
         content = json.load(file)
     customers = content.get("customers")

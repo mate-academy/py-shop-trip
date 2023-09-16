@@ -2,26 +2,24 @@ import math
 import datetime
 from app.shop import Shop
 from app.customer import Customer
-from app.customer import customers_and_content
+from app.customer import components_file
 
 
-def shop_trip() -> str:
-    customers, shops, priсe_fuel = customers_and_content()
+def shop_trip() -> None:
+    customers, shops, priсe_fuel = components_file()
     customers_list = [Customer(**customer_data) for customer_data in customers]
     for customer in customers_list:
         product_cart = customer.product_cart
         name = customer.name
         money = customer.money
         fuel_consumption_car = customer.car.fuel_consumption
-        distance_customer_x = customer.location[0]
-        distance_customer_y = customer.location[1]
+        distance_customer_x, distance_customer_y = customer.location
         total_prices = []
         print(f"{name} has {money} dollars")
         shop_list = [Shop(**shop_data) for shop_data in shops]
         for shop in shop_list:
             name_shop = shop.name
-            distance_location_shop_x = shop.location[0]
-            distance_location_shop_y = shop.location[1]
+            distance_location_shop_x, distance_location_shop_y = shop.location
             product = shop.products
             distance = (
                 math.sqrt((distance_customer_x
