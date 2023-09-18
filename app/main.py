@@ -5,8 +5,7 @@ from app.customers import Customer
 
 def shop_trip() -> None:
 
-    with open("/Users/artemharcenko/mate-academy-project/"
-              "py-shop-trip/app/config.json", "r") as file:
+    with open("app/config.json", "r") as file:
         data = json.load(file)
     bob = Customer(data["customers"][0]["name"],
                    data["customers"][0]["product_cart"],

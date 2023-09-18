@@ -20,8 +20,7 @@ class Customer:
         self.money = money
         self.car = car
 
-    with open("/Users/artemharcenko/mate-academy-project/"
-              "py-shop-trip/app/config.json", "r") as file:
+    with open("app/config.json", "r") as file:
         data = json.load(file)
     fuel_price = data["FUEL_PRICE"]
 
