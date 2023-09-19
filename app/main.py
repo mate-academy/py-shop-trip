@@ -1,29 +1,19 @@
-import json
-
 from app.customers import Customer
 
 
 def shop_trip() -> None:
 
-    with open("app/config.json", "r") as file:
-        data = json.load(file)
-    bob = Customer(data["customers"][0]["name"],
-                   data["customers"][0]["product_cart"],
-                   data["customers"][0]["location"],
-                   data["customers"][0]["money"],
-                   data["customers"][0]["car"])
+    data = Customer.get_data()
+    customers = []
 
-    alex = Customer(data["customers"][1]["name"],
-                    data["customers"][1]["product_cart"],
-                    data["customers"][1]["location"],
-                    data["customers"][1]["money"],
-                    data["customers"][1]["car"])
+    for customer_data in data["customers"]:
+        customer = Customer(customer_data["name"],
+                            customer_data["product_cart"],
+                            customer_data["location"],
+                            customer_data["money"],
+                            customer_data["car"])
+        customers.append(customer)
 
-    monica = Customer(data["customers"][2]["name"],
-                      data["customers"][2]["product_cart"],
-                      data["customers"][2]["location"],
-                      data["customers"][2]["money"],
-                      data["customers"][2]["car"])
-    bob.print()
-    alex.print()
-    monica.print()
+    customers[0].user_go_to_shopping()
+    customers[1].user_go_to_shopping()
+    customers[2].user_go_to_shopping()
