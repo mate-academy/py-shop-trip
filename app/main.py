@@ -1,12 +1,10 @@
-import os
-
 import datetime
+import os
 
 from app.bild_classes import (
     create_shops,
     create_customers,
     create_day_mark)
-
 from app.controller import CustomersTrips
 
 
@@ -26,6 +24,4 @@ def shop_trip() -> None:
         shops=shops,
         day=day
     )
-
     trips.print_trip_message()
-

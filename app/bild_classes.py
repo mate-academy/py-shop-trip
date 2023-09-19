@@ -21,8 +21,7 @@ def write_class_attrs(attrs_dict: dict, data: dict) -> dict:
 def fill_class_attrs(cls: Type,
                      data: dict) -> dict:
     attrs = dict.fromkeys(cls.__annotations__)
-    cls_params = write_class_attrs(attrs,
-                                 data)
+    cls_params = write_class_attrs(attrs, data)
     return cls_params
 
 
@@ -57,4 +56,3 @@ def create_day_mark(json_data: str, date: str) -> DayMark:
     data = load_json_data(json_data)
     fuel_price = data["FUEL_PRICE"]
     return DayMark(fuel_price=fuel_price, date=date)
-

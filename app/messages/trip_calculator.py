@@ -38,11 +38,10 @@ class Calculator:
         for product, numbers in customer_products:
             if product in shop_products:
                 product_price = numbers * shop_products[product]
-                round_price = round(product_price, 1)
-                clean_price = round_price if (
-                        str(round_price)[-1] != "0") else int(round_price)
-                all_products_price += clean_price
-                output[product] = clean_price
+                price = round(product_price, 1)
+                round_price = price if (str(price)[-1] != "0") else int(price)
+                all_products_price += round_price
+                output[product] = round_price
 
         way_price = self.__calculate_trip_price(shop)
         total_price = all_products_price + (way_price * 2)
