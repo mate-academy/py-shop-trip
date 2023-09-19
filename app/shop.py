@@ -1,5 +1,5 @@
 from typing import Dict, Any
-from datetime import datetime
+import datetime
 
 
 class Shop:
@@ -8,25 +8,18 @@ class Shop:
         self.location = info["location"]
         self.products = info["products"]
 
-    def sell_products(self, customer) -> None:
-        total_cost = 0
-        receipt_products = []
+    def check_printing(self, customer: object) -> None:
+        from app.customer import Customer
+        assert isinstance(customer, Customer)
+        current = datetime.datetime.now()
+        timestamp = f"Date: {current.strftime('%d/%m/%Y %H:%M:%S')}"
 
-        for product, quantity in customer.product_cart.items():
-            if product in self.products:
-                cost = quantity * self.products[product]
-                total_cost += cost
-                receipt_products.append(f"{quantity} {product}s "
-                                        f"for {cost} dollars")
-
-        print(f"\nDate: {datetime.now().strftime('%d/%m/%Y %H:%M:%S')}")
+        print(f"\n{timestamp}")
         print(f"Thanks, {customer.name}, for your purchase!")
         print("You have bought:")
-
-        for receipt_product in receipt_products:
-            print(receipt_product)
-
-        print(f"Total cost is {total_cost} dollars")
+        for product, amount in customer.product_cart.items():
+            print(f"{amount} {product}s for "
+                  f"{amount * self.products[product]} dollars")
+        print(f"Total cost is "
+              f"{customer.calculate_products_cost(self)} dollars")
         print("See you again!\n")
-
-        customer.money -= total_cost

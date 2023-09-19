@@ -9,30 +9,34 @@ def shop_trip() -> None:
 
     fuel_price = data["FUEL_PRICE"]
     customers = data["customers"]
-    shops = data["shops"]
+    shops = [Shop(shop) for shop in data["shops"]]
 
     for customer_info in customers:
         customer = Customer(customer_info, fuel_price)
-        print(f"{customer.name} has {customer.money} dollars")
+        money_str = "{:.2f}".format(round(customer.money, 2))
+        print(f"{customer.name} has {money_str} dollars")
 
-        shop_objects = [Shop(shop) for shop in shops]
-        affordable_shops = [shop for shop in shop_objects
-                            if customer.calculate_trip_cost(shop.location)
+        affordable_shops = [shop for shop in shops if
+                            customer.calculate_trip_cost(shop)
                             <= customer.money]
 
         if not affordable_shops:
             print(f"{customer.name} doesn't have enough money "
-                  f"to make a purchase in any shop\n")
+                  f"to make a purchase in any shop")
             continue
 
-        for shop in affordable_shops:
-            trip_cost = customer.calculate_trip_cost(shop.location)
-            print(f"{customer.name}'s trip to the {shop.name} "
-                  f"costs {trip_cost:.2f}")
+        cheapest_shop = min(affordable_shops,
+                            key=lambda shop:
+                            customer.calculate_trip_cost(shop))
+        trip_cost = customer.calculate_trip_cost(cheapest_shop)
+        trip_cost_str = "{:.2f}".format(round(trip_cost, 2))
+        print(f"{customer.name}'s trip to the "
+              f"{cheapest_shop.name} costs {trip_cost_str} dollars")
 
-        cheapest_shop = min(affordable_shops, key=lambda shop: customer.
-                            calculate_trip_cost(shop.location))
-        customer.go_to_shop(cheapest_shop)
-        customer.go_home()
+        cheapest_shop.check_printing(customer)
+        customer.money -= trip_cost
+        money_str = "{:.2f}".format(round(customer.money, 2))
+        print(f"{customer.name} now has {money_str} dollars")
 
-        print(f"{customer.name} now has {customer.money:.2f} dollars\n")
+    if __name__ == "__main__":
+        shop_trip()
