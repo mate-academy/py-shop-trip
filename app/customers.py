@@ -33,9 +33,11 @@ class Customer:
 
     for shop_data in data["shops"]:
 
-        shop = Shop(shop_data["name"],
-                    shop_data["location"],
-                    shop_data["products"])
+        shop = Shop(
+            shop_data["name"],
+            shop_data["location"],
+            shop_data["products"]
+        )
 
         shops.append(shop)
 
