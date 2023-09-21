@@ -8,8 +8,8 @@ class Car:
     fuel_consumption: float
 
     def trip_cost(self,
-                  customer_location: list,
-                  shop_location: list,
+                  customer_location: list[int],
+                  shop_location: list[int],
                   fuel_cost: float
                   ) -> float:
 

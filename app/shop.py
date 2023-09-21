@@ -4,7 +4,7 @@ from dataclasses import dataclass
 @dataclass
 class Shop:
     name: str
-    location: list
+    location: list[int]
     products: dict
 
     def purchase_amount(self, product_cart: dict) -> float:

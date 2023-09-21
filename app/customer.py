@@ -7,7 +7,7 @@ from app.car import Car
 class Customer:
     name: str
     product_cart: dict
-    location: list
+    location: list[int]
     money: int | float
     car: Car
 
