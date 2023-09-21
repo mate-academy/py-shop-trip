@@ -47,8 +47,8 @@ class Customer:
                 total_cost += cheap_shop.products[key] * value
 
                 cost = cheap_shop.products[key] * value
-                cost = int(cost) if (isinstance(cost, float) and
-                                     cost.is_integer()) else cost
+                cost = int(cost) if (isinstance(
+                    cost, float) and cost.is_integer()) else cost
 
                 print(f"{value} {key}s for {cost} dollars")
 
