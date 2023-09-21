@@ -44,14 +44,14 @@ class Customer:
             print(f"Date: {data}\nThanks, {self.name}, "
                   f"for your purchase!\nYou have bought: ")
 
-            for key, value in self.product_cart.items():
-                total_cost += cheap_shop.products[key] * value
+            for product, quantity in self.product_cart.items():
+                total_cost += cheap_shop.products[product] * quantity
 
-                cost = cheap_shop.products[key] * value
+                cost = cheap_shop.products[product] * quantity
                 cost = int(cost) if (isinstance(
                     cost, float) and cost.is_integer()) else cost
 
-                print(f"{value} {key}s for {cost} dollars")
+                print(f"{quantity} {product}s for {cost} dollars")
 
             print(f"Total cost is {total_cost} dollars")
 
