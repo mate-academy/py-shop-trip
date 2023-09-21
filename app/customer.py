@@ -37,6 +37,7 @@ class Customer:
         if cheap_shop:
             print(f"{self.name} rides to {cheap_shop.name}\n")
 
+            home_location = self.location
             self.location = cheap_shop.location
 
             data = datetime.datetime.now().strftime("%d/%m/20%y %H:%M:%S")
@@ -59,6 +60,8 @@ class Customer:
             print("See you again!\n\n"
                   f"{self.name} rides home\n"
                   f"{self.name} now has {self.money} dollars\n")
+
+            self.location = home_location
 
         else:
             print(f"{self.name} doesn't have enough money "
