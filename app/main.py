@@ -39,7 +39,3 @@ def shop_trip() -> None:
 
         customer.money -= cheapest_trip_cost
         print(f"{customer.name} now has {customer.money} dollars\n")
-
-
-if __name__ == "__main__":
-    shop_trip()

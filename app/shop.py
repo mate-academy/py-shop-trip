@@ -3,14 +3,18 @@ import datetime
 
 
 class Shop:
-    def __init__(self, info: Dict[str, Any]) -> None:
+    def __init__(
+            self,
+            info: Dict[str, Any],
+    ) -> None:
         self.name = info["name"]
         self.location = info["location"]
         self.products = info["products"]
 
-    def check_printing(self, customer: Any) -> None:
-        from app.customer import Customer
-        assert isinstance(customer, Customer)
+    def check_printing(
+            self,
+            customer: Any,
+    ) -> None:
         current = datetime.datetime.now()
         timestamp = f"Date: {current.strftime('%d/%m/%Y %H:%M:%S')}"
 
