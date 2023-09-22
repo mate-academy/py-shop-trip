@@ -23,12 +23,12 @@ class Shop:
         print(f"Thanks, {customer.name}, for your purchase!")
         print("You have bought: ")
 
-        spent_money = customer.calculate_products_cost(self)
+        spent_money = 0
         for product, amount in customer.product_cart.items():
             if product in self.products:
                 cost = self.products[product] * amount
+                spent_money += cost
                 if cost % 1 == 0:
                     cost = int(cost)
                 print(f"{amount} {product}s for {cost} dollars")
-        print(f"Total cost is {spent_money} dollars\n")
-        print("See you again!\n")
+        print(f"Total cost is {spent_money} dollars\nSee you again!\n")

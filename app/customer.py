@@ -1,4 +1,4 @@
-from typing import Dict, Any, List
+from typing import Dict, Any
 from app.shop import Shop
 from app.car import Car
 
@@ -16,6 +16,20 @@ class Customer:
         self.money = info["money"]
         self.car = Car(info.get("car", {}), fuel_price)
 
+    def calculate_trip_cost(
+            self,
+            fuel_price: float,
+            shop: Shop,
+    ) -> float:
+        x1, y1 = self.location
+        x2, y2 = shop.location
+        distance = ((x2 - x1) ** 2 + (y2 - y1) ** 2) ** 0.5
+        fuel_cost = (distance / 100) * self.car.fuel_consumption * \
+            fuel_price * 2
+        products_cost = self.calculate_products_cost(shop)
+        total = round(products_cost + fuel_cost, 2)
+        return total
+
     def calculate_products_cost(
             self,
             shop: Shop,
@@ -25,22 +39,3 @@ class Customer:
             if product in shop.products:
                 products_cost += amount * shop.products[product]
         return round(products_cost, 2)
-
-    def calculate_distance_to_shop(
-            self,
-            shop_location: List,
-    ) -> float:
-        x1, y1 = self.location
-        x2, y2 = shop_location
-        distance = ((x2 - x1) ** 2 + (y2 - y1) ** 2) ** 0.5
-        return round(distance, 2)
-
-    def calculate_trip_cost(
-            self,
-            shop: Shop,
-    ) -> float:
-        distance = self.calculate_distance_to_shop(shop.location)
-        fuel_cost = self.car.calculate_fuel_cost(distance)
-        products_cost = self.calculate_products_cost(shop)
-        total = round(products_cost + fuel_cost, 2)
-        return total
