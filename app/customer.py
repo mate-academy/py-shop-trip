@@ -1,15 +1,13 @@
 from __future__ import annotations
 import math
+import datetime
 from dataclasses import dataclass
 from app.car import Car
-from datetime import datetime
 from app.shop import Shop
 
 
 class NotEnoughMoney(Exception):
-
-    def __init__(self) -> None:
-        super().__init__()
+    pass
 
 
 @dataclass()
@@ -63,7 +61,7 @@ class Customer:
         )
 
     def shop_trip(self, shop: Shop) -> None:
-        print(f"Date: {datetime.now().strftime('%m/%d/%Y %H:%M:%S')}")
+        print(f"Date: {datetime.datetime.now().strftime('%d/%m/%Y %H:%M:%S')}")
         print(f"Thanks, {self.name}, for your purchase!")
         print("You have bought: ")
         check_amount = 0

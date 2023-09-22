@@ -6,7 +6,7 @@ from app.customer import Customer
 from app.shop import Shop
 
 
-def create_base() -> tuple:
+def create_lists_customers_shops() -> tuple:
     current_dir = os.path.dirname(os.path.abspath(__file__))
     path = os.path.join(current_dir, "config.json")
     with open(path, "r") as config_file:
