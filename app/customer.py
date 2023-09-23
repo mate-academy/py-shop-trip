@@ -34,8 +34,7 @@ class Customer:
             self,
             shop: Shop,
     ) -> float | int:
-        products_cost = 0
-        for product, amount in self.product_cart.items():
-            if product in shop.products:
-                products_cost += amount * shop.products[product]
+        products_cost = sum(amount * shop.products[product] for
+                            product, amount in self.product_cart.items()
+                            if product in shop.products)
         return round(products_cost, 2)
