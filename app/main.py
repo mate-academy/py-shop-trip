@@ -8,7 +8,7 @@ from app.customer import Customer
 
 def shop_trip() -> None:
 
-    with open("config.json", "r") as config:
+    with open("app/config.json", "r") as config:
         user_data = json.load(config)
 
     customers_data = user_data["customers"]
