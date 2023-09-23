@@ -8,8 +8,7 @@ from app.customer import Customer
 
 def shop_trip() -> None:
 
-    file_path = "/home/akuksa/py-shop-trip/app/config.json"
-    with open(file_path, "r") as config:
+    with open("config.json", "r") as config:
         user_data = json.load(config)
 
     customers_data = user_data["customers"]
