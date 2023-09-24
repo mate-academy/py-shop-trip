@@ -16,12 +16,10 @@ class Customer:
         self.car = car
 
     def prod_cost(self, shop_products: dict) -> float:
-        total_product_cost = 0
-
-        for product, quantity in self.product_cart.items():
-            price = shop_products.get(product, 0)
-            cost = price * quantity
-            total_product_cost += cost
+        total_product_cost = sum(shop_products.get(product, 0) * quantity
+                                 for product,
+                                 quantity
+                                 in self.product_cart.items())
         return total_product_cost
 
     def has_money(self) -> None:

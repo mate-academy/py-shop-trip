@@ -44,11 +44,9 @@ def shop_trip() -> None:
         purchase_costs = []
 
         for shop in shops_list:
-            total_cost = \
-                (customer.prod_cost(shop.products) + customer.car.cost_of_fuel(
-                    customer.customer_location,
-                    shop.shop_location,
-                    price_of_fuel))
+            total_cost = (customer.prod_cost(shop.products) + (
+                customer.car.cost_of_fuel(customer.customer_location,
+                                          shop.shop_location, price_of_fuel)))
             trip_costs.append(total_cost)
             purchase_costs.append(customer.prod_cost(shop.products))
 
@@ -62,11 +60,11 @@ def shop_trip() -> None:
             print(f"{customer.name} doesn't have enough money "
                   f"to make a purchase in any shop")
         else:
-            print(f"{customer.name} rides to {cheapest_trip_shop.name}\n")
             now_time = datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S")
-            print(f"Date: {now_time}")
-            print(f"Thanks, {customer.name}, for your purchase!")
-            print("You have bought: ")
+            print(f"{customer.name} rides to {cheapest_trip_shop.name}\n\n"
+                  f"Date: {now_time}\n"
+                  f"Thanks, {customer.name}, for your purchase!\n"
+                  f"You have bought: ")
             cost_of_products = []
             for product, quantity in customer.product_cart.items():
                 price = cheapest_trip_shop.products.get(product, 0)
@@ -75,10 +73,10 @@ def shop_trip() -> None:
                     cost = math.floor(cost)
                 cost_of_products.append(cost)
                 print(f"{quantity} {product}s for {cost} dollars")
-            print(f"Total cost is {sum(cost_of_products)} dollars")
-            print("See you again!")
-            print(f"\n{customer.name} rides home")
-            print(f"{customer.name} now has "
+            print(f"Total cost is {sum(cost_of_products)} dollars\n"
+                  f"See you again!\n\n"
+                  f"{customer.name} rides home\n"
+                  f"{customer.name} now has "
                   f"{customer.money-cheapest_trip_cost} dollars\n")
 
 
