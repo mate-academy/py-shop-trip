@@ -1,3 +1,8 @@
+import Classes
+
+
 def shop_trip():
-    # write your code here
-    pass
+    Classes.get_data("config.json")
+
+
+shop_trip()
