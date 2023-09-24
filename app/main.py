@@ -62,11 +62,11 @@ def shop_trip() -> None:
             print(f"{customer.name} doesn't have enough money "
                   f"to make a purchase in any shop")
         else:
-            print(f"{customer.name} rides to {cheapest_trip_shop.name}")
+            print(f"{customer.name} rides to {cheapest_trip_shop.name}\n")
             now_time = datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S")
             print(f"Date: {now_time}")
             print(f"Thanks, {customer.name}, for your purchase!")
-            print("You have bought:")
+            print("You have bought: ")
             cost_of_products = []
             for product, quantity in customer.product_cart.items():
                 price = cheapest_trip_shop.products.get(product, 0)
