@@ -30,7 +30,10 @@ class Customer:
             print(f"{self.name}'s trip to the {shop.name} costs {costs}")
             travel_costs[shop] = costs
         cheapest_shop, cheapest_price = (
-            min(travel_costs.items(), key=lambda x: x[1])
+            min(
+                travel_costs.items(),
+                key=lambda destination_cost_pair: destination_cost_pair[1]
+            )
         )
         if self.money < cheapest_price:
             print(f"{self.name} doesn't have enough money "
@@ -41,10 +44,10 @@ class Customer:
         return cheapest_shop, cheapest_price
 
     def calculate_cost_products(self, price: float) -> float:
-        cost_products = 0
-        for product in self.product_cart:
-            cost_products += price[product] * self.product_cart[product]
-        return cost_products
+        return sum(
+            price[product] * self.product_cart[product]
+            for product in self.product_cart
+        )
 
     def calculate_cost_road(self, shop: dict, fuel_price: float) -> float:
         distance = self.calculate_distance(shop.location)
