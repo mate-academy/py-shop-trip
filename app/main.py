@@ -30,7 +30,7 @@ def shop_trip() -> None:
         )
         customers.append(customer)
 
-    shops_list = [Shop(**shop_data) for shop_data in shops]
+    shops = [Shop(**shop_data) for shop_data in shops]
 
     for customer in customers:
         customer.has_money()
@@ -38,7 +38,7 @@ def shop_trip() -> None:
         trip_costs = []
         purchase_costs = []
 
-        for shop in shops_list:
+        for shop in shops:
             total_cost = customer.prod_cost(shop.products) + (
                 customer.car.cost_of_fuel(
                     customer.customer_location, shop.location, price_of_fuel
@@ -50,10 +50,12 @@ def shop_trip() -> None:
             print(f"{customer.name}'s trip to the {shop.name} "
                   f"costs {total_cost}")
 
-        cheapest_trip_cost = min(trip_costs)
-        cheapest_trip_shop = shops_list[trip_costs.index(cheapest_trip_cost)]
+        cheapest_trip = {
+            "cost": min(trip_costs),
+            "shop": shops[trip_costs.index(min(trip_costs))],
+        }
 
-        if customer.money < cheapest_trip_cost:
+        if customer.money < cheapest_trip["cost"]:
             print(
                 f"{customer.name} doesn't have enough money "
                 f"to make a purchase in any shop"
@@ -61,16 +63,16 @@ def shop_trip() -> None:
         else:
             now_time = datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S")
             print(
-                f"{customer.name} rides to {cheapest_trip_shop.name}\n\n"
+                f"{customer.name} rides to {cheapest_trip['shop'].name}\n\n"
                 f"Date: {now_time}\n"
                 f"Thanks, {customer.name}, for your purchase!\n"
                 f"You have bought: "
             )
             cost_of_products = []
             for product, quantity in customer.product_cart.items():
-                price = cheapest_trip_shop.products.get(product, 0)
+                price = cheapest_trip["shop"].products.get(product, 0)
                 cost = price * quantity
-                if isinstance(cost, float) and cost % 1 == 0.0:
+                if isinstance(cost, float) and cost.is_integer():
                     cost = math.floor(cost)
                 cost_of_products.append(cost)
                 print(f"{quantity} {product}s for {cost} dollars")
@@ -79,7 +81,7 @@ def shop_trip() -> None:
                 f"See you again!\n\n"
                 f"{customer.name} rides home\n"
                 f"{customer.name} now has "
-                f"{customer.money-cheapest_trip_cost} dollars\n"
+                f"{customer.money-cheapest_trip['cost']} dollars\n"
             )
 
 
