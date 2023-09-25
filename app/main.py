@@ -6,7 +6,6 @@ from app.customer import Customer
 
 
 def shop_trip() -> None:
-
     directory = os.path.dirname(os.path.abspath(__file__))
     path = os.path.join(directory, "config.json")
     with open(path, "r") as file:
@@ -26,15 +25,14 @@ def shop_trip() -> None:
             for shop in shops
         ]
 
-        total_result_shopping += f"{customer.name} has " \
-                                 f"{customer.money} dollars\n"
-
+        total_result_shopping += (f"{customer.name} has "
+                                  f"{customer.money} dollars\n"
+                                  )
         for cost, shop in cost_in_shops:
             total_result_shopping += (f"{customer.name}'s trip to the "
                                       f"{shop.name} costs {cost}\n")
 
-        select_shop = sorted(cost_in_shops)[0]
-
+        select_shop = min(cost_in_shops, key=lambda x: x[0])
         if select_shop[0] > customer.money:
             total_result_shopping += (f"{customer.name} doesn't have "
                                       f"enough money to make a purchase "
@@ -56,7 +54,6 @@ def shop_trip() -> None:
                 price_product = int(price_product) \
                     if price_product % int(price_product) == 0 \
                     else price_product
-
                 total_result_shopping += (f"{count_product} {product}s "
                                           f"for {price_product} dollars\n")
 
@@ -72,5 +69,4 @@ def shop_trip() -> None:
             total_result_shopping += (f"{customer.name} rides home\n"
                                       f"{customer.name} now has "
                                       f"{customer.money} dollars\n\n")
-
     print(total_result_shopping[:-1])
