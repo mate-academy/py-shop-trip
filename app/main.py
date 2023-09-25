@@ -1,6 +1,7 @@
 import json
 import os
 
+import datetime
 from app.shop import Shop
 from app.customer import Customer
 
@@ -39,9 +40,10 @@ def shop_trip() -> None:
                                       f"in any shop\n")
 
         else:
+            today = datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S")
             total_result_shopping += (f"{customer.name} rides to "
                                       f"{select_shop[1].name}\n\n"
-                                      f"Date: 04/01/2021 12:33:41\n"
+                                      f"Date: {today}\n"
                                       f"Thanks, {customer.name}, "
                                       f"for your purchase!\n"
                                       f"You have bought: \n")
