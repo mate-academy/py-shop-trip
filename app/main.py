@@ -16,7 +16,7 @@ def shop_trip() -> None:
     fuel_price: float = config["FUEL_PRICE"]
     shops: list[Shop] = [Shop(**shop_dict) for shop_dict in config["shops"]]
 
-    for i, customer_dict in enumerate(config["customers"]):
+    for ind, customer_dict in enumerate(config["customers"]):
         car: Car = Car(**customer_dict["car"])
         customer: Customer = Customer(
             customer_dict["name"],
@@ -26,7 +26,7 @@ def shop_trip() -> None:
             car,
             fuel_price,
         )
-        if i != 0:
+        if ind != 0:
             print()
         customer.make_purchase(shops)
 
