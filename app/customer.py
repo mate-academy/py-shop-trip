@@ -32,7 +32,9 @@ class Customer:
         )
         return new_customer
 
-    def calculate_fuel_cost(self, destination: list, fuel_cost: float) -> float:
+    def calculate_fuel_cost(
+        self, destination: list, fuel_cost: float
+    ) -> float:
         x1, y1 = self.location
         x2, y2 = destination
         distance = math.sqrt((x2 - x1) ** 2 + (y2 - y1) ** 2)
