@@ -1,3 +1,4 @@
+from __future__ import annotations
 import json
 import math
 from typing import Any
@@ -20,9 +21,18 @@ class Customer:
         self.money = money
         self.car = car
 
-    def calculate_fuel_cost(
-        self, destination: list, fuel_cost: float
-    ) -> float:
+    @classmethod
+    def from_dict(cls, customer_data: dict, car: Car) -> Customer:
+        new_customer = cls(
+            name=customer_data["name"],
+            product_cart=customer_data["product_cart"],
+            location=customer_data["location"],
+            money=customer_data["money"],
+            car=car,
+        )
+        return new_customer
+
+    def calculate_fuel_cost(self, destination: list, fuel_cost: float) -> float:
         x1, y1 = self.location
         x2, y2 = destination
         distance = math.sqrt((x2 - x1) ** 2 + (y2 - y1) ** 2)
@@ -31,9 +41,7 @@ class Customer:
         total_fuel_cost = fuel_needed * fuel_cost * 2
         return total_fuel_cost
 
-    def find_the_cheapest_shop(
-        self, shops: list, fuel_cost: float
-    ) -> tuple:
+    def find_the_cheapest_shop(self, shops: list, fuel_cost: float) -> tuple:
         cheapest_total = 0
         shop_to_go = None
         for shop in shops:
@@ -63,19 +71,7 @@ class Customer:
 
 
 def load_customers(file_data: json) -> list:
-    customers = []
-
-    for customer in file_data["customers"]:
-        customer = Customer(
-            customer["name"],
-            customer["product_cart"],
-            customer["location"],
-            customer["money"],
-            Car(
-                customer["car"]["brand"],
-                customer["car"]["fuel_consumption"],
-            ),
-        )
-        customers.append(customer)
-
-    return customers
+    return [
+        Customer.from_dict(customer_data, car=Car(**customer_data["car"]))
+        for customer_data in file_data["customers"]
+    ]

@@ -39,4 +39,5 @@ def shop_trip() -> None:
         customer.count_money_after_shop(total_price)
 
 
-shop_trip()
+if __name__ == "__main__":
+    shop_trip()
