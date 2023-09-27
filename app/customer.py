@@ -33,22 +33,18 @@ class Customer:
         print("")
         best_shop.serve_customer(self, price)
 
-    def choose_best_shop(self, shops: list[Shop]) -> list[Shop, int]:
+    def choose_best_shop(self, shops: list[Shop]) -> [Shop, int]:
         cheapest_shop = shops[0]
         cheapest_price = math.inf
         for shop in shops:
-            total = round(
-                (
-                    2 * self.count_distance_price(shop)
-                    + self.count_shopping_price(shop)
-                ),
-                2,
-            )
+            trip_price = 2 * self.count_distance_price(shop)
+            goods_price = self.count_shopping_price(shop)
+            total = round((trip_price + goods_price), 2)
             print(f"{self.name}'s trip to the {shop.name} costs " f"{total}")
             if total < cheapest_price:
                 cheapest_shop = shop
                 cheapest_price = total
-        return [cheapest_shop, cheapest_price]
+        return cheapest_shop, cheapest_price
 
     def count_distance_price(self, shop: Shop) -> int:
         x1 = self.location[0]
