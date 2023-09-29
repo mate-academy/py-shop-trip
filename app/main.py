@@ -8,21 +8,19 @@ import math
 def shop_trip() -> None:
     with open("config.json", "r") as file:
         json_dict = json.load(file)
-    list_customers = [Customer(json_dict["customers"][i])
-                      for i in range(len(json_dict["customers"]))]
-    list_shops = [Shop(json_dict["shops"][i])
-                  for i in range(len(json_dict["shops"]))]
-    for customer in list_customers:
+    costumers = [Customer(i) for i in json_dict["customers"]]
+    shops = [Shop(i) for i in json_dict["shops"]]
+    for customer in costumers:
         dict_shops = {}
         print(f"{customer.name} has {customer.money} dollars")
-        for shop in list_shops:
+        for shop in shops:
             way = (math.sqrt(((shop.location[0] - customer.location[0])**2
                              + (shop.location[1] - customer.location[1])**2))
                    * json_dict["FUEL_PRICE"]
                    * (customer.car.fuel_consumption) / 100)
-            sum_products = sum([shop.products[product]
-                                * customer.product_cart[product]
-                                for product in customer.product_cart])
+            sum_products = sum([shop.products[product[0]]
+                                * product[1]
+                                for product in customer.product_cart.items()])
             whole_trip = 2 * way + sum_products
             dict_shops[shop] = whole_trip
             print(f"{customer.name}'s trip to the "
@@ -39,17 +37,17 @@ def shop_trip() -> None:
                   f" {customer.name}, for your purchase!\nYou have bought: ")
             sum_products = 0
             customer.money -= min(dict_shops.values())
-            for product in customer.product_cart:
-                amount_of_product = customer.product_cart[product]
-                price_for_product = customer_choice.products[product]
+            for product in customer.product_cart.items():
+                amount_of_product = product[1]
+                price_for_product = customer_choice.products[product[0]]
                 if (price_for_product * amount_of_product
-                        == int(customer_choice.products[product]
+                        == int(customer_choice.products[product[0]]
                                * amount_of_product)):
-                    print(f"{amount_of_product} {product}s for "
+                    print(f"{amount_of_product} {product[0]}s for "
                           f"{int((price_for_product * amount_of_product))}"
                           f" dollars")
                 else:
-                    print(f"{amount_of_product} {product}s "
+                    print(f"{amount_of_product} {product[0]}s "
                           f"for {price_for_product * amount_of_product}"
                           f" dollars")
                 sum_products += price_for_product * amount_of_product
