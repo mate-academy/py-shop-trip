@@ -21,9 +21,7 @@ class Customer:
 
     @staticmethod
     def is_less(value: float, other: float | None) -> bool:
-        if not other:
-            return True
-        return value < other
+        return not other or value < other
 
     def find_the_cheapest_shop(
         self, shops: List[Shop], fuel_price: float

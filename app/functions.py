@@ -4,18 +4,16 @@ from app.car import Car
 
 
 def create_list_of_customers_objects(customers_dict: dict) -> list[Customer]:
-    result = []
-    for customer in customers_dict:
-        result.append(
-            Customer(
-                customer.get("name"),
-                customer.get("product_cart"),
-                customer.get("location"),
-                customer.get("money"),
-                create_car_object_from_dict(customer.get("car")),
-            )
+    return [
+        Customer(
+            customer.get("name"),
+            customer.get("product_cart"),
+            customer.get("location"),
+            customer.get("money"),
+            create_car_object_from_dict(customer.get("car")),
         )
-    return result
+        for customer in customers_dict
+    ]
 
 
 def create_car_object_from_dict(car_dict: dict) -> Car:
