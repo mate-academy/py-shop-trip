@@ -9,9 +9,7 @@ def calculate_trips(customers: list[Customer],
                     fuel_price: float) -> None:
     for customer in customers:
         for shop in shops:
-            customer.possible_trips.append(Trip(customer,
-                                                shop,
-                                                fuel_price))
+            customer.possible_trips.append(Trip(customer, shop, fuel_price))
 
 
 def data_preparing(config: json) -> list:

@@ -27,8 +27,6 @@ class Customer:
             self.location = cheapest_trip.shop.location
             cheapest_trip.shop.print_purchase_receipt(self.product_cart,
                                                       self.name)
-            print()
-            print(f"{self.name} rides home")
             self.money = self.money - cheapest_trip.trip_cost
-            print(f"{self.name} now has {self.money} dollars")
-            print()
+            print(f"\n{self.name} rides home\n"
+                  f"{self.name} now has {self.money} dollars\n")

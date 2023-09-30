@@ -12,10 +12,11 @@ class Shop:
                                customer_name: str) -> None:
         date = datetime.datetime.now()
         format_date = date.strftime("%d/%m/%Y %H:%M:%S")
-        print()
-        print(f"Date: {format_date}")
-        print(f"Thanks, {customer_name}, for your purchase!")
-        print("You have bought: ")
+
+        print(f"\nDate: {format_date}\n"
+              f"Thanks, {customer_name}, for your purchase!\n"
+              f"You have bought: ")
+
         total_cost = 0
         for product in product_cart:
             quantity = product_cart[product]
@@ -23,5 +24,5 @@ class Shop:
             total_cost += cost
             print(f"{quantity} {product if quantity < 1 else product+'s'} "
                   f"for {cost if cost % 1 != 0 else int(cost)} dollars")
-        print(f"Total cost is {total_cost} dollars")
-        print("See you again!")
+        print(f"Total cost is {total_cost} dollars\n"
+              f"See you again!")
