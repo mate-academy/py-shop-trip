@@ -21,10 +21,9 @@ class Trip:
     def __get_cost_of_products(self,
                                product_in_shop: dict,
                                costumer_product_cart: dict) -> None:
-        self.sum_of_product_price = 0
-        for product in costumer_product_cart:
-            quantity = costumer_product_cart[product]
-            self.sum_of_product_price += product_in_shop[product] * quantity
+        self.sum_of_product_price = sum(
+            [product_in_shop[product] * costumer_product_cart[product]
+             for product in costumer_product_cart])
 
     def __get_distance(self,
                        shop_location: list[int],
