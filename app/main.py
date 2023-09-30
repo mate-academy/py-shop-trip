@@ -9,11 +9,11 @@ def shop_trip() -> None:
     with open("config.json", "r") as file:
         json_dict = json.load(file)
     costumers = [Customer(i) for i in json_dict["customers"]]
-    shops = [Shop(i) for i in json_dict["shops"]]
+    shops_list = [Shop(i) for i in json_dict["shops"]]
     for customer in costumers:
         dict_shops = {}
         print(f"{customer.name} has {customer.money} dollars")
-        for shop in shops:
+        for shop in shops_list:
             way = (math.sqrt(((shop.location[0] - customer.location[0])**2
                              + (shop.location[1] - customer.location[1])**2))
                    * json_dict["FUEL_PRICE"]
