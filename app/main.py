@@ -30,11 +30,11 @@ def shop_trip() -> None:
                   f" doesn't have enough money to make a purchase in any shop")
         else:
             customer_choice = min(dict_shops, key=dict_shops.get)
-            print(f"{customer.name} rides to {customer_choice.name}")
-            print("\nDate: "
-                  + datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S"))
-            print(f"Thanks,"
-                  f" {customer.name}, for your purchase!\nYou have bought: ")
+            print(f"{customer.name} rides to {customer_choice.name}\n"
+                  f"\nDate: "
+                  f"{datetime.datetime.now().strftime('%d/%m/%Y %H:%M:%S')}"
+                  f"\nThanks, "
+                  f"{customer.name}, for your purchase!\nYou have bought: ")
             sum_products = 0
             customer.money -= min(dict_shops.values())
             for product in customer.product_cart.items():
@@ -52,8 +52,8 @@ def shop_trip() -> None:
                           f" dollars")
                 sum_products += price_for_product * amount_of_product
 
-            print(f"Total cost is {sum_products} dollars")
-            print("See you again!\n")
-            print(f"{customer.name} rides home")
-            print(f"{customer.name} now has {round(customer.money, 2)}"
+            print(f"Total cost is {sum_products} dollars\n"
+                  f"See you again!\n"
+                  f"\n{customer.name} rides home"
+                  f"\n{customer.name} now has {round(customer.money, 2)}"
                   f" dollars\n")
