@@ -8,6 +8,7 @@ class Customer:
         self.location = customer_data["location"]
         self.money = customer_data["money"]
         self.car = Car(customer_data["car"])
+        self.home_location = customer_data["location"]
         self.possible_trips = []
 
     def print_trips(self) -> None:
@@ -28,5 +29,6 @@ class Customer:
             cheapest_trip.shop.print_purchase_receipt(self.product_cart,
                                                       self.name)
             self.money = self.money - cheapest_trip.trip_cost
+            self.location = self.home_location
             print(f"\n{self.name} rides home\n"
                   f"{self.name} now has {self.money} dollars\n")
