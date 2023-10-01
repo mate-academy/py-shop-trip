@@ -98,7 +98,7 @@ For example, let's say now is 04/01/2021 12:33:41:
 ```
 ```python
 # main.py:
-shop_trip()
+shop_trip() 
 
 # Bob has 55 dollars
 # Bob's trip to the Outskirts Shop costs 28.21
