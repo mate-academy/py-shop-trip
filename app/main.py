@@ -1,9 +1,9 @@
 import json
 from datetime import datetime
 
-from car import Car
-from customer import Customer
-from shop import Shop
+from app.car import Car
+from app.customer import Customer
+from app.shop import Shop
 
 
 def calculate_distance(
