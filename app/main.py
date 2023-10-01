@@ -8,12 +8,14 @@ import math
 def shop_trip() -> None:
     with open("config.json", "r") as file:
         json_dict = json.load(file)
-    costumers = [Customer(i) for i in json_dict["customers"]]
-    shops_list = [Shop(i) for i in json_dict["shops"]]
-    for customer in costumers:
+    custumers = [Customer(costumer_inf)
+                 for costumer_inf in json_dict["customers"]]
+    shops = [Shop(shop_inf) for shop_inf in json_dict["shops"]]
+    for customer in custumers:
+        home_location = customer.location.copy()
         dict_shops = {}
         print(f"{customer.name} has {customer.money} dollars")
-        for shop in shops_list:
+        for shop in shops:
             way = (math.sqrt(((shop.location[0] - customer.location[0])**2
                              + (shop.location[1] - customer.location[1])**2))
                    * json_dict["FUEL_PRICE"]
@@ -25,11 +27,13 @@ def shop_trip() -> None:
             dict_shops[shop] = whole_trip
             print(f"{customer.name}'s trip to the "
                   f"{shop.name} costs {round(way*2, 2) + sum_products}")
+
         if customer.money < min(dict_shops.values()):
             print(f"{customer.name}"
                   f" doesn't have enough money to make a purchase in any shop")
         else:
             customer_choice = min(dict_shops, key=dict_shops.get)
+            customer.location = customer_choice.location
             print(f"{customer.name} rides to {customer_choice.name}\n"
                   f"\nDate: "
                   f"{datetime.datetime.now().strftime('%d/%m/%Y %H:%M:%S')}"
@@ -51,7 +55,7 @@ def shop_trip() -> None:
                           f"for {price_for_product * amount_of_product}"
                           f" dollars")
                 sum_products += price_for_product * amount_of_product
-
+            customer.location = home_location
             print(f"Total cost is {sum_products} dollars\n"
                   f"See you again!\n"
                   f"\n{customer.name} rides home"
