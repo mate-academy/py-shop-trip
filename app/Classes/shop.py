@@ -1,8 +1,29 @@
 from dataclasses import dataclass
+from datetime import datetime
+
+
+class Customer:
+    pass
 
 
 @dataclass
 class Shop:
     name: str
-    location: list
+    location: tuple
     products: dict
+
+    def __hash__(self):
+        return hash(self.name)
+
+    def buy_products(self, customer: Customer) -> float:
+        bill = 0
+        print(f"\nThanks, {customer.name}, for your purchase!\n You have bought:")
+        for product in customer.product_cart:
+            price = self.products[product]
+            amount = customer.product_cart[product]
+            cost = price * amount
+            bill += cost
+            print(f"{amount} {product} for {cost}")
+        print(f"\nTotal cost is {bill} dollars\n See you again!")
+        return bill
+
