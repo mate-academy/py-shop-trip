@@ -19,10 +19,8 @@ class Shop:
                 + (self.location[1] - customer.location[1]) ** 2) ** 0.5
 
     def calculate_cost_products(self, customer: Customer) -> float:
-        result_cost = 0
-        for product, price in self.products.items():
-            result_cost += customer.product_cart[product] * price
-
+        result_cost = sum(customer.product_cart[product]
+                          * price for product, price in self.products.items())
         return result_cost
 
     def trip_calculation(self, customer: Customer, fuel_price: float) -> float:

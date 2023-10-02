@@ -52,9 +52,9 @@ def shop_trip() -> None:
             for product in shop_basket:
                 count_product = shop_basket[product][0]
                 price_product = shop_basket[product][1]
-                price_product = int(price_product) \
-                    if price_product % int(price_product) == 0 \
-                    else price_product
+                price_product = (int(price_product)
+                                 if price_product % int(price_product) == 0
+                                 else price_product)
 
                 result_shopping += (f"{count_product} {product}s "
                                     f"for {price_product} dollars\n")
