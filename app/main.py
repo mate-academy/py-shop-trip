@@ -1,13 +1,10 @@
-import Classes
-from Classes import CUSTOMER_LIST, SHOP_LIST, FUEL_PRICE
+from app import get_data
 
 
 def shop_trip() -> None:
-    Classes.get_data("config.json")
-    for customer in CUSTOMER_LIST:
-        cheapest_shop, cost = customer.calculate_trip_cost(SHOP_LIST,
-                                                           FUEL_PRICE)
+    customer_list, shop_list, fuel_price = get_data("config.json")
+    for customer in customer_list:
+        cheapest_shop, cost = customer.calculate_trip_cost(shop_list,
+                                                           fuel_price)
         customer.trip_to_cheapest(cheapest_shop, cost)
-
-
 shop_trip()
