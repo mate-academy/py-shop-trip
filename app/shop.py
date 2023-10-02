@@ -1,34 +1,47 @@
-from __future__ import annotations
+from typing import List, Dict
 
-import datetime
+from app.customer import Customer
 
 
 class Shop:
-    def __init__(self,
-                 name: str,
-                 location: list,
-                 products: dict) -> None:
+    def __init__(
+            self,
+            name: str,
+            location: List[int],
+            products: Dict[str, float]
+    ) -> None:
         self.name = name
         self.location = location
         self.products = products
 
-    @classmethod
-    def from_dict(cls, shop_info: dict) -> Shop:
-        return cls(shop_info["name"],
-                   shop_info["location"],
-                   shop_info["products"])
+    def calculation_distance_to_shop(self, customer: Customer) -> float:
+        return ((self.location[0] - customer.location[0]) ** 2
+                + (self.location[1] - customer.location[1]) ** 2) ** 0.5
 
-    def print_check(self,
-                    customer_name: str,
-                    customer_product_cart: dict) -> None:
-        print("Date: "
-              f"{datetime.datetime.now().strftime('%d/%m/%Y %H:%M:%S')}\n"
-              f"Thanks, {customer_name}, for your purchase!\n"
-              "You have bought: ")
-        total_cost = 0
-        for key, value in customer_product_cart.items():
-            total_cost += round(self.products[key] * value, 2)
-            print(f"{value} {key}s for "
-                  f"{round(self.products[key] * value, 2)} dollars")
-        print(f"Total cost is {total_cost} dollars\n"
-              "See you again!\n")
+    def calculate_cost_products(self, customer: Customer) -> float:
+        result_cost = 0
+        for product, price in self.products.items():
+            result_cost += customer.product_cart[product] * price
+
+        return result_cost
+
+    def trip_calculation(self, customer: Customer, fuel_price: float) -> float:
+        distance = self.calculation_distance_to_shop(customer=customer)
+        fuel_consumption = customer.car["fuel_consumption"]
+
+        return (distance / 100) * fuel_consumption * fuel_price * 2
+
+    def total_costing(self, customer: Customer, fuel_price: float) -> float:
+        products = self.calculate_cost_products(customer=customer)
+        trip = self.trip_calculation(customer=customer, fuel_price=fuel_price)
+
+        return round(products + trip, 2)
+
+    def basket_collection(self, customer: Customer) -> dict:
+        return {
+            product: [
+                customer.product_cart[product],
+                customer.product_cart[product] * price
+            ]
+            for product, price in self.products.items()
+        }
