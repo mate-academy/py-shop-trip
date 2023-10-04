@@ -6,7 +6,7 @@ from app.shop import Shop
 
 
 def shop_trip() -> None:
-    with open("config.json", "r") as config_file:
+    with open("app/config.json", "r") as config_file:
         config = json.load(config_file)
     shops = config["shops"]
     customers = config["customers"]
