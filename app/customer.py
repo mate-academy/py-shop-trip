@@ -19,7 +19,9 @@ class Customer:
         cheapest_shop = None
         cheapest_cost = 1000000
         for shop in shops:
-            road_cost = self.car.trip_cost(self.location, shop.location)
+            road_cost = (self.car.trip_distance(self.location, shop.location)
+                         * self.car.fuel_consumption / 100
+                         * self.car.fuel_price)
             total_cost = round(
                 road_cost * 2 + shop.get_price(self.product_card), 2
             )
