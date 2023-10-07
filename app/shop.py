@@ -6,7 +6,7 @@ class Shop:
     def __init__(
             self,
             info: Dict[str, Any],
-    ) -> None:
+    ) -> str:
         self.name = info["name"]
         self.location = info["location"]
         self.products = info["products"]
