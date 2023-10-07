@@ -9,7 +9,7 @@ class Customers:
 
     def __init__(self, name: str,
                  product_cart: dict,
-                 customer_location: list,
+                 customer_location: list[int],
                  money: int,
                  car: Car) -> None:
         self.name = name
@@ -22,7 +22,7 @@ class Customers:
         print(f"{self.name} has {self.money} dollars")
 
     def distance(self,
-                 shop_location: list,
+                 shop_location: list[int],
                  fuel_consumption: float,
                  fuel_price: float) -> float:
         x1, y1 = self.customer_location
