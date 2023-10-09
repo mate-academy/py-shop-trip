@@ -7,4 +7,6 @@ def shop_trip() -> None:
         cheapest_shop, cost = customer.calculate_trip_cost(shop_list,
                                                            fuel_price)
         customer.trip_to_cheapest(cheapest_shop, cost)
+
+
 shop_trip()

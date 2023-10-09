@@ -15,10 +15,12 @@ class Customer:
     def __post_init__(self) -> None:
         self.car = Car(**self.car)
 
-    def calculate_distance(self, shop: Shop) -> int:
+    def calculate_distance(self, shop: Shop,
+                           fuel_price: float) -> float:
         x1, y1 = self.location
-        return int(math.sqrt(
-               (shop.location[0] - x1) ** 2 + (shop.location[1] - y1) ** 2))
+        return (math.sqrt(
+               (shop.location[0] - x1) ** 2 + (shop.location[1] - y1) ** 2)
+            * fuel_price * self.car.fuel_consumption / 100 * 2)
 
     def calculate_trip_cost(self, shops: list[Shop],
                             fuel_price: float) -> tuple:
@@ -27,12 +29,13 @@ class Customer:
         for shop in shops:
             if all(product in shop.products
                    for product in self.product_cart):
-                road_cost = round(fuel_price * self.car.fuel_consumption *
-                                  self.calculate_distance(shop) / 100, 2)
-                trip_costs[shop] = round(road_cost
-                                         + shop.calculate_price(self), 2)
+
+                road_cost = self.calculate_distance(shop, fuel_price)
+
+                trip_costs[shop] = road_cost + shop.calculate_price(self)
+
                 print(f"{self.name}'s trip to the {shop.name}"
-                      f" costs {trip_costs[shop]}")
+                      f" costs {round(trip_costs[shop], 2)}")
             else:
                 raise ValueError
         cheapest = min(trip_costs, key=lambda x: trip_costs[x])
@@ -40,9 +43,16 @@ class Customer:
 
     def trip_to_cheapest(self, shop: Shop, total_cost: float) -> bool:
         if self.money >= total_cost:
-            self.money -= shop.buy_products(self)
+            print(f"{self.name} rides to {shop.name}\n")
+            home_location = self.location
+            self.money -= total_cost
+            shop.buy_products(self)
             self.location = shop.location
             print(f"{self.name} rides home\n"
-                  "=========================================================")
-            return True
-        return False
+                  f"{self.name} now has {round(self.money, 2)} dollars\n")
+            self.location = home_location
+        else:
+            print(f"{self.name} doesn't have enough"
+                  f" money to make a purchase in any shop")
+            return False
+        return True
