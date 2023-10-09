@@ -14,7 +14,7 @@ def shop_trip() -> None:
         data = json.load(file)
         fuel_price = data["FUEL_PRICE"]
         customers = data["customers"]
-        customer_list = [
+        customers_instances = [
             Customer(customer["name"],
                      customer["product_cart"],
                      customer["location"],
@@ -25,17 +25,17 @@ def shop_trip() -> None:
         ]
 
         shops = data["shops"]
-        shop_list = [
+        shop_instances = [
             Shop(shop["name"],
                  shop["location"],
                  shop["products"]
                  ) for shop in shops
         ]
 
-        for customer in customer_list:
+        for customer in customers_instances:
             customer.money_start()
             shops_cost = {}
-            for shop in shop_list:
+            for shop in shop_instances:
                 products_cost = shop.products_cost(customer)
                 fuel_cost = customer.car.fuel_cost(shop.distance(customer),
                                                    fuel_price)
