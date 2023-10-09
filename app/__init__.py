@@ -21,9 +21,9 @@ def get_data(file_name: str) -> tuple | None:
         fuel_price = content["FUEL_PRICE"]
 
         for client in content["customers"]:
-            if len(client) != 0:
+            if client:
                 customer_list.append(Customer(**client))
         for store in content["shops"]:
-            if len(store) != 0:
+            if store:
                 shop_list.append(Shop(**store))
         return customer_list, shop_list, fuel_price,
