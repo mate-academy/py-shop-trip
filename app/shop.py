@@ -1,15 +1,12 @@
 from typing import List, Dict
-
 from app.customer import Customer
 
 
 class Shop:
-    def __init__(
-            self,
-            name: str,
-            location: List[int],
-            products: Dict[str, float]
-    ) -> None:
+    def __init__(self, name: str,
+                 location: List[int],
+                 products: Dict[str, float]
+                 ) -> None:
         self.name = name
         self.location = location
         self.products = products
@@ -19,8 +16,8 @@ class Shop:
                 + (self.location[1] - customer.location[1]) ** 2) ** 0.5
 
     def calculate_cost_products(self, customer: Customer) -> float:
-        return sum(customer.product_cart[product]
-                   * price for product, price in self.products.items())
+        return sum(customer.product_cart[product] * price
+                   for product, price in self.products.items())
 
     def trip_calculation(self, customer: Customer, fuel_price: float) -> float:
         distance = self.cost_distance_to_shop(customer=customer)
