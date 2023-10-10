@@ -24,8 +24,8 @@ class Shop:
         print(f"{customer.name} rides to {self.name}\n")
 
     def products_cost(self, customer: Customer) -> int | float:
-        return sum(self.products[prod] * customer.product_cart[prod]
-                   for prod in self.products.keys())
+        return sum(price * customer.product_cart[prod]
+                   for prod, price in self.products.items())
 
     def print_receipt(self, customer: Customer) -> None:
         total = 0
