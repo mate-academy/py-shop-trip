@@ -9,11 +9,21 @@ class Shop:
     location: list
     products: dict
 
+    def calculate_product_price(
+            self,
+            customer_cart: dict,
+            product: str
+    ) -> float:
+        cost = customer_cart[product] * self.products[product]
+        if cost == int(cost):
+            cost = int(cost)
+        return cost
+
     def calculate_cart_price(self, customer_cart: dict) -> float:
-        milk = customer_cart["milk"] * self.products["milk"]
-        bread = customer_cart["bread"] * self.products["bread"]
-        butter = customer_cart["butter"] * self.products["butter"]
-        return milk + bread + butter
+        total = 0
+        for product in customer_cart:
+            total += self.calculate_product_price(customer_cart, product)
+        return total
 
     def calculate_trip_price(
             self,

@@ -1,5 +1,6 @@
 import json
 import datetime
+
 from app.car import Car
 from app.shop import Shop
 from app.customer import Customer
@@ -11,14 +12,17 @@ def shop_trip() -> None:
             "rb"
     ) as datafile:
         data = json.load(datafile)
+
     fuel_price = data["FUEL_PRICE"]
     customers = data["customers"]
     shops = data["shops"]
+
     for customer in customers:
         cus = Customer(**customer)
         cus.car = Car(**customer["car"])
         print(f"{cus.name} has {cus.money} dollars")
         road_prices = {}
+
         for shop in shops:
             market = Shop(**shop)
             road_price = market.calculate_trip_price(
@@ -30,27 +34,28 @@ def shop_trip() -> None:
             road_prices[road_price] = market
             print(f"{cus.name}'s trip to the {market.name} "
                   f"costs {road_price}")
+
         min_road_price = min(road_prices.keys())
         chosen = road_prices[min(road_prices.keys())]
         cus.money -= min_road_price
         if cus.money > 0:
-            print(f"""{cus.name} rides to {chosen.name}
-""")
+            print(f"{cus.name} rides to {chosen.name}\n")
         else:
             print(
                 f"{cus.name} doesn't have enough money to make "
                 f"a purchase in any shop"
             )
             break
+
         formatted_date = datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S")
         print(f"Date: {formatted_date}")
+
         costs = {}
         for product in cus.product_cart:
-            cost = cus.product_cart[product] * chosen.products[product]
-            if cost == int(cost):
-                cost = int(cost)
+            cost = chosen.calculate_product_price(cus.product_cart, product)
             costs[product] = cost
         total = sum(costs.values())
+
         print(f"""Thanks, {cus.name}, for your purchase!
 You have bought: \n{cus.product_cart["milk"]} milks for {costs["milk"]} dollars
 {cus.product_cart["bread"]} breads for {costs["bread"]} dollars
