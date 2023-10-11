@@ -1,6 +1,6 @@
 from dataclasses import dataclass
-from math import sqrt, floor
-from decimal import *
+from math import sqrt
+from decimal import getcontext, Decimal
 
 
 @dataclass
@@ -25,11 +25,9 @@ class Shop:
         total_cart_price = self.calculate_cart_price(customer_cart)
 
         distance = sqrt(
-                (customer_location[0] - self.location[0]) ** 2 +
-                (customer_location[1] - self.location[1]) ** 2
-            )
+            (customer_location[0] - self.location[0]) ** 2
+            + (customer_location[1] - self.location[1]) ** 2
+        )
         road_price = 2 * (distance * fuel_price * (fuel_consumption / 100))
-        # road_price = floor(road_price)
-        # road_price /= 100
         getcontext().prec = 2
         return round(float(Decimal(road_price + total_cart_price)), 2)
