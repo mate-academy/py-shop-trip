@@ -18,32 +18,31 @@ def shop_trip() -> None:
     shops = data["shops"]
 
     for customer in customers:
-        cus = Customer(**customer)
-        cus.car = Car(**customer["car"])
-        print(f"{cus.name} has {cus.money} dollars")
+        buyer = Customer(**customer)
+        buyer.car = Car(**customer["car"])
+        print(f"{buyer.name} has {buyer.money} dollars")
         road_prices = {}
 
         for shop in shops:
             market = Shop(**shop)
-            road_price = market.calculate_trip_price(
-                customer_location=cus.location,
+            road_price = market.calc_trip_price(
+                customer_location=buyer.location,
                 fuel_price=fuel_price,
-                fuel_consumption=cus.car.fuel_consumption,
-                customer_cart=cus.product_cart
-            )
+                fuel_consumption=buyer.car.fuel_consumption,
+                customer_cart=buyer.product_cart)
             road_prices[road_price] = market
-            print(f"{cus.name}'s trip to the {market.name} "
+            print(f"{buyer.name}'s trip to the {market.name} "
                   f"costs {road_price}")
 
         min_road_price = min(road_prices.keys())
 
-        chosen = road_prices[min_road_price]
-        cus.money -= min_road_price
-        if cus.money > 0:
-            print(f"{cus.name} rides to {chosen.name}\n")
+        chosen_shop = road_prices[min_road_price]
+        buyer.money -= min_road_price
+        if buyer.money > 0:
+            print(f"{buyer.name} rides to {chosen_shop.name}\n")
         else:
             print(
-                f"{cus.name} doesn't have enough money to make "
+                f"{buyer.name} doesn't have enough money to make "
                 f"a purchase in any shop"
             )
             break
@@ -52,18 +51,21 @@ def shop_trip() -> None:
         print(f"Date: {formatted_date}")
 
         costs = {}
-        for product in cus.product_cart:
-            cost = chosen.calculate_product_price(cus.product_cart, product)
+        for product in buyer.product_cart:
+            cost = chosen_shop.calc_product_price(buyer.product_cart, product)
             costs[product] = cost
         total = sum(costs.values())
 
-        print(f"""Thanks, {cus.name}, for your purchase!
-You have bought: \n{cus.product_cart["milk"]} milks for {costs["milk"]} dollars
-{cus.product_cart["bread"]} breads for {costs["bread"]} dollars
-{cus.product_cart["butter"]} butters for {costs["butter"]} dollars
-Total cost is {total} dollars
+        print(f"Thanks, {buyer.name}, for your purchase!")
+        print("You have bought: ")
+        for product in buyer.product_cart:
+            print(
+                f"{buyer.product_cart[product]} {product}s for "
+                f"{costs[product]} dollars"
+            )
+        print(f"""Total cost is {total} dollars
 See you again!
 
-{cus.name} rides home
-{cus.name} now has {cus.money} dollars
+{buyer.name} rides home
+{buyer.name} now has {buyer.money} dollars
 """)
