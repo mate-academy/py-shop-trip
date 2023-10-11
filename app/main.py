@@ -1,7 +1,7 @@
 import json
 
-from app.customer import Customer
-from app.shop import Shop
+from app.customer.customer import Customer
+from app.shop.shop import Shop
 
 
 def shop_trip() -> None:

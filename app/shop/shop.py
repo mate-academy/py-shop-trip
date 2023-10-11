@@ -1,6 +1,8 @@
 import datetime
 from typing import Dict, Any
 
+from app.customer.customer import Customer
+
 
 class Shop:
     def __init__(self, data: Dict[str, Any]) -> None:
@@ -8,7 +10,7 @@ class Shop:
         self.location = data["location"]
         self.products = data["products"]
 
-    def sell_products(self, customer: dict[str, Any]) -> None:
+    def sell_products(self, customer: Customer) -> None:
         print(
             f"\nDate: "
             f"{datetime.datetime.now().strftime('%d/%m/%Y %H:%M:%S')}\n"
