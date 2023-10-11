@@ -7,7 +7,7 @@ from app.customer import Customer
 
 def shop_trip() -> None:
     with open(
-            "/Users/olgierrd/projects/py-shop-trip/app/config.json",
+            "app/config.json",
             "rb"
     ) as datafile:
         data = json.load(datafile)
