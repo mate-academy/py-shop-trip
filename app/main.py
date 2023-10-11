@@ -36,7 +36,8 @@ def shop_trip() -> None:
                   f"costs {road_price}")
 
         min_road_price = min(road_prices.keys())
-        chosen = road_prices[min(road_prices.keys())]
+
+        chosen = road_prices[min_road_price]
         cus.money -= min_road_price
         if cus.money > 0:
             print(f"{cus.name} rides to {chosen.name}\n")
