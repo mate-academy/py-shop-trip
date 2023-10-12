@@ -14,7 +14,7 @@ class Shop:
     def check_printing(
             self,
             customer: Any,
-    ) -> None:
+    ) -> str:
         current = datetime.datetime.now()
         timestamp = f"Date: {current.strftime('%d/%m/%Y %H:%M:%S')}"
 
