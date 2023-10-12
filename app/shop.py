@@ -1,6 +1,6 @@
 from dataclasses import dataclass
-from math import sqrt
 from decimal import getcontext, Decimal
+from math import sqrt
 
 
 @dataclass
@@ -20,11 +20,10 @@ class Shop:
         return cost
 
     def calc_cart_price(self, customer_cart: dict) -> float:
-        total = [
+        return sum(
             self.calc_product_price(customer_cart, product)
             for product in customer_cart
-        ]
-        return sum(total)
+        )
 
     def calc_trip_price(
             self,

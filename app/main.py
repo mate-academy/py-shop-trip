@@ -29,10 +29,13 @@ def shop_trip() -> None:
                 customer_location=buyer.location,
                 fuel_price=fuel_price,
                 fuel_consumption=buyer.car.fuel_consumption,
-                customer_cart=buyer.product_cart)
+                customer_cart=buyer.product_cart
+            )
             road_prices[road_price] = market
-            print(f"{buyer.name}'s trip to the {market.name} "
-                  f"costs {road_price}")
+            print(
+                f"{buyer.name}'s trip to the {market.name} "
+                f"costs {road_price}"
+            )
 
         min_road_price = min(road_prices.keys())
 
@@ -64,8 +67,7 @@ def shop_trip() -> None:
                 f"{costs[product]} dollars"
             )
         print(f"""Total cost is {total} dollars
-See you again!
-
+See you again!\n
 {buyer.name} rides home
-{buyer.name} now has {buyer.money} dollars
-""")
+{buyer.name} now has {buyer.money} dollars\n"""
+              )
