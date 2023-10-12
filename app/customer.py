@@ -1,8 +1,8 @@
+import datetime
 import math
 from typing import Dict, Any, List
 
-from app.car.car import Car
-from app.shop.shop import Shop
+from app.car import Car
 
 
 class Customer:
@@ -14,7 +14,7 @@ class Customer:
         self.money = data["money"]
         self.car = Car(data["car"])
 
-    def calculate_trip_cost(self, shop: Shop) -> float:
+    def calculate_trip_cost(self, shop: "Shop") -> float:
         distance_to_shop = self.calculate_distance(shop.location)
         fuel_consumption_per_km = self.car.fuel_consumption / 100
         fuel_cost_to_shop = (
@@ -32,7 +32,7 @@ class Customer:
     def has_enough_money(self, trip_cost: float) -> bool:
         return self.money >= trip_cost
 
-    def travel_to_shop(self, shop: Shop) -> None:
+    def travel_to_shop(self, shop: "Shop") -> None:
         self.location = shop.location
         print(f"{self.name} rides to {shop.name}\n")
 
@@ -46,3 +46,27 @@ class Customer:
         y_location = self.location[1] - shop_location[1]
         distance = math.sqrt(x_location**2 + y_location**2)
         return distance
+
+
+class Shop:
+    def __init__(self, data: Dict[str, Any]) -> None:
+        self.name = data["name"]
+        self.location = data["location"]
+        self.products = data["products"]
+
+    def sell_products(self, customer: Customer) -> None:
+        print(
+            f"\nDate: "
+            f"{datetime.datetime.now().strftime('%d/%m/%Y %H:%M:%S')}\n"
+        )
+        print(f"Thanks, {customer.name}, for your purchase!\n")
+        total_cost = 0
+        for product, quantity in customer.product_cart.items():
+            product_cost = quantity * self.products[product]
+            print(
+                f"You have bought: {quantity} {product}s "
+                f"for {product_cost} dollars\n"
+            )
+            total_cost += product_cost
+        print(f"Total cost is {total_cost} dollars\n")
+        print("See you again!\n")
