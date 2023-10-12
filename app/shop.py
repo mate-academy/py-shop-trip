@@ -20,10 +20,11 @@ class Shop:
         return cost
 
     def calc_cart_price(self, customer_cart: dict) -> float:
-        total = 0
-        for product in customer_cart:
-            total += self.calc_product_price(customer_cart, product)
-        return total
+        total = [
+            self.calc_product_price(customer_cart, product)
+            for product in customer_cart
+        ]
+        return sum(total)
 
     def calc_trip_price(
             self,
