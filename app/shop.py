@@ -1,5 +1,4 @@
 from dataclasses import dataclass
-from decimal import getcontext, Decimal
 from math import sqrt
 
 
@@ -39,5 +38,4 @@ class Shop:
             + (customer_location[1] - self.location[1]) ** 2
         )
         road_price = 2 * (distance * fuel_price * (fuel_consumption / 100))
-        getcontext().prec = 2
-        return round(float(Decimal(road_price + total_cart_price)), 2)
+        return round(road_price + total_cart_price, 2)
