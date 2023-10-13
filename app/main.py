@@ -25,7 +25,7 @@ def shop_trip() -> None:
 
         for shop in shops:
             market = Shop(**shop)
-            road_price = market.calc_trip_price(
+            road_price = market.calculate_trip_price(
                 customer_location=buyer.location,
                 fuel_price=fuel_price,
                 fuel_consumption=buyer.car.fuel_consumption,
@@ -55,7 +55,9 @@ def shop_trip() -> None:
 
         costs = {}
         for product in buyer.product_cart:
-            cost = chosen_shop.calc_product_price(buyer.product_cart, product)
+            cost = chosen_shop.calculate_product_price(
+                buyer.product_cart, product
+            )
             costs[product] = cost
         total = sum(costs.values())
 
@@ -66,8 +68,6 @@ def shop_trip() -> None:
                 f"{buyer.product_cart[product]} {product}s for "
                 f"{costs[product]} dollars"
             )
-        print(f"""Total cost is {total} dollars
-See you again!\n
-{buyer.name} rides home
-{buyer.name} now has {buyer.money} dollars\n"""
-              )
+        print(f"Total cost is {total} dollars")
+        print(f"See you again!\n\n{buyer.name} rides home")
+        print(f"{buyer.name} now has {buyer.money} dollars\n")

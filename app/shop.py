@@ -9,7 +9,7 @@ class Shop:
     location: list
     products: dict
 
-    def calc_product_price(
+    def calculate_product_price(
             self,
             customer_cart: dict,
             product: str
@@ -19,20 +19,20 @@ class Shop:
             cost = int(cost)
         return cost
 
-    def calc_cart_price(self, customer_cart: dict) -> float:
+    def calculate_cart_price(self, customer_cart: dict) -> float:
         return sum(
-            self.calc_product_price(customer_cart, product)
+            self.calculate_product_price(customer_cart, product)
             for product in customer_cart
         )
 
-    def calc_trip_price(
+    def calculate_trip_price(
             self,
             customer_location: list,
             fuel_price: float,
             fuel_consumption: float,
             customer_cart: dict,
     ) -> float:
-        total_cart_price = self.calc_cart_price(customer_cart)
+        total_cart_price = self.calculate_cart_price(customer_cart)
 
         distance = sqrt(
             (customer_location[0] - self.location[0]) ** 2
