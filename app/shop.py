@@ -18,3 +18,5 @@ for shop in file_content["shops"]:
         products=shop["products"]
     )
     markets.append(market)
+
+# dd
