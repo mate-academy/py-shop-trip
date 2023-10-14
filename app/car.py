@@ -1,5 +1,5 @@
-from app.customer import file_content, Customers
-from app.shop import markets, Shop
+from app.customer import Customers, convert_file
+from app.shop import create_shop_list, Shop
 import datetime
 import math
 import dataclasses
@@ -22,7 +22,7 @@ class Roads:
         distance = math.sqrt((x2 - x1) ** 2 + (y2 - y1) ** 2) * 2
         distance_km = round(distance, 2)
         self.count_trip = round(((((person.car["fuel_consumption"] * (
-            distance_km) / 100) * file_content["FUEL_PRICE"]))), 2)
+            distance_km) / 100) * convert_file()["FUEL_PRICE"]))), 2)
         for key, value in person.product_cart.items():
             unit_price = market.products[key]
             product_cost = unit_price * value
@@ -32,7 +32,7 @@ class Roads:
     def find_chip_market(self, person: Customers) -> None:
         self.min_cost = float("inf")
         print(f"{person.name} has {person.money} dollars")
-        for market in markets:
+        for market in create_shop_list():
             cost_trip = self.car_count_trip(person, market)
             print(f"{person.name}'s trip to the {market.name} "
                   f"costs {round(cost_trip, 2)}")

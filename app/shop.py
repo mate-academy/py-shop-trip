@@ -1,4 +1,4 @@
-from app.customer import file_content
+from app.customer import convert_file
 import dataclasses
 
 
@@ -9,14 +9,13 @@ class Shop:
     products: dict
 
 
-markets = []
-
-for shop in file_content["shops"]:
-    market = Shop(
-        name=shop["name"],
-        location=shop["location"],
-        products=shop["products"]
-    )
-    markets.append(market)
-
-# dd
+def create_shop_list():
+    markets = []
+    for shop in convert_file()["shops"]:
+        market = Shop(
+            name=shop["name"],
+            location=shop["location"],
+            products=shop["products"]
+        )
+        markets.append(market)
+    return markets
