@@ -1,3 +1,4 @@
+from typing import Dict
 import dataclasses
 import json
 import os
@@ -12,7 +13,7 @@ class Customers:
     car: dict
 
 
-def convert_file():
+def convert_file() -> Dict:
     directory = os.path.dirname(os.path.abspath(__file__))
     path = os.path.join(directory, "config.json")
     with open(path, "r") as file:
@@ -20,7 +21,7 @@ def convert_file():
     return file_content
 
 
-def create_customer_list():
+def create_customer_list() -> list:
     persons = []
     for person in convert_file()["customers"]:
         customer = Customers(

@@ -9,7 +9,7 @@ class Shop:
     products: dict
 
 
-def create_shop_list():
+def create_shop_list() -> list:
     markets = []
     for shop in convert_file()["shops"]:
         market = Shop(
