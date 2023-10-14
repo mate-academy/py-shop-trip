@@ -16,4 +16,3 @@ def shop_trip() -> None:
 
 
 shop_trip()
-# ?
