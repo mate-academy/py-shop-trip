@@ -1,8 +1,9 @@
-from app.customer import Customers, convert_file
-from app.shop import create_shop_list, Shop
 import datetime
 import math
 import dataclasses
+
+from app.customer import Customers, convert_file
+from app.shop import create_shop_list, Shop
 
 
 @dataclasses.dataclass
@@ -49,9 +50,10 @@ class Roads:
         total_customer_cost = 0
         current_datetime = datetime.datetime.now()
         formatted_date = current_datetime.strftime("%d/%m/%Y %H:%M:%S")
-        print(f"Date: {formatted_date}")
-        print(f"Thanks, {person.name}, for your purchase!")
-        print("You have bought: ")
+        print(f"Date: {formatted_date}\n"
+              f"Thanks, {person.name}, for your purchase!\n"
+              f"You have bought: ")
+
         for key, value in person.product_cart.items():
             unit_price = self.closest_shop.products[key] * value
             if isinstance(unit_price, float) and unit_price.is_integer():

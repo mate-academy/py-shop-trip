@@ -15,4 +15,5 @@ def shop_trip() -> None:
         print()
 
 
-shop_trip()
+if __name__ == "__main__":
+    shop_trip()
