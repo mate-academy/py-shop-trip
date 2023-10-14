@@ -1,3 +1,3 @@
 def shop_trip():
-    # write your code here
+    # write your code herec
     pass
