@@ -1,5 +1,5 @@
-from app.stores import stores
-from app.customer import persons
+from app.stores import Stores
+from app.customer import Person
 import datetime
 
 
@@ -10,19 +10,18 @@ def date_time() -> str:
 
 def shop_trip() -> str:
     cheapest_distance = 0
-    cheapest_store = ""
+    cheapest_store = None
+    persons = Person.load_person()
+    stores = Stores.get_stor()
 
     for person in persons:
         print(f"{person.name} has {person.money} dollars")
 
         for store in stores:
-            total_cost = 0
-
-            for key, value in person.product.items():
-                if key in store.products:
-                    unit_price = store.products[key]
-                    product_cost = unit_price * value
-                    total_cost += product_cost
+            total_cost = sum(
+                store.products[key] * value for key,
+                value in person.product.items() if key in store.products
+            )
 
             distance_cost = person.fuel_price * (person.fuel_consumption / 100)
             distance = round(
@@ -40,7 +39,7 @@ def shop_trip() -> str:
             )
             print(f"{person.name}'s trip to the {store.name} costs {distance}")
 
-            if distance < cheapest_distance or cheapest_store == "":
+            if distance < cheapest_distance or cheapest_store is None:
                 cheapest_distance = distance
                 cheapest_store = store
 
