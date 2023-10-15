@@ -15,10 +15,8 @@ class Person:
 
     @classmethod
     def load_person(cls) -> list["Person"]:
-        data = load_json(filename="app\\config.json")
-        # noinspection PyUnresolvedReferences
+        data = load_json(filename="app/config.json")
         customers = data["customers"]
-        # noinspection PyUnresolvedReferences
         fuel_price = data["FUEL_PRICE"]
 
         persons = []

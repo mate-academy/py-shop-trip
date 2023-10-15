@@ -11,7 +11,7 @@ class Stores:
 
     @classmethod
     def get_stor(cls) -> list["Stores"]:
-        data = load_json(filename="app\\config.json")
+        data = load_json(filename="app/config.json")
 
         stores = []
         # noinspection PyUnresolvedReferences
