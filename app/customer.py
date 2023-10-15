@@ -1,3 +1,4 @@
+from __future__ import annotations
 import dataclasses
 from typing import List
 from app.data_jason import load_json
@@ -14,7 +15,7 @@ class Person:
     fuel_price: int | float
 
     @classmethod
-    def load_person(cls) -> list["Person"]:
+    def load_person(cls) -> List[Person]:
         data = load_json(filename="app/config.json")
         customers = data["customers"]
         fuel_price = data["FUEL_PRICE"]

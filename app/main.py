@@ -18,9 +18,12 @@ def shop_trip() -> str:
         print(f"{person.name} has {person.money} dollars")
 
         for store in stores:
+
             total_cost = sum(
-                store.products[key] * value for key,
-                value in person.product.items() if key in store.products
+                store.products[product_name]
+                * product_price for product_name,
+                product_price in person.product.items()
+                if product_name in store.products
             )
 
             distance_cost = person.fuel_price * (person.fuel_consumption / 100)
