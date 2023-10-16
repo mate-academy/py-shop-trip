@@ -1,10 +1,10 @@
 from app.car import Roads
-from app.customer import create_customer_list
+from app.customer import create_customers
 
 
 def shop_trip() -> None:
     road = Roads()
-    for person in create_customer_list():
+    for person in create_customers():
         road.find_chip_market(person)
         if road.min_cost >= person.money:
             continue

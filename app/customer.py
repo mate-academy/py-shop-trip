@@ -5,7 +5,7 @@ import os
 
 
 @dataclasses.dataclass
-class Customers:
+class Customer:
     name: str
     product_cart: dict
     location: list
@@ -21,15 +21,11 @@ def convert_file() -> Dict:
     return file_content
 
 
-def create_customer_list() -> list:
-    persons = []
-    for person in convert_file()["customers"]:
-        customer = Customers(
-            name=person["name"],
-            product_cart=person["product_cart"],
-            location=person["location"],
-            money=person["money"],
-            car=person["car"]
-        )
-        persons.append(customer)
-    return persons
+def create_customers() -> list:
+    return [Customer(
+        name=person["name"],
+        product_cart=person["product_cart"],
+        location=person["location"],
+        money=person["money"],
+        car=person["car"]
+    ) for person in convert_file()["customers"]]

@@ -2,8 +2,8 @@ import datetime
 import math
 import dataclasses
 
-from app.customer import Customers, convert_file
-from app.shop import create_shop_list, Shop
+from app.customer import Customer, convert_file
+from app.shop import create_shops, Shop
 
 
 @dataclasses.dataclass
@@ -14,7 +14,7 @@ class Roads:
     list_of_count = []
     location_customer = None
 
-    def car_count_trip(self, person: Customers,
+    def car_count_trip(self, person: Customer,
                        market: Shop) -> int:
         coord_customer = person.location
         x1, y1 = coord_customer[0], coord_customer[1]
@@ -31,10 +31,10 @@ class Roads:
             self.count_trip += product_cost
         return self.count_trip
 
-    def find_chip_market(self, person: Customers) -> None:
+    def find_chip_market(self, person: Customer) -> None:
         self.min_cost = float("inf")
         print(f"{person.name} has {person.money} dollars")
-        for market in create_shop_list():
+        for market in create_shops():
             cost_trip = self.car_count_trip(person, market)
             print(f"{person.name}'s trip to the {market.name} "
                   f"costs {round(cost_trip, 2)}")
@@ -49,7 +49,7 @@ class Roads:
             print(f"{person.name} doesn't have enough money"
                   f" to make a purchase in any shop")
 
-    def count_customer_check(self, person: Customers) -> None:
+    def count_customer_check(self, person: Customer) -> None:
         total_customer_cost = 0
         current_datetime = datetime.datetime.now()
         formatted_date = current_datetime.strftime("%d/%m/%Y %H:%M:%S")
@@ -67,7 +67,7 @@ class Roads:
         print(f"Total cost is {total_customer_cost} dollars")
         print("See you again!\n")
 
-    def fuel_cost_get_at_home(self, person: Customers) -> None:
+    def fuel_cost_get_at_home(self, person: Customer) -> None:
 
         print(f"{person.name} rides home")
         person.location = self.location_customer

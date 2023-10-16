@@ -9,13 +9,11 @@ class Shop:
     products: dict
 
 
-def create_shop_list() -> list:
-    markets = []
-    for shop in convert_file()["shops"]:
-        market = Shop(
-            name=shop["name"],
-            location=shop["location"],
-            products=shop["products"]
-        )
-        markets.append(market)
+def create_shops() -> list:
+    markets = [Shop(
+        name=shop["name"],
+        location=shop["location"],
+        products=shop["products"]
+    ) for shop in convert_file()["shops"]]
+
     return markets
