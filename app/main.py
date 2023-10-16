@@ -1,11 +1,36 @@
 from app.stores import Stores
 from app.customer import Person
 import datetime
+from typing import Union
 
 
 def date_time() -> str:
     date = datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S")
     return date
+
+
+def calculate_distance(person: list, store: list) -> Union[float, int]:
+    total_cost = sum(
+        store.products[product_name] * product_price
+        for product_name, product_price in person.product.items()
+        if product_name in store.products
+    )
+
+    distance_cost = person.fuel_price * (person.fuel_consumption / 100)
+    distance = round(
+        (
+            (
+                (store.location[0] - person.location[0]) ** 2
+                + (store.location[1] - person.location[1]) ** 2
+            )
+        )
+        ** 0.5
+        * 2
+        * distance_cost
+        + total_cost,
+        2,
+    )
+    return distance
 
 
 def shop_trip() -> str:
@@ -18,28 +43,8 @@ def shop_trip() -> str:
         print(f"{person.name} has {person.money} dollars")
 
         for store in stores:
+            distance = calculate_distance(person, store)
 
-            total_cost = sum(
-                store.products[product_name]
-                * product_price for product_name,
-                product_price in person.product.items()
-                if product_name in store.products
-            )
-
-            distance_cost = person.fuel_price * (person.fuel_consumption / 100)
-            distance = round(
-                (
-                    (
-                        (store.location[0] - person.location[0]) ** 2
-                        + (store.location[1] - person.location[1]) ** 2
-                    )
-                )
-                ** 0.5
-                * 2
-                * distance_cost
-                + total_cost,
-                2,
-            )
             print(f"{person.name}'s trip to the {store.name} costs {distance}")
 
             if distance < cheapest_distance or cheapest_store is None:
