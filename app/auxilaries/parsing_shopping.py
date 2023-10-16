@@ -64,7 +64,8 @@ def define_destination_shop(
     for shop in shops:
         shop.total_cost = round(
             (customer.get_fuel_cost(customer.car, shop) * 2
-             + customer.calculate_product_cost(shop)), 2)
+             + customer.calculate_product_cost(shop)), 2
+        )
         print(f"{customer.name}'s trip to the {shop.name}"
               f" costs {shop.total_cost}")
     best_cost_shop = min(shops, key=lambda x: x.total_cost)

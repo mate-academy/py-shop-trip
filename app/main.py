@@ -2,9 +2,9 @@ import app.auxilaries.parsing_shopping as parsing
 
 
 def shop_trip() -> None:
-    data = parsing.parse_data_from_json()
-    customers = parsing.create_customer_classes(data[1])
-    shops = parsing.create_shops_classes(data[2])
+    _, customers_list, shop_list = parsing.parse_data_from_json()
+    customers = parsing.create_customer_classes(customers_list)
+    shops = parsing.create_shops_classes(shop_list)
 
     for customer in customers:
         print(f"{customer.name} has {customer.money} dollars")
