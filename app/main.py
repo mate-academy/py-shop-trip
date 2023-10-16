@@ -1,7 +1,7 @@
 from app.stores import Stores
 from app.customer import Person
 import datetime
-from typing import Union
+from typing import Union, List
 
 
 def date_time() -> str:
@@ -9,7 +9,10 @@ def date_time() -> str:
     return date
 
 
-def calculate_distance(person: list, store: list) -> Union[float, int]:
+def calculate_distance(
+        person: List[tuple],
+        store: List[tuple]
+) -> Union[float, int]:
     total_cost = sum(
         store.products[product_name] * product_price
         for product_name, product_price in person.product.items()
