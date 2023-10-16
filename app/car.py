@@ -12,6 +12,7 @@ class Roads:
     min_cost = float("inf")
     closest_shop = None
     list_of_count = []
+    location_customer = None
 
     def car_count_trip(self, person: Customers,
                        market: Shop) -> int:
@@ -42,6 +43,8 @@ class Roads:
                 self.closest_shop = market
         if self.min_cost < person.money:
             print(f"{person.name} rides to {self.closest_shop.name}")
+            self.location_customer = person.location
+            person.location = self.closest_shop.location
         else:
             print(f"{person.name} doesn't have enough money"
                   f" to make a purchase in any shop")
@@ -65,6 +68,8 @@ class Roads:
         print("See you again!")
 
     def fuel_cost_get_at_home(self, person: Customers) -> None:
+
         print(f"{person.name} rides home")
+        person.location = self.location_customer
         print(f"{person.name} now "
               f"has {round(person.money - self.min_cost, 2)} dollars")
