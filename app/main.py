@@ -8,11 +8,8 @@ def shop_trip() -> None:
         road.find_chip_market(person)
         if road.min_cost >= person.money:
             continue
-        print()
         road.count_customer_check(person)
-        print()
         road.fuel_cost_get_at_home(person)
-        print()
 
 
 if __name__ == "__main__":

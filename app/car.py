@@ -42,7 +42,7 @@ class Roads:
                 self.min_cost = cost_trip
                 self.closest_shop = market
         if self.min_cost < person.money:
-            print(f"{person.name} rides to {self.closest_shop.name}")
+            print(f"{person.name} rides to {self.closest_shop.name}\n")
             self.location_customer = person.location
             person.location = self.closest_shop.location
         else:
@@ -65,11 +65,11 @@ class Roads:
             print(f"{person.product_cart[key]} {key}s "
                   f"for {unit_price} dollars")
         print(f"Total cost is {total_customer_cost} dollars")
-        print("See you again!")
+        print("See you again!\n")
 
     def fuel_cost_get_at_home(self, person: Customers) -> None:
 
         print(f"{person.name} rides home")
         person.location = self.location_customer
         print(f"{person.name} now "
-              f"has {round(person.money - self.min_cost, 2)} dollars")
+              f"has {round(person.money - self.min_cost, 2)} dollars\n")
