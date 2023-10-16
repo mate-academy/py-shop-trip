@@ -15,7 +15,7 @@ class Person:
     fuel_price: int | float
 
     @classmethod
-    def load_person(cls) -> List[Person]:
+    def load_people(cls) -> List[Person]:
         data = load_json(filename="app/config.json")
         customers = data["customers"]
         fuel_price = data["FUEL_PRICE"]

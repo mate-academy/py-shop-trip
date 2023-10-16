@@ -39,8 +39,8 @@ def calculate_distance(
 def shop_trip() -> str:
     cheapest_distance = 0
     cheapest_store = None
-    persons = Person.load_person()
-    stores = Stores.get_stor()
+    persons = Person.load_people()
+    stores = Stores.get_stores()
 
     for person in persons:
         print(f"{person.name} has {person.money} dollars")
