@@ -14,7 +14,6 @@ class Stores:
         data = load_json(filename="app/config.json")
 
         stores = []
-        # noinspection PyUnresolvedReferences
         for data_store in data["shops"]:
             list_shop = Stores(
                 name=data_store["name"],

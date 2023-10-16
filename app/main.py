@@ -47,6 +47,7 @@ def shop_trip() -> str:
                 cheapest_store = store
 
         if person.money >= cheapest_distance:
+            person.location = cheapest_store.location
             print(
                 f"{person.name} rides to {cheapest_store.name}\n"
                 f"\nDate: {date_time()}\n"
