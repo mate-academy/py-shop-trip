@@ -4,7 +4,7 @@ from typing import List
 
 
 @dataclasses.dataclass
-class Stores:
+class Store:
     name: str
     location: List[int]
     products: dict
@@ -13,13 +13,13 @@ class Stores:
     def get_stores(cls) -> list["Stores"]:
         data = load_json(filename="app/config.json")
 
-        stores = []
-        for data_store in data["shops"]:
-            list_shop = Stores(
+        stores = [
+            cls(
                 name=data_store["name"],
                 location=data_store["location"],
                 products=data_store["products"]
             )
-            stores.append(list_shop)
+            for data_store in data["shops"]
+        ]
 
         return stores

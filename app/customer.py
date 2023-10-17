@@ -20,10 +20,8 @@ class Person:
         customers = data["customers"]
         fuel_price = data["FUEL_PRICE"]
 
-        persons = []
-
-        for person in customers:
-            new_person = cls(
+        persons = [
+            cls(
                 person["name"],
                 person["location"],
                 person["money"],
@@ -32,6 +30,6 @@ class Person:
                 person["product_cart"],
                 fuel_price,
             )
-            persons.append(new_person)
-
+            for person in customers
+        ]
         return persons

@@ -1,4 +1,4 @@
-from app.stores import Stores
+from app.stores import Store
 from app.customer import Person
 import datetime
 from typing import Union, List
@@ -40,7 +40,7 @@ def shop_trip() -> str:
     cheapest_distance = 0
     cheapest_store = None
     persons = Person.load_people()
-    stores = Stores.get_stores()
+    stores = Store.get_stores()
 
     for person in persons:
         print(f"{person.name} has {person.money} dollars")
