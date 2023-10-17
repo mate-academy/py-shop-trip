@@ -1,3 +1,4 @@
+from typing import List, Dict, Union
 from app.customer import convert_file
 import dataclasses
 
@@ -5,11 +6,11 @@ import dataclasses
 @dataclasses.dataclass
 class Shop:
     name: str
-    location: list
-    products: dict
+    location: List[int]
+    products: Dict[str, Union[int, float]]
 
 
-def create_shops() -> list:
+def create_shops() -> List[Shop]:
     markets = [Shop(
         name=shop["name"],
         location=shop["location"],

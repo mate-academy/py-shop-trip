@@ -1,3 +1,4 @@
+from typing import List, Union
 from typing import Dict
 import dataclasses
 import json
@@ -7,8 +8,8 @@ import os
 @dataclasses.dataclass
 class Customer:
     name: str
-    product_cart: dict
-    location: list
+    product_cart: Dict[str, Union[int, float]]
+    location: List[int]
     money: int
     car: dict
 
@@ -21,7 +22,7 @@ def convert_file() -> Dict:
     return file_content
 
 
-def create_customers() -> list:
+def create_customers() -> List[Customer]:
     return [Customer(
         name=person["name"],
         product_cart=person["product_cart"],
