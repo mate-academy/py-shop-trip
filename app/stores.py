@@ -10,7 +10,7 @@ class Store:
     products: dict
 
     @classmethod
-    def get_stores(cls) -> list["Stores"]:
+    def get_stores(cls) -> list["Store"]:
         data = load_json(filename="app/config.json")
 
         stores = [
