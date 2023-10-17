@@ -1,3 +1,4 @@
+from __future__ import annotations
 from app.data_jason import load_json
 import dataclasses
 from typing import List
@@ -10,7 +11,7 @@ class Store:
     products: dict
 
     @classmethod
-    def get_stores(cls) -> list["Store"]:
+    def get_stores(cls) -> list[Store]:
         data = load_json(filename="app/config.json")
 
         stores = [
