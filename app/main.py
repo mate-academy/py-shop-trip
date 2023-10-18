@@ -41,18 +41,18 @@ def shop_trip() -> None:
         cheapest_cost = float("inf")
 
         for shop in shops:
-            fuel_cost = customer.calculate_fuel_cost(customer.car, shop)
+            fuel_cost = customer.calculate_fuel_cost(customer.car, shop) * 2
             product_cost = customer.calculate_product_cost(shop)
-            total_cost = fuel_cost + product_cost
+            total_cost = round(fuel_cost + product_cost, 2)
+            print(f"{customer.name}'s trip to the {shop.name} "
+                  f"costs {total_cost}")
 
             if total_cost < cheapest_cost and customer.money >= total_cost:
                 cheapest_cost = total_cost
                 best_shop = shop
 
         if best_shop:
-            print(f"{customer.name}'s trip to {best_shop.name} "
-                  f"costs {round(cheapest_cost, 2)}")
-            customer.money -= cheapest_cost
+            print(f"{customer.name} rides to {best_shop.name}")
 
             print(f"\nDate: "
                   f"{datetime.datetime.now().strftime('%d/%m/%Y %H:%M:%S')}")
@@ -65,9 +65,11 @@ def shop_trip() -> None:
                   f"{round(customer.calculate_product_cost(best_shop), 2)}"
                   f" dollars")
             print("See you again!\n")
+
+            customer.money -= cheapest_cost
         else:
-            print(f"{customer.name} "
-                  f"doesn't have enough money to make a purchase in any shop")
+            print(f"{customer.name} doesn't have enough money "
+                  f"to make a purchase in any shop")
 
         print(f"{customer.name} rides home")
         print(f"{customer.name} now has {round(customer.money, 2)} dollars")

@@ -26,11 +26,11 @@ class Customer:
         distance = math.sqrt((shop.location[0] - self.location[0]) ** 2
                              + (shop.location[1] - self.location[1]) ** 2)
         fuel_cost = fuel_price * car.fuel_consumption / 100 * distance
-        return round(fuel_cost, 2)
+        return fuel_cost
 
     def calculate_product_cost(self, shop: Shop) -> float:
         product_cost = 0
         for key in self.product_cart:
             if key in shop.products:
                 product_cost += self.product_cart[key] * shop.products[key]
-        return round(product_cost, 2)
+        return product_cost
