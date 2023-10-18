@@ -57,12 +57,12 @@ class Roads:
               f"Thanks, {person.name}, for your purchase!\n"
               f"You have bought: ")
 
-        for key, value in person.product_cart.items():
-            unit_price = self.closest_shop.products[key] * value
+        for product_name, quantity in person.product_cart.items():
+            unit_price = self.closest_shop.products[product_name] * quantity
             if isinstance(unit_price, float) and unit_price.is_integer():
                 unit_price = int(unit_price)
             total_customer_cost += unit_price
-            print(f"{person.product_cart[key]} {key}s "
+            print(f"{quantity} {product_name}s "
                   f"for {unit_price} dollars")
         print(f"Total cost is {total_customer_cost} dollars")
         print("See you again!\n")
