@@ -25,10 +25,8 @@ class Roads:
         distance_km = round(distance, 2)
         self.count_trip = round(((((person.car["fuel_consumption"] * (
             distance_km) / 100) * convert_file()["FUEL_PRICE"]))), 2)
-        for key, value in person.product_cart.items():
-            unit_price = market.products[key]
-            product_cost = unit_price * value
-            self.count_trip += product_cost
+        total_product_cost = sum(market.products[key] * value for key, value in person.product_cart.items())
+        self.count_trip += total_product_cost
         return self.count_trip
 
     def find_chip_market(self, person: Customer) -> None:
