@@ -1,21 +1,22 @@
 import datetime
 import math
 import dataclasses
+from typing import Optional, List
 
 from app.customer import Customer, convert_file
 from app.shop import create_shops, Shop
 
 
 @dataclasses.dataclass
-class Roads:
-    count_trip = None
-    min_cost = float("inf")
-    closest_shop = None
-    list_of_count = []
-    location_customer = None
+class Road:
+    count_trip: Optional[float] = None
+    min_cost: float = float("inf")
+    closest_shop: Optional[Shop] = None
+    list_of_count: List[float] = dataclasses.field(default_factory=list)
+    location_customer: Optional[tuple] = None
 
     def car_count_trip(self, person: Customer,
-                       market: Shop) -> int:
+                       market: Shop) -> Optional[float]:
         coord_customer = person.location
         x1, y1 = coord_customer[0], coord_customer[1]
 

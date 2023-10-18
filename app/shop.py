@@ -11,10 +11,8 @@ class Shop:
 
 
 def create_shops() -> List[Shop]:
-    markets = [Shop(
+    return [Shop(
         name=shop["name"],
         location=shop["location"],
         products=shop["products"]
     ) for shop in convert_file()["shops"]]
-
-    return markets
