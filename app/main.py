@@ -3,7 +3,6 @@ from app.customer import Customer
 from app.shop import Shop
 from app import parsing
 
-from decimal import Decimal
 import datetime
 
 
@@ -21,7 +20,7 @@ def shop_trip() -> None:
         customer = Customer(
             customer_data["name"],
             customer_data["location"],
-            Decimal(customer_data["money"]),
+            customer_data["money"],
             customer_data["product_cart"],
             car
         )
@@ -39,7 +38,7 @@ def shop_trip() -> None:
         print(f"{customer.name} has {customer.money} dollars")
 
         best_shop = None
-        cheapest_cost = Decimal("inf")
+        cheapest_cost = float("inf")
 
         for shop in shops:
             fuel_cost = customer.calculate_fuel_cost(customer.car, shop)
@@ -52,7 +51,7 @@ def shop_trip() -> None:
 
         if best_shop:
             print(f"{customer.name}'s trip to {best_shop.name} "
-                  f"costs {cheapest_cost:.2f}")
+                  f"costs {round(cheapest_cost, 2)}")
             customer.money -= cheapest_cost
 
             print(f"\nDate: "
@@ -60,17 +59,18 @@ def shop_trip() -> None:
             print(f"Thanks, {customer.name}, for your purchase!")
             print("You have bought:")
             for item, quantity in customer.product_cart.items():
-                cost = Decimal(best_shop.products[item]) * Decimal(quantity)
-                print(f"{quantity} {item}s for {cost:.2f} dollars")
+                cost = best_shop.products[item] * quantity
+                print(f"{quantity} {item}s for {round(cost, 2)} dollars")
             print(f"Total cost is "
-                  f"{customer.calculate_product_cost(best_shop):.2f} dollars")
+                  f"{round(customer.calculate_product_cost(best_shop), 2)}"
+                  f" dollars")
             print("See you again!\n")
         else:
-            print(f"{customer.name} doesn't have enough money to "
-                  f"make a purchase in any shop")
+            print(f"{customer.name} "
+                  f"doesn't have enough money to make a purchase in any shop")
 
         print(f"{customer.name} rides home")
-        print(f"{customer.name} now has {customer.money:.2f} dollars\n")
+        print(f"{customer.name} now has {round(customer.money, 2)} dollars")
 
 
 if __name__ == "__main__":
