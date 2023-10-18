@@ -1,11 +1,11 @@
-from typing import Dict, List, Tuple
+from typing import Dict, List
 
 
 class Shop:
     def __init__(
             self,
             name: str,
-            location: List[Tuple[int, int]],
+            location: List[int],
             products: Dict[str, float]
     ) -> None:
         self.name = name
