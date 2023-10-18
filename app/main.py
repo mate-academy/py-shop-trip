@@ -57,9 +57,11 @@ def shop_trip() -> None:
             print(f"\nDate: "
                   f"{datetime.datetime.now().strftime('%d/%m/%Y %H:%M:%S')}")
             print(f"Thanks, {customer.name}, for your purchase!")
-            print("You have bought:")
+            print("You have bought: ")
             for item, quantity in customer.product_cart.items():
                 cost = best_shop.products[item] * quantity
+                if isinstance(cost, float) and cost.is_integer():
+                    cost = int(cost)
                 print(f"{quantity} {item}s for {round(cost, 2)} dollars")
             print(f"Total cost is "
                   f"{round(customer.calculate_product_cost(best_shop), 2)}"
@@ -67,12 +69,13 @@ def shop_trip() -> None:
             print("See you again!\n")
 
             customer.money -= cheapest_cost
+
+            print(f"{customer.name} rides home")
+            print(f"{customer.name} now has "
+                  f"{round(customer.money, 2)} dollars\n")
         else:
             print(f"{customer.name} doesn't have enough money "
                   f"to make a purchase in any shop")
-
-        print(f"{customer.name} rides home")
-        print(f"{customer.name} now has {round(customer.money, 2)} dollars")
 
 
 if __name__ == "__main__":
