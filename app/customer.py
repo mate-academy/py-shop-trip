@@ -68,11 +68,12 @@ class Customer:
                   f"to make a purchase in any shop")
 
     def _print_receipt(self, shop: Shop) -> None:
-        now = datetime.datetime.now()
+        now = datetime.datetime.now().strftime("%d/%m/%Y %I:%M:%S")
         print(
-            f"Date: {now.strftime("%d/%m/%Y %I:%M:%S")}\n"
+            f"Date: {now}\n"
             f"Thanks, {self.name}, for your purchase!\n"
-            f"You have bought: ")
+            f"You have bought: "
+        )
 
         for key in self.product_cart.keys():
             amount = self.product_cart[key] * shop.products[key]
