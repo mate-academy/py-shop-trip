@@ -6,7 +6,7 @@ class Car:
             self,
             info: Dict[str, Any],
             fuel_price: float,
-    ) -> str:
+    ) -> None:
         self.brand = info["brand"]
         self.fuel_consumption = info["fuel_consumption"]
         self.fuel_price = float(fuel_price)

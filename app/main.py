@@ -10,7 +10,7 @@ def shop_trip() -> None:
     fuel_price = data["FUEL_PRICE"]
     customers = [Customer(customer, fuel_price)
                  for customer in data["customers"]]
-    shops = [Shop(shop) for shop in data["shops"]]
+    shops = [Shop("info", "location") for _ in data["shops"]]
 
     for customer in customers:
         print(f"{customer.name} has {customer.money} dollars")

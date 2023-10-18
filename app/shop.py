@@ -1,20 +1,21 @@
+from datetime import datetime
 from typing import Dict, Any
-import datetime
 
 
 class Shop:
     def __init__(
             self,
             info: Dict[str, Any],
-    ) -> str:
-        self.name = info["name"]
-        self.location = info["location"]
-        self.products = info["products"]
+            location: str
+    ) -> None:
+        self.location = location
+        self.name = info.get["name", ""]
+        self.products = info.get["product", []]
 
     def check_printing(
             self,
             customer: Any,
-    ) -> str:
+    ) -> None:
         current = datetime.datetime.now()
         timestamp = f"Date: {current.strftime('%d/%m/%Y %H:%M:%S')}"
 
@@ -28,7 +29,8 @@ class Shop:
             if product in self.products:
                 cost = self.products[product] * amount
                 spent_money += cost
-                if cost % 1 == 0:
+                if isinstance(cost, float):
                     cost = int(cost)
                 print(f"{amount} {product}s for {cost} dollars")
-        print(f"Total cost is {spent_money} dollars\nSee you again!\n")
+
+        print(f"Total cost is {spent_money} dollars\nSee you again!")
