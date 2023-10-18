@@ -23,13 +23,11 @@ class Customer:
         self.car = car
 
     def calculate_fuel_cost(self, car: Car, shop: Shop) -> Decimal:
-        fuel_price = Decimal(parsing.parse_data_from_json()["FUEL_PRICE"])
-        distance = Decimal(math.sqrt((shop.location[0] - self.location[0]) ** 2
-                                     + (shop.location[1]
-                                        - self.location[1]) ** 2))
-        fuel_cost = (fuel_price * car.fuel_consumption
-                     / Decimal("100")) * distance
-        return fuel_cost
+        fuel_price = parsing.parse_data_from_json()["FUEL_PRICE"]
+        distance = math.sqrt((shop.location[0] - self.location[0]) ** 2
+                             + (shop.location[1] - self.location[1]) ** 2)
+        fuel_cost = (fuel_price * car.fuel_consumption / 100) * distance
+        return Decimal(fuel_cost)
 
     def calculate_product_cost(self, shop: Shop) -> Decimal:
         product_cost = Decimal("0")

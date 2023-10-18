@@ -20,9 +20,9 @@ def shop_trip() -> None:
         car = Car(car_data["brand"], car_data["fuel_consumption"])
         customer = Customer(
             customer_data["name"],
-            customer_data["product_cart"],
             customer_data["location"],
             Decimal(customer_data["money"]),
+            customer_data["product_cart"],
             car
         )
         customers.append(customer)
@@ -60,7 +60,7 @@ def shop_trip() -> None:
             print(f"Thanks, {customer.name}, for your purchase!")
             print("You have bought:")
             for item, quantity in customer.product_cart.items():
-                cost = Decimal(shop.products[item]) * Decimal(quantity)
+                cost = Decimal(best_shop.products[item]) * Decimal(quantity)
                 print(f"{quantity} {item}s for {cost:.2f} dollars")
             print(f"Total cost is "
                   f"{customer.calculate_product_cost(best_shop):.2f} dollars")
