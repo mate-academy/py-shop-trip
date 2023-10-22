@@ -62,6 +62,8 @@ def shop_trip() -> None:
                 cost = best_shop.products[item] * quantity
                 if isinstance(cost, float) and cost.is_integer():
                     cost = int(cost)
+                if isinstance(cost, float) and cost.is_integer():
+                    cost = int(cost)
                 print(f"{quantity} {item}s for {round(cost, 2)} dollars")
             print(f"Total cost is "
                   f"{round(customer.calculate_product_cost(best_shop), 2)}"
@@ -71,6 +73,7 @@ def shop_trip() -> None:
             customer.money -= cheapest_cost
 
             print(f"{customer.name} rides home")
+            print(f"{customer.name} now has {round(customer.money, 2)} dollars")
             print(f"{customer.name} now has "
                   f"{round(customer.money, 2)} dollars\n")
         else:
