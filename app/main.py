@@ -6,7 +6,7 @@ from app.shop import GetShopsData
 
 
 def shop_trip() -> None:
-    with open("app\\config.json", "r") as f:
+    with open("app.config.json", "r") as f:
         all_data = json.load(f)
 
     customers_data = all_data["customers"]
