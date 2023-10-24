@@ -1,5 +1,4 @@
 import json
-import os
 
 from app.car import GetCarsData
 from app.customer import GetCustomersData
