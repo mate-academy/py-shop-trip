@@ -1,9 +1,8 @@
 from typing import List
-from app.shop import Shop
-from app.car import Car
-from app import parsing
-
 import math
+from app import parsing
+from app.car import Car
+from app.shop import Shop
 
 
 class Customer:
@@ -29,8 +28,7 @@ class Customer:
         return fuel_cost
 
     def calculate_product_cost(self, shop: Shop) -> float:
-        product_cost = 0
-        for key in self.product_cart:
-            if key in shop.products:
-                product_cost += self.product_cart[key] * shop.products[key]
+        product_cost = sum(
+            self.product_cart[key] * shop.products[key]
+            for key in self.product_cart if key in shop.products)
         return product_cost

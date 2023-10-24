@@ -2,7 +2,6 @@ from app.car import Car
 from app.customer import Customer
 from app.shop import Shop
 from app import parsing
-
 import datetime
 
 
@@ -26,13 +25,9 @@ def shop_trip() -> None:
         )
         customers.append(customer)
 
-    for shop_data in shops_data:
-        shop = Shop(
-            shop_data["name"],
-            shop_data["location"],
-            shop_data["products"]
-        )
-        shops.append(shop)
+    shops = [Shop(shop_data["name"], shop_data["location"],
+                  shop_data["products"])
+             for shop_data in shops_data]
 
     for customer in customers:
         print(f"{customer.name} has {customer.money} dollars")
@@ -73,7 +68,8 @@ def shop_trip() -> None:
             customer.money -= cheapest_cost
 
             print(f"{customer.name} rides home")
-            print(f"{customer.name} now has {round(customer.money, 2)} dollars")
+            print(f"{customer.name} now has "
+                  f"{round(customer.money, 2)} dollars")
             print(f"{customer.name} now has "
                   f"{round(customer.money, 2)} dollars\n")
         else:
