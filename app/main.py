@@ -19,6 +19,7 @@ def shop_trip() -> None:
         min_shop_name, min_shop_cost = min(
             client_info.shopping_costs.items(), key=lambda x: x[1]
         )
+
         if client_info.money < min_shop_cost:
             print(f"{client_name} doesn't have "
                   f"enough money to make a purchase in any shop")

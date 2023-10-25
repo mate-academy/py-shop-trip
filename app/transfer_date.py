@@ -6,6 +6,7 @@ from shop import Shop
 
 def create_clients(data: IO) -> dict:
     clients = {}
+
     for client_data in data["customers"]:
         name = client_data["name"]
         client = Client(

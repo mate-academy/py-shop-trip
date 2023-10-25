@@ -14,6 +14,7 @@ class Shop:
 
     def process_purchase(self, client: Type) -> None:
         print("You have bought:")
+
         for product, quantity in client.product_cart.items():
             if product in self.products:
                 price_per_unit = self.products[product]
