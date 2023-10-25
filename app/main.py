@@ -42,4 +42,4 @@ def shop_trip() -> None:
 
         client_info.money -= min_shop_cost
         print(f"{client_name} rides home")
-        print(f"{client_name}  now has {client_info.money} dollars")
+        print(f"{client_name} now has {client_info.money} dollars")
