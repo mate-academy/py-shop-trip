@@ -1,6 +1,6 @@
 from typing import IO
 
-from customer import Client
+from app.clien import Client
 from shop import Shop
 
 
