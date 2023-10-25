@@ -1,4 +1,5 @@
 import json
+import os
 
 from app.car import GetCarsData
 from app.customer import GetCustomersData
@@ -6,7 +7,7 @@ from app.shop import GetShopsData
 
 
 def shop_trip() -> None:
-    with open("app\\config.json", "r") as f:
+    with open(os.path.join("app", "config.json"), "r") as f:
         all_data = json.load(f)
 
     customers_data = all_data["customers"]
