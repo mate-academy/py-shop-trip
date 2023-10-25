@@ -34,9 +34,8 @@ def shop_trip() -> None:
         total_cost = 0
         for quant, item in current_customer.product_cart.items():
             curr_cost = chosen_shop.product_price.get(quant) * item
-            curr_cost = int(curr_cost) if \
-                int(curr_cost) == curr_cost \
-                else curr_cost
+            if curr_cost == int(curr_cost):
+                curr_cost = int(curr_cost)
             total_cost += curr_cost
             print(f"{item} {quant}s for {curr_cost} dollars")
         print(f"Total cost is {total_cost} dollars")
