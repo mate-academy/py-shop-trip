@@ -29,8 +29,7 @@ class Client:
                     total_cost += shop.products[product] * quantity
             total_cost += self.calculate_trip_cost(shop, fuel_price)
 
-            print(f"{self.name}'s trip to the {shop_name} "
-                  f"Shop costs {total_cost}")
+            print(f"{self.name}'s trip to the {shop_name} costs {total_cost}")
             self.shopping_costs[shop_name] = total_cost
 
     def calculate_trip_cost(
