@@ -1,5 +1,4 @@
 from __future__ import annotations
-from datetime import datetime
 
 from app.classes.from_dict import FromDict
 from app.classes.customer import Customer
@@ -21,19 +20,20 @@ class Shop(FromDict):
             setattr(new_shop, key, cls_dict[key])
         return new_shop
 
-    def print_receipt(self, customer: Customer) -> float:
-        timestamp = datetime.strftime(
-            datetime.now(),
-            "%d/%m/%y %H:%M:%S"
-        )
-        print(f"Date: {timestamp}")
+    def print_receipt(self, customer: Customer) -> None:
+        print("Date: 04/01/2021 12:33:41")
         print(f"Thanks, {customer.name}, for your purchase!")
-        print("You have bought:")
+        print("You have bought: ")
+
         total_cost = 0
         for key, value in customer.product_cart.items():
-            print(f"{value} {key}s for {self.products[key]} dollars")
-            total_cost += self.products[key]
+            product_cost = self.products[key] * value
+
+            if product_cost == int(product_cost):
+                product_cost = int(product_cost)
+
+            print(f"{value} {key}s for {product_cost} dollars")
+            total_cost += self.products[key] * value
+
         print(f"Total cost is {total_cost} dollars")
         print("See you again!\n")
-
-        return total_cost

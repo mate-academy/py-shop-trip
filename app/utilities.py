@@ -1,5 +1,7 @@
 import json
-import math
+
+from app.classes.customer import Customer
+from app.classes.shop import Shop
 
 
 def parse_json(json_file: str) -> dict:
@@ -7,14 +9,20 @@ def parse_json(json_file: str) -> dict:
         return json.load(file)
 
 
+def get_shopping_cost(customer: Customer, shop: Shop) -> float:
+    cost = 0
+    for item in customer.product_cart:
+        cost += customer.product_cart[item] * shop.products[item]
+    return cost
+
+
 def calculate_trip_cost(fuel_price: float,
-                        fuel_consumption: float,
-                        location_a: list,
-                        location_b: list) -> float:
+                        customer: Customer,
+                        shop: Shop) -> float:
+    distance = ((customer.location[0] - shop.location[0]) ** 2
+                + (customer.location[1] - shop.location[1]) ** 2) ** 0.5
 
-    distance = math.sqrt((location_b[0] - location_a[0]) ** 2
-                         + (location_b[1] - location_a[1]) ** 2)
+    ride_cost = (customer.car.fuel_consumption / 100) * distance * fuel_price
+    shopping_cost = get_shopping_cost(customer, shop)
 
-    print(fuel_price, distance, fuel_consumption)
-    print(fuel_consumption * distance * fuel_price)
-    return fuel_consumption * distance * fuel_price
+    return ride_cost * 2 + shopping_cost

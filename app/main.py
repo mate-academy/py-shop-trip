@@ -1,10 +1,9 @@
 import app.utilities as util
 from app.classes.customer import Customer
-from app.classes.car import Car
 from app.classes.shop import Shop
 
 
-def shop_trip():
+def shop_trip() -> None:
     config = util.parse_json("app/config.json")
 
     fuel_price = config["FUEL_PRICE"]
@@ -17,12 +16,12 @@ def shop_trip():
         print(f"{customer.name} has {customer.money} dollars")
 
         closest_shop = 0
-        min_cost = 0
+        min_cost = 100
         for index, shop in enumerate(shops):
-            trip_cost = 2 * util.calculate_trip_cost(fuel_price,
-                                                     customer.car.fuel_consumption,
-                                                     customer.location,
-                                                     shop.location)
+            trip_cost = round(
+                util.calculate_trip_cost(fuel_price, customer, shop),
+                2
+            )
 
             print(f"{customer.name}'s trip to the"
                   f" {shop.name} costs {trip_cost}")
@@ -37,8 +36,13 @@ def shop_trip():
             continue
 
         print(f"{customer.name} rides to {shops[closest_shop].name}\n")
-        shopping_cost = shops[closest_shop].print_receipt(customer)
+        shops[closest_shop].print_receipt(customer)
+        customer.money -= round(
+            util.calculate_trip_cost(fuel_price,
+                                     customer,
+                                     shops[closest_shop]),
+            2
+        )
 
         print(f"{customer.name} rides home")
-        print(f"{customer.name} now has "
-              f"{customer.money - min_cost - shopping_cost}\n")
+        print(f"{customer.name} now has {customer.money} dollars\n")

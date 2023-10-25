@@ -5,7 +5,7 @@ from app.classes.from_dict import FromDict
 class Car(FromDict):
     def __init__(self,
                  brand: str = "",
-                 fuel_consumption: float = 0.0) -> None:
+                 fuel_consumption: int | float = 0.0) -> None:
         self.brand = brand
         self.fuel_consumption = fuel_consumption
 

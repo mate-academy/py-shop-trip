@@ -26,4 +26,3 @@ class Customer(FromDict):
                 continue
             setattr(new_customer, key, cls_dict[key])
         return new_customer
-
