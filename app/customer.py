@@ -55,15 +55,15 @@ class Customer:
         formatted_date = datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S")
         print(f"Date: {formatted_date}")
         print(f"Thanks, {self.name}, for your purchase!")
-        print("You have bought:")
+        print("You have bought: ")
 
         total_cost = 0
         for product, quantity in self.products.items():
-            cost = round(selected_shop.products[product] * quantity, 1)
+            cost = selected_shop.products.get(product) * quantity
+            cost = int(cost) if int(cost) == cost else cost
             total_cost += cost
             print(f"{quantity} {product}s for {cost} dollars")
-        print(
-            f"Total cost is {total_cost} dollars")
+        print(f"Total cost is {total_cost} dollars")
         print("See you again!\n")
 
     def ride_home(self) -> None:

@@ -6,33 +6,34 @@ from app.shop import Shop
 
 
 def shop_trip() -> None:
-    with open("app/config.json") as config_file:
+    with open("app/config.json", "r") as config_file:
         config = json.load(config_file)
-        shops = config["shops"]
-        customers = config["customers"]
-        fuel_price = config["FUEL_PRICE"]
+
+    shops = config.get("shops")
+    customers = config.get("customers")
+    fuel_price = config.get("FUEL_PRICE")
 
     customers_list = []
     shops_list = []
 
     for customer in customers:
         customer_instance = Customer(
-            name=customer["name"],
-            products=customer["product_cart"],
-            location=customer["location"],
-            money=customer["money"],
+            name=customer.get("name"),
+            products=customer.get("product_cart"),
+            location=customer.get("location"),
+            money=customer.get("money"),
             car=Car(
-                brand=customer["car"]["brand"],
-                fuel_consumption=customer["car"]["fuel_consumption"]
+                brand=customer.get("car").get("brand"),
+                fuel_consumption=customer.get("car").get("fuel_consumption")
             )
         )
         customers_list.append(customer_instance)
 
     for shop in shops:
         shop_instance = Shop(
-            name=shop["name"],
-            location=shop["location"],
-            products=shop["products"]
+            name=shop.get("name"),
+            location=shop.get("location"),
+            products=shop.get("products")
         )
         shops_list.append(shop_instance)
 
