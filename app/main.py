@@ -69,9 +69,8 @@ def shop_trip() -> None:
 
             print(f"{customer.name} rides home")
             print(f"{customer.name} now has "
-                  f"{round(customer.money, 2)} dollars")
-            print(f"{customer.name} now has "
                   f"{round(customer.money, 2)} dollars\n")
+
         else:
             print(f"{customer.name} doesn't have enough money "
                   f"to make a purchase in any shop")
