@@ -38,7 +38,7 @@ def shop_trip() -> None:
         if customer.money < minimum_cost:
             print(f"{customer.name} "
                   f"doesn't have enough money to make a purchase in any shop")
-            continue        
+            continue
         print(f"{customer.name} rides to {cheapest_shop.name}\n")
         print(f"Date: "
               f"{datetime.datetime.now().strftime('%d/%m/%Y %H:%M:%S')}")
