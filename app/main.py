@@ -27,6 +27,10 @@ def shop_trip() -> None:
             return
 
         print(f"{client_name} rides to {min_shop_name}")
+        price_of_fuel = client_info.calculate_trip_cost(
+            shops[min_shop_name], fuel_price
+        )
+
         client_info.location = shops[min_shop_name].location
 
         current_datetime = datetime.datetime.now()
@@ -37,7 +41,7 @@ def shop_trip() -> None:
 
         print(f"Thanks, {client_name}, for your purchase!")
         shops[min_shop_name].process_purchase(client_info)
-        print(f"Total cost is {min_shop_cost} dollars")
+        print(f"Total cost is {min_shop_cost - price_of_fuel} dollars")
         print("See you again!")
 
         client_info.money -= min_shop_cost
