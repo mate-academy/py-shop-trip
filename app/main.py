@@ -2,6 +2,7 @@ from app.car import Car
 from app.customer import Customer
 from app.shop import Shop
 from app import parsing
+
 import datetime
 
 
@@ -10,24 +11,25 @@ def shop_trip() -> None:
     customers_data = config["customers"]
     shops_data = config["shops"]
 
-    customers = []
-    shops = []
-
-    for customer_data in customers_data:
-        car_data = customer_data["car"]
-        car = Car(car_data["brand"], car_data["fuel_consumption"])
-        customer = Customer(
+    customers = [
+        Customer(
             customer_data["name"],
             customer_data["location"],
             customer_data["money"],
             customer_data["product_cart"],
             car
         )
-        customers.append(customer)
+        for customer_data in customers_data
+    ]
 
-    shops = [Shop(shop_data["name"], shop_data["location"],
-                  shop_data["products"])
-             for shop_data in shops_data]
+    shops = [
+        Shop(
+            shop_data["name"],
+            shop_data["location"],
+            shop_data["products"]
+        )
+        for shop_data in shops_data
+    ]
 
     for customer in customers:
         print(f"{customer.name} has {customer.money} dollars")
@@ -55,6 +57,7 @@ def shop_trip() -> None:
             print("You have bought: ")
             for item, quantity in customer.product_cart.items():
                 cost = best_shop.products[item] * quantity
+
                 if isinstance(cost, float) and cost.is_integer():
                     cost = int(cost)
                 if isinstance(cost, float) and cost.is_integer():

@@ -1,5 +1,6 @@
 from typing import List
 import math
+
 from app import parsing
 from app.car import Car
 from app.shop import Shop
