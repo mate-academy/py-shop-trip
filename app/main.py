@@ -6,7 +6,7 @@ from app.data import create_clients, create_shops
 
 
 def shop_trip() -> None:
-    with open(os.path.join("app", "config.json"), "r") as json_file:
+    with open("config.json", "r") as json_file:
         data = json.load(json_file)
     fuel_price = data["FUEL_PRICE"]
 
@@ -14,7 +14,7 @@ def shop_trip() -> None:
     shops = create_shops(data)
 
     for client_name, client_info in clients.items():
-        print(f"{client_name} has {client_info.money:.2f} dollars")
+        print(f"{client_name} has {client_info.money} dollars")
 
         client_info.calculate_shopping_costs(shops, fuel_price)
         min_shop_name, min_shop_cost = min(
@@ -43,7 +43,7 @@ def shop_trip() -> None:
 
         print(f"Thanks, {client_name}, for your purchase!")
         shops[min_shop_name].process_purchase(client_info)
-        print(f"Total cost is {min_shop_cost - price_of_fuel:.2f} dollars")
+        print(f"Total cost is {min_shop_cost - price_of_fuel:.1f} dollars")
         print("See you again!")
         print("")
 
@@ -52,3 +52,4 @@ def shop_trip() -> None:
         client_info.location = location
         print(f"{client_name} now has {client_info.money:.2f} dollars")
         print("")
+shop_trip()

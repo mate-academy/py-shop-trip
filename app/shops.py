@@ -13,7 +13,7 @@ class Shop:
         self.products = products
 
     def process_purchase(self, client: Type) -> None:
-        print("You have bought:")
+        print("You have bought: ")
 
         for product, quantity in client.product_cart.items():
             if product in self.products:
