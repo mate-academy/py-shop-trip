@@ -1,7 +1,7 @@
 import json
 import datetime
 
-from transfer_date import create_clients, create_shops
+from app.data import create_clients, create_shops
 
 
 def shop_trip() -> None:
