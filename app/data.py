@@ -1,7 +1,7 @@
 from typing import IO
 
 from app.clien import Client
-from shop import Shop
+from app.shops import Shop
 
 
 def create_clients(data: IO) -> dict:
