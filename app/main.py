@@ -38,15 +38,15 @@ def shop_trip() -> None:
         if customer.money < minimum_cost:
             print(f"{customer.name} "
                   f"doesn't have enough money to make a purchase in any shop")
-        else:
-            print(f"{customer.name} rides to {cheapest_shop.name}\n")
-            print(f"Date: "
-                  f"{datetime.datetime.now().strftime('%d/%m/%Y %H:%M:%S')}")
-            print(f"Thanks, {customer.name}, for your purchase!")
-            print("You have bought: ")
-            for item in customer.shopping_cost(cheapest_shop).items():
-                print(f"{item[0]}{item[1]} dollars")
-            print("See you again!\n")
-            print(f"{customer.name} rides home")
-            print(f"{customer.name}"
-                  f" now has {customer.money - minimum_cost} dollars\n")
+            continue        
+        print(f"{customer.name} rides to {cheapest_shop.name}\n")
+        print(f"Date: "
+              f"{datetime.datetime.now().strftime('%d/%m/%Y %H:%M:%S')}")
+        print(f"Thanks, {customer.name}, for your purchase!")
+        print("You have bought: ")
+        for item in customer.shopping_cost(cheapest_shop).items():
+            print(f"{item[0]}{item[1]} dollars")
+        print("See you again!\n")
+        print(f"{customer.name} rides home")
+        print(f"{customer.name}"
+              f" now has {customer.money - minimum_cost} dollars\n")
