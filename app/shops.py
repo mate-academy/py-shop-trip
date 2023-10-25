@@ -19,4 +19,6 @@ class Shop:
             if product in self.products:
                 price_per_unit = self.products[product]
                 cost = price_per_unit * quantity
-                print(f"{quantity} {product}s for {int(cost)} dollars")
+                if int(cost) == cost:
+                    cost = int(cost)
+                print(f"{quantity} {product}s for {round(cost, 1)} dollars")
