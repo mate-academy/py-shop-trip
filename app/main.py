@@ -61,6 +61,3 @@ def shop_trip() -> None:
         print(f"{customer.name} rides home")
         customer.buy(min_cost)
         print(f"{customer.name} now has {customer.money} dollars\n")
-
-
-shop_trip()
