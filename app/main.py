@@ -6,7 +6,7 @@ from app.data import create_clients, create_shops
 
 
 def shop_trip() -> None:
-    with open("config.json", "r") as json_file:
+    with open(os.path.join("app", "config.json"), "r") as json_file:
         data = json.load(json_file)
     fuel_price = data["FUEL_PRICE"]
 
@@ -52,4 +52,3 @@ def shop_trip() -> None:
         client_info.location = location
         print(f"{client_name} now has {client_info.money:.2f} dollars")
         print("")
-shop_trip()
