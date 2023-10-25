@@ -22,7 +22,8 @@ def shop_trip() -> None:
         )
 
         if client_info.money < min_shop_cost:
-            print(f"{client_name} doesn't have enough money to make a purchase in any shop")
+            print(f"{client_name} doesn't have enough money to "
+                  f"make a purchase in any shop")
             return
 
         print(f"{client_name} rides to {min_shop_name}")
@@ -35,7 +36,9 @@ def shop_trip() -> None:
         client_info.location = shops[min_shop_name].location
 
         current_datetime = datetime.datetime.now()
-        formatted_datetime = current_datetime.strftime("Date: %d/%m/%Y %H:%M:%S")
+        formatted_datetime = current_datetime.strftime(
+            "Date: %d/%m/%Y %H:%M:%S"
+        )
         print(formatted_datetime)
 
         print(f"Thanks, {client_name}, for your purchase!")
