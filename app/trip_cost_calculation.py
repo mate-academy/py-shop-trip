@@ -1,6 +1,3 @@
-import math
-
-
 def trip_cost_calculation(
         customer_location: list,
         shop_location: list,
@@ -9,8 +6,8 @@ def trip_cost_calculation(
         shop_products: dict,
         fuel_price: float,
 ) -> tuple:
-    distance = math.sqrt((customer_location[0] - shop_location[0])**2
-                         + (customer_location[1] - shop_location[1]) ** 2)
+    distance = ((customer_location[0] - shop_location[0])**2
+                + (customer_location[1] - shop_location[1]) ** 2) ** (1 / 2)
 
     amount_of_fuel_consumption = (
         fuel_price * ((car_fuel_consumption / 100) * distance)
