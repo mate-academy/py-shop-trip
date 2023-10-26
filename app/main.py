@@ -33,7 +33,7 @@ def shop_trip() -> None:
             customer_car)
 
         min_cost = float("inf")
-        cheap_shop = None
+        cheapest_shop = None
 
         customer.customer_money()
         for shop in shops:
@@ -47,11 +47,11 @@ def shop_trip() -> None:
 
             if total_cost < min_cost and total_cost <= customer.money:
                 min_cost = total_cost
-                cheap_shop = shop
+                cheapest_shop = shop
 
-        if cheap_shop is not None:
-            print(f"{customer.name} rides to {cheap_shop.shop_name}\n")
-            customer.shopping(cheap_shop)
+        if cheapest_shop is not None:
+            print(f"{customer.name} rides to {cheapest_shop.shop_name}\n")
+            customer.shopping(cheapest_shop)
             customer.money -= min_cost
             print(f"{customer.name} rides home")
             print(f"{customer.name} now has "
