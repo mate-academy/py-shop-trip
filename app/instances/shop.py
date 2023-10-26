@@ -29,8 +29,7 @@ class Shop:
             receipt += f"{quantity} {product}s for {cost} dollars\n"
             total += cost
 
-        if total > 0:
-            receipt += f"Total cost is {total} dollars\nSee you again!\n"
+        receipt += f"Total cost is {total} dollars\nSee you again!\n"
 
         if customer.money > total:
             customer.money -= total
