@@ -24,7 +24,8 @@ def shop_trip() -> None:
     for customer_data in customers_data:
         customer_car = Car(
             customer_data["car"]["brand"],
-            customer_data["car"]["fuel_consumption"])
+            customer_data["car"]["fuel_consumption"]
+        )
         customer = Customer(
             customer_data["name"],
             customer_data["product_cart"],
