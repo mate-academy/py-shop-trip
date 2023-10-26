@@ -42,7 +42,8 @@ def shop_trip() -> None:
                 shop.shop_location, customer_car.fuel_consumption, fuel_price)
             total_cost += sum(
                 price * shop.products[product_name]
-                for product_name, price in customer.product_cart.items())
+                for product_name, price in customer.product_cart.items()
+            )
             print(f"{customer.name}'s trip to the "
                   f"{shop.shop_name} costs {round(total_cost, 2)}")
 
