@@ -49,7 +49,8 @@ class Customer:
                       f"{round_cost} dollars")
         total = sum(
             amount * shop.products[product_name]
-            for product_name, amount in self.product_cart.items())
+            for product_name, amount in self.product_cart.items()
+        )
 
         print(f"Total cost is {round(total, 2)} dollars")
         print("See you again!\n")
