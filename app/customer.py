@@ -7,24 +7,26 @@ from app.shop import Shop
 
 @dataclasses.dataclass
 class Customer:
-    def __init__(self, name: str,
-                 product_cart: dict,
-                 location: list,
-                 money: int | float,
-                 car: dict) -> None:
-        self.name = name
-        self.product_cart = product_cart
-        self.location = location
-        self.money = money
-        self.car = Car(**car)
+    name: str
+    product_cart: dict
+    location: list
+    money: float
+    car: Car
 
     @classmethod
     def create_customers(cls, customers: List) -> List:
-        return [cls(**customer) for customer in customers]
+        customer_objects = []
+        for customer in customers:
+            car_data = customer.pop("car")
+            car = Car(**car_data)
+            customer["car"] = car
+            customer_objects.append(cls(**customer))
+        return customer_objects
 
     def choose_the_best_shop(self,
                              shops_list: List[Shop],
                              fuel_price: float) -> tuple[Shop, bool]:
+        print(f"{self.name} has {self.money} dollars")
         shops = {}
         for shop in shops_list:
             costs_of_product = shop.calculate_amount_for_products(
@@ -34,8 +36,6 @@ class Customer:
                                                      shop.location,
                                                      fuel_price)
             shops[shop] = round(costs_of_product + fuel_cost * 2, 2)
-        print(f"{self.name} has {self.money} dollars")
-        for shop in shops:
             print(f"{self.name}'s trip to the {shop.name} costs {shops[shop]}")
         cheapest_shop = min(shops, key=shops.get)
         enough_money = False
