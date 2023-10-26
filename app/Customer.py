@@ -6,7 +6,8 @@ from app.Car import Car
 
 
 class Customer:
-    def __init__(self, name: str,
+    def __init__(self,
+                 name: str,
                  product_cart: dict,
                  customer_location: list,
                  money: int,
