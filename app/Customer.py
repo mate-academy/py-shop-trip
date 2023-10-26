@@ -52,5 +52,5 @@ class Customer:
             for product_name, amount in self.product_cart.items()
         )
 
-        print(f"Total cost is {round(total, 2)} dollars")
+        print(f"Total cost is {round(total, 2)} dollar")
         print("See you again!\n")
