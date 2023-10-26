@@ -7,12 +7,12 @@ from app.Car import Car
 
 class Customer:
     def __init__(
-                 self,
-                 name: str,
-                 product_cart: dict,
-                 customer_location: list,
-                 money: int,
-                 car: Car
+            self,
+            name: str,
+            product_cart: dict,
+            customer_location: list,
+            money: int,
+            car: Car
     ) -> None:
         self.name = name
         self.product_cart = product_cart
@@ -24,10 +24,10 @@ class Customer:
         print(f"{self.name} has {self.money} dollars")
 
     def distance(
-                 self,
-                 shop_location: list,
-                 fuel_consumption: float,
-                 fuel_price: float
+            self,
+            shop_location: list,
+            fuel_consumption: float,
+            fuel_price: float
     ) -> float:
         customer_x, customer_y = self.customer_location
         shop_x, shop_y = shop_location
