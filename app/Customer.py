@@ -26,10 +26,10 @@ class Customer:
                  shop_location: list,
                  fuel_consumption: float,
                  fuel_price: float) -> float:
-        x1, y1 = self.customer_location
-        x2, y2 = shop_location
-        dist = sqrt((x2 - x1) ** 2 + (y2 - y1) ** 2)
-        shop_trip = dist / 100 * fuel_consumption * fuel_price * 2
+        customer_x, customer_y = self.customer_location
+        shop_x, shop_y = shop_location
+        distance = sqrt((shop_x - customer_x) ** 2 + (shop_y - customer_y) ** 2)
+        shop_trip = distance / 100 * fuel_consumption * fuel_price * 2
 
         return round(shop_trip, 2)
 
