@@ -30,7 +30,8 @@ def shop_trip() -> None:
             customer_data["product_cart"],
             customer_data["location"],
             customer_data["money"],
-            customer_car)
+            customer_car
+        )
 
         min_cost = float("inf")
         cheapest_shop = None
