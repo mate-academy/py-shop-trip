@@ -6,7 +6,7 @@ from app.Classes.shop import customer_service
 
 
 def shop_trip() -> None:
-    with (open("/home/max/PycharmProjects/py-shop-trip/app/config.json", "r")
+    with (open("app/config.json", "r")
           as config):
         data = json.load(config)
         customers_info = data["customers"]
