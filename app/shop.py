@@ -29,7 +29,7 @@ class Shop:
 
     def print_receipt(self, customer: Customer) -> None:
         total_amount = 0
-        current_time = datetime.now().strftime("%m/%d/%Y %H:%M:%S")
+        current_time = datetime.now().strftime("%d/%m/%Y %H:%M:%S")
         print(f"Date: {current_time}")
         print(f"Thanks, {customer}, for your purchase!")
         print("You have bought:")
