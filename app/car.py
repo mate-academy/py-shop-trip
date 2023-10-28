@@ -7,6 +7,3 @@ class Car:
         fuel_needed = (distance / 100) * self.fuel_consumption
         fuel_cost = fuel_needed * fuel_price
         return fuel_cost
-
-    def get_brand(self) -> str:
-        return self.brand

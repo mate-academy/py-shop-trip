@@ -1,5 +1,4 @@
-from car import Car
-from calculate_distance import calculate_distance
+from app.car import Car
 
 
 class Customer:
@@ -8,7 +7,7 @@ class Customer:
             name: str,
             product_cart: dict,
             location: list,
-            money: int,
+            money: int | float,
             car: Car
     ) -> None:
         self.name = name
@@ -17,35 +16,11 @@ class Customer:
         self.money = money
         self.car = car
 
-    def calculate_trip_cost(
-            self,
-            shop_location: list,
-            fuel_price: float
-    ) -> float:
-        distance = calculate_distance(self.location, shop_location)
-        fuel_cost = self.car.calculate_fuel_cost(distance, fuel_price)
-        return fuel_cost
+    def primary_amount_of_money(self) -> None:
+        print(f"{self.name} has {self.money} dollars")
 
-    def update_location(self, new_location: list) -> None:
-        self.location = new_location
+    def print_rides_home(self) -> None:
+        print(f"{self.name} rides home")
 
-    def make_purchase(
-            self,
-            shop_name: str,
-            shop_products: dict,
-            shop_prices: dict
-    ) -> None:
-        for item, quantity in self.product_cart.items():
-            if item in shop_products:
-                cost = quantity * shop_prices[item]
-                self.money -= cost
-                self.product_cart[item] -= quantity
-
-    def update_money(self, trip_cost: float, purchase_cost: float) -> None:
-        self.money -= trip_cost - purchase_cost
-
-    def get_remaining_money(self) -> float:
-        return self.money
-
-    def get_current_location(self) -> list:
-        return self.location
+    def final_amount_of_money(self) -> None:
+        print(f"{self.name} now has {self.money} dollars\n")
