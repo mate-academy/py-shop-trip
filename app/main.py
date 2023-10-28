@@ -4,6 +4,7 @@ from app.customer import Customer
 from app.shop import Shop
 from app import parsing
 
+
 def shop_trip() -> None:
     config = parsing.parse_data_from_json()
     customers_data = config["customers"]
@@ -45,7 +46,7 @@ def shop_trip() -> None:
             total_cost = round(fuel_cost + product_cost, 2)
             print(f"{customer.name}'s trip to the {shop.name} costs {total_cost}")
 
-            if total_cost < cheapest_cost and customer money >= total_cost:
+            if total_cost < cheapest_cost and customer.money >= total_cost:
                 cheapest_cost = total_cost
                 best_shop = shop
 
@@ -71,6 +72,7 @@ def shop_trip() -> None:
             print(f"{customer.name} now has {round(customer.money, 2)} dollars")
         else:
             print(f"{customer.name} doesn't have enough money to make a purchase in any shop")
+
 
 if __name__ == "__main__":
     shop_trip()
