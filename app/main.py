@@ -44,7 +44,8 @@ def shop_trip() -> None:
             fuel_cost = customer.calculate_fuel_cost(customer.car, shop) * 2
             product_cost = customer.calculate_product_cost(shop)
             total_cost = round(fuel_cost + product_cost, 2)
-            print(f"{customer.name}'s trip to the {shop.name} costs {total_cost}")
+            print(f"{customer.name}'s trip to the {shop.name}"
+                  f" costs {total_cost}")
 
             if total_cost < cheapest_cost and customer.money >= total_cost:
                 cheapest_cost = total_cost
@@ -53,25 +54,31 @@ def shop_trip() -> None:
         if best_shop:
             print(f"{customer.name} rides to {best_shop.name}")
 
-            print(f"Date: {datetime.datetime.now().strftime('%d/%m/%Y %H:%M:%S')}")
+            print(f"Date: "
+                  f"{datetime.datetime.now().strftime('%d/%m/%Y %H:%M:%S')}")
             print(f"Thanks, {customer.name}, for your purchase!")
             print("You have bought:")
             for item, quantity in customer.product_cart.items():
                 cost = best_shop.products[item] * quantity
                 if isinstance(cost, float) and cost.is_integer():
                     cost = int(cost)
-                if isinstance(cost, float) and cost is integer():
+                if isinstance(cost, float) and cost.is_integer():
                     cost = int(cost)
+
                 print(f"{quantity} {item}s for {round(cost, 2)} dollars")
-            print(f"Total cost is {round(customer.calculate_product_cost(best_shop), 2)} dollars")
+            print(f"Total cost is "
+                  f"{round(customer.calculate_product_cost(best_shop), 2)}"
+                  f" dollars")
             print("See you again!")
 
             customer.money -= cheapest_cost
 
             print(f"{customer.name} rides home")
-            print(f"{customer.name} now has {round(customer.money, 2)} dollars")
+            print(f"{customer.name} now has {round(customer.money, 2)}"
+                  f" dollars")
         else:
-            print(f"{customer.name} doesn't have enough money to make a purchase in any shop")
+            print(f"{customer.name} doesn't have enough money to make"
+                  f" a purchase in any shop")
 
 
 if __name__ == "__main__":
