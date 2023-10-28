@@ -1,16 +1,16 @@
 from app.utils.utils import (
     file_handler,
-    init_customers,
-    init_shops,
+    get_customers,
+    get_shops,
     visit_shop
 )
 
 
 def shop_trip() -> None:
-    config_data, fuel_price = file_handler("app/config.json")
+    fuel_price, customers_data, shops_data = file_handler("app/config.json")
 
-    shops = init_shops(config_data)
+    shops = get_shops(shops_data)
 
-    customers = init_customers(config_data)
+    customers = get_customers(customers_data)
 
     visit_shop(customers, shops, fuel_price)
