@@ -31,7 +31,7 @@ class Shop:
         total_amount = 0
         current_time = datetime.now().strftime("%d/%m/%Y %H:%M:%S")
         print(f"Date: {current_time}")
-        print(f"Thanks, {customer}, for your purchase!")
+        print(f"Thanks, {customer.name}, for your purchase!")
         print("You have bought:")
         for item, quantity in customer.product_cart.items():
             if item in self.products:
