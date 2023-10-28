@@ -36,5 +36,5 @@ class Shop:
             cost = quantity * self.products[item]
             total_amount += cost
             print(f"{quantity} {item}s for {self.round_num(cost)} dollars")
-        print(f"Total cost is {total_amount} dollars\n")
-        print("See you again!\n")
+        print(f"Total cost is {total_amount} dollars\n"
+              f"See you again!\n")
