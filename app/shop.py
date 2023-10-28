@@ -1,5 +1,4 @@
 from datetime import datetime
-from app.calculate_distance import calculate_distance
 from app.customer import Customer
 import math
 
