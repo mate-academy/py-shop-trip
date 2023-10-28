@@ -1,6 +1,7 @@
 from datetime import datetime
 from app.calculate_distance import calculate_distance
 from app.customer import Customer
+import math
 
 
 class Shop:
@@ -10,8 +11,7 @@ class Shop:
         self.products = products
 
     def calculate_distance_to_customer(self, customer: Customer) -> float:
-        distance = calculate_distance(self.location, customer.location)
-        return distance
+        return math.dist(self.location, customer.location)
 
     def calculate_purchase_cost(self, customer: Customer) -> int | float:
         return sum(quantity * customer.product_cart[item]
@@ -32,11 +32,10 @@ class Shop:
         current_time = datetime.now().strftime("%d/%m/%Y %H:%M:%S")
         print(f"Date: {current_time}")
         print(f"Thanks, {customer.name}, for your purchase!")
-        print("You have bought:")
+        print("You have bought: ")
         for item, quantity in customer.product_cart.items():
-            if item in self.products:
-                cost = quantity * self.products[item]
-                total_amount += cost
-                print(f"{quantity} {item}s for {self.round_num(cost)} dollars")
-        print(f"Total cost is {total_amount} dollars")
-        print("See you again!")
+            cost = quantity * self.products[item]
+            total_amount += cost
+            print(f"{quantity} {item}s for {self.round_num(cost)} dollars")
+        print(f"Total cost is {total_amount} dollars\n")
+        print("See you again!\n")

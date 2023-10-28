@@ -53,13 +53,13 @@ def shop_trip() -> None:
                 shops_cost.update({trip_cost: shop})
                 min_shop = shops_cost[min(shops_cost)]
 
-                if customer.money >= min(shops_cost):
-                    min_shop.print_rides_to_shop(customer)
-                    min_shop.print_receipt(customer)
-                    customer.print_rides_home()
-                    customer.money -= min(shops_cost)
-                    customer.final_amount_of_money()
+            if customer.money >= min(shops_cost):
+                min_shop.print_rides_to_shop(customer)
+                min_shop.print_receipt(customer)
+                customer.print_rides_home()
+                customer.money -= min(shops_cost)
+                customer.final_amount_of_money()
 
-                else:
-                    print(f"{customer.name} doesn't have enough "
-                          f"money to make a purchase in any shop")
+            else:
+                print(f"{customer.name} doesn't have enough "
+                      f"money to make a purchase in any shop")
