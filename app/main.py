@@ -1,4 +1,5 @@
 import datetime
+
 from app.car import Car
 from app.customer import Customer
 from app.shop import Shop
@@ -9,9 +10,6 @@ def shop_trip() -> None:
     config = parsing.parse_data_from_json()
     customers_data = config["customers"]
     shops_data = config["shops"]
-
-    customers = []
-    shops = []
 
     car_data = config["car"]
     car = Car(car_data["brand"], car_data["fuel_consumption"])
@@ -24,61 +22,39 @@ def shop_trip() -> None:
             customer_data["product_cart"],
             car
         )
-        customers.append(customer)
+        fuel_cost = customer.calculate_fuel_cost(customer.car, customer.location)
+        customer.money -= fuel_cost
+        shops = [Shop(shop_data["name"], shop_data["location"], shop_data["products"]) for shop_data in shops_data]
 
-    for shop_data in shops_data:
-        shop = Shop(
-            shop_data["name"],
-            shop_data["location"],
-            shop_data["products"]
-        )
-        shops.append(shop)
-
-    for customer in customers:
-        print(f"{customer.name} has {customer.money} dollars")
-
+        cheapest_cost = float('inf')
         best_shop = None
-        cheapest_cost = float("inf")
 
         for shop in shops:
-            fuel_cost = customer.calculate_fuel_cost(customer.car, shop) * 2
             product_cost = customer.calculate_product_cost(shop)
             total_cost = round(fuel_cost + product_cost, 2)
-            print(f"{customer.name}'s trip to the {shop.name}"
-                  f" costs {total_cost}")
 
             if total_cost < cheapest_cost and customer.money >= total_cost:
                 cheapest_cost = total_cost
                 best_shop = shop
 
         if best_shop:
-            print(f"{customer.name} rides to {best_shop.name}")
-
-            print(f"Date: "
-                  f"{datetime.datetime.now().strftime('%d/%m/%Y %H:%M:%S')}")
+            print(f"{customer.name}'s trip to the {best_shop.name} costs {total_cost}")
+            print(f"Date: {datetime.datetime.now().strftime('%d/%m/%Y %H:%M:%S')}")
             print(f"Thanks, {customer.name}, for your purchase!")
             print("You have bought:")
             for item, quantity in customer.product_cart.items():
-                cost = best_shop.products[item] * quantity
-                if isinstance(cost, float) and cost.is_integer():
-                    cost = int(cost)
-                if isinstance(cost, float) and cost.is_integer():
-                    cost = int(cost)
-
+                cost = best_shop.products.get(item, 0) * quantity
                 print(f"{quantity} {item}s for {round(cost, 2)} dollars")
-            print(f"Total cost is "
-                  f"{round(customer.calculate_product_cost(best_shop), 2)}"
-                  f" dollars")
+            print(f"Total cost is {round(total_cost, 2)} dollars")
             print("See you again!")
 
             customer.money -= cheapest_cost
 
+            print(f"{customer.name} rides to {best_shop.name}")
             print(f"{customer.name} rides home")
-            print(f"{customer.name} now has {round(customer.money, 2)}"
-                  f" dollars")
+            print(f"{customer.name} now has {round(customer.money, 2)}")
         else:
-            print(f"{customer.name} doesn't have enough money to make"
-                  f" a purchase in any shop")
+            print(f"{customer.name} doesn't have enough money to make a purchase in any shop")
 
 
 if __name__ == "__main__":
