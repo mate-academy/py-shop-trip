@@ -21,7 +21,7 @@ def shop_trip() -> None:
     for customer in customers:
         print(f"{customer.name} has {customer.money} dollars")
 
-        possible_shops = customer.calculate_trip_cost_for_each_shop(
+        possible_shops = customer.calculate_total_trip_cost_for_each_shop(
             shops, fuel_price
         )
 

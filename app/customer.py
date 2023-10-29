@@ -25,7 +25,7 @@ class Customer:
 
             self.__possible_shops[shop] = {"purchase_price": purchase_price}
 
-    def __calculate_trip_cost_to_each_shop(self, fuel_price: float) -> None:
+    def __calculate_fuel_cost_to_each_shop(self, fuel_price: float) -> None:
         for shop in self.__possible_shops:
             distance_to_shop = dist(shop.location, self.location)
             roundtrip_cost = ((distance_to_shop * 2)
@@ -34,11 +34,11 @@ class Customer:
 
             self.__possible_shops[shop]["roundtrip_cost"] = roundtrip_cost
 
-    def calculate_trip_cost_for_each_shop(self,
-                                          shops: list,
-                                          fuel_price: float) -> None:
+    def calculate_total_trip_cost_for_each_shop(self,
+                                                shops: list,
+                                                fuel_price: float) -> None:
         self.__calculate_purchase_price_for_each_shop(shops)
-        self.__calculate_trip_cost_to_each_shop(fuel_price)
+        self.__calculate_fuel_cost_to_each_shop(fuel_price)
 
         self.__possible_shops = {
             shop: round(
