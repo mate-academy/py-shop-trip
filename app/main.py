@@ -11,10 +11,13 @@ def shop_trip() -> None:
     customers_data = config["customers"]
     shops_data = config["shops"]
 
-    car_data = config["car"]
-    car = Car(car_data["brand"], car_data["fuel_consumption"])
-
     for customer_data in customers_data:
+        car_data = customer_data.get("car")
+        if car_data:
+            car = Car(car_data["brand"], car_data["fuel_consumption"])
+        else:
+            car = Car("Default Car", 10.0)
+
         customer = Customer(
             customer_data["name"],
             customer_data["location"],
@@ -22,6 +25,7 @@ def shop_trip() -> None:
             customer_data["product_cart"],
             car
         )
+
         fuel_cost = customer.calculate_fuel_cost(customer.car, customer.location)
         customer.money -= fuel_cost
         shops = [Shop(shop_data["name"], shop_data["location"], shop_data["products"]) for shop_data in shops_data]

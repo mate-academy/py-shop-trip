@@ -29,7 +29,7 @@ class Customer:
         return fuel_cost
 
     def calculate_product_cost(self, shop: Shop) -> float:
-        product_cost = sum(
+        sum(
             self.product_cart[key] * shop.products[key]
-            for key in self.product_cart if key in shop.products)
-        return product_cost
+            for key in self.product_cart if key in shop.products
+        )
