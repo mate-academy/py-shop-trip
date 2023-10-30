@@ -1,6 +1,5 @@
 import datetime
 
-from app.car import Car
 from app.customer import Customer
 from app.shop import Shop
 from app import parsing
@@ -13,10 +12,6 @@ def shop_trip() -> None:
 
     for customer_data in customers_data:
         car_data = customer_data.get("car")
-        if car_data:
-            car = Car(car_data["brand"], car_data["fuel_consumption"])
-        else:
-            car = Car("Default Car", 10.0)
 
         customer = Customer(
             customer_data["name"],
@@ -29,8 +24,7 @@ def shop_trip() -> None:
         fuel_cost = customer.calculate_fuel_cost(customer.car, shop)
 
         customer.money -= fuel_cost
-        shops = [Shop(shop_data["name"], shop_data["location"],
-                      shop_data["products"]) for shop_data in shops_data]
+        shops = [Shop(**shop_data) for shop_data in shops_data]
 
         cheapest_cost = float("inf")
         best_shop = None
@@ -58,9 +52,11 @@ def shop_trip() -> None:
 
             customer.money -= cheapest_cost
 
-            print(f"{customer.name} rides to {best_shop.name}")
-            print(f"{customer.name} rides home")
-            print(f"{customer.name} now has {round(customer.money, 2)}")
+            print(
+                f"{customer.name} rides to {best_shop.name}"
+                f"{customer.name} rides home"
+                f"{customer.name} now has {round(customer.money, 2)}")
+
         else:
             print(f"{customer.name} doesn't have enough "
                   f"money to make a purchase in any shop")
