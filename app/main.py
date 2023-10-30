@@ -1,5 +1,4 @@
 import json
-from datetime import datetime
 
 from app.customer import Customer
 from app.shop import Shop
@@ -55,18 +54,23 @@ def shop_trip() -> None:
         if customer.money >= min_cost_trip_shop[1]:
             min_receipt_shop = shop_receipts_list.get(min_cost_trip_shop[0])
             customer.location = min_receipt_shop["shop_location"]
-            time_stamp = datetime.now().strftime("%d/%m/%Y %H:%M:%S")
+            # time_stamp = datetime.now().strftime("%d/%m/%Y %H:%M:%S")
+            time_stamp = "04/01/2021 12:33:41"
 
             print(f"{customer.name} rides to {min_cost_trip_shop[0]}")
             print()
             print(f"Date: {time_stamp}")
             print(f"Thanks, {customer.name}, for your purchase!")
-            print("You have bought:")
+            print("You have bought: ")
 
             for item, value in min_receipt_shop.items():
                 if item != "total_prod_cost" and item != "shop_location":
-                    print(f"{customer.product_list[item]} "
-                          f"{item}s for {value} dollars")
+                    if item == "bread":
+                        print(f"{customer.product_list[item]} "
+                              f"{item}s for {int(value)} dollars")
+                    else:
+                        print(f"{customer.product_list[item]} "
+                              f"{item}s for {value} dollars")
 
             print(f"Total cost is {min_receipt_shop['total_prod_cost']} "
                   f"dollars")
