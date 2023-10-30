@@ -26,8 +26,8 @@ def shop_trip() -> None:
             car
         )
 
-        fuel_cost = customer.calculate_fuel_cost(customer.car,
-                                                 customer.location)
+        fuel_cost = customer.calculate_fuel_cost(customer.car, shop)
+
         customer.money -= fuel_cost
         shops = [Shop(shop_data["name"], shop_data["location"],
                       shop_data["products"]) for shop_data in shops_data]
