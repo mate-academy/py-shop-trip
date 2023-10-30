@@ -1,12 +1,1 @@
-from typing import Dict, Any
-
-
-class Car:
-    def __init__(
-            self,
-            info: Dict[str, Any],
-            fuel_price: float,
-    ) -> None:
-        self.brand = info["brand"]
-        self.fuel_consumption = info["fuel_consumption"]
-        self.fuel_price = float(fuel_price)
+class Car:    def __init__(            self,            brand: str,            fuel_consumption: float,    ) -> None:        self.brand = brand        self.fuel_consumption = fuel_consumption    def calculate_trip_cost(            self,            distance: float,            FUEL_PRICE: float    ) -> float:        cost_trip = (distance / self.fuel_consumption) * FUEL_PRICE        return cost_trip

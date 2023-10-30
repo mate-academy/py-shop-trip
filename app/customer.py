@@ -1,40 +1,1 @@
-from typing import Dict, Any
-from app.shop import Shop
-from app.car import Car
-
-
-class Customer:
-    def __init__(
-            self,
-            info: Dict[str, Any],
-            fuel_price: float
-    ) -> None:
-        self.name = info["name"]
-        self.product_cart = info["product_cart"]
-        self.location = info["location"]
-        self.home_location = info["location"]
-        self.money = info["money"]
-        self.car = Car(info.get("car", {}), fuel_price)
-
-    def calculate_trip_cost(
-            self,
-            fuel_price: float,
-            shop: Shop
-    ) -> float:
-        x1, y1 = self.location
-        x2, y2 = shop.location
-        distance = ((x2 - x1) ** 2 + (y2 - y1) ** 2) ** 0.5
-        fuel_cost = (distance / 100) * \
-            self.car.fuel_consumption * fuel_price * 2
-        products_cost = self.calculate_products_cost(shop)
-        total = round(products_cost + fuel_cost, 2)
-        return total
-
-    def calculate_products_cost(
-            self,
-            shop: Shop,
-    ) -> float | int:
-        products_cost = sum(amount * shop.products[product] for
-                            product, amount in self.product_cart.items()
-                            if product in shop.products)
-        return round(products_cost, 2)
+from typing import Dict, Listfrom app.car import Carfrom app.shop import Shopclass Customer:    def __init__(            self,            name: str,            product_cart: List,            location: Dict,            car: Car,            money: int    ) -> None:        self.name = name        self.product_cart = product_cart        self.location = location        self.car = car        self.money = money    def calculate_trip_cost(self, shop, fuel_price):        distance_to_shop = self.calculate_distance(shop.location)        fuel_cost = self.car.calculate_trip_cost(distance_to_shop, fuel_price)        shopping_cost = shop.shopping_cost(self.product_cart)        total_cost = fuel_cost + shopping_cost + fuel_cost        return round(total_cost, 2)    def calculate_distance(self, shop_location):        x1, y1 = self.location        x2, y2 = shop_location        distance = ((x2 - x1) ** 2 + (y2 - y1) ** 2) ** 0.5        return distance    def calculate_fuel_cost(self, distance, fuel_price):        fuel_cost = (distance / 100) * self.car.fuel_consumption * fuel_price        return fuel_cost    def calculate_money(self, shop: Shop) -> bool:        shopping_cost = shop.shopping_cost(self.product_cart)        return self.money >= shopping_cost    def left_money(self, money: int) -> float:        result = Shop.total_cost - money        return result
