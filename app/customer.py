@@ -13,15 +13,17 @@ class Customer:
     money: float
     car: Car
 
-    @classmethod
-    def create_customers(cls, customers: List) -> List:
-        customer_objects = []
-        for customer in customers:
-            car_data = customer.pop("car")
-            car = Car(**car_data)
-            customer["car"] = car
-            customer_objects.append(cls(**customer))
-        return customer_objects
+    def __init__(self,
+                 name: str,
+                 product_cart: dict,
+                 location: list,
+                 money: float,
+                 car_data: Car) -> None:
+        self.name = name
+        self.product_cart = product_cart
+        self.location = location
+        self.money = money
+        self.car = Car(**car_data)
 
     def choose_the_best_shop(self,
                              shops_list: List[Shop],
