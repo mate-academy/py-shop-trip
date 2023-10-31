@@ -1,5 +1,6 @@
 import datetime
 
+from app.car import Car
 from app.customer import Customer
 from app.shop import Shop
 from app import parsing
@@ -18,26 +19,23 @@ def shop_trip() -> None:
             customer_data["location"],
             customer_data["money"],
             customer_data["product_cart"],
-            car
+            Car(car_data["brand"], car_data["fuel_consumption"])
         )
-
-        fuel_cost = customer.calculate_fuel_cost(customer.car, shop)
-
-        customer.money -= fuel_cost
-        shops = [Shop(**shop_data) for shop_data in shops_data]
 
         cheapest_cost = float("inf")
         best_shop = None
 
-        for shop in shops:
+        for shop_data in shops_data:
+            shop = Shop(**shop_data)
             product_cost = customer.calculate_product_cost(shop)
-            total_cost = round(fuel_cost + product_cost, 2)
+            total_cost = round(product_cost, 2)
 
             if total_cost < cheapest_cost and customer.money >= total_cost:
                 cheapest_cost = total_cost
                 best_shop = shop
 
         if best_shop:
+            customer.calculate_fuel_cost(customer.car, best_shop)
             print(f"{customer.name}'s trip to the {best_shop.name}"
                   f" costs {total_cost}")
             print(f"Date: "
