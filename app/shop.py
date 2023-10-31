@@ -4,12 +4,6 @@ class Shop:
         self.location = location
         self.products = products
 
-    # def all_products_are_available(self, required_products: dict) -> bool:
-    #     for product in required_products.keys():
-    #         if product not in self.products.keys():
-    #             return False
-    #     return True
-
     @staticmethod
     def verify_position(position_cords: list) -> bool:
         if not isinstance(position_cords, list):

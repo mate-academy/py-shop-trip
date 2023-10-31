@@ -1,7 +1,6 @@
 from app.car import Car
 from app.shop import Shop
 import datetime
-from typing import List
 
 
 class Customer:
@@ -18,13 +17,14 @@ class Customer:
         self.location = location
         self.money = money
         self.car = car
+        self.home = location
 
     @staticmethod
     def is_less(value: float, other: float | None) -> bool:
         return not other or value < other
 
     def find_the_cheapest_shop(
-        self, shops: List[Shop], fuel_price: float
+        self, shops: list[Shop], fuel_price: float
     ) -> dict | None:
         print(f"{self.name} has {self.money} dollars")
         lowest_costs = None
@@ -36,7 +36,7 @@ class Customer:
             )
             shop_response = shop.get_full_receipt(self.product_cart)
             total_costs = fuel_costs + shop_response.get("products_costs")
-            shop_response["shop"] = shop.name
+            shop_response["shop"] = [shop.name, shop.location]
             print(
                 f"{self.name}'s trip to the {shop.name} costs {total_costs}"
             )
@@ -45,7 +45,8 @@ class Customer:
                 result = shop_response
         if self.money >= lowest_costs:
             self.money -= lowest_costs
-            print(f"{self.name} rides to {result.get('shop')}\n")
+            print(f"{self.name} rides to {result.get('shop')[0]}\n")
+            self.location = result.get("shop")[1]
             return result
         print(
             f"{self.name} doesn't have enough money "
@@ -72,4 +73,5 @@ class Customer:
         print(f"Total cost is {products_value} dollars")
         print("See you again!\n")
         print(f"{self.name} rides home")
+        self.location = self.home
         print(f"{self.name} now has {self.money} dollars\n")
