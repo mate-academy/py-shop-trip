@@ -6,11 +6,11 @@ from app.car import Car
 def create_list_of_customers_objects(customers_dict: dict) -> list[Customer]:
     return [
         Customer(
-            customer.get("name"),
-            customer.get("product_cart"),
-            customer.get("location"),
-            customer.get("money"),
-            create_car_object_from_dict(customer.get("car")),
+            name=customer.get("name"),
+            product_cart=customer.get("product_cart"),
+            location=customer.get("location"),
+            money=customer.get("money"),
+            car=create_car_object_from_dict(customer.get("car")),
         )
         for customer in customers_dict
     ]

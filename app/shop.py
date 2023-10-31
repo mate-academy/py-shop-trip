@@ -6,13 +6,13 @@ class Shop:
 
     @staticmethod
     def verify_position(position_cords: list) -> bool:
-        if not isinstance(position_cords, list):
-            return False
-        if not len(position_cords) == 2:
-            return False
-        if not len([i for i in position_cords if isinstance(i, int)]) == 2:
-            return False
-        return True
+        if (
+            isinstance(position_cords, list)
+            and len(position_cords) == 2
+            and all(isinstance(i, int) for i in position_cords)
+        ):
+            return True
+        return False
 
     def calculate_distance(self, your_pos: list) -> float:
         if self.verify_position(your_pos):

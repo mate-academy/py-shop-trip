@@ -1,5 +1,6 @@
 from app.car import Car
 from app.shop import Shop
+from typing import Union
 import datetime
 
 
@@ -7,9 +8,9 @@ class Customer:
     def __init__(
         self,
         name: str,
-        product_cart: dict,
-        location: list,
-        money: int | float,
+        product_cart: dict[str, int],
+        location: list[int],
+        money: Union[int, float],
         car: Car,
     ) -> None:
         self.name = name
