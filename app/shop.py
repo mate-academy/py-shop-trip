@@ -1,20 +1,20 @@
 class Shop:
-    def __init__(self, name: str, location: list, products: dict) -> None:
+    def __init__(self, name: str, location: list[int], products: dict) -> None:
         self.name = name
         self.location = location
         self.products = products
 
     @staticmethod
-    def verify_position(position_cords: list) -> bool:
+    def verify_position(position_coords: list[int]) -> bool:
         if (
-            isinstance(position_cords, list)
-            and len(position_cords) == 2
-            and all(isinstance(i, int) for i in position_cords)
+                isinstance(position_coords, list)
+                and len(position_coords) == 2
+                and all(isinstance(i, int) for i in position_coords)
         ):
             return True
         return False
 
-    def calculate_distance(self, your_pos: list) -> float:
+    def calculate_distance(self, your_pos: list[int]) -> float:
         if self.verify_position(your_pos):
             return (
                 (self.location[0] - your_pos[0]) ** 2

@@ -20,7 +20,7 @@ def create_car_object_from_dict(car_dict: dict) -> Car:
     return Car(car_dict.get("brand"), car_dict.get("fuel_consumption"))
 
 
-def create_list_of_shops_objects(shops_dict: dict) -> list:
+def create_list_of_shops_objects(shops_dict: dict) -> list[Shop]:
     result = []
 
     for shop in shops_dict:
