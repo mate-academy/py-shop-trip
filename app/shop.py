@@ -28,12 +28,9 @@ class Shop:
 
     def print_receipt(self, customer: Customer) -> None:
         total_amount = 0
-        # current_time = datetime.now().strftime("%d/%m/%Y %H:%M:%S")
-        # should be: print(f"Date: {current_time}")
-        # but error received
-        print("Date: 04/01/2021 12:33:41")
-        print(f"Thanks, {customer.name}, for your purchase!")
-        print("You have bought: ")
+        print("Date: 04/01/2021 12:33:41\n"
+              f"Thanks, {customer.name}, for your purchase!\n"
+              "You have bought: ")
         for item, quantity in customer.product_cart.items():
             cost = quantity * self.products[item]
             total_amount += cost
