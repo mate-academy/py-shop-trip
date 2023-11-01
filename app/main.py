@@ -33,7 +33,8 @@ def shop_trip() -> None:
             fuel_cost = customer.calculate_fuel_cost(customer.car, shop)
             total_cost = round(product_cost + fuel_cost, 2)
 
-            print(f"{customer.name}'s trip to the {shop.name} costs {total_cost}")
+            print(f"{customer.name}'s trip to the {shop.name} costs"
+                  f" {total_cost}")
 
             if total_cost < cheapest_cost and customer.money >= total_cost:
                 cheapest_cost = total_cost
@@ -42,8 +43,9 @@ def shop_trip() -> None:
         if best_shop:
             customer.calculate_fuel_cost(customer.car, best_shop)
             print(f"{customer.name} rides to {best_shop.name}\n")
-            print(f"Date: {datetime.datetime.now().strftime('%d/%m/%Y %H:%M:%S')}")
-            print(f"Thanks, {customer.name}, for your purchase!")
+            print(f"Date: "
+                  f"{datetime.datetime.now().strftime('%d/%m/%Y %H:%M:%S')}")
+            print(f"Thanks, {customer.name}, for you purchase!")
             print("You have bought:")
             for item, quantity in customer.product_cart.items():
                 cost = best_shop.products.get(item, 0) * quantity
@@ -54,9 +56,11 @@ def shop_trip() -> None:
             customer.money -= cheapest_cost
 
             print(f"{customer.name} rides home")
-            print(f"{customer.name} now has {round(customer.money, 2)} dollars")
+            print(f"{customer.name} now has {round(customer.money, 2)}"
+                  f" dollars")
         else:
-            print(f"{customer.name} doesn't have enough money to make a purchase in any shop\n")
+            print(f"{customer.name} doesn't have enough money to "
+                  f"make a purchase in any shop\n")
 
 
 if __name__ == "__main__":
