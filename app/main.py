@@ -30,7 +30,8 @@ def shop_trip() -> None:
         for shop_data in shops_data:
             shop = Shop(**shop_data)
             product_cost = customer.calculate_product_cost(shop)
-            total_cost = round(product_cost, 2)
+            fuel_cost = customer.calculate_fuel_cost(customer.car, shop)
+            total_cost = round(product_cost + fuel_cost, 2)
 
             print(f"{customer.name}'s trip to the {shop.name} costs {total_cost}")
 
