@@ -5,11 +5,21 @@ from app.car import Car
 
 @dataclass
 class Customer:
-    name: str
-    product_cart: dict
-    location: List[int]
-    money: int | float
-    car: Car
+
+    def __init__(
+            self,
+            name: str,
+            product_cart: dict,
+            location: List[int],
+            money: int | float,
+            car: dict,
+    ) -> None:
+
+        self.name = name
+        self.product_cart = product_cart
+        self.location = location
+        self.money = money
+        self.car = Car(car.get("brand"), car.get("fuel_consumption"))
 
     def money_start(self) -> None:
         print(f"{self.name} has {self.money} dollars")
