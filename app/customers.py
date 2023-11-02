@@ -1,46 +1,36 @@
+from typing import Any
 from app.cars import Car
 from app.shops import Shop
 
 
 class Customer:
-    customers = []
 
     def __init__(self,
                  name: str,
                  product_cart: dict,
                  location: list,
                  money: float,
-                 car: Car) -> None:
+                 car: dict) -> None:
         self.name = name
         self.product_cart = product_cart
         self.location = location
         self.money = money
-        self.car = car
-        self.available_shops = []
-        Customer.customers.append(self)
-        self.check_shops()
+        self.car = Car(**car)
 
-    def do_shop_trip(self) -> None:
+    def do_shop_trip(self, shops: list) -> Any:
         print(f"{self.name} has {self.money} dollars")
-        shops = {shop: self.calculate_costs(shop)
-                 for shop in self.available_shops}
-        cheaper_shop = min(shops, key=shops.get)
+        shops_price = {shop: self.calculate_costs(shop) for shop in shops}
+        cheaper_shop = min(shops_price, key=shops_price.get)
 
-        if shops[cheaper_shop] <= self.money:
+        if shops_price[cheaper_shop] <= self.money:
             print(f"{self.name} rides to {cheaper_shop}\n")
-            self.money -= shops[cheaper_shop]
+            self.money -= shops_price[cheaper_shop]
             return (cheaper_shop.print_bill(self.name, self.product_cart),
                     self.ride_home())
 
         else:
             print(f"{self.name} doesn't have enough money"
                   f" to make a purchase in any shop")
-
-    def check_shops(self) -> None:
-        self.available_shops = (
-            [shop for shop in Shop.shops
-             if set(self.product_cart).issubset(set(shop.products))]
-        )
 
     def calculate_costs(self, shop: Shop) -> float:
         fuel = self.car.fuel_costs(self.location, shop.location)

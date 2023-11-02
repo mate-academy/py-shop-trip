@@ -14,9 +14,9 @@ class Shop:
         return self.name
 
     def print_bill(self, customer_name: str, product_cart: dict) -> None:
-        print("Date: 04/01/2021 12:33:41")
-        print(f"Thanks, {customer_name}, for your purchase!")
-        print("You have bought: ")
+        print("Date: 04/01/2021 12:33:41\n"
+              f"Thanks, {customer_name}, for your purchase!\n"
+              "You have bought: ")
         total_cost = 0
         for product in product_cart:
             cost = product_cart[product] * self.products[product]
@@ -24,5 +24,5 @@ class Shop:
                 cost = int(cost)
             total_cost += cost
             print(f"{product_cart[product]} {product}s for {cost} dollars")
-        print(f"Total cost is {total_cost} dollars")
-        print("See you again!\n")
+        print(f"Total cost is {total_cost} dollars\n"
+              "See you again!\n")
