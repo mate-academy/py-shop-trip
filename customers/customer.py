@@ -11,13 +11,13 @@ class Customer:
             product_cart: dict,
             location: list,
             money: int,
-            car: Car
+            car: dict
     ) -> None:
         self.name = name
         self.product_cart = product_cart
         self.location = location
         self.money = money
-        self.car = car
+        self.car = Car(**car)
 
     def calculate_distance(self, shop_location: list) -> float:
         difference_x = (shop_location[0] - self.location[0]) ** 2
@@ -25,9 +25,12 @@ class Customer:
         return (difference_x + difference_y) ** 0.5
 
     def calculate_buys(self, shop: Shop, data: json) -> int | float:
-        buy_milk = self.product_cart.get("milk") * shop.products["milk"]
-        buy_bread = self.product_cart.get("bread") * shop.products["bread"]
-        buy_butter = self.product_cart.get("butter") * shop.products["butter"]
+        buy_milk = (self.product_cart.get("milk", 0)
+                    * shop.products.get("milk", 0))
+        buy_bread = (self.product_cart.get("bread", 0)
+                     * shop.products.get("bread", 0))
+        buy_butter = (self.product_cart.get("butter", 0)
+                      * shop.products.get("butter", 0))
         distance = self.calculate_distance(shop.location)
         trip_cost = self.car.calculate_trip_coast(distance, data)
         return buy_milk + buy_butter + buy_bread + trip_cost * 2

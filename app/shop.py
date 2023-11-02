@@ -24,7 +24,7 @@ class Shop:
         total_product = 0
         for product in customer.product_cart:
             count_product = customer.product_cart.get(product)
-            cost_product = self.products.get(product)
+            cost_product = self.products.get(product, 0)
             cost_type_product = cost_product * count_product
             if int(cost_type_product) == cost_type_product:
                 cost_type_product = int(cost_type_product)

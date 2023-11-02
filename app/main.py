@@ -22,18 +22,13 @@ def shop_trip() -> None:
                   f" to make a purchase in any shop")
             continue
 
-        print(f"{customer.name} rides to {shops[cost_index].name[0]}")
-        print("")
+        print(f"{customer.name} rides to {shops[cost_index].name[0]}\n")
         location = customer.location
         customer.location = shops[cost_index].location
 
         shops[cost_index].print_receipt(customer)
-        print("")
-        print(f"{customer.name} rides home")
         customer.location = location
-        print(f"{customer.name} now has "
-              f"{round(customer.money - min(costs), 2)} dollars")
-        print("")
-
-
-shop_trip()
+        print(
+            f"\n{customer.name} rides home\n"
+            f"{customer.name} now has "
+            f"{round(customer.money - min(costs), 2)} dollars\n")
