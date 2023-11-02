@@ -1,5 +1,4 @@
 class Shop:
-    shops = []
 
     def __init__(self,
                  name: str,
@@ -8,7 +7,6 @@ class Shop:
         self.name = name
         self.location = location
         self.products = products
-        Shop.shops.append(self)
 
     def __repr__(self) -> str:
         return self.name

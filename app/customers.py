@@ -17,9 +17,10 @@ class Customer:
         self.money = money
         self.car = Car(**car)
 
-    def do_shop_trip(self, shops: list) -> Any:
+    def do_shop_trip(self, shops: list, fuel_price: float) -> Any:
         print(f"{self.name} has {self.money} dollars")
-        shops_price = {shop: self.calculate_costs(shop) for shop in shops}
+        shops_price = {shop: self.calculate_costs(shop, fuel_price)
+                       for shop in shops}
         cheaper_shop = min(shops_price, key=shops_price.get)
 
         if shops_price[cheaper_shop] <= self.money:
@@ -32,8 +33,8 @@ class Customer:
             print(f"{self.name} doesn't have enough money"
                   f" to make a purchase in any shop")
 
-    def calculate_costs(self, shop: Shop) -> float:
-        fuel = self.car.fuel_costs(self.location, shop.location)
+    def calculate_costs(self, shop: Shop, fuel_price: float) -> float:
+        fuel = self.car.fuel_costs(self.location, shop.location, fuel_price)
         products = sum(shop.products[key] * self.product_cart[key]
                        for key in self.product_cart)
         costs = round(fuel + products, 2)
