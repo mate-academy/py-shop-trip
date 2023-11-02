@@ -28,7 +28,5 @@ def shop_trip() -> None:
 
         shops[cost_index].print_receipt(customer)
         customer.location = location
-        print(
-            f"\n{customer.name} rides home\n"
-            f"{customer.name} now has "
-            f"{round(customer.money - min(costs), 2)} dollars\n")
+        print(f"\n{customer.name} rides home\n{customer.name} now has "
+              f"{round(customer.money - min(costs), 2)} dollars\n")
