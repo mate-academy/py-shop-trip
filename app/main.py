@@ -42,25 +42,33 @@ def shop_trip() -> None:
 
         if best_shop:
             customer.calculate_fuel_cost(customer.car, best_shop)
-            print(f"{customer.name} rides to {best_shop.name}\n")
-            print(f"Date: "
+            print(f"{customer.name} rides to {best_shop.name}")
+            print(f"\nDate: "
                   f"{datetime.datetime.now().strftime('%d/%m/%Y %H:%M:%S')}")
-            print(f"Thanks, {customer.name}, for you purchase!")
-            print("You have bought:")
+            print(f"Thanks, {customer.name}, for your purchase!")
+            print("You have bought: ")
+
+            products_cost = 0
+
             for item, quantity in customer.product_cart.items():
                 cost = best_shop.products.get(item, 0) * quantity
+
+                if isinstance(cost, float) and cost.is_integer():
+                    cost = int(cost)
+
+                products_cost += cost
                 print(f"{quantity} {item}s for {round(cost, 2)} dollars")
-            print(f"Total cost is {total_cost} dollars")
+            print(f"Total cost is {products_cost} dollars")
             print("See you again!\n")
 
             customer.money -= cheapest_cost
 
             print(f"{customer.name} rides home")
             print(f"{customer.name} now has {round(customer.money, 2)}"
-                  f" dollars")
+                  f" dollars\n")
         else:
             print(f"{customer.name} doesn't have enough money to "
-                  f"make a purchase in any shop\n")
+                  f"make a purchase in any shop")
 
 
 if __name__ == "__main__":
