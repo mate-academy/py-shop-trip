@@ -14,11 +14,7 @@ def shop_trip() -> None:
     fuel_price = config.get("FUEL_PRICE")
     customers = [
         Customer(
-            name=customer["name"],
-            product_cart=customer["product_cart"],
-            location=customer["location"],
-            money=customer["money"],
-            car_data=customer["car"]
+            **customer
         ) for customer in config.get("customers")
     ]
     shops = Shop.create_shops(config.get("shops"))

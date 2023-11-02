@@ -18,12 +18,12 @@ class Customer:
                  product_cart: dict,
                  location: list,
                  money: float,
-                 car_data: Car) -> None:
+                 car: Car) -> None:
         self.name = name
         self.product_cart = product_cart
         self.location = location
         self.money = money
-        self.car = Car(**car_data)
+        self.car = Car(**car)
 
     def choose_the_best_shop(self,
                              shops_list: List[Shop],
