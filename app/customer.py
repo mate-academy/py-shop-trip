@@ -1,8 +1,8 @@
-from app.shop import GetShopsData
-from app.car import GetCarsData
+from app.shop import Shop
+from app.car import Car
 
 
-class GetCustomersData:
+class Customer:
     def __init__(self, customer_dict: dict) -> None:
         self.customer_dict = customer_dict
         self._money = self.customer_dict["money"]
@@ -47,10 +47,10 @@ class GetCustomersData:
 
     def choose_shop(
             self,
-            shops: list[GetShopsData],
-            car: GetCarsData,
+            shops: list[Shop],
+            car: Car,
             fuel_price: float
-    ) -> GetShopsData | None:
+    ) -> Shop | None:
         min_shop = None
         min_total_cost = float("inf")
 

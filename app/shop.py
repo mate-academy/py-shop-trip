@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 
-class GetShopsData:
+class Shop:
     def __init__(self, shops_dict: dict) -> None:
         self.shops_dict = shops_dict
 
@@ -16,6 +16,3 @@ class GetShopsData:
     @property
     def location(self) -> list[int]:
         return self.shops_dict["location"]
-
-    # def __lt__(self, other: ) -> GetShopsData:
-    #     return GetShopsData.location

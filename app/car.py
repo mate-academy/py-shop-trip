@@ -1,4 +1,4 @@
-class GetCarsData:
+class Car:
     def __init__(self, customer_dict: dict) -> None:
         self.customer_dict = customer_dict
 
