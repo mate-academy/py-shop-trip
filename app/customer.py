@@ -2,7 +2,6 @@ import datetime
 import math
 from typing import List
 from dataclasses import dataclass
-from app.car import Car
 from app.shop import Shop
 
 
@@ -12,17 +11,27 @@ class Customer:
     product_cart: dict
     location: list[int]
     money: float | int
-    car: Car
+    car: dict
+
+    def calculate_fuel_price(self,
+                             fuel_price: float,
+                             shop_location: list[int]) -> float:
+        distance = math.dist(self.location, shop_location) * 2
+        return round(
+            (self.car["fuel_consumption"] / 100
+             * fuel_price * distance),
+            2
+        )
 
     def calculate_product_cost(self,
                                shop: Shop) -> dict:
         total = 0
         purchases = {}
-        for item in self.product_cart.keys():
-            if item in shop.products.keys():
-                total += shop.products[item] * self.product_cart[item]
-                purchases[item] = round(
-                    shop.products[item] * self.product_cart[item], 2
+        for product in self.product_cart:
+            if product in shop.products:
+                total += shop.products[product] * self.product_cart[product]
+                purchases[product] = round(
+                    shop.products[product] * self.product_cart[product], 2
                 )
         return purchases
 
@@ -34,11 +43,12 @@ class Customer:
               f"Thanks, {self.name}, for your purchase!\n"
               f"You have bought: ")
 
-        for key in self.product_cart.keys():
-            amount = self.product_cart[key] * shop.products[key]
+        for product in self.product_cart:
+            amount = self.product_cart[product] * shop.products[product]
             if isinstance(amount, float) and amount.is_integer():
                 amount = math.floor(amount)
-            print(f"{self.product_cart[key]} {key}s for {amount} dollars")
+            print(f"{self.product_cart[product]} "
+                  f"{product}s for {amount} dollars")
 
         print(f"Total cost is {round(sum(purchases.values()), 2)} dollars\n"
               f"See you again!\n")
@@ -47,11 +57,13 @@ class Customer:
         print(f"{self.name} has {self.money} dollars")
         total_costs = []
         for shop in shops:
-            cost = (sum(self.calculate_product_cost(shop).values())
-                    + self.car.calculate_fuel_price(fuel_cost,
-                                                    self.location,
-                                                    shop.location)
-                    )
+            cost = (
+                sum(self.calculate_product_cost(shop).values())
+                + self.calculate_fuel_price(
+                    fuel_cost,
+                    shop.location
+                )
+            )
             print(f"{self.name}'s trip to the {shop.name} costs {cost}")
             total_costs.append(cost)
 
