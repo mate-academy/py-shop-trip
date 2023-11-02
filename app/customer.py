@@ -19,7 +19,7 @@ class Customer:
         self.product_cart = product_cart
         self.location = location
         self.money = money
-        self.car = Car(car.get("brand"), car.get("fuel_consumption"))
+        self.car = Car(**car)
 
     def money_start(self) -> None:
         print(f"{self.name} has {self.money} dollars")
