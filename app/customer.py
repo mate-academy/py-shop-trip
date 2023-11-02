@@ -9,13 +9,13 @@ class Customer:
         money: int | float,
         product_cart: dict,
         location: list[int],
-        car_data: dict,
+        car: dict,
     ) -> None:
         self.name = name
         self.money = money
         self.product_cart = product_cart
         self.location = location
-        self.car = Car(car_data["fuel_consumption"])
+        self.car = Car(car["fuel_consumption"])
 
     def calculate_distance(self, shop_coords: list[int]) -> float:
         if len(shop_coords) != 2 or len(self.location) != 2:
@@ -34,8 +34,8 @@ class Customer:
         for shop in shops:
             price = 0
             for product, quantity in self.product_cart.items():
-                if product in shop.product_price:
-                    price += shop.product_price[product] * quantity
+                if product in shop.products:
+                    price += shop.products[product] * quantity
                 else:
                     price = float("inf")
                     break

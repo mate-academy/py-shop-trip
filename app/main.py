@@ -1,5 +1,6 @@
 import json
 import os
+import datetime
 
 from app.customer import Customer
 from app.shop import Shop
@@ -11,18 +12,15 @@ def shop_trip() -> None:
 
     customers_data = all_data["customers"]
     shops_list = [
-        Shop(shop["name"], shop["products"], shop["location"])
+        Shop(**shop)
         for shop in all_data["shops"]
     ]
     fuel_price = all_data["FUEL_PRICE"]
     for customer_data in customers_data:
-        current_customer = Customer(
-            customer_data["name"],
-            customer_data["money"],
-            customer_data["product_cart"],
-            customer_data["location"],
-            customer_data["car"],
-        )
+        current_customer = Customer(**customer_data)
+
+        now = datetime.datetime.now()
+        formatted_date = now.strftime("%d/%m/%Y %H:%M:%S")
 
         print(f"{current_customer.name} has {current_customer.money} dollars")
 
@@ -33,23 +31,26 @@ def shop_trip() -> None:
                 f" to make a purchase in any shop"
             )
             continue
-        print(f"{current_customer.name} rides to {chosen_shop.name}\n")
-        print("Date: 04/01/2021 12:33:41")
-        print(f"Thanks, {current_customer.name}, for your purchase!")
-        print("You have bought: ")
+        print(
+            f"{current_customer.name} rides to {chosen_shop.name}\n"
+            f"\nDate: {formatted_date}\n"
+            f"Thanks, {current_customer.name}, for your purchase!\n"
+            "You have bought: "
+        )
         total_cost = 0
         for quant, item in current_customer.product_cart.items():
-            curr_cost = chosen_shop.product_price.get(quant, 0) * item
+            curr_cost = chosen_shop.products.get(quant, 0) * item
             if curr_cost == int(curr_cost):
                 curr_cost = int(curr_cost)
             total_cost += curr_cost
             print(f"{item} {quant}s for {curr_cost} dollars")
-        print(f"Total cost is {total_cost} dollars")
-        print("See you again!\n")
-        print(f"{current_customer.name} rides home")
+
         print(
-            f"{current_customer.name} now has"
-            f" {current_customer.money} dollars\n"
+            f"Total cost is {total_cost} dollars\n"
+            "See you again!\n"
+            f"\n{current_customer.name} rides home\n"
+            f"{current_customer.name} now has "
+            f"{current_customer.money} dollars\n"
         )
 
 
