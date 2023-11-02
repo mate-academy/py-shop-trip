@@ -1,5 +1,4 @@
 from app.customer import Customer
-from app.car import Car
 from app.shop import Shop
 import json
 
@@ -31,13 +30,7 @@ def load_config_data() -> dict:
 def create_customers(config_data: dict) -> list:
     customer_data = config_data["customers"]
     return [
-        Customer(
-            customer["name"],
-            customer["product_cart"],
-            customer["location"],
-            customer["money"],
-            Car(**customer["car"])
-        )
+        Customer(**customer)
         for customer in customer_data
     ]
 
