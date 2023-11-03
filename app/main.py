@@ -36,7 +36,6 @@ def shop_trip() -> None:
             "Date: %d/%m/%Y %H:%M:%S"
         )
         print(formatted_datetime)
-
         print(f"Thanks, {client_name}, for your purchase!")
         purchase_price = shops[min_shop_name].process_purchase(client_info)
         print(f"Total cost is {purchase_price:.1f} dollars")
