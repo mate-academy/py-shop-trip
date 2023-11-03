@@ -1,8 +1,10 @@
 import json
 
+from datetime import datetime
+
+
 from app.customer import Customer
 from app.shop import Shop
-from app.car import Car
 
 
 def shop_trip() -> None:
@@ -10,26 +12,14 @@ def shop_trip() -> None:
         shopping_data = json.load(file)
 
     fuel_cost = shopping_data["FUEL_PRICE"]
-    customer_list = []
-    shop_list = []
+    customer_list = [
+        Customer(**customer, fuel_cost=fuel_cost)
+        for customer in shopping_data["customers"]]
 
-    for customer in shopping_data["customers"]:
-        person = Customer(customer["name"],
-                          customer["product_cart"],
-                          customer["location"],
-                          customer["money"],
-                          Car(customer["car"]["brand"],
-                              customer["car"]["fuel_consumption"],
-                              fuel_cost)
-                          )
-        customer_list.append(person)
-
-    for shop in shopping_data["shops"]:
-        store = Shop(shop["name"],
-                     shop["location"],
-                     shop["products"]
-                     )
-        shop_list.append(store)
+    shop_list = [
+        Shop(shop["name"], shop["location"], shop["products"])
+        for shop in shopping_data["shops"]
+    ]
 
     for customer in customer_list:
         print(f"{customer.name} has {customer.money} dollars")
@@ -54,14 +44,18 @@ def shop_trip() -> None:
         if customer.money >= min_cost_trip_shop[1]:
             min_receipt_shop = shop_receipts_list.get(min_cost_trip_shop[0])
             customer.location = min_receipt_shop["shop_location"]
-            # time_stamp = datetime.now().strftime("%d/%m/%Y %H:%M:%S")
-            time_stamp = "04/01/2021 12:33:41"
 
-            print(f"{customer.name} rides to {min_cost_trip_shop[0]}")
-            print()
-            print(f"Date: {time_stamp}")
-            print(f"Thanks, {customer.name}, for your purchase!")
-            print("You have bought: ")
+            time_stamp = datetime.strptime(
+                "04/01/2021 12:33:41", "%m/%d/%Y %H:%M:%S"
+            )
+            time_stamp = time_stamp.strftime("%m/%d/%Y %H:%M:%S")
+
+            print(
+                f"{customer.name} rides to {min_cost_trip_shop[0]}\n\n"
+                f"Date: {time_stamp}\n"
+                f"Thanks, {customer.name}, for your purchase!\n"
+                "You have bought: "
+            )
 
             for item, value in min_receipt_shop.items():
                 if item != "total_prod_cost" and item != "shop_location":
@@ -72,14 +66,13 @@ def shop_trip() -> None:
                         print(f"{customer.product_list[item]} "
                               f"{item}s for {value} dollars")
 
-            print(f"Total cost is {min_receipt_shop['total_prod_cost']} "
-                  f"dollars")
-            print("See you again!")
-            print()
-            print(f"{customer.name} rides home")
-            print(f"{customer.name} now has "
-                  f"{customer.money - min_cost_trip_shop[1]} dollars")
-            print()
+            print(
+                f"Total cost is {min_receipt_shop['total_prod_cost']} "
+                f"dollars\n"
+                "See you again!\n\n"
+                f"{customer.name} rides home\n"
+                f"{customer.name} now has "
+                f"{customer.money - min_cost_trip_shop[1]} dollars\n")
         else:
             print(
                 f"{customer.name} doesn't have enough "

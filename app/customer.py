@@ -1,16 +1,19 @@
-from dataclasses import dataclass
-
 from app.shop import Shop
 from app.car import Car
 
 
-@dataclass
 class Customer:
-    name: str
-    product_list: dict
-    location: list
-    money: int
-    car: Car
+    def __init__(
+            self,
+            fuel_cost: float,
+            **kwargs
+    ) -> None:
+        self.name = kwargs["name"]
+        self.product_list = kwargs["product_cart"]
+        self.location = kwargs["location"]
+        self.money = kwargs["money"]
+        self.car = Car(**kwargs["car"], fuel_cost=fuel_cost)
+        self.fuel_cost = fuel_cost
 
     def handle_order(self, shop: Shop) -> dict:
         order_cost = 0
