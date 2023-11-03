@@ -25,12 +25,11 @@ def shop_trip() -> None:
             print(f"{client_name} doesn't have enough money to "
                   f"make a purchase in any shop")
             return
-
+        home_location = client_info.location
         print(f"{client_name} rides to {min_shop_name}\n")
 
-        home_location = client_info.location
-        client_info.location = shops[min_shop_name].location
 
+        client_info.location = shops[min_shop_name].location
         current_datetime = datetime.datetime.now()
         formatted_datetime = current_datetime.strftime(
             "Date: %d/%m/%Y %H:%M:%S"
