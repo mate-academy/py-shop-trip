@@ -16,7 +16,6 @@ class Shop:
         print("You have bought: ")
         purchase_price = 0
         for product, quantity in client.product_cart.items():
-
             if product in self.products:
                 price_per_unit = self.products[product]
                 cost = price_per_unit * quantity

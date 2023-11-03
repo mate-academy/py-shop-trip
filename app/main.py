@@ -28,7 +28,6 @@ def shop_trip() -> None:
         home_location = client_info.location
         print(f"{client_name} rides to {min_shop_name}\n")
 
-
         client_info.location = shops[min_shop_name].location
         current_datetime = datetime.datetime.now()
         formatted_datetime = current_datetime.strftime(

@@ -9,7 +9,6 @@ def create_clients(data: IO) -> dict:
         client_data["name"]: Customer(**client_data)
         for client_data in data["customers"]
     }
-
     return clients
 
 

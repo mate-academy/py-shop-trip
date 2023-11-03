@@ -29,7 +29,6 @@ class Customer:
                 if product in shop.products:
                     total_cost += shop.products[product] * quantity
             total_cost += self.calculate_trip_cost(shop)
-
             print(f"{self.name}'s trip to the {shop_name} costs {total_cost}")
             self.shopping_costs[shop_name] = total_cost
 
