@@ -1,7 +1,6 @@
-from typing import Dict
-
-
 class Car:
-    def __init__(self, car_data: Dict[str, str | float]) -> None:
-        self.brand = car_data["brand"]
-        self.fuel_consumption = car_data["fuel_consumption"]
+    def __init__(self,
+                 brand: str,
+                 fuel_consumption: int | float) -> None:
+        self.brand = brand
+        self.fuel_consumption = fuel_consumption

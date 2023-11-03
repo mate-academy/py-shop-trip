@@ -1,14 +1,17 @@
 from datetime import datetime
-from typing import Dict, Any
+from typing import Dict
 
 from app.customer import Customer
 
 
 class Shop:
-    def __init__(self, shop_data: Dict[str, Any]) -> None:
-        self.name = shop_data["name"]
-        self.location = shop_data["location"]
-        self.products = shop_data["products"]
+    def __init__(self,
+                 name: str,
+                 location: list,
+                 products: dict) -> None:
+        self.name = name
+        self.location = location
+        self.products = products
 
     def serve_customer(self, customer: Customer) -> Dict[str, dict]:
         sold_products = {}
@@ -17,11 +20,9 @@ class Shop:
             amount = customer.product_cart[product]
             cost = customer.product_cart[product] * self.products[product]
 
-            if cost == int(cost):
-                cost = int(cost)
+            cost = int(cost) if cost == int(cost) else cost
 
             sold_products[product] = {"amount": amount, "cost": cost}
-
         return sold_products
 
     def print_purchase_receipt(self, customer: Customer) -> None:

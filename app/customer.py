@@ -1,17 +1,21 @@
 from math import dist
-from typing import Dict, Any
 
 from app.car import Car
 
 
 class Customer:
-    def __init__(self, customer_data: Dict[str, Any]) -> None:
-        self.name = customer_data["name"]
-        self.product_cart = customer_data["product_cart"]
-        self.location = customer_data["location"]
-        self.money = customer_data["money"]
-        self.car = Car(customer_data["car"])
-        self.home_location = customer_data["location"]
+    def __init__(self,
+                 name: str,
+                 product_cart: dict,
+                 location: list,
+                 money: float,
+                 car: Car) -> None:
+        self.name = name
+        self.product_cart = product_cart
+        self.location = location
+        self.money = money
+        self.car = Car(**car)
+        self.home_location = location
         self.__cheapest_shop = None
         self.__possible_shops = None
 
@@ -60,9 +64,6 @@ class Customer:
             "shop": cheapest_shop_data[0], "total_cost": cheapest_shop_data[1]
         }
         return self.__cheapest_shop
-
-    def evaluate_shopping_possibility(self) -> bool:
-        return self.__cheapest_shop["total_cost"] <= self.money
 
     def go_to_the_shop(self) -> None:
         self.location = self.__cheapest_shop["shop"].location
