@@ -1,33 +1,20 @@
 from typing import IO
 
-from app.clien import Client
+from app.customer import Customer
 from app.shops import Shop
 
 
 def create_clients(data: IO) -> dict:
-    clients = {}
+    clients = {
+        client_data["name"]: Customer(**client_data)
+        for client_data in data["customers"]
+    }
 
-    for client_data in data["customers"]:
-        name = client_data["name"]
-        client = Client(
-            name=name,
-            product_cart=client_data["product_cart"],
-            location=client_data["location"],
-            money=client_data["money"],
-            car=client_data["car"]
-        )
-        clients[name] = client
     return clients
 
 
 def create_shops(data: IO) -> dict:
-    shops = {}
-    for shop_data in data["shops"]:
-        name = shop_data["name"]
-        shop = Shop(
-            name=name,
-            location=shop_data["location"],
-            products=shop_data["products"]
-        )
-        shops[name] = shop
+    shops = {
+        shop_data["name"]: Shop(**shop_data)
+        for shop_data in data["shops"]}
     return shops
