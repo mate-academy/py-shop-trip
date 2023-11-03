@@ -2,8 +2,6 @@ from math import sqrt
 
 
 class Car:
-    fuel_price = 0
-
     def __init__(self,
                  brand: str,
                  fuel_consumption: float) -> None:
