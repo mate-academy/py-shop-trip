@@ -80,6 +80,3 @@ def shop_trip() -> None:
         customer.position(ox, oy)
         remain_money = round(customer.money - min_cost, 2)
         print(f"{customer.name} now has {remain_money} dollars\n")
-
-
-shop_trip()
