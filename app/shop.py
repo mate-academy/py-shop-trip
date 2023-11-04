@@ -12,15 +12,15 @@ class Shop:
         self.products = products
 
     def check_prices(self, prod_cart: dict[str, int]) -> float:
-        return sum(self.products[prod] * qty
-                   for prod, qty in prod_cart.items())
+        return sum(self.products[prod] * quantity
+                   for prod, quantity in prod_cart.items())
 
     def sell_products(self, name: str, prod_cart: dict[str, int]) -> str:
 
         sell_time = datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S")
         products_lines = [
-            f"{qty} {prod}s for {self.products[prod] * qty:g} dollars\n"
-            for prod, qty in prod_cart.items()
+            (f"{quantity} {prod}s for {self.products[prod] * quantity:g}"
+             f" dollars\n") for prod, quantity in prod_cart.items()
         ]
 
         check_lines = [

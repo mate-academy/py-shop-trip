@@ -6,7 +6,7 @@ from app.shop import Shop
 from app.customer import Customer
 
 
-class Data:
+class Configuration:
     def __init__(self) -> None:
         self.customers = []
         self.shops = []
@@ -18,8 +18,8 @@ class Data:
         self.find_path_to_config()
         big_dict = self.get_data_from_json()
         self.fuel_price = big_dict["FUEL_PRICE"]
-        self.create_customers_obj(big_dict)
-        self.create_shops_obj(big_dict)
+        self.load_customers(big_dict)
+        self.load_shops(big_dict)
 
     def find_path_to_config(self) -> None:
         current_directory = os.path.dirname(os.path.abspath(__file__))
@@ -29,7 +29,7 @@ class Data:
         with open(self.__file, "r") as config_file:
             return json.load(config_file)
 
-    def create_customers_obj(self, big_dict: dict) -> None:
+    def load_customers(self, big_dict: dict) -> None:
         self.customers = [Customer(
             customer["name"],
             customer["product_cart"],
@@ -41,7 +41,7 @@ class Data:
             )
         ) for customer in big_dict["customers"]]
 
-    def create_shops_obj(self, big_dict: dict) -> None:
+    def load_shops(self, big_dict: dict) -> None:
         self.shops = [Shop(
             shop["name"],
             shop["location"],

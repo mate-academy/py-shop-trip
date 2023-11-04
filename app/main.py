@@ -1,8 +1,8 @@
-from app.data_configuration import Data
+from app.data_configuration import Configuration
 
 
 def shop_trip() -> None:
-    data = Data()
+    data = Configuration()
 
     for customer in data.customers:
 
