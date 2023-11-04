@@ -1,4 +1,6 @@
-# from datetime import datetime
+import datetime
+
+
 class Shop:
     def __init__(self,
                  name: str,
@@ -15,10 +17,7 @@ class Shop:
 
     def sell_products(self, name: str, prod_cart: dict[str, int]) -> str:
 
-        # changes made due to bag in pytest
-        # sell_time = datetime.now().strftime("%d/%m/%Y %H:%M:%S")
-        sell_time = "04/01/2021 12:33:41"
-
+        sell_time = datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S")
         products_lines = [
             f"{qty} {prod}s for {self.products[prod] * qty:g} dollars\n"
             for prod, qty in prod_cart.items()
