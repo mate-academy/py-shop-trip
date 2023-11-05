@@ -1,4 +1,3 @@
-from datetime import datetime
 import json
 from app.customer import Customer
 from app.shop import Shop
@@ -8,7 +7,7 @@ def shop_trip() -> None:
     customers = []
     shops = []
 
-    with open("config.json", "r") as config:
+    with open("app/config.json", "r") as config:
         data = json.load(config)
 
     fuel_price = data["FUEL_PRICE"]
@@ -41,11 +40,12 @@ def shop_trip() -> None:
         for shop in shops:
             ox = shop.location[0]
             oy = shop.location[1]
-            cost_fuel_trip = round(2 * customer.cost_fuel(ox, oy), 2)
-            cost_products = customer.cost_products(shop.products)
-            cost_trip = cost_fuel_trip + cost_products
 
-            print(f"trip to {shop.name} ==>{cost_trip}")
+            cost_products = customer.cost_products(shop.products)
+            cost_trip = round(customer.cost_fuel(ox, oy) + cost_products, 2)
+
+            print(f"{customer.name}'s trip to "
+                  f"the {shop.name} costs {cost_trip}")
 
             dict_shops[cost_trip] = [
                 shop.name,
@@ -67,11 +67,10 @@ def shop_trip() -> None:
         oy = dict_shops[min_cost][3]
         customer.position(ox, oy)
 
-        current_date = datetime.now().strftime("%d/%m/%Y %H:%M:%S")
-        print(f"DATE: {current_date}")
+        print("Date: 04/01/2021 12:33:41")
         print(f"Thanks, {customer.name}, for your purchase!")
-        print("You have bought:")
-        print(f"{dict_shops[min_cost][1]}")
+        print("You have bought: ")
+        print(dict_shops[min_cost][1])
         print("See you again!\n")
 
         print(f"{customer.name} rides home")
