@@ -12,7 +12,11 @@ def shop_trip() -> None:
         config = json.load(config)
 
     fuel_price = config.get("FUEL_PRICE")
-    customers = Customer.create_customers(config.get("customers"))
+    customers = [
+        Customer(
+            **customer
+        ) for customer in config.get("customers")
+    ]
     shops = Shop.create_shops(config.get("shops"))
 
     for customer in customers:
