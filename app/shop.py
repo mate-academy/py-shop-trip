@@ -20,11 +20,8 @@ class Shop:
         for key in self.products:
             cost = self.products[key] * list_of_customer_param[2][key]
             total += cost
-            if int(cost) == cost:
-                print(f"{list_of_customer_param[2][key]}"
-                      f" {key}s for {int(cost)} dollars")
-            else:
-                print(f"{list_of_customer_param[2][key]}"
-                      f" {key}s for {cost} dollars")
+            print(f"{list_of_customer_param[2][key]}"
+                  f" {key}s for "
+                  f"{int(cost) if int(cost) == cost else cost} dollars")
         print(f"Total cost is {total} dollars")
         print("See you again!")

@@ -30,10 +30,12 @@ class Customer:
         shop_class = None
         for shop in list_of_shops:
             total_cost = 0
-            total_cost += round((
+            count_distance = (
                 (shop.location[0] - self.location[0]) ** 2
                 + (shop.location[1] - self.location[1]) ** 2
-            ) ** (1 / 2) * self.car.fuel_consumption / 100 * fuel_price * 2, 2)
+            ) ** (1 / 2)
+            total_cost += round(count_distance * self.car.fuel_consumption
+                                / 100 * fuel_price * 2, 2)
             for key in self.product_cart:
                 total_cost += round(self.product_cart[key]
                                     * shop.products[key], 2)
