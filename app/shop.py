@@ -15,7 +15,7 @@ class Shop:
     def take_a_check(self, list_of_customer_param: list) -> None:
         print(f"Date: {datetime.datetime.now().strftime('%d/%m/%Y %H:%M:%S')}")
         print(f"Thanks, {list_of_customer_param[0]}, for your purchase!")
-        print("You have bought: ")
+        print("You have bought:")
         total = 0
         for key in self.products:
             cost = self.products[key] * list_of_customer_param[2][key]
