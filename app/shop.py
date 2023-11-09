@@ -5,7 +5,7 @@ class Shop:
     def __init__(
             self,
             name: str,
-            location: list,
+            location: list[int, int],
             prices: dict
     ) -> None:
         self.name = name
@@ -31,7 +31,7 @@ class Shop:
         return receipt["total_cost"]
 
     def print_receipt(self, customer_name: str) -> None:
-        date = datetime(2021, 1, 4, 12, 33, 41).strftime("%d/%m/%Y %H:%M:%S")
+        date = datetime.now().strftime("%d/%m/%Y %H:%M:%S")
         print(f"\nDate: {date}\n"
               f"Thanks, {customer_name}, for your purchase!\n"
               f"You have bought:")

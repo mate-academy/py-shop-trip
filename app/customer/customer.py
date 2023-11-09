@@ -7,7 +7,7 @@ class Customer:
             self,
             name: str,
             cart: dict,
-            location: list,
+            location: list[int, int],
             balance: float,
             car: Car
     ) -> None:
@@ -17,9 +17,10 @@ class Customer:
         self.balance = balance
         self.car = car
 
-    def calculate_trip_cost_to(self, shop: Shop) -> float:
+    def calculate_trip_cost_to(self, shop: Shop, fuel_price: float) -> float:
         return round((self.car.calculate_ride_cost_to(self.location,
-                                                      shop.location) * 2
+                                                      shop.location,
+                                                      fuel_price) * 2
                       + shop.calculate_total_cost_of(self.name, self.cart)), 2)
 
     def shop_in(self, shop: Shop, trip_cost: float) -> None:

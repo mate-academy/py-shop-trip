@@ -1,4 +1,4 @@
-from app.config import SHOPS, CUSTOMERS
+from app.config import SHOPS, CUSTOMERS, FUEL_PRICE
 
 
 def shop_trip() -> None:
@@ -6,7 +6,7 @@ def shop_trip() -> None:
         choice = [None, customer.balance]
         print(f"{customer.name} has {customer.balance} dollars")
         for shop in SHOPS:
-            cost = customer.calculate_trip_cost_to(shop)
+            cost = customer.calculate_trip_cost_to(shop, FUEL_PRICE)
             print(f"{customer.name}'s trip to the {shop.name} costs {cost}")
             if cost < choice[1]:
                 choice = [shop, cost]
@@ -16,3 +16,6 @@ def shop_trip() -> None:
         else:
             print(f"{customer.name} doesn't have enough money to make a "
                   f"purchase in any shop")
+
+if __name__ == "__main__":
+    shop_trip()
