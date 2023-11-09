@@ -34,7 +34,7 @@ class Shop:
         date = datetime(2021, 1, 4, 12, 33, 41).strftime("%d/%m/%Y %H:%M:%S")
         print(f"\nDate: {date}\n"
               f"Thanks, {customer_name}, for your purchase!\n"
-              f"You have bought: ")
+              f"You have bought:")
 
         receipt = self.purchases.get(customer_name)
         if receipt is not None:
