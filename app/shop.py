@@ -46,7 +46,7 @@ class Shop:
         current_date = datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S")
         print(f"Date: {current_date}\n"
               f"Thanks, {customer.name}, for your purchase!\n"
-              "You have bought: ")
+              "You have bought:")
         total = 0
         for product, (amount, cost) in purchased_products.items():
             if int(cost) == cost:
