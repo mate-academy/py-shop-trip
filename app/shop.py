@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from datetime import datetime
+import datetime
 from typing import List
 
 from app.customer import Customer
@@ -43,7 +43,8 @@ class Shop:
             purchased_products: dict
     ) -> None:
         """Generates and prints receipt"""
-        print(f"Date: {datetime.now().strftime('%d/%m/%Y %H:%M:%S')}\n"
+        current_date = datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S")
+        print(f"Date: {current_date}\n"
               f"Thanks, {customer.name}, for your purchase!\n"
               "You have bought: ")
         total = 0
