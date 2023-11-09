@@ -8,8 +8,8 @@ class Car:
 
     def calculate_ride_cost_to(
             self,
-            location: list[int, int],
-            destination: list[int, int],
+            location: list[int],
+            destination: list[int],
             fuel_price: float
     ) -> float:
         distance = math.sqrt(math.pow(destination[0] - location[0], 2)

@@ -7,7 +7,7 @@ class Customer:
             self,
             name: str,
             cart: dict,
-            location: list[int, int],
+            location: list[int],
             balance: float,
             car: Car
     ) -> None:
