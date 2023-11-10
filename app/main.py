@@ -23,7 +23,8 @@ def shop_trip() -> None:
             )
             trip_cost = shop.calculate_trip_cost(
                 shop.calculate_product_cost(customer),
-                fuel_expenses)
+                fuel_expenses
+            )
             trips_prices.append(trip_cost)
 
             print(f"{customer.name}'s trip to the "
