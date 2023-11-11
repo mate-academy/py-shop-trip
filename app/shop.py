@@ -26,7 +26,7 @@ class Shop:
             fuel_price: float
     ) -> str:
         receipt = f"Date: {current_time}\nThanks, {customer.name}," \
-                  f" for your purchase!\nYou have bought:"
+                  f" for your purchase!\nYou have bought:\n"
         total_cost = 0
         for product, quantity in customer.product_cart.items():
             if product in self.product_cart:
@@ -35,7 +35,7 @@ class Shop:
                 if product_total_cost.is_integer():
                     product_total_cost = int(product_total_cost)
                 receipt += (
-                    f"\n{quantity} {product}s for "
+                    f"{quantity} {product}s for "
                     f"{product_total_cost} dollars"
                 )
                 total_cost += product_total_cost
