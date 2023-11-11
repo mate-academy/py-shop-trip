@@ -5,7 +5,7 @@ from app.car import Car
 from app.shop import Shop
 
 
-def shop_trip() -> None:
+def shop_trip() -> str:
     global shop
     with open("app/config.json", "r") as config_file:
         config_data = json.load(config_file)

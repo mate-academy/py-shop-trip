@@ -11,7 +11,7 @@ class Customer:
             location: List,
             car: Car,
             money: int,
-    ) -> str:
+    ) -> None:
         self.name = name
         self.product_cart = product_cart
         self.location = location

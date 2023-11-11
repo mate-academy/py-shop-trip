@@ -8,7 +8,7 @@ class Shop:
             location: Dict,
             product_cart: List,
             fuel_price: float
-    ) -> None:
+    ) -> str:
         self.name = name
         self.location = location
         self.product_cart = product_cart

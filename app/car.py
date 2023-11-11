@@ -3,7 +3,7 @@ class Car:
             self,
             brand: str,
             fuel_consumption: float,
-    ) -> str:
+    ) -> None:
         self.brand = brand
         self.fuel_consumption = fuel_consumption
 
