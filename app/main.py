@@ -6,7 +6,6 @@ from app.shop import Shop
 
 
 def shop_trip() -> str:
-    global shop
     with open("app/config.json", "r") as config_file:
         config_data = json.load(config_file)
 
@@ -15,13 +14,11 @@ def shop_trip() -> str:
     shops_data = config_data["shops"]
 
     customers = []
-    cars = []
     shops = []
 
     for customer_data in customers_data:
         car_data = customer_data["car"]
         car = Car(car_data["brand"], car_data["fuel_consumption"])
-        cars.append(car)
 
         customer = Customer(
             customer_data["name"],
