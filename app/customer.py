@@ -19,10 +19,12 @@ class Customer:
         print(f"{self.name} has {self.money} dollars")
 
     def get_distance(self, other: Shop) -> float:
-        return round((sqrt(
-            (other.location[0] - self.location[0]) ** 2
-            + (other.location[1] - self.location[1]) ** 2)
-                     ) * 2, 2)
+        return (
+            round((sqrt((other.location[0]
+                         - self.location[0]) ** 2
+                        + (other.location[1]
+                           - self.location[1]) ** 2)) * 2, 2)
+        )
 
     def fuel(self) -> float:
         return (self.car["fuel_consumption"] / 100) * FUEL_PRICE
@@ -40,8 +42,8 @@ class Customer:
             total_coast = sum(temp_dict.values())
             cost_trip = round(
                 total_coast + (
-                        self.fuel()
-                        * self.get_distance(shop)
+                    self.fuel()
+                    * self.get_distance(shop)
                 ), 2
             )
 

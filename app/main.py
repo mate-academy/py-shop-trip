@@ -5,7 +5,7 @@ from app.shop import Shop
 from app.user_data import get_data
 
 
-def shop_trip():
+def shop_trip() -> None:
     customers = [
         Customer(*customer.values())
         for customer in get_data()["customers"]
@@ -19,7 +19,7 @@ def shop_trip():
         item_price, shop = customer.product_cost(shops)
         for index, item in enumerate(item_price):
             check_item = str(item).split(".")
-            if check_item[-1] == '0':
+            if check_item[-1] == "0":
                 item_price[index] = int(check_item[0])
         cost_trip, shop_name, total_coast = shop
         if customer.money > cost_trip:
