@@ -27,7 +27,7 @@ class Shop:
             fuel_price: float
     ) -> str:
         receipt = f"Date: {current_time}\nThanks, {customer.name}," \
-                  f" for your purchase!\nYou have bought: \n"
+                  f" for your purchase!\nYou have bought:\n"
         total_cost = 0
         for product, quantity in customer.product_cart.items():
             if product in self.product_cart:
