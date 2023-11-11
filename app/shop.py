@@ -18,9 +18,14 @@ class Shop:
         total_cost = 0
         for product in product_cart.keys():
             total_cost += self.product_cart[product] * product_cart[product]
-            return round(total_cost, 2)
+        return round(total_cost, 2)
 
-    def generate_receipt(self, customer: str, current_time: str) -> str:
+    def generate_receipt(
+            self,
+            customer: str,
+            current_time: str,
+            fuel_price: float
+    ) -> str:
         receipt = f"Date: {current_time}\nThanks, {customer.name}," \
                   f" for your purchase!\nYou have bought: \n"
         total_cost = 0
@@ -38,7 +43,7 @@ class Shop:
                         f"{quantity} {product}s for "
                         f"{product_total_cost} dollars"
                     )
-                    total_cost += product_total_cost
-                    receipt += f"\nTotal cost is {total_cost} dollars\nSee " \
-                               f"you again!\n\n{customer.name} rides home"
-                    return receipt
+                total_cost += product_total_cost
+        receipt += f"\nTotal cost is {total_cost} dollars\nSee " \
+                   f"you again!\n\n{customer.name} rides home"
+        return receipt

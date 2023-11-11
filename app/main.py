@@ -60,7 +60,8 @@ def shop_trip() -> None:
                   f"{cheapest_shop.name}\n")
             current_time = datetime.datetime.\
                 now().strftime("%d/%m/%Y %H:%M:%S")
-            receipt = cheapest_shop.generate_receipt(customer, current_time)
+            receipt = cheapest_shop.generate_receipt(
+                customer, current_time, fuel_price)
             print(receipt)
             last_money = customer.money - cheapest_cost
             print(f"{customer.name} now has {last_money} dollars\n")
