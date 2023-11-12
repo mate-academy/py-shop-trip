@@ -9,6 +9,3 @@ def get_data() -> dict:
     with open(path, "r") as text:
         data = json.load(text)
     return data
-
-
-FUEL_PRICE = float(get_data()["FUEL_PRICE"])

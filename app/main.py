@@ -11,8 +11,7 @@ def shop_trip() -> None:
         for customer in get_data()["customers"]
     ]
     shops = [Shop(*shop.values()) for shop in get_data()["shops"]]
-    date = datetime.datetime.now()
-    date = date.strftime("%d/%m/%Y %H:%M:%S")
+    date = datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S")
 
     for customer in customers:
         customer.get_money()

@@ -4,7 +4,7 @@ from dataclasses import dataclass
 from math import sqrt
 
 from app.shop import Shop
-from app.user_data import FUEL_PRICE
+from app.user_data import get_data
 
 
 @dataclass
@@ -27,7 +27,8 @@ class Customer:
         )
 
     def fuel(self) -> float:
-        return (self.car["fuel_consumption"] / 100) * FUEL_PRICE
+        fuel_price = float(get_data()["FUEL_PRICE"])
+        return (self.car["fuel_consumption"] / 100) * fuel_price
 
     def product_cost(self, shops: list[Shop]) -> tuple:
         all_shops = {}
