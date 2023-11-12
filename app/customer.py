@@ -19,11 +19,11 @@ class Customer:
         print(f"{self.name} has {self.money} dollars")
 
     def get_distance(self, other: Shop) -> float:
-        return (
-            round((sqrt((other.location[0]
-                         - self.location[0]) ** 2
-                        + (other.location[1]
-                           - self.location[1]) ** 2)) * 2, 2)
+        user_x, user_y = self.location
+        shop_x, shop_y = other.location
+        return round(
+            (sqrt((shop_x - user_x) ** 2
+                  + (shop_y - user_y) ** 2)) * 2, 2
         )
 
     def fuel(self) -> float:
