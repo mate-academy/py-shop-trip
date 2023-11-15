@@ -38,7 +38,8 @@ def shop_trip() -> None:
                   f" to make a purchase in any shop")
             continue
         print(f"{name} rides to {shop.name}\n")
-        print(f"Date: {datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S")}")
+        now = datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S")
+        print(f"Date: {now}")
 
         customer.print_product_list(shop)
         print(f"Total cost is {product_cost} dollars")
