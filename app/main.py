@@ -15,13 +15,15 @@ def shop_trip() -> None:
 
     for customer in customers:
         customer = Customer(**customer)
+        car = customer.car
         name = customer.name
         print(f"{customer.name} has {customer.money} dollars")
         min_trip_cost = None
 
         for shop in shops:
             shop = Shop(**shop)
-            cost_to_shop = customer.cost_to_shop(shop) * fuel_price
+            distance_to_shop = customer.distance_to_shop(shop)
+            cost_to_shop = car.cost_to_shop(distance_to_shop) * fuel_price
             product_cost = customer.product_cost(shop)
             trip_cost = round(cost_to_shop * 2 + product_cost, 2)
             print(f"{name}'s trip to the {shop.name} costs {trip_cost}")

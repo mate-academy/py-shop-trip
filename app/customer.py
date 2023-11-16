@@ -24,10 +24,6 @@ class Customer:
         _b = self.location[1] - shop.location[1]
         return math.sqrt(_a ** 2 + _b ** 2)
 
-    def cost_to_shop(self, shop: Shop) -> float:
-        _d = self.distance_to_shop(shop)
-        return (_d * self.car.fuel_consumption) / 100
-
     def product_cost(self, shop: Shop) -> float:
         return sum(
             shop.products[product] * quantity
