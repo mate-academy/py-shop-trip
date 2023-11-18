@@ -1,10 +1,3 @@
-import json
-
-
-with open("app/config.json", "r") as j_file:
-    customer = json.load(j_file)["customers"]
-
-
 class Customer:
     def __init__(
             self,

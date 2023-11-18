@@ -1,10 +1,3 @@
-import json
-
-
-with open("app/config.json", "r") as j_file:
-    shop = json.load(j_file)["shops"]
-
-
 class Shop:
     def __init__(
             self,
