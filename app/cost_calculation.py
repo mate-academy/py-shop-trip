@@ -1,5 +1,4 @@
 import json
-import math
 import operator
 
 from app.customer import Customer
@@ -10,10 +9,10 @@ def calc_distance_cost(
         person: Customer,
         shop: Shop
 ) -> float:
-    return math.sqrt(
+    return (
         (person.location[0] - shop.location[0]) ** 2
         + (person.location[1] - shop.location[1]) ** 2
-    )
+    )**0.5
 
 
 def calc_location_cost(
@@ -51,33 +50,18 @@ def give_output() -> None:
 
     fuel_price = info["FUEL_PRICE"]
 
-    customers = [
-        Customer(
-            customer["name"],
-            customer["product_cart"],
-            customer["location"],
-            customer["money"],
-            customer["car"]
-        ) for customer in info["customers"]
-    ]
-
-    shops = [
-        Shop(
-            shop["name"],
-            shop["location"],
-            shop["products"]
-        ) for shop in info["shops"]
-    ]
+    customers = [Customer(**customer) for customer in info["customers"]]
+    shops = [Shop(**shop) for shop in info["shops"]]
 
     all_customer_price = calculate_all_prices(customers, shops, fuel_price)
 
     for person, trip in enumerate(all_customer_price):
         name = customers[person].name
         f_shop, s_shop, t_shop = trip.values()
-        print(f"{name} has {customers[person].money} dollars")
-        print(f"{name}'s trip to the Outskirts Shop costs {f_shop}")
-        print(f"{name}'s trip to the Shop '24/7' costs {s_shop}")
-        print(f"{name}'s trip to the Central Shop costs {t_shop}")
+        print(f"{name} has {customers[person].money} dollars\n"
+              f"{name}'s trip to the Outskirts Shop costs {f_shop}\n"
+              f"{name}'s trip to the Shop '24/7' costs {s_shop}\n"
+              f"{name}'s trip to the Central Shop costs {t_shop}")
         min_exp = min(trip.values())
         min_ind = list(trip.values()).index(min_exp)
         if min_exp > customers[person].money:
@@ -85,10 +69,10 @@ def give_output() -> None:
                   f" to make a purchase in any shop")
         else:
             shop_name = shops[min_ind].name
-            print(f"{name} rides to {shop_name}\n")
-            print("Date: 04/01/2021 12:33:41")
-            print(f"Thanks, {name}, for your purchase!")
-            print("You have bought:")
+            print(f"{name} rides to {shop_name}\n"
+                  "\nDate: 04/01/2021 12:33:41\n"
+                  f"Thanks, {name}, for your purchase!\n"
+                  "You have bought:")
             product_keys = ["milk", "bread", "butter"]
             cost = 0
             for product_key in product_keys:
@@ -99,10 +83,9 @@ def give_output() -> None:
                 if str(product_cost)[-1] == "0":
                     product_cost = round(product_cost)
                 print(f"{quantity} {product_key}s for {product_cost} dollars")
-
-            print(f"Total cost is {cost} dollars")
-            print("See you again!\n")
-            print(f"{name} rides home")
             remain = (customers[person].money
                       - all_customer_price[person][shop_name])
-            print(f"{name} now has {remain} dollars\n")
+            print(f"Total cost is {cost} dollars\n"
+                  "See you again!\n"
+                  f"\n{name} rides home\n"
+                  f"{name} now has {remain} dollars\n")
