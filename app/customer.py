@@ -95,9 +95,10 @@ class Customer:
             f"You have bought: \n"
         )
         for product_name, quantity in self.product_cart.entries.items():
-            order_receipt += (f"{quantity} {product_name} for "
-                              f"{shop.get_product_price(product_name)
-                                 * quantity} dollars\n")
+            order_receipt += (
+                f"{quantity} {product_name} for "
+                f"{shop.get_product_price(product_name) * quantity} dollars\n"
+            )
             total_cost += (shop.get_product_price(product_name) * quantity)
 
         order_receipt += (f"Total cost is "
