@@ -19,7 +19,9 @@ class Shop:
         unit_price = self.products.get(product, 0)
         total_cost = count * unit_price
         formatted_cost = (
-            int(total_cost) if total_cost.is_integer() else total_cost
+            int(total_cost)
+            if isinstance(total_cost, float) and total_cost.is_integer()
+            else total_cost
         )
         return formatted_cost
 
