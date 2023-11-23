@@ -48,21 +48,21 @@ class Customer:
         string_check = "Date: 04/01/2021 12:33:41\n"
         string_check += (f"Thanks, {self.name}, "
                          f"for your purchase!\n"
-                         f"You have bought:\n")  # noqa: E231
+                         f"You have bought:\n")
 
         for product, quantity in shop.products.items():
             total_cost += (quantity * self.product_cart.get(product, 0))
             cost_per_item = self.product_cart.get(product, 0) * quantity
             cost_format = (
-                f"{cost_per_item:.0f}"  # noqa: E231
+                f"{cost_per_item:.0f}"
                 if float(cost_per_item).is_integer()
-                else f"{cost_per_item:.1f}")  # noqa: E231
+                else f"{cost_per_item:.1f}")
             string_check += (f"{self.product_cart.get(product, 0)}"
                              f" {product}s for "
                              f"{cost_format.format(cost_per_item)} dollars\n")
 
         string_check += (
-            f"Total cost is {total_cost:.1f} dollars\n"  # noqa: E231
+            f"Total cost is {total_cost:.1f} dollars\n"
             f"See you again!\n"
         )
         print(string_check)
