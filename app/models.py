@@ -52,16 +52,19 @@ class Customer:
 
         for product, quantity in shop.products.items():
             total_cost += (quantity * self.product_cart.get(product, 0))
-            string_check += (
-                f"{self.product_cart.get(product, 0)} {product}s for "
-                f"{"{:.0f}".format(
-                    self.product_cart.get(product, 0) * quantity)
-                    if (self.product_cart.get(product, 0)
-                        * quantity).is_integer() else "{:.1f}".format(
-                    self.product_cart.get(product, 0) * quantity
-                )} dollars\n"
-            )
-        string_check += f"Total cost is {total_cost} dollars\nSee you again!\n"
+            cost_per_item = self.product_cart.get(product, 0) * quantity
+            cost_format = (
+                f"{cost_per_item:.0f}"  # noqa: E231
+                if cost_per_item.is_integer()
+                else f"{cost_per_item:.1f}")  # noqa: E231
+            string_check += (f"{self.product_cart.get(product, 0)}"
+                             f" {product}s for "
+                             f"{cost_format.format(cost_per_item)} dollars\n")
+
+        string_check += (
+            f"Total cost is {total_cost:.1f} dollars\n"  # noqa: E231
+            f"See you again!\n"
+        )
         print(string_check)
 
     def ride_home(self) -> None:
