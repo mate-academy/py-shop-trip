@@ -55,7 +55,7 @@ class Customer:
             cost_per_item = self.product_cart.get(product, 0) * quantity
             cost_format = (
                 f"{cost_per_item:.0f}"  # noqa: E231
-                if cost_per_item.is_integer()
+                if float(cost_per_item).is_integer()
                 else f"{cost_per_item:.1f}")  # noqa: E231
             string_check += (f"{self.product_cart.get(product, 0)}"
                              f" {product}s for "
