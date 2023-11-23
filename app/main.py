@@ -10,27 +10,43 @@ def shop_trip() -> None:
         config = json.load(config_file)
 
     fuel_price = config.get("FUEL_PRICE")
-    customers = []
-    for el in config.get("customers"):
-        customers.append(Customer(
-            el.get("name"),
-            el.get("product_cart"),
-            el.get("location"),
-            el.get("money"),
+    customers = create_customers_objects(config.get("customers"))
+    shops = create_shop_objects(config.get("shops"))
+    show_trip(fuel_price, customers, shops)
+
+
+def create_customers_objects(customers: dict) -> list[Customer]:
+    customers_objects = []
+    for customer in customers:
+        customers_objects.append(Customer(
+            customer.get("name"),
+            customer.get("product_cart"),
+            customer.get("location"),
+            customer.get("money"),
             Car(
-                el.get("car").get("brand"),
-                el.get("car").get("fuel_consumption")
+                customer.get("car").get("brand"),
+                customer.get("car").get("fuel_consumption")
             )
         ))
+    return customers_objects
 
-    shops = []
-    for el in config.get("shops"):
-        shops.append(Shop(
-            el.get("name"),
-            el.get("location"),
-            el.get("products")
+
+def create_shop_objects(shops: dict) -> list[Shop]:
+    shops_objects = []
+    for shop in shops:
+        shops_objects.append(Shop(
+            shop.get("name"),
+            shop.get("location"),
+            shop.get("products")
         ))
+    return shops_objects
 
+
+def show_trip(
+    fuel_price: float,
+    customers: list[Customer],
+    shops: list[Shop]
+) -> None:
     for customer in customers:
         print(f"{customer.name} has {customer.money} dollars")
         cheapest_shop = customer.choose_shop(shops, fuel_price)
