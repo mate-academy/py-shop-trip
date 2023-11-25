@@ -33,11 +33,8 @@ class Customer:
                     f"costs {round(product_cost + travel_cost * 2, 2)}"
                 )
                 total_cost = product_cost + travel_cost * 2
-                if not cheapest_shop.get("total_cost"):
+                total_cheap_cost = cheapest_shop.get("total_cost")
+                if not total_cheap_cost or total_cheap_cost > total_cost:
                     cheapest_shop["total_cost"] = total_cost
                     cheapest_shop["shop"] = shop
-                else:
-                    if cheapest_shop.get("total_cost") > total_cost:
-                        cheapest_shop["total_cost"] = total_cost
-                        cheapest_shop["shop"] = shop
         return cheapest_shop
