@@ -24,8 +24,8 @@ def create_customers_objects(customers: dict) -> list[Customer]:
             customer.get("location"),
             customer.get("money"),
             Car(
-                customer.get("car").get("brand"),
-                customer.get("car").get("fuel_consumption")
+                customer["car"].get("brand"),
+                customer["car"].get("fuel_consumption")
             )
         ))
     return customers_objects
