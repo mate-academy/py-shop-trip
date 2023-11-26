@@ -29,14 +29,8 @@ def shop_trip() -> None:
 
         customers.append(new_customer)
 
-    shops = []
-    for shop in shops_data:
-        new_shop = Shop(
-            shop["name"],
-            shop["location"],
-            shop["products"]
-        )
-        shops.append(new_shop)
+    shops = [Shop(shop["name"], shop["location"], shop["products"])
+             for shop in shops_data]
 
     for customer in customers:
         cheapest_shop = None
