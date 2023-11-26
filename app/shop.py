@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from datetime import datetime
+import datetime
 
 from app.customer import Customer
 
@@ -19,9 +19,7 @@ class Shop:
         return total_price
 
     def print_purchase_receipt(self, customer: Customer) -> None:
-        timestamp = 1609763621
-        actual_dt = (datetime.fromtimestamp(timestamp).
-                     strftime("%d/%m/%Y %H:%M:%S"))
+        actual_dt = datetime.datetime.now().strftime('%d/%m/%Y %H:%M:%S')
         total_price = self.calculate_product_cost(customer)
 
         print("\nDate:", actual_dt)
