@@ -19,7 +19,7 @@ class Shop:
         return total_price
 
     def print_purchase_receipt(self, customer: Customer) -> None:
-        timestamp = 1609756421
+        timestamp = 1609763621
         actual_dt = (datetime.fromtimestamp(timestamp).
                      strftime("%d/%m/%Y %H:%M:%S"))
         total_price = self.calculate_product_cost(customer)
