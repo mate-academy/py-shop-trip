@@ -8,9 +8,9 @@ from app.shop import Shop
 def shop_trip() -> None:
     with open("app/config.json") as file:
         data = json.load(file)
-        fuel_price = data["FUEL_PRICE"]
-        customers_data = data["customers"]
-        shops_data = data["shops"]
+    fuel_price = data["FUEL_PRICE"]
+    customers_data = data["customers"]
+    shops_data = data["shops"]
 
     customers = []
     for customer in customers_data:
