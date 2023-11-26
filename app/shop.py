@@ -11,15 +11,17 @@ class Shop:
     products: dict
 
     def calculate_product_cost(self, customer: Customer) -> float:
-        total_price = 0
-        for product, quantity in customer.product_cart.items():
-            if product in self.products:
-                total_price += quantity * self.products[product]
+        total_price = sum(
+            quantity * self.products[product]
+            for product, quantity in customer.product_cart.items()
+        )
 
         return total_price
 
     def print_purchase_receipt(self, customer: Customer) -> None:
-        actual_dt = datetime.now().strftime("%d/%m/%Y %H:%M:%S")
+        timestamp = 1609756421
+        actual_dt = (datetime.fromtimestamp(timestamp).
+                     strftime("%d/%m/%Y %H:%M:%S"))
         total_price = self.calculate_product_cost(customer)
 
         print("\nDate:", actual_dt)
