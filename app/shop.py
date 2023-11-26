@@ -28,7 +28,7 @@ class Shop:
         print(f"Thanks, {customer.name}, for your purchase!\nYou have bought:")
 
         for product, quantity in customer.product_cart.items():
-            price = quantity * self.products[product]
+            price = float(quantity * self.products[product])
             if price.is_integer():
                 price = int(price)
 
