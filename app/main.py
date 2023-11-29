@@ -1,9 +1,11 @@
 import json
 
-from app.data_handler import (add_models,
-                              calculate_distance,
-                              calculate_fuel_cost,
-                              create_check)
+from app.data_handler import (
+    add_models,
+    calculate_distance,
+    calculate_fuel_cost,
+    create_check
+)
 
 
 def shop_trip() -> None:
