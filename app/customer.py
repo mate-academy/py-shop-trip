@@ -15,10 +15,12 @@ class Customer:
         # print(f"Date: {datetime.now().strftime('%d/%m/%Y %H:%M:%S')}")
         print("Date: 04/01/2021 12:33:41")
         print(f"Thanks, {self.name}, for your purchase!")
-        print("You have bought: ")
+        print("You have bought:")
         total_cost = 0
         for key, value in self.product_cart.items():
-            cost_result = value * data_shop.cost_products[key]
+            cost_result = data_shop.cost_products[key] * value
+            if (cost_result - int(cost_result)) == 0:
+                cost_result = int(cost_result)
             print(f"{value} {key}s for {cost_result} dollars")
             total_cost += cost_result
         print(f"Total cost is {total_cost} dollars")
