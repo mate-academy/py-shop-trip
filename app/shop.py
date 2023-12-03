@@ -43,7 +43,7 @@ class Shop:
         today_str = today.strftime("%d/%m/%Y %H:%M:%S")
         print(f"Date: {today_str}\n"
               f"Thanks, {customer_name}, for your purchase!\n"
-              f"You have bought: ")
+              f"You have bought:")
 
         for product, amount in customer_product_cart.items():
             products_cost = self.cost_of_product(product, amount)
