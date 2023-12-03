@@ -1,18 +1,14 @@
+from datetime import datetime
 from dataclasses import dataclass
 
 
 @dataclass
 class Shop:
-    argus: dict
     fuel_price: float | int
-    name: str = None
-    location: list = None
-    products: dict = None
+    name: str
+    location: list
+    products: dict
     cost_of_trip: float | None = None
-
-    def init_attrs(self) -> None:
-        for key, value in self.argus.items():
-            setattr(self, key, value)
 
     def get_cost_for_travel(self,
                             customer_location: list,
@@ -43,7 +39,7 @@ class Shop:
     def print_receipt(self,
                       customer_name: str,
                       customer_product_cart: dict) -> None:
-        today = "04/01/2021 12:33:41"
+        today = datetime.now().strftime("%d/%m/%Y %H:%M:%S")
         print(f"Date: {today}\n"
               f"Thanks, {customer_name}, for your purchase!\n"
               f"You have bought: ")

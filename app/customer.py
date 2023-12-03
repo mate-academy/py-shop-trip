@@ -5,22 +5,16 @@ from typing import List
 
 @dataclass
 class Customer:
-    argus: dict
-    name: str = None
-    product_cart: dict = None
-    location: list = None
-    money: int | float = None
-    car: dict = None
+    name: str
+    product_cart: dict
+    location: list
+    money: int | float
+    car: dict
     cheapest_shop: Shop | None = None
-
-    def init_attrs(self) -> None:
-        for key, value in self.argus.items():
-            setattr(self, key, value)
 
     def find_cheapest_shop(self, shops: List[Shop]) -> None:
         shops_trip_costs = []
         for shop in shops:
-            shop.init_attrs()
             shop.get_cost_of_trip(self.product_cart,
                                   self.location,
                                   self.car)
