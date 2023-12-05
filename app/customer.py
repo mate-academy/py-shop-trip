@@ -55,9 +55,12 @@ class Customer:
     def get_receipt(self, groceries: dict, preferable_shop: tuple) -> None:
         shop = groceries[preferable_shop[0]]
         self.location = shop["location"]
-        print(f"Date: {datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S")}")
-        print(f"Thanks, {self.name}, for your purchase!")
-        print("You have bought:")
+        current_date = datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S")
+        print(
+            f"Date: {current_date}\n"
+            f"Thanks, {self.name}, for your purchase!\n"
+            "You have bought:"
+        )
         for key, value in self.product_cart.items():
             print(f"{value} {key}s for{shop["list"][key]: g} dollars")
         print(f"Total cost is {shop["total_cost"]} dollars\n"
