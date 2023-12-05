@@ -57,9 +57,9 @@ class Customer:
         self.location = shop["location"]
         print(
             f"Date: {datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S")}\n"
-            f"Thanks, {self.name}, for your purchase!\n"
-            "You have bought:"
+            f"Thanks, {self.name}, for your purchase!"
         )
+        print("You have bought:")
         for key, value in self.product_cart.items():
             print(f"{value} {key}s for{shop["list"][key]: g} dollars")
         print(f"Total cost is {shop["total_cost"]} dollars\n"
