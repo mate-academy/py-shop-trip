@@ -38,6 +38,7 @@ def shop_trip() -> None:
         shops.append(shop)
 
     for customer in customers:
+        home_location = customer.location
 
         print(f"{customer.name} has {customer.money} dollars")
 
@@ -59,9 +60,11 @@ def shop_trip() -> None:
 
         if cheapest_shop:
             print(f"{customer.name} rides to {cheapest_shop.name}")
+            customer.location = cheapest_shop.location
             cheapest_shop.make_purchase(customer)
             customer.money -= min_trip_cost
             print(f"{customer.name} rides home")
+            customer.location = home_location
             print(f"{customer.name} now has {customer.money:.2f} dollars\n")
         else:
             print(f"{customer.name} doesn't have enough money "

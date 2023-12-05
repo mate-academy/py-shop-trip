@@ -1,4 +1,5 @@
 import math
+import datetime
 
 from app.customer import Customer
 
@@ -41,7 +42,8 @@ class Shop:
                 receipt.append(f"{count} {product}s for "
                                f"{self.products[product] * count:g} dollars")
 
-        print(f"\nDate: 04/01/2021 12:33:41\n"
+        current_time = datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S")
+        print(f"\nDate: {current_time}\n"
               f"Thanks, {customer.name}, for your purchase!")
         print("You have bought:")
         for item in receipt:
