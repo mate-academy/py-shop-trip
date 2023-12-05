@@ -62,7 +62,8 @@ class Customer:
             "You have bought:"
         )
         for key, value in self.product_cart.items():
-            print(f"{value} {key}s for{shop["list"][key]: g} dollars")
+            price = shop["list"][key]
+            print(f"{value} {key}s for{price: g} dollars")
         print(f"Total cost is {shop["total_cost"]} dollars\n"
               f"See you again!\n")
         self.money -= preferable_shop[1]
