@@ -47,6 +47,3 @@ def shop_trip() -> None:
         print(f"{customer.name} rides to {preferable_shop[0]}\n")
         customer.get_receipt(groceries, preferable_shop)
         customer.get_home()
-
-#
-# shop_trip()
