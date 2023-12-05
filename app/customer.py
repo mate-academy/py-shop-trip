@@ -14,7 +14,11 @@ class Customer:
         self.money = money
         self.car = car
 
-    def find_cheapest_shop(self, shops: list, fuel_price: float) -> tuple:
+    def find_cheapest_shop(
+            self,
+            shops: list,
+            fuel_price: float
+    ) -> tuple:
 
         cheapest_shop = None
         min_trip_cost = float("inf")
