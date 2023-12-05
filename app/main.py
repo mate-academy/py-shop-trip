@@ -35,10 +35,11 @@ def shop_trip() -> None:
         print(f"{customer.name} has {customer.money} dollars")
         groceries = customer.groceries_cost()
         cost = customer.road_cost(fuel_cost)
-        for key, value in cost.items():
-            cost[key] = cost[key] + groceries[key]["total_cost"]
+        for shop_name in cost.keys():
+            groceries_cost = groceries[shop_name]["total_cost"]
+            cost[shop_name] = cost[shop_name] + groceries_cost
             print(f"{customer.name}'s trip to the "
-                  f"{key} costs {cost[key]}")
+                  f"{shop_name} costs {cost[shop_name]}")
         preferable_shop = min(cost.items(), key=lambda x: x[1])
         if customer.money < preferable_shop[1]:
             print(f"{customer.name} doesn't have enough "

@@ -36,11 +36,11 @@ class Customer:
         cost = 0
         products_provided = {}
         for shop in Shop.instances:
-            for key, value in self.product_cart.items():
-                if key not in shop.products:
+            for product, quantity in self.product_cart.items():
+                if product not in shop.products:
                     break
-                products_provided[key] = shop.products[key] * value
-                cost += value * shop.products[key]
+                products_provided[product] = shop.products[product] * quantity
+                cost += quantity * shop.products[product]
             cost_of_groceries[shop.name] = {
                 "total_cost": cost,
                 "list": products_provided,
@@ -61,9 +61,9 @@ class Customer:
             f"Thanks, {self.name}, for your purchase!\n"
             "You have bought:"
         )
-        for key, value in self.product_cart.items():
-            price = shop["list"][key]
-            print(f"{value} {key}s for{price: g} dollars")
+        for product, quantity in self.product_cart.items():
+            price = shop["list"][product]
+            print(f"{quantity} {product}s for{price: g} dollars")
         total_cost = shop["total_cost"]
         print(
             f"Total cost is {total_cost} dollars\n"
