@@ -64,8 +64,10 @@ class Customer:
         for key, value in self.product_cart.items():
             price = shop["list"][key]
             print(f"{value} {key}s for{price: g} dollars")
-        print(f"Total cost is {shop["total_cost"]} dollars\n"
-              f"See you again!\n")
+        print(
+            f"Total cost is {shop["total_cost"]} dollars\n"
+            "See you again!\n"
+        )
         self.money -= preferable_shop[1]
 
     def get_home(self) -> None:
