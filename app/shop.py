@@ -52,3 +52,12 @@ class Shop:
         print("See you again!\n")
 
         return total_products_cost
+
+    @staticmethod
+    def make_shops(shops_data: dict) -> list:
+        return [Shop(
+            shop_info["name"],
+            shop_info["location"],
+            shop_info["products"]
+        )
+            for shop_info in shops_data]
