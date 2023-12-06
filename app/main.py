@@ -11,7 +11,7 @@ def shop_trip() -> None:
         cust_info = data["customers"]
         shop_info = data["shops"]
 
-    customer_list = [
+    customers = [
         Customer(
             info["name"],
             info["location"],
@@ -22,15 +22,15 @@ def shop_trip() -> None:
         for info in cust_info
     ]
 
-    list_of_shops = [
+    shops = [
         Shop(shop_obj["name"], shop_obj["location"], shop_obj["products"])
         for shop_obj in shop_info
     ]
 
-    for customer in customer_list:
+    for customer in customers:
         print(f"{customer.name} has {customer.money} dollars")
-        dict_of_shops = {}
-        for shop in list_of_shops:
+        shops_price = {}
+        for shop in shops:
             all_prod_cost = shop.calculate_products_cost(customer)
             dist = customer.distance(shop)
             fuel_consumption_price = customer.calculate_fuel_price(
@@ -43,9 +43,9 @@ def shop_trip() -> None:
             )
             print(f"{customer.name}'s trip to the "
                   f"{shop.name} costs {total_trip_cost}")
-            dict_of_shops[shop] = total_trip_cost
-        cheapest_shop = min(dict_of_shops, key=lambda x: dict_of_shops[x])
-        cheapest_price = min(dict_of_shops.values())
+            shops_price[shop] = total_trip_cost
+        cheapest_shop = min(shops_price, key=shops_price.get)
+        cheapest_price = shops_price[cheapest_shop]
 
         if customer.money >= cheapest_price:
             print(f"{customer.name} rides to {cheapest_shop.name}\n")
