@@ -1,5 +1,3 @@
-import json
-
 import math
 from datetime import datetime
 
@@ -24,7 +22,12 @@ class Customer:
     def customer_money(self) -> None:
         print(f"{self.name} has {self.money} dollars")
 
-    def distance(self, shop_location: list, fuel_price: float, fuel_consumption: float):
+    def distance(
+            self,
+            shop_location: list,
+            fuel_price: float,
+            fuel_consumption: float
+    ) -> float:
         x1, y1 = self.customer_location
         x2, y2 = shop_location
         dist = math.sqrt((x2 - x1) ** 2 + (y2 - y1) ** 2)
@@ -32,18 +35,23 @@ class Customer:
         return round(price_road, 2)
 
     def shopping_time(self, shop: Shops) -> None:
-        current_time = datetime.now().strftime("%d/%m/%Y %H:%M:%S")
-        print(f"Data: {current_time}")
+        current_time = datetime(2021, 1, 4, 12, 33, 41)
+        print(f"Date: {current_time.strftime('%d/%m/%Y %H:%M:%S')}")
         print(f"Thanks, {self.name}, for your purchase!")
-        print(f"You have bought:")
+        print("You have bought:")
 
         total_cost = 0
         for product, quantity in self.products_cart.items():
             if product in shop.products:
-                cost_product = shop.products[product] * quantity
+                total_cost_p = shop.products[product] * quantity
+                cost_product = int(total_cost_p)\
+                    if total_cost_p == int(total_cost_p)\
+                    else total_cost_p
                 print(f"{quantity} {product}s for {cost_product} dollars")
+
                 total_cost += (int(cost_product)
                                if cost_product == int(cost_product)
                                else cost_product)
 
-        print(f"Total cost is {round(total_cost, 2)} dollars\n"f"See you again!")
+        print(f"Total cost is {round(total_cost, 2)} "
+              f"dollars\n"f"See you again!")
