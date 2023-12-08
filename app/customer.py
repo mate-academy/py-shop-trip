@@ -1,5 +1,5 @@
 import math
-from datetime import datetime
+import datetime
 
 from app.car import Car
 from app.shop import Shops
@@ -35,7 +35,7 @@ class Customer:
         return round(price_road, 2)
 
     def shopping_time(self, shop: Shops) -> None:
-        current_time = datetime(2021, 1, 4, 12, 33, 41)
+        current_time = datetime.datetime.now()
         print(f"Date: {current_time.strftime('%d/%m/%Y %H:%M:%S')}")
         print(f"Thanks, {self.name}, for your purchase!")
         print("You have bought:")
