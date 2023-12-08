@@ -44,9 +44,9 @@ class Customer:
         for product, quantity in self.products_cart.items():
             if product in shop.products:
                 total_cost_p = shop.products[product] * quantity
-                cost_product = int(total_cost_p)\
-                    if total_cost_p == int(total_cost_p)\
-                    else total_cost_p
+                cost_product = (int(total_cost_p)
+                                if total_cost_p == int(total_cost_p)
+                                else total_cost_p)
                 print(f"{quantity} {product}s for {cost_product} dollars")
 
                 total_cost += (int(cost_product)
@@ -54,4 +54,4 @@ class Customer:
                                else cost_product)
 
         print(f"Total cost is {round(total_cost, 2)} "
-              f"dollars\n"f"See you again!")
+              f"dollars\nSee you again!")
