@@ -1,4 +1,7 @@
 class Customer:
     def __init__(self, customer_dict: dict) -> None:
-        for key, value in customer_dict.items():
-            setattr(self, key, value)
+        self.name = customer_dict["name"]
+        self.product_cart = customer_dict["product_cart"]
+        self.location = customer_dict["location"]
+        self.money = customer_dict["money"]
+        self.car = customer_dict["car"]

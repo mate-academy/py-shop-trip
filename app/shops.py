@@ -1,4 +1,5 @@
 class Shop:
     def __init__(self, shops_dict: dict) -> None:
-        for key, value in shops_dict.items():
-            setattr(self, key, value)
+        self.name = shops_dict["name"]
+        self.location = shops_dict["location"]
+        self.products = shops_dict["products"]
