@@ -6,7 +6,7 @@ class Customer:
     def __init__(self,
                  name: str,
                  product_cart: dict,
-                 location: list,
+                 location: list[int],
                  money: int,
                  car: Car) -> None:
         self.name = name
@@ -15,7 +15,7 @@ class Customer:
         self.money = money
         self.car = car
 
-    def find_distance(self, current_location: list) -> float:
+    def find_distance(self, current_location: list[int]) -> float:
         x1, y1 = self.location
         x2, y2 = current_location
         distance = ((x2 - x1)**2 + (y2 - y1) ** 2) ** 0.5
