@@ -5,6 +5,20 @@ from app.customers import Customer
 from app.shops import Shop
 
 
+def get_purchase_cost(customer: Customer, shop: Shop) -> float:
+    return sum(
+        (shop.products[product] * customer.product_cart[product]
+         for product in customer.product_cart)
+    )
+
+
+def get_distance(customer: Customer, shop: Shop) -> float:
+    return math.sqrt(
+        (customer.location[0] - shop.location[0]) ** 2
+        + (customer.location[1] - shop.location[1]) ** 2
+    )
+
+
 def find_min_cost(
         customer: Customer, shops: list[Shop], fuel_price: float
 ) -> tuple | None:
@@ -13,42 +27,36 @@ def find_min_cost(
     (shop_head_to,
      total_cost,
      purchase_cost_min,
-     _distance) = [shops[0], 0, 0, 0]
+     distance) = [shops[0], 0, 0, 0]
     for shop in shops:
-        purchase_cost = sum(
-            (shop.products[product] * customer.product_cart[product]
-             for product in customer.product_cart)
-        )
-        distance = math.sqrt(
-            (customer.location[0] - shop.location[0]) ** 2
-            + (customer.location[1] - shop.location[1]) ** 2
-        )
-        fuel_spend_cost = round(
+        purchase_cost = get_purchase_cost(customer, shop)
+        _distance = get_distance(customer, shop)
+        fuel_spent_cost = round(
             customer.car["fuel_consumption"] / 100
-            * distance * 2 * fuel_price, 2
+            * _distance * 2 * fuel_price, 2
         )
+        _total_cost = purchase_cost + fuel_spent_cost
         print(
-            f"{customer.name}'s trip to the {shop.name} costs"
-            f" {purchase_cost + fuel_spend_cost}"
+            f"{customer.name}'s trip to the {shop.name} costs {_total_cost}"
         )
-        if purchase_cost + fuel_spend_cost == total_cost:
-            if distance < _distance:
-                shop_head_to, total_cost, purchase_cost_min, _distance = [
+        if _total_cost == total_cost:
+            if _distance < distance:
+                shop_head_to, total_cost, purchase_cost_min, distance = [
                     shop,
-                    purchase_cost + fuel_spend_cost,
+                    _total_cost,
                     purchase_cost,
-                    distance
+                    _distance
                 ]
-        elif (purchase_cost + fuel_spend_cost < total_cost
+        elif (_total_cost < total_cost
               or total_cost == 0):
             (shop_head_to,
              total_cost,
              purchase_cost_min,
-             _distance) = [
+             distance) = [
                 shop,
-                purchase_cost + fuel_spend_cost,
+                _total_cost,
                 purchase_cost,
-                distance
+                _distance
             ]
     if budget >= total_cost:
         print(f"{customer.name} rides to {shop_head_to.name}")
@@ -57,7 +65,6 @@ def find_min_cost(
         f"{customer.name} "
         f"doesn't have enough money to make a purchase in any shop"
     )
-    return None
 
 
 def print_receipt(customer: Customer, expences_info: tuple) -> None:
