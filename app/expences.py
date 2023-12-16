@@ -13,12 +13,11 @@ def find_min_cost(
     (shop_head_to,
      total_cost,
      purchase_cost_min,
-     _distance
-     ) = [shops[0], 0, 0, 0]
+     _distance) = [shops[0], 0, 0, 0]
     for shop in shops:
         purchase_cost = sum(
-            [shop.products[product] * customer.product_cart[product]
-             for product in customer.product_cart]
+            (shop.products[product] * customer.product_cart[product]
+             for product in customer.product_cart)
         )
         distance = math.sqrt(
             (customer.location[0] - shop.location[0]) ** 2
@@ -26,15 +25,20 @@ def find_min_cost(
         )
         fuel_spend_cost = round(
             customer.car["fuel_consumption"] / 100
-            * distance * 2 * fuel_price, 2)
+            * distance * 2 * fuel_price, 2
+        )
         print(
             f"{customer.name}'s trip to the {shop.name} costs"
-            f" {purchase_cost + fuel_spend_cost}")
+            f" {purchase_cost + fuel_spend_cost}"
+        )
         if purchase_cost + fuel_spend_cost == total_cost:
             if distance < _distance:
                 shop_head_to, total_cost, purchase_cost_min, _distance = [
-                    shop, purchase_cost + fuel_spend_cost, purchase_cost,
-                    distance]
+                    shop,
+                    purchase_cost + fuel_spend_cost,
+                    purchase_cost,
+                    distance
+                ]
         elif (purchase_cost + fuel_spend_cost < total_cost
               or total_cost == 0):
             (shop_head_to,
@@ -51,7 +55,8 @@ def find_min_cost(
         return (shop_head_to, total_cost, purchase_cost_min)
     print(
         f"{customer.name} "
-        f"doesn't have enough money to make a purchase in any shop")
+        f"doesn't have enough money to make a purchase in any shop"
+    )
     return None
 
 
@@ -62,13 +67,12 @@ def print_receipt(customer: Customer, expences_info: tuple) -> None:
         product_quantity = customer.product_cart[product]
         shop_product_quantity_cost = (product_quantity
                                       * shop.products[product])
+        if int(shop_product_quantity_cost) == shop_product_quantity_cost:
+            shop_product_quantity_cost = int(shop_product_quantity_cost)
         purchase_info += (
             f"{product_quantity} "
             f"""{product if product_quantity == 1
-            else product + 's'} for """
-            f"""{int(shop_product_quantity_cost)
-            if int(shop_product_quantity_cost) == shop_product_quantity_cost
-            else shop_product_quantity_cost} dollars\n"""
+            else product + 's'} for {shop_product_quantity_cost} dollars\n"""
         )
     print(f"""
 Date: {datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S")}
