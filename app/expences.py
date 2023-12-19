@@ -26,43 +26,45 @@ def find_min_cost(
 ) -> tuple | None:
     budget = customer.money
     print(f"{customer.name} has {budget} dollars")
-    (shop_head_to, total_cost, purchase_cost_min, distance) = [
-        shops[0],
-        0,
-        0,
-        0,
-    ]
+    (chosen_shop,
+     total_cost_min,
+     purchase_cost_min,
+     distance_chosen_shop) = [None, 0, 0, 0]
     for shop in shops:
         purchase_cost = get_purchase_cost(customer, shop)
-        _distance = get_distance(customer, shop)
+        distance_to_shop = get_distance(customer, shop)
         fuel_spent_cost = round(
             customer.car["fuel_consumption"]
-            / 100
-            * _distance
-            * 2
-            * fuel_price,
+            / 100 * distance_to_shop * 2 * fuel_price,
             2,
         )
-        _total_cost = purchase_cost + fuel_spent_cost
-        print(f"{customer.name}'s trip to the {shop.name} costs {_total_cost}")
-        if _total_cost == total_cost:
-            if _distance < distance:
-                shop_head_to, total_cost, purchase_cost_min, distance = [
+        shop_total_cost = purchase_cost + fuel_spent_cost
+        print(f"{customer.name}'s trip to the {shop.name}"
+              f" costs {shop_total_cost}")
+        if shop_total_cost == total_cost_min:
+            if distance_to_shop < distance_chosen_shop:
+                (chosen_shop,
+                 total_cost_min,
+                 purchase_cost_min,
+                 distance_chosen_shop) = [
                     shop,
-                    _total_cost,
+                    shop_total_cost,
                     purchase_cost,
-                    _distance,
+                    distance_to_shop,
                 ]
-        elif _total_cost < total_cost or total_cost == 0:
-            (shop_head_to, total_cost, purchase_cost_min, distance) = [
+        elif shop_total_cost < total_cost_min or chosen_shop is None:
+            (chosen_shop,
+             total_cost_min,
+             purchase_cost_min,
+             distance_chosen_shop) = [
                 shop,
-                _total_cost,
+                shop_total_cost,
                 purchase_cost,
-                _distance,
+                distance_to_shop,
             ]
-    if budget >= total_cost:
-        print(f"{customer.name} rides to {shop_head_to.name}")
-        return (shop_head_to, total_cost, purchase_cost_min)
+    if budget >= total_cost_min:
+        print(f"{customer.name} rides to {chosen_shop.name}")
+        return chosen_shop, total_cost_min, purchase_cost_min
     print(
         f"{customer.name} "
         f"doesn't have enough money to make a purchase in any shop"
