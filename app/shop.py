@@ -2,19 +2,17 @@ from __future__ import annotations
 
 from datetime import datetime
 
-from app.customer import Customer
+# from app.customer import Customer
 
 
 class Shop:
 
     def __init__(
             self,
-            name: str,
-            location: list,
-            products: dict) -> None:
-        self._name = name
-        self.location = location
-        self.products = products
+            shop: dict) -> None:
+        self._name = shop["name"]
+        self.location = shop["location"]
+        self.products = shop["products"]
 
     def price_count(
             self,
@@ -24,7 +22,8 @@ class Shop:
 
     def customer_buying(
             self,
-            customer: Customer):
+            customer: callable):
+
         total_cost = 0
 
         print("Date: ", datetime.now().strftime("dd/MM/yyyy HH:mm:ss"))
