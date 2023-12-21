@@ -41,8 +41,4 @@ class Shop:
             if amount_to_byu == 1:
                 print(f"1 {food} for {food_price} dollars")
 
-        print(f"Total cost is {total_cost} dollars\nSee you again!")
-
-    @property
-    def name(self):
-        return self._name
+        print(f"Total cost is {total_cost} dollars\nSee you again!\n")

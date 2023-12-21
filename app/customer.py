@@ -30,7 +30,7 @@ class Customer:
             self,
             shop_list: list[Shop],
             fuel_price: float
-    ) -> None:
+    ) -> bool:
         print(f"{self._name} has {self.money} dollars")
 
         chipest_shop = None
@@ -62,12 +62,14 @@ class Customer:
         if self.money > chipest_shop_price:
             chipest_shop.customer_buying(customer=self)
             self.money -= trip_cost
-            print(f"{self._name} rides to {chipest_shop._name}")
+            print(f"{self._name} rides to {chipest_shop._name}\n")
+            return True
         else:
-            print(f"{self._name} doesn't have enough money to make a purchase in any shop")
+            print(f"{self._name} doesn't have enough money to make a purchase in any shop\n")
+            return False
 
     def driving_home(self) -> None:
         print(
             f"{self._name} rides home\n"
-            f"{self._name} now has {round(self.money, 2)} dollars"
+            f"{self._name} now has {round(self.money, 2)} dollars\n"
         )

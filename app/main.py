@@ -15,8 +15,9 @@ def shop_trip():
 
     for customer in customers_list:
 
-        customer.chose_shop(shops_list, fuel_price)
-        customer.driving_home()
+        chosen_shop = customer.chose_shop(shops_list, fuel_price)
+        if chosen_shop:
+            customer.driving_home()
 
 
 if __name__ == "__main__":
