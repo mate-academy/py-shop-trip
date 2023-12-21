@@ -2,15 +2,19 @@ from app.car import Car
 
 
 class Customer:
-    def __init__(self, name: str) -> None:
+    def __init__(self,
+                 name: str,
+                 product_cart: dict = None,
+                 location: list = None,
+                 money: int | float = None) -> None:
         self.name = name
-        self.product_cart = None
-        self.location = []
-        self.money = None
+        self.product_cart = product_cart
+        self.location = location
+        self.money = money
         self._car = None
 
     @property
-    def car(self) -> Car:
+    def car(self) -> Car | None:
         return self._car
 
     @car.setter

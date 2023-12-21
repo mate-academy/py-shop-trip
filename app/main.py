@@ -1,6 +1,6 @@
 import os
 
-from app.data_read import DataRead
+from app.data_read import DataReader
 
 
 def shop_trip() -> None:
@@ -8,7 +8,7 @@ def shop_trip() -> None:
     file_path = os.path.abspath(__file__)
     config_file_path = os.path.join(os.path.dirname(file_path), config_file)
 
-    data_read = DataRead(config_file_path)
+    data_read = DataReader(config_file_path)
     customers = data_read.get_customers()
     shops = data_read.get_shops()
 

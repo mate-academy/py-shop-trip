@@ -13,17 +13,20 @@ def convert_if_whole_number(value: int | float) -> int | float:
 
 
 class Shop:
-    def __init__(self, name: str, location: list) -> None:
+    def __init__(self,
+                 name: str,
+                 location: list,
+                 products: dict = None
+                 ) -> None:
         self.name = name
         self.location = location
-        self.products = []
+        self.products = products
 
     def check_cost_products(self, list_products: dict) -> int | float:
-        total = 0
-        for product, count in list_products.items():
-            total += self.products[product] * count
-
-        return total
+        return sum(
+            self.products[product] * count
+            for product, count in list_products.items()
+        )
 
     def get_store_receipt(self, customer: Customer) -> str:
         current_datetime = datetime.datetime.now()

@@ -6,7 +6,7 @@ from app.customer import Customer
 from app.shop import Shop
 
 
-class DataRead:
+class DataReader:
     def __init__(self, config_file_path: str) -> None:
         with open(config_file_path, "r") as json_file:
             self._data = json.load(json_file)
