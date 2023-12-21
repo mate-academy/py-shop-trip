@@ -17,7 +17,7 @@ class Car:
         distance = (((self.location[0] - target_location[0])**2
                     + (self.location[1] - target_location[1])**2)) ** 0.5
         cost = round((2 * (distance * self.fuel_consumption
-                         * self.fuel_price / 100)), 2)
+                      * self.fuel_price / 100)), 2)
         return cost
 
     def change_car_location(self, new_location: list) -> None:
