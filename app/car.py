@@ -13,12 +13,12 @@ class Car:
         self.location = home_location
         self.current_location = home_location
 
-    def distance_two_way_cost(self, target_location) -> float:
+    def distance_two_way_cost(self, target_location: list) -> float:
         distance = (((self.location[0] - target_location[0])**2
                     + (self.location[1] - target_location[1])**2)) ** 0.5
-        cost = round((2*(distance * self.fuel_consumption
+        cost = round((2 * (distance * self.fuel_consumption
                          * self.fuel_price / 100)), 2)
         return cost
 
-    def change_car_location(self, new_location) -> None:
+    def change_car_location(self, new_location: list) -> None:
         self.current_location = new_location

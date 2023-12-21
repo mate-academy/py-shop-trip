@@ -5,12 +5,12 @@ class Customer:
                  location: list,
                  money: float,
                  car: dict
-                ) -> None:
+                 ) -> None:
         self.name = name
         self.product_cart = product_cart
         self.location = location
         self.money = money
         self.car = car
 
-    def change_customer_location(self, new_location) -> None:
+    def change_customer_location(self, new_location: list) -> None:
         self.location = new_location
