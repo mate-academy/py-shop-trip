@@ -94,8 +94,7 @@ def shop_trip() -> None:
             print(receipt)
 
             customer.money -= cheapest_distance
-            print()
-            print(f"{customer.name} rides home")
+            print(f"\n{customer.name} rides home")
             print(
                 f"{customer.name} now has {round(customer.money, 2)} dollars"
             )
