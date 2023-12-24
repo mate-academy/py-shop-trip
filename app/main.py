@@ -23,8 +23,8 @@ def date_time() -> str:
 
 
 def calculation_distance_and_cost(
-        customer: Any,
-        shop: Any) -> tuple[float, Any]:
+        customer: Customers,
+        shop: Customers) -> tuple[float, Any]:
     x1, y1 = customer.location
     x2, y2 = shop.location
     distance_to_shop = math.sqrt((x2 - x1) ** 2 + (y2 - y1) ** 2)
@@ -96,8 +96,9 @@ def shop_trip() -> None:
             customer.money -= cheapest_distance
             print()
             print(f"{customer.name} rides home")
-            print(f"{customer.name} now has "
-                  f"{round(customer.money, 2)} dollars")
+            print(
+                f"{customer.name} now has {round(customer.money, 2)} dollars"
+            )
             print()
         else:
             print(
