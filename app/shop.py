@@ -1,6 +1,7 @@
 from __future__ import annotations
 from typing import List, Dict, Any
 from dataclasses import dataclass
+from app.customers import Customers
 
 
 @dataclass
@@ -21,7 +22,7 @@ class Shop:
             shop_list.append(shop)
         return shop_list
 
-    def purchase(self, customer: Any, date: str) -> str:
+    def purchase(self, customer: Customers, date: str) -> str:
         purchased_items = []
         total_cost = 0
 
