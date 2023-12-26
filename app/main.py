@@ -18,7 +18,3 @@ def shop_trip():
         chosen_shop = customer.chose_shop(shops_list, fuel_price)
         if chosen_shop:
             customer.driving_home()
-
-
-if __name__ == "__main__":
-    shop_trip()

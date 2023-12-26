@@ -24,7 +24,7 @@ class Customer:
         x_distance = abs(self.location[0] - shop.location[0])
         y_distance = abs(self.location[1] - shop.location[1])
 
-        return round(((x_distance ** 2) + (y_distance ** 2)) ** (1 / 2), 2)
+        return ((x_distance ** 2) + (y_distance ** 2)) ** (1 / 2)
 
     def chose_shop(
             self,
@@ -40,13 +40,15 @@ class Customer:
 
             road_cost = (
                     fuel_price
-                    * self._find_distance(shop)
-                    * self.car["fuel_consumption"]
+                    * (2 * self._find_distance(shop))
+                    * (self.car["fuel_consumption"] * 0.01)
             )
 
             product_cost = 0
             for product in self.product_cart:
-                product_cost += (shop.products[product] * self.product_cart[product])
+                product_cost += (
+                        shop.products[product] * self.product_cart[product]
+                )
 
             trip_cost = round(road_cost + product_cost, 2)
 
@@ -60,16 +62,18 @@ class Customer:
                 chipest_shop = shop
 
         if self.money > chipest_shop_price:
-            chipest_shop.customer_buying(customer=self)
-            self.money -= trip_cost
+            self.money -= chipest_shop_price
             print(f"{self._name} rides to {chipest_shop._name}\n")
+            chipest_shop.customer_buying(customer=self)
             return True
         else:
-            print(f"{self._name} doesn't have enough money to make a purchase in any shop\n")
+            print(
+                f"{self._name} doesn't have enough money to make a purchase in any shop"
+            )
             return False
 
     def driving_home(self) -> None:
         print(
             f"{self._name} rides home\n"
-            f"{self._name} now has {round(self.money, 2)} dollars\n"
+            f"{self._name} now has {self.money} dollars\n"
         )
