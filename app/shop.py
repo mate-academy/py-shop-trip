@@ -12,7 +12,7 @@ class Shop:
 
     def customer_buying(
             self,
-            customer: callable):
+            customer: callable) -> None:
 
         total_cost = 0
 
@@ -30,7 +30,10 @@ class Shop:
             total_cost += food_price
 
             if amount > 1:
-                print(f"{customer.product_cart[food]} {food}s for {food_price} dollars")
+                print(
+                    f"{customer.product_cart[food]} {food}s"
+                    f" for {food_price} dollars"
+                )
 
             if amount == 1:
                 print(f"1 {food} for {food_price} dollars")

@@ -4,9 +4,10 @@ from app.shop import Shop
 from app.customer import Customer
 
 
-def shop_trip():
+def shop_trip() -> None:
 
-    with open("D:/Python_projects/User/py-shop-trip/app/config.json", "r") as file:
+    with open("D:/Python_projects/User/"
+              "py-shop-trip/app/config.json", "r") as file:
         data = json.load(file)
 
     customers_list = [Customer(customer) for customer in data["customers"]]

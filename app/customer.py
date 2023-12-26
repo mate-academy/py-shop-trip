@@ -39,15 +39,15 @@ class Customer:
         for shop in shop_list:
 
             road_cost = (
-                    fuel_price
-                    * (2 * self._find_distance(shop))
-                    * (self.car["fuel_consumption"] * 0.01)
+                fuel_price
+                * (2 * self._find_distance(shop))
+                * (self.car["fuel_consumption"] * 0.01)
             )
 
             product_cost = 0
             for product in self.product_cart:
                 product_cost += (
-                        shop.products[product] * self.product_cart[product]
+                    shop.products[product] * self.product_cart[product]
                 )
 
             trip_cost = round(road_cost + product_cost, 2)
@@ -68,7 +68,8 @@ class Customer:
             return True
         else:
             print(
-                f"{self._name} doesn't have enough money to make a purchase in any shop"
+                f"{self._name} doesn't have enough "
+                f"money to make a purchase in any shop"
             )
             return False
 
