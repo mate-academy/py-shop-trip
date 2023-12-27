@@ -59,8 +59,13 @@ class Customer:
 
         total_cost = 0
         for product, quantity in self.products.items():
-            cost = selected_shop.products.get(product) * quantity
-            cost = int(cost) if int(cost) == cost else cost
+            product_price = (
+                selected_shop.products[product]
+                if product in selected_shop.products else 0
+            )
+            cost = product_price * quantity
+            if isinstance(cost, (int, float)) and float(cost).is_integer():
+                cost = int(cost)
             total_cost += cost
             print(f"{quantity} {product}s for {cost} dollars")
         print(f"Total cost is {total_cost} dollars")

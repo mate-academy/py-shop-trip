@@ -17,14 +17,18 @@ def shop_trip() -> None:
     shops_list = []
 
     for customer in customers:
+        car_info = customer["car"]
+        brand = car_info["brand"]
+        fuel_consumption = car_info["fuel_consumption"]
+
         customer_instance = Customer(
-            name=customer.get("name"),
-            products=customer.get("product_cart"),
-            location=customer.get("location"),
-            money=customer.get("money"),
+            name=customer["name"],
+            products=customer["product_cart"],
+            location=customer["location"],
+            money=customer["money"],
             car=Car(
-                brand=customer.get("car").get("brand"),
-                fuel_consumption=customer.get("car").get("fuel_consumption")
+                brand=brand,
+                fuel_consumption=fuel_consumption
             )
         )
         customers_list.append(customer_instance)
