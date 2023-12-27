@@ -64,12 +64,13 @@ def shop_trip() -> None:
                 product_price = cheapest_shop.products.get(product, 0)
                 total_product_cost = product_price * quantity
                 total_price += total_product_cost
-                if total_product_cost.is_integer():
+                # if total_product_cost.is_integer():
+                if ".0" not in str(total_product_cost):
                     print(f"{quantity} {product}s"
-                          f" for {int(total_product_cost)} dollars")
+                          f" for {round(total_product_cost, 1)} dollars")
                 else:
                     print(f"{quantity} {product}s "
-                          f"for {round(total_product_cost, 1)} dollars")
+                          f"for {int(total_product_cost)} dollars")
             print(f"Total cost is {round(total_price, 2)} dollars")
             print("See you again!\n")
             print(f"{customer.name} rides home")
