@@ -10,42 +10,42 @@ def shop_trip() -> None:
         config = json.load(config_file)
 
     shops = config.get("shops")
-    customers = config.get("customers")
+    customers_data = config.get("customers")
     fuel_price = config.get("FUEL_PRICE")
 
-    customers_list = []
-    shops_list = []
+    customers_instances = []
+    shops_instances = []
 
-    for customer in customers:
-        car_info = customer["car"]
+    for customer_data in customers_data:
+        car_info = customer_data["car"]
         brand = car_info["brand"]
         fuel_consumption = car_info["fuel_consumption"]
 
         customer_instance = Customer(
-            name=customer["name"],
-            products=customer["product_cart"],
-            location=customer["location"],
-            money=customer["money"],
+            name=customer_data["name"],
+            products=customer_data["product_cart"],
+            location=customer_data["location"],
+            money=customer_data["money"],
             car=Car(
                 brand=brand,
                 fuel_consumption=fuel_consumption
             )
         )
-        customers_list.append(customer_instance)
+        customers_instances.append(customer_instance)
 
-    for shop in shops:
+    for shop_data in shops:
         shop_instance = Shop(
-            name=shop.get("name"),
-            location=shop.get("location"),
-            products=shop.get("products")
+            name=shop_data.get("name"),
+            location=shop_data.get("location"),
+            products=shop_data.get("products")
         )
-        shops_list.append(shop_instance)
+        shops_instances.append(shop_instance)
 
-    for customer in customers_list:
-        selected_shop = customer.define_shop(
-            shops=shops_list,
+    for customer_instance in customers_instances:
+        selected_shop = customer_instance.define_shop(
+            shops=shops_instances,
             fuel_price=fuel_price
         )
         if selected_shop:
-            customer.make_purchase(selected_shop=selected_shop)
-            customer.ride_home()
+            customer_instance.make_purchase(selected_shop=selected_shop)
+            customer_instance.ride_home()

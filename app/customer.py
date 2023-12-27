@@ -31,8 +31,8 @@ class Customer:
             fuel_cost = (math.dist(self.location, shop.location)
                          * self.car.fuel_consumption / 100 * fuel_price)
             products_cost = sum(
-                value * shop.products.get(key)
-                for key, value in self.products.items()
+                product_value * shop.products.get(product, 0)
+                for product, product_value in self.products.items()
             )
             trip_cost = round(fuel_cost * 2 + products_cost, 2)
             print(f"{self.name}'s trip to the "
@@ -59,10 +59,7 @@ class Customer:
 
         total_cost = 0
         for product, quantity in self.products.items():
-            product_price = (
-                selected_shop.products[product]
-                if product in selected_shop.products else 0
-            )
+            product_price = selected_shop.products.get(product, 0)
             cost = product_price * quantity
             if isinstance(cost, (int, float)) and float(cost).is_integer():
                 cost = int(cost)
