@@ -14,7 +14,11 @@ class Customers:
     fuel_price: int | float
 
     @classmethod
-    def from_file_data(cls, file_data: Dict[str, Any]) -> Customers:
+    def from_file_data(
+            cls,
+            file_data: Dict[str, Any],
+            fuel_price: float) -> Customers:
+
         return cls(
             name=file_data["name"],
             product_cart=file_data["product_cart"],
@@ -22,15 +26,17 @@ class Customers:
             money=file_data["money"],
             car_brand=file_data["car"]["brand"],
             fuel_consumption=file_data["car"]["fuel_consumption"],
-            fuel_price=file_data.get("FUEL_PRICE", 2.4)
+            fuel_price=fuel_price
         )
 
     @classmethod
     def load_person(
             cls,
-            customer_data: List[Dict[str, Any]]) -> list[Customers]:
-        customers_list = []
+            customer_data: List[Dict[str, Any]],
+            fuel_price: float) -> list[Customers]:
+
+        customers = []
         for data in customer_data:
-            customer = cls.from_file_data(data)
-            customers_list.append(customer)
-        return customers_list
+            customer = cls.from_file_data(data, fuel_price)
+            customers.append(customer)
+        return customers

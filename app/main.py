@@ -17,14 +17,9 @@ def load_config_data() -> Dict[str, Any]:
         return json.load(config_file)
 
 
-def date_time() -> str:
-    date = datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S")
-    return date
-
-
 def calculation_distance_and_cost(
         customer: Customers,
-        shop: Customers) -> tuple[float, Any]:
+        shop: Shop) -> tuple[float, Any]:
     x1, y1 = customer.location
     x2, y2 = shop.location
     distance_to_shop = math.sqrt((x2 - x1) ** 2 + (y2 - y1) ** 2)
@@ -62,17 +57,18 @@ def shop_trip() -> None:
 
     customer_data = config_data["customers"]
     shop_data = config_data["shops"]
+    fuel_price = config_data["FUEL_PRICE"]
 
-    customers_list = Customers.load_person(customer_data)
-    shop_list = Shop.get_shops(shop_data)
+    customers = Customers.load_person(customer_data, fuel_price)
+    shops = Shop.get_shops(shop_data)
 
-    for customer in customers_list:
+    for customer in customers:
         print(f"{customer.name} has {customer.money} dollars")
 
         cheapest_distance = None
         cheapest_store = None
 
-        for shop in shop_list:
+        for shop in shops:
             distance, total_cost = (
                 calculation_distance_and_cost(customer, shop)
             )
@@ -90,7 +86,9 @@ def shop_trip() -> None:
             customer.location = cheapest_store.location
             print(f"{customer.name} rides to {cheapest_store.name}\n")
 
-            receipt = cheapest_store.purchase(customer, date_time())
+            receipt = cheapest_store.purchase(
+                customer,
+                datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S"))
             print(receipt)
 
             customer.money -= cheapest_distance

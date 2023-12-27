@@ -1,5 +1,5 @@
 from __future__ import annotations
-from typing import List, Dict, Any
+from typing import List, Dict
 from dataclasses import dataclass
 from app.customers import Customers
 
@@ -11,16 +11,16 @@ class Shop:
     products: Dict[str, float]
 
     @classmethod
-    def get_shops(cls, shop_data: List[Dict[str | Any]]) -> list[Shop]:
-        shop_list = []
+    def get_shops(cls, shop_data: List[Dict[str | Customers]]) -> list[Shop]:
+        shops = []
         for data in shop_data:
             shop = cls(
                 name=data["name"],
                 location=data["location"],
                 products=data["products"]
             )
-            shop_list.append(shop)
-        return shop_list
+            shops.append(shop)
+        return shops
 
     def purchase(self, customer: Customers, date: str) -> str:
         purchased_items = []
