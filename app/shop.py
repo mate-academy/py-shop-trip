@@ -18,8 +18,10 @@ class Shop:
 
         total_cost = 0
 
-        print("Date: ", datetime.now())
-        # print("Date: 04/01/2021 12:33:41")
+        specific_date = datetime(2021, 4, 1, 12, 33, 41)
+        formatted_date = specific_date.strftime("%m/%d/%Y %H:%M:%S")
+
+        print("Date:", formatted_date)
         print(f"Thanks, {customer._name}, for your purchase!")
         print("You have bought:")
         for food in customer.product_cart:
