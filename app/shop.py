@@ -18,7 +18,7 @@ class Shop:
 
         total_cost = 0
 
-        print("Date: ", datetime.now().strftime("%d/%m/%y %H:%M:%S"))
+        print("Date: ", datetime.now())
         # print("Date: 04/01/2021 12:33:41")
         print(f"Thanks, {customer._name}, for your purchase!")
         print("You have bought:")
