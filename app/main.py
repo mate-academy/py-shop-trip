@@ -46,7 +46,7 @@ def finish_report(bill: str,
 
 
 def get_data() -> tuple[list[Customer], float, list[Shop]]:
-    with open("config.json") as file:
+    with open("app/config.json") as file:
         data = json.load(file)
         (_, fuel_price), (_, customers), (_, shops) = data.items()
     return ([Customer(**customer) for customer in customers],
