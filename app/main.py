@@ -27,9 +27,10 @@ def shop_trip() -> None:
                         maxima, choice, bill = trip_coast, shop, check
 
         if choice:
+            date_stamp = datetime.now().strftime("%m/%d/%Y %H:%M:%S")
             print(f"{customer.name} rides to {choice.name}")
             print()
-            print(f"Date: {datetime.now().strftime("%m/%d/%Y %H:%M:%S")}")
+            print(f"Date: {date_stamp}")
             print(f"Thanks, {customer.name}, for your purchase!")
             print("You have bought")
             print(bill)
