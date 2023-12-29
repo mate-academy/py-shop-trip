@@ -40,9 +40,7 @@ class Customer:
 
         if costs <= self.money:
             print(f"{self.name} rides to {name_shop}")
-            date_time_str = "04/01/2021 12:33:41"
-            date_time_obj = datetime.strptime(date_time_str,
-                                              "%m/%d/%Y %H:%M:%S")
+            date_time_obj = datetime(2021, 4, 1, 12, 33, 41)
             print(f"\nDate: {date_time_obj.strftime('%m/%d/%Y %H:%M:%S')}")
             print(f"Thanks, {self.name}, for your purchase!")
             return True

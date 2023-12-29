@@ -12,10 +12,8 @@ class Shop:
         print("You have bought:")
         for key, value in product_cart.items():
             sum_for_product = value * shop_cart[key]
-            # i have this "if" because i
-            # couldn't get that particular number to int
-            if sum_for_product == 3.0:
-                sum_for_product = 3
+            if int(sum_for_product) == float(sum_for_product):
+                sum_for_product = int(sum_for_product)
             print(f"{value} {key}s for {sum_for_product} dollars")
             total_cost += sum_for_product
 
