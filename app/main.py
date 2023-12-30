@@ -16,7 +16,7 @@ def cost_fuel_calculate(
     distance = ((shop_location[0] - customer_location[0]) ** 2
                 + (shop_location[1] - customer_location[1]) ** 2) ** 0.5
 
-    sum_cost_fuel = (fuel_cons / 100) * (round(distance, 2) * 2) * fuel_price
+    sum_cost_fuel = (fuel_cons / 100) * (distance * 2) * fuel_price
 
     return sum_cost_fuel
 
@@ -64,16 +64,15 @@ def shop_trip() -> None:
 
                 food_cost = cost_food(customer.product_cart, shops.products)
 
-                total_cost = round(
-                    fuel + food_cost.get("milk_cost")
-                    + food_cost.get("bread_cost")
-                    + food_cost.get("butter_cost"), 2)
+                total_cost = (fuel + food_cost.get("milk_cost")
+                              + food_cost.get("bread_cost")
+                              + food_cost.get("butter_cost"))
 
                 min_cost.update({shops.name: total_cost})
 
                 print(
                     f"{customer.name}'s trip to the "
-                    f"{shops.name} costs {total_cost}")
+                    f"{shops.name} costs {total_cost:.2f}")
 
             if customer.money > total_cost:
 
@@ -115,7 +114,7 @@ def shop_trip() -> None:
 
                 print(
                     f"{customer.product_cart.get('bread')} "
-                    f"breads for {bread} dollars")
+                    f"breads for {round(bread)} dollars")
 
                 print(
                     f"{customer.product_cart.get('butter')} "
@@ -131,7 +130,7 @@ def shop_trip() -> None:
 
                 print(
                     f"{customer.name} now has "
-                    f"{customer.money - min_cost.get(selected_shop.name)} "
+                    f"{customer.money - min_cost.get(selected_shop.name):.2f} "
                     f"dollars\n")
 
             else:
