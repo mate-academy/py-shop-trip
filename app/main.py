@@ -32,7 +32,7 @@ def cost_food(product_chart: dict, product: dict) -> dict:
 
 
 def shop_trip() -> None:
-    with open("config.json", "r") as file:
+    with open("app/config.json", "r") as file:
         data = json.load(file)
         fuel_cost = data["FUEL_PRICE"]
         min_cost = {}
