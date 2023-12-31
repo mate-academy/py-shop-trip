@@ -103,9 +103,10 @@ def shop_trip() -> None:
             print(f"{customer.name} rides home")
 
             customer.location = customer_home
+            select_shop = selected_shop_data.get("name")
 
             print(f"{customer.name} now has "
-                  f"{customer.money - min_cost.get(selected_shop_data.get('name')):.2f}"
+                  f"{customer.money - min_cost.get(select_shop):.2f}"
                   f" dollars\n")
 
         else:
