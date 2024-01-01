@@ -22,51 +22,56 @@ def cost_fuel_calculate(
 
 
 def shop_trip() -> None:
+
+    customer_instance = []
+    shop_instance = []
+
     with open("app/config.json", "r") as file:
         data = json.load(file)
     fuel_cost = data["FUEL_PRICE"]
-    min_cost = {}
 
     for customer in data["customers"]:
-        counter = 0
-        total_cost = 0
-
         customer = Customers(
             customer["name"],
             customer["product_cart"],
             customer["location"],
             customer["money"],
             customer["car"])
-        print(f"{customer.name} has {customer.money} dollars")
+        customer_instance.append(customer)
 
+    for shop in data["shops"]:
+        shops = Shops(
+            shop["name"],
+            shop["location"],
+            shop["products"]
+        )
+        shop_instance.append(shops)
+
+    for customer in customer_instance:
+        counter = 0
+        min_cost = {}
+        print(f"{customer.name} has {customer.money} dollars")
         customer_home = customer.location
 
-        for shop in data["shops"]:
+        for shop in shop_instance:
+            total_cost = 0
             current_shop_food_cost = 0
-            shops = Shops(
-                shop["name"],
-                shop["location"],
-                shop["products"]
-            )
-
             fuel = cost_fuel_calculate(
                 customer_location=customer.location,
-                shop_location=shops.location,
+                shop_location=shop.location,
                 fuel_price=fuel_cost,
                 fuel_cons=customer.car["fuel_consumption"]
             )
-
-            for key in customer.product_cart.keys():
+            for product, quantity in customer.product_cart.items():
                 current_shop_food_cost += \
-                    customer.product_cart[key] * shops.products[key]
+                    customer.product_cart[product] * shop.products.get(product)
 
             total_cost = fuel + current_shop_food_cost
-
-            min_cost.update({shops.name: total_cost})
+            min_cost.update({shop.name: total_cost})
 
             print(
                 f"{customer.name}'s trip to the "
-                f"{shops.name} costs {total_cost:.2f}")
+                f"{shop.name} costs {total_cost:.2f}")
 
         if customer.money > total_cost:
             low_cost_shop_name = min(min_cost, key=min_cost.get)
@@ -88,12 +93,12 @@ def shop_trip() -> None:
                 shop for shop in data["shops"]
                 if shop["name"] == low_cost_shop_name)
 
-            for key, value in selected_shop_data["products"].items():
-                product_cost = customer.product_cart.get(key) * value
+            for product, quantity in selected_shop_data["products"].items():
+                product_cost = customer.product_cart.get(product) * quantity
                 counter += product_cost
 
                 print(
-                    f"{customer.product_cart.get(key)} {key}s for "
+                    f"{customer.product_cart.get(product)} {product}s for "
                     f"{'%g' % product_cost} dollars")
 
             print(f"Total cost is {counter} dollars")
