@@ -1,4 +1,4 @@
-from math import sqrt
+import math
 from app.shop import Shop
 
 
@@ -15,11 +15,7 @@ class Car:
         self.fuel_price = fuel_price
         self.product_cart = product_cart
 
-    def shop_expenses(
-            self,
-            shop: Shop,
-            customer_location: list
-    ) -> float:
+    def shop_expenses(self, shop: Shop, customer_location: list) -> float:
 
         distance_to_shop = self.calculate_distance(
             customer_location[0], customer_location[1],
@@ -42,10 +38,8 @@ class Car:
         return round(trip_cost, 2)
 
     @staticmethod
-    def calculate_distance(
-            x1: int,
-            y1: int,
-            x2: int,
-            y2: int
-    ) -> float:
-        return sqrt((x2 - x1)**2 + (y2 - y1)**2)
+    def calculate_distance(x1: int, y1: int, x2: int, y2: int) -> float:
+        point1 = (x1, y1)
+        point2 = (x2, y2)
+        distance = math.dist(point1, point2)
+        return distance

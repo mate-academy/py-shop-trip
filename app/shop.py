@@ -4,7 +4,7 @@ from app.customer import Customer
 
 class Receipt:
     def __init__(self, customer: Customer, shop: "Shop") -> None:
-        self. customer = customer
+        self.customer = customer
         self.shop = shop
         self.total_cost = 0
         self.final_balance = 0
@@ -37,9 +37,7 @@ class Receipt:
 
 
 class Shop:
-    def __init__(
-            self, name: str, location: list, products: dict,
-    ) -> None:
+    def __init__(self, name: str, location: list, products: dict,) -> None:
         self.name = name
         self.location = location
         self.products = products
@@ -52,11 +50,9 @@ class Shop:
         receipt.calculate_total_cost()
         receipt.print_receipt()
         final_balance = customer.money - total_cost
-        print("See you again!")
-        print()
-        print(f"{customer.name} rides home")
-        print(f"{customer.name} now has {final_balance} dollars")
-        print()
+        print("See you again!\n"
+              f"\n{customer.name} rides home\n"
+              f"{customer.name} now has {final_balance} dollars\n")
 
     @staticmethod
     def get_current_datetime() -> str:

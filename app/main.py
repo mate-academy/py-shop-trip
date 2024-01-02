@@ -5,41 +5,29 @@ from app.customer import Customer
 from app.shop import Shop
 
 
-def load_person(config_path: str, entity_type: str) -> list:
+def load_entities(config_path: str) -> tuple:
     with open(config_path, "r") as file:
         config_data = json.load(file)
 
-    entities = []
-    for entity_data in config_data.get(entity_type, []):
-        entity = None
-        if entity_type == "customers":
-            entity = Customer(
-                entity_data.get("name", ""),
-                entity_data.get("product_cart", {}),
-                entity_data.get("location", []),
-                entity_data.get("money", 0),
-                entity_data.get("car", {})
-            )
-        elif entity_type == "shops":
-            entity = Shop(
-                entity_data.get("name", ""),
-                entity_data.get("location", []),
-                entity_data.get("products", {})
-            )
-        entities.append(entity)
-    return entities
+    customers = []
+    for customer_data in config_data.get("customers", []):
+        customer = Customer(**customer_data)
+        customers.append(customer)
+
+    shops = []
+    for shop_data in config_data.get("shops", []):
+        shop = Shop(**shop_data)
+        shops.append(shop)
+
+    fuel_price = config_data.get("FUEL_PRICE", 2.4)
+
+    return customers, shops, fuel_price
 
 
 def shop_trip() -> None:
     config_path = os.path.join("app", "config.json")
 
-    with open(config_path, "r") as file:
-        config_data = json.load(file)
-    fuel_price = config_data.get("FUEL_PRICE", 2.4)
-
-    # Load customers and shops directly in main
-    customers = load_person(config_path, "customers")
-    shops = load_person(config_path, "shops")
+    customers, shops, fuel_price = load_entities(config_path)
 
     for customer in customers:
         print(f"{customer.name} has {customer.money} dollars")
@@ -67,9 +55,8 @@ def shop_trip() -> None:
         if cheapest_shop:
             customer.customer_choice(min_trip_cost, cheapest_shop.name)
             if min_trip_cost <= customer.money:
-                print()
-                print(f"Date: {cheapest_shop.get_current_datetime()}")
-                print(f"Thanks, {customer.name}, for your purchase!")
+                print(f"\nDate: {cheapest_shop.get_current_datetime()}\n"
+                      f"Thanks, {customer.name}, for your purchase!")
 
         if min_trip_cost <= customer.money:
             cheapest_shop.products_to_buy(customer, min_trip_cost)
