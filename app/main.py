@@ -45,7 +45,3 @@ def shop_trip() -> None:
                 f"{customer.name} doesn't have enough money "
                 f"to make a purchase in any shop"
             )
-
-
-if __name__ == "__main__":
-    shop_trip()
