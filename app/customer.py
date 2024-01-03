@@ -1,5 +1,5 @@
 from datetime import datetime
-
+from app.shop import Shop
 from app.car import Car
 
 
@@ -14,13 +14,13 @@ class Customer:
     def money_sum(self) -> None:
         print(f"{self.name} has {self.money} dollars")
 
-    def cost_trip(self, car: Car, product_cart: dict, shops: list) -> bool:
+    def cost_trip(self, car: Car, shop: Shop) -> bool:
         min_costs_shop = {}
 
-        for shop in shops:
+        for shop in shop.shops:
             distance = car.calculate_distance(shop["location"])
-            sum_cart = {key: product_cart[key] * shop["products"][key]
-                        for key in product_cart}
+            sum_cart = {key: shop.product_cart[key] * shop["products"][key]
+                        for key in shop.product_cart}
             cost_travel = (sum(sum_cart.values()) + car.road_cost(distance))
             print(f"{self.name}'s trip to the "
                   f"{shop['name']} costs {cost_travel}")
