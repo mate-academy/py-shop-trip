@@ -37,7 +37,7 @@ class Receipt:
 
 
 class Shop:
-    def __init__(self, name: str, location: list, products: dict,) -> None:
+    def __init__(self, name: str, location: list[int], products: dict) -> None:
         self.name = name
         self.location = location
         self.products = products
@@ -53,6 +53,8 @@ class Shop:
         print("See you again!\n"
               f"\n{customer.name} rides home\n"
               f"{customer.name} now has {final_balance} dollars\n")
+
+        customer.location = [0, 0]
 
     @staticmethod
     def get_current_datetime() -> str:
