@@ -13,16 +13,18 @@ def shop_trip() -> None:
     with open(config_file_path, "r") as f:
         file_content = json.load(f)
         for i in file_content["customers"]:
-            shop = Shop(i["product_cart"], file_content["shops"])
-            customer = Customer(i["name"], i["money"])
-            car = Car(i["car"]["brand"], i["location"],
-                      file_content["FUEL_PRICE"], i["car"]["fuel_consumption"])
+            shop = Shop(i["product_cart"],
+                        file_content["shops"])
+            car = Car(i["car"]["brand"],
+                      i["location"],
+                      file_content["FUEL_PRICE"],
+                      i["car"]["fuel_consumption"])
+            customer = Customer(i["name"],
+                                i["money"], car)
 
             customer.money_sum()
-            if customer.cost_trip(car, shop) is False:
+            if customer.cost_trip(shop) is False:
                 break
             else:
                 shop.listing_food(customer.picked_shop)
                 customer.rides_home()
-
-shop_trip()

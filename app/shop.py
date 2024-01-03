@@ -1,5 +1,5 @@
 class Shop:
-    def __init__(self, product_cart: dict, shops: list):
+    def __init__(self, product_cart: dict, shops: list) -> None:
         self.product_cart = product_cart
         self.shops = shops
 
