@@ -54,7 +54,7 @@ class Shop:
               f"\n{customer.name} rides home\n"
               f"{customer.name} now has {final_balance} dollars\n")
 
-        customer.location = [0, 0]
+        customer.location = customer.home_location
 
     @staticmethod
     def get_current_datetime() -> str:

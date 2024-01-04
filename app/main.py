@@ -53,6 +53,7 @@ def shop_trip() -> None:
                 cheapest_shop = shop
 
         if cheapest_shop:
+            customer.location = cheapest_shop.location
             customer.customer_choice(min_trip_cost, cheapest_shop.name)
             if min_trip_cost <= customer.money:
                 print(f"\nDate: {cheapest_shop.get_current_datetime()}\n"

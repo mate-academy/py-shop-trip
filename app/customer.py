@@ -9,6 +9,7 @@ class Customer:
         self.location = location
         self.money = money
         self.car = car
+        self.home_location = location
 
     def customer_choice(self, trip_cost: float, shop_name: str) -> None:
         if trip_cost > self.money:
