@@ -27,39 +27,27 @@ def printing_actions(
         shops: List[Shop],
         fuel_price: int | float
 ) -> None:
-    print(
-        "{name} has {money} dollars"
-        .format(name=customer.name, money=customer.money)
-    )
+    print(f"{customer.name} has {customer.money} dollars")
     shop_dict = {shop: customer.shopping(shop, fuel_price) for shop in shops}
     cheapest_shop = min(shop_dict, key=lambda k: shop_dict[k])
     enough_money = any(customer.money >= value for value in shop_dict.values())
     for shop in shops:
         print(
-            "{name}'s trip to the "
-            "{shop_name} costs {trip_cost}".format(
-                name=customer.name,
-                shop_name=shop.name,
-                trip_cost=shop_dict[shop]
-            )
+            f"{customer.name}'s trip to the "
+            f"{shop.name} costs {shop_dict[shop]}"
         )
     if not enough_money:
         print(f"{customer.name} doesn't have enough "
               f"money to make a purchase in any shop")
         return
-    print("{name} rides to {shop_name}\n".format(
-        name=customer.name,
-        shop_name=cheapest_shop.name
-    ))
+    print(f"{customer.name} rides to {cheapest_shop.name}\n")
     date_time_now = datetime.datetime.now()
     date = date_time_now.strftime("%d/%m/%Y %H:%M:%S")
     print(f"Date: {date}\nThanks, {customer.name}, for your purchase!")
     customer.shopping_details(cheapest_shop)
     print(
-        "{name} rides home\n"
-        "{name} now has {balance} dollars\n"
-        .format(
-            name=customer.name,
-            balance=customer.balance_of_money(cheapest_shop, fuel_price)
-        )
+        f"{customer.name} rides home\n"
+        f"{customer.name} now has "
+        f"{customer.balance_of_money(cheapest_shop, fuel_price)} "
+        f"dollars\n"
     )
