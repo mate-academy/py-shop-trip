@@ -24,7 +24,7 @@ class Shop:
 
         print(f"Date: {date}")
         print(f"Thanks, {customer.name}, for your purchase!")
-        print("You have bought: ")
+        print("You have bought:")
 
         for product, quantity in customer.product_cart.items():
             if product in self.products:
