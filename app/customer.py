@@ -33,12 +33,13 @@ class Customer:
             if costs < min_costs:
                 min_costs = costs
                 min_shop = shop
-
-        print(f"{self.name} rides to {min_shop.name}")
-        print()
-        min_shop.print_receipt(self)
-
-        self.money -= min_costs
-        print(f"{self.name} rides home")
-        print(f"{self.name} now has {self.money} dollars")
-        print()
+        if self.money < min_costs:
+            print(f"{self.name} doesn't have enough money to make a purchase in any shop")
+        else:
+            print(f"{self.name} rides to {min_shop.name}")
+            print()
+            min_shop.print_receipt(self)
+            self.money -= min_costs
+            print(f"{self.name} rides home")
+            print(f"{self.name} now has {self.money} dollars")
+            print()
