@@ -21,11 +21,9 @@ class Shop:
 
     def print_receipt(self, customer: object) -> None:
         date = "04/01/2021 12:33:41"
-
         print(f"Date: {date}\nThanks, "
               f"{customer.name}, "
               f"for your purchase!\nYou have bought:")
-
         for product, quantity in customer.product_cart.items():
             if product in self.products:
                 product_price = self.products[product]
