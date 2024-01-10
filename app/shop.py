@@ -9,14 +9,10 @@ class Shop:
         self.products = products
 
     def calculate_purchase_cost(self, customer: object) -> float:
-        total_cost = 0.0
-
-        for product, quantity in customer.product_cart.items():
-            if product in self.products:
-                product_price = self.products[product]
-                cost_for_product = product_price * quantity
-                total_cost += cost_for_product
-
+        total_cost = sum(
+            self.products[product] * quantity for product,
+            quantity in customer.product_cart.items()
+            if product in self.products)
         return round(total_cost, 2)
 
     def print_receipt(self, customer: object) -> None:
