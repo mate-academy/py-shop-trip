@@ -22,9 +22,9 @@ class Shop:
     def print_receipt(self, customer: object) -> None:
         date = "04/01/2021 12:33:41"
 
-        print(f"Date: {date}")
-        print(f"Thanks, {customer.name}, for your purchase!")
-        print("You have bought:")
+        print(f"Date: {date}\nThanks, "
+              f"{customer.name}, "
+              f"for your purchase!\nYou have bought:")
 
         for product, quantity in customer.product_cart.items():
             if product in self.products:
@@ -37,6 +37,4 @@ class Shop:
                     cost_for_product = int(cost_for_product_int)
                 print(f"{quantity} {product}s for {cost_for_product} dollars")
         total_cost = self.calculate_purchase_cost(customer)
-        print(f"Total cost is {total_cost} dollars")
-        print("See you again!")
-        print()
+        print(f"Total cost is {total_cost} dollars\nSee you again!\n")
