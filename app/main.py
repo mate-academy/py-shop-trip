@@ -12,9 +12,17 @@ def shop_trip() -> None:
 
     shops = [Shop(**shop_data) for shop_data in data["shops"]]
 
-    customers = [Customer(**customer_data,
-                          car=Car(**customer_data["car"]))
-                 for customer_data in data["customers"]]
+    customers = [
+        Customer(
+            customer_data["name"],
+            customer_data["product_cart"],
+            customer_data["location"],
+            customer_data["money"],
+            Car(customer_data["car"]["brand"],
+                customer_data["car"]["fuel_consumption"])
+        )
+        for customer_data in data["customers"]
+    ]
 
     for customer in customers:
         customer.make_purchase(shops, fuel_price)
