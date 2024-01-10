@@ -11,9 +11,9 @@ def shop_trip() -> None:
     fuel_price = data["FUEL_PRICE"]
 
     shops = [Shop(shop_data["name"],
-                      shop_data["location"],
-                      shop_data["products"])
-                 for shop_data in data["shops"]]
+                  shop_data["location"],
+                  shop_data["products"])
+             for shop_data in data["shops"]]
 
     customers = [
         Customer(
