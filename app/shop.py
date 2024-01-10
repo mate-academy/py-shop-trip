@@ -28,8 +28,8 @@ class Shop:
             if product in self.products:
                 product_price = self.products[product]
                 cost_for_product = product_price * quantity
-                cost_for_product_frac, cost_for_product_int \
-                    = math.modf(cost_for_product)
+                (cost_for_product_frac,
+                 cost_for_product_int) = math.modf(cost_for_product)
                 cost_for_product_after = cost_for_product_frac * 10
                 if cost_for_product_after == 0:
                     cost_for_product = int(cost_for_product_int)

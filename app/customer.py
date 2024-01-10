@@ -45,10 +45,8 @@ class Customer:
                   f"doesn't have enough money to make "
                   f"a purchase in any shop")
         else:
-            print(f"{self.name} rides to {min_shop.name}")
-            print()
+            print(f"{self.name} rides to {min_shop.name}\n")
             min_shop.print_receipt(self)
             self.money -= min_costs
-            print(f"{self.name} rides home")
-            print(f"{self.name} now has {self.money} dollars")
-            print()
+            print(f"{self.name} rides home\n"
+                  f"{self.name} now has {self.money} dollars\n")
