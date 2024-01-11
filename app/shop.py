@@ -1,4 +1,3 @@
-import math
 import datetime
 from typing import List, TYPE_CHECKING
 
@@ -29,7 +28,8 @@ class Shop:
             if product in self.products:
                 product_price = self.products[product]
                 cost_for_product = product_price * quantity
-                if isinstance(cost_for_product, float) and cost_for_product.is_integer():
+                if (isinstance(cost_for_product, float)
+                        and cost_for_product.is_integer()):
                     cost_for_product = int(cost_for_product)
                 print(f"{quantity} {product}s for {cost_for_product} dollars")
         total_cost = self.calculate_purchase_cost(customer)
