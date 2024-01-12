@@ -1,4 +1,3 @@
-from __future__ import annotations
 import datetime
 from dataclasses import dataclass
 from typing import List, Dict, Any
@@ -44,8 +43,8 @@ class Customer:
     def make_purchase(self, chosen_shop: Any) -> None:
         print(f"\nDate: "
               f"{datetime.datetime.now().strftime('%d/%m/%Y %H:%M:%S')}")
-        print(f"Thanks, {self.name}, for your purchase!")
-        print("You have bought:")
+        print(f"Thanks, {self.name}, for your purchase!\n"
+              "You have bought:")
 
         for product, quantity in self.product_cart.items():
             cost = round(chosen_shop.products[product] * quantity, 2)
@@ -53,8 +52,8 @@ class Customer:
             print(f"{quantity} {product}s for {formatted_cost} dollars")
 
         total_cost = chosen_shop.get_product_cost(self)
-        print(f"Total cost is {total_cost} dollars")
-        print("See you again!")
+        print(f"Total cost is {total_cost} dollars\n"
+              "See you again!")
 
     def ride_home(self) -> None:
         print(f"\n{self.name} rides home")
