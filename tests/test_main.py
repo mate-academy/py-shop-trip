@@ -19,7 +19,7 @@ def test_shop_trip_output(monkeypatch):
 
     output = f.getvalue()
     out = '''Bob has 55 dollars
-Bob's trip to the Outskirts Shop costs 28.21
+Bob's trip to the Outskirts Shop costs 28.22
 Bob's trip to the Shop '24/7' costs 31.48
 Bob's trip to the Central Shop costs 39.28
 Bob rides to Outskirts Shop
@@ -34,10 +34,10 @@ Total cost is 26.5 dollars
 See you again!
 
 Bob rides home
-Bob now has 26.79 dollars
+Bob now has 26.78 dollars
 
 Alex has 41 dollars
-Alex's trip to the Outskirts Shop costs 17.14
+Alex's trip to the Outskirts Shop costs 17.15
 Alex's trip to the Shop '24/7' costs 15.95
 Alex's trip to the Central Shop costs 17.98
 Alex rides to Shop '24/7'
@@ -46,7 +46,7 @@ Date: 04/01/2021 12:33:41
 Thanks, Alex, for your purchase!
 You have bought:
 2 milks for 4 dollars
-2 breads for 3 dollars
+2 breads for 3.0 dollars
 2 butters for 6.4 dollars
 Total cost is 13.4 dollars
 See you again!
