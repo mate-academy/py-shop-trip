@@ -34,7 +34,7 @@ class Customer:
                   f"money to make a purchase in any shop")
             return None
 
-        affordable_shops.sort(key=lambda x: x[1])
+        affordable_shops.sort(key=lambda shp: shp[1])
         chosen_shop, total_cost = affordable_shops[0]
         print(f"{self.name} rides to {chosen_shop.name}")
         self.money -= total_cost

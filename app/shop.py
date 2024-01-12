@@ -13,4 +13,5 @@ class Shop:
 
     def get_product_cost(self, customer: Customer) -> float | int:
         return sum(value * self.products.get(key)
-                   for key, value in customer.product_cart.items())
+                   for key, value in customer.product_cart.items()
+                   )
