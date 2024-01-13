@@ -17,7 +17,7 @@ class Shop:
             (self.location[0] - customer_location[0]) ** 2 +
             + (self.location[1] - customer_location[1]) ** 2
         )
-        return round(distance, 2)
+        return distance
 
     def products_cost(self, product_cart: dict) -> float:
         cost = sum(
