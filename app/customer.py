@@ -56,5 +56,7 @@ class Customer:
               "See you again!")
 
     def ride_home(self) -> None:
-        print(f"\n{self.name} rides home")
-        print(f"{self.name} now has {self.money} dollars\n")
+        print(
+            f"\n{self.name} rides home\n{self.name} "
+            f"now has {self.money} dollars\n"
+        )

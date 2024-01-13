@@ -1,4 +1,3 @@
-from __future__ import annotations
 from dataclasses import dataclass
 from typing import Dict, List
 
@@ -12,6 +11,6 @@ class Shop:
     products: Dict[str, float | int]
 
     def get_product_cost(self, customer: Customer) -> float | int:
-        return sum(value * self.products.get(key)
-                   for key, value in customer.product_cart.items()
+        return sum(quantity * self.products.get(product_id)
+                   for product_id, quantity in customer.product_cart.items()
                    )
