@@ -25,8 +25,11 @@ class Shop:
         for key, value in customer.product_cart.items():
             if price := self.products.get(key):
                 total_cost += price * value
-                formatted_result = "{:.1f}".format(price * value) if \
-                    (price * value) % 1 != 0 else str(int(price * value))
+                formatted_result = (
+                    "{:.1f}".format(price * value)
+                    if (price * value) % 1 != 0
+                    else str(int(price * value))
+                )
                 print(f"{value} {key}s for {formatted_result} dollars")
         print(f"Total cost is {total_cost} dollars")
         print("See you again!\n")
