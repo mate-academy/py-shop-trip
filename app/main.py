@@ -24,11 +24,7 @@ def shop_trip() -> None:
         )
     ) for customer_data in customers_data]
 
-    shops_instances = [Shop(
-        name=shop_data.get("name"),
-        location=shop_data.get("location"),
-        products=shop_data.get("products")
-    ) for shop_data in shops]
+    shops_instances = [Shop(**shop_data) for shop_data in shops]
 
     for customer_instance in customers_instances:
         selected_shop = customer_instance.define_shop(

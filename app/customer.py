@@ -52,10 +52,8 @@ class Customer:
 
     def make_purchase(self, selected_shop: Shop) -> None:
         formatted_date = datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S")
-        print(f"Date: {formatted_date}")
-        print(f"Thanks, {self.name}, for your purchase!")
-        print("You have bought:")
-
+        print(f"Date: {formatted_date}\n"
+              f"Thanks, {self.name}, for your purchase!\nYou have bought:")
         total_cost = 0
         for product, quantity in self.products.items():
             product_price = selected_shop.products.get(product, 0)
@@ -64,9 +62,8 @@ class Customer:
                 cost = int(cost)
             total_cost += cost
             print(f"{quantity} {product}s for {cost} dollars")
-        print(f"Total cost is {total_cost} dollars")
-        print("See you again!\n")
+        print(f"Total cost is {total_cost} dollars\nSee you again!\n")
 
     def ride_home(self) -> None:
-        print(f"{self.name} rides home")
-        print(f"{self.name} now has {round(self.money, 2)} dollars\n")
+        print(f"{self.name} rides home\n{self.name}"
+              f" now has {round(self.money, 2)} dollars\n")
