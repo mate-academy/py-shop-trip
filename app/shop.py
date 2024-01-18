@@ -20,7 +20,8 @@ class Shop:
         return distance
 
     def products_cost(self, product_cart: dict) -> float:
-        cost = sum(
-            self.products[key] * product_cart[key] for key in product_cart
+        cost = cost = sum(
+            self.products[key] * value for key, value in product_cart.items()
         )
+
         return cost
