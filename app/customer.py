@@ -57,12 +57,8 @@ class Customer:
 
         if best_shop:
             return best_shop, best_price
-        else:
-            print(
-                "Monica doesn't have enough money to "
-                "make a purchase in any shop"
-            )
-            return None, None
 
-    def count_remaining_money(self) -> None:
-        pass
+        print(
+            "Monica doesn't have enough money to " "make a purchase in any shop"
+        )
+        return None, None
