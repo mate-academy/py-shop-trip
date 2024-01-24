@@ -1,4 +1,4 @@
-from datetime import datetime
+import datetime
 from typing import Any
 
 
@@ -14,7 +14,7 @@ class Shop:
         self.products = products
 
     def make_shopping_proces(self, customer: Any) -> None:
-        print(f"Date: {datetime.now().strftime('%d/%m/%Y %H:%M:%S')}")
+        print(f"Date: {datetime.datetime.now().strftime('%d/%m/%Y %H:%M:%S')}")
         print(f"Thanks, {customer.name}, for your purchase!")
         print("You have bought:")
         total = 0
