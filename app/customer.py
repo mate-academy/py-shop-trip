@@ -59,6 +59,7 @@ class Customer:
             return best_shop, best_price
 
         print(
-            "Monica doesn't have enough money to " "make a purchase in any shop"
+            "Monica doesn't have enough money to "
+            "make a purchase in any shop"
         )
         return None, None
