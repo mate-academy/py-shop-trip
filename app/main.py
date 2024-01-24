@@ -19,7 +19,8 @@ def shop_trip() -> None:
             best_shop.make_shopping_proces(customer)
             print(f"{customer.name} rides home")
             customer.location = customer.home
-            print(f"{customer.name} now has {customer.money - price} dollars\n")
+            print(f"{customer.name} now has {customer.money - price} "
+                  f"dollars\n")
 
 
 shop_trip()
