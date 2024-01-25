@@ -1,4 +1,3 @@
-import datetime
 from app.classes.car import Car
 from app.classes.shop import Shop
 from math import sqrt
@@ -32,19 +31,11 @@ class Customer:
         )
         return round(fuel_cost + cost_of_products, 2)
 
-    def print_receipt(self, shop: Shop) -> str:
-        date = datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S")
-        receipt = (f"Date: {date}\n"
-                   f"Thanks, {self.name}, for your purchase!\n"
-                   f"You have bought:\n")
-        total_sum = 0
-        for product, amount in self.product_cart.items():
-            if product in shop.products:
-                cost = amount * shop.products[product]
-                if cost == int(cost):
-                    cost = int(cost)
-                total_sum += cost
-                receipt += f"{amount} {product + 's'} for {cost} dollars\n"
-        receipt += (f"Total cost is {total_sum} dollars\n"
-                    "See you again!")
-        return receipt
+    def ride_for_products(self, shop: Shop) -> None:
+        print(f"{self.name} rides to {shop.name}\n")
+        print(shop.print_receipt(self.name, self.product_cart) + "\n")
+        print(
+            f"{self.name} rides home\n"
+            f"{self.name} now has "
+            f"{self.money - self.calculate_trip_cost(shop)} dollars\n"
+        )

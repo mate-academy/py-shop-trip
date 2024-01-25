@@ -21,10 +21,4 @@ def shop_trip() -> None:
                 f"to make a purchase in any shop"
             )
         else:
-            print(f"{customer.name} rides to {chosen_shop.name}\n")
-            print(customer.print_receipt(chosen_shop) + "\n")
-            print(
-                f"{customer.name} rides home\n"
-                f"{customer.name} now has "
-                f"{customer.money - min_cost} dollars\n"
-            )
+            customer.ride_for_products(chosen_shop)
