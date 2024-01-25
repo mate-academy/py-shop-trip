@@ -1,4 +1,4 @@
-from app.initial_data import customers, shops
+from app.initial_data import customers, shops, fuel_price
 
 
 def shop_trip() -> None:
@@ -7,10 +7,10 @@ def shop_trip() -> None:
         min_cost = float("inf")
         chosen_shop = None
         for shop in shops:
-            cost = customer.calculate_trip_cost(shop)
+            cost = customer.calculate_trip_cost(shop, fuel_price)
             print(
                 f"{customer.name}'s trip to the {shop.name} "
-                f"costs {customer.calculate_trip_cost(shop)}"
+                f"costs {customer.calculate_trip_cost(shop, fuel_price)}"
             )
             if min_cost > cost:
                 min_cost = cost
@@ -21,4 +21,4 @@ def shop_trip() -> None:
                 f"to make a purchase in any shop"
             )
         else:
-            customer.ride_for_products(chosen_shop)
+            customer.ride_for_products(chosen_shop, fuel_price)
