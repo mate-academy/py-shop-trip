@@ -18,7 +18,7 @@ class Shop:
                 amount * self.products[product]
                 for product, amount in product_s.items()
             )
-        total = amount * self.products[product_s]
+        total = float(amount) * self.products[product_s]
         return int(total) if total.is_integer() else total
 
     def purchase_with_receipt(self, visitor: str, products: dict) -> int:
