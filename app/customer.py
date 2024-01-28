@@ -34,9 +34,7 @@ class Customer:
     def drive_to(self, shop: Shop) -> None:
         self.home = self.location
         self.in_shop = shop
-
         print(f"{self.name} rides to {shop.name}\n")
-
         self.location = shop.location
 
     def buy_products(self) -> None:
