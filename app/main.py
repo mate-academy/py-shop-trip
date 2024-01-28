@@ -50,7 +50,8 @@ def shop_trip() -> None:
         else:
             print(f"{customer.name} doesn't have enough money "
                   f"to make a purchase in any shop")
-        print("")
+        if customer != customers[-1]:
+            print("")
 
 
 shop_trip()
