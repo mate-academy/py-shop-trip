@@ -1,10 +1,12 @@
-from app.logic import customers, shops
+from app.logic import prepare_for_shop_trip
 
 
 def shop_trip() -> None:
+    customers, shops = prepare_for_shop_trip()
+
     for customer in customers:
         print(f"{customer.name} has {customer.money} dollars")
-        if selected_shop := customer.choose_shop(shops):
+        if selected_shop := customer.choose_shop_out_of(shops):
             customer.drive_to(selected_shop)
             customer.buy_products()
             customer.return_home()

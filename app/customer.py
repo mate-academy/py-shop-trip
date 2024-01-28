@@ -1,21 +1,22 @@
+from __future__ import annotations
+
 from app.car import Car
 from app.shop import Shop
 
 
 class Customer:
-    home = None
-    in_shop = None
-
     def __init__(self, customer_info: dict, car: Car) -> None:
         self.name = customer_info.get("name")
         self.product_list = customer_info.get("product_cart")
         self.location = customer_info.get("location")
+        self.home = customer_info.get("location")
         self.money = customer_info.get("money")
         self.car = car
+        self.in_shop = None
 
-    def choose_shop(self, shops: list) -> Shop | None:
+    def choose_shop_out_of(self, shops: list) -> Shop | None:
         total_expenses = [
-            round(shop.calculate_check(self.product_list)
+            round(shop.calculate_total_check(self.product_list)
                   + self.car.get_fuel_cost(self.location, shop.location), 2)
             for shop in shops
         ]
@@ -32,10 +33,9 @@ class Customer:
         return None
 
     def drive_to(self, shop: Shop) -> None:
-        self.home = self.location
-        self.in_shop = shop
         print(f"{self.name} rides to {shop.name}\n")
         self.location = shop.location
+        self.in_shop = shop
 
     def buy_products(self) -> None:
         shop_expenses = self.in_shop.purchase_with_receipt(

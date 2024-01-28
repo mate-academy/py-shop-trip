@@ -23,6 +23,3 @@ def prepare_for_shop_trip() -> tuple:
     ]
 
     return customers_list, shops_list
-
-
-customers, shops = prepare_for_shop_trip()
