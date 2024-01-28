@@ -23,7 +23,8 @@ def shop_trip() -> None:
 
         for shop in shops:
             cost_fuel_for_road = customer.calculate_trip_cost(
-                shop.location, fuel_price)
+                shop.location, fuel_price
+            )
             cost_products = shop.cost_products(customer.product_cart)
 
             cost_trip = cost_fuel_for_road + cost_products + cost_fuel_for_road
@@ -52,6 +53,3 @@ def shop_trip() -> None:
                   f"to make a purchase in any shop")
         if customer != customers[-1]:
             print("")
-
-
-shop_trip()
