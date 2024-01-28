@@ -7,19 +7,14 @@ class Shop:
         self.location = shop_info.get("location")
         self.products = shop_info.get("products")
 
-    def calculate_check(
-            self,
-            product_s: dict,
-            amount: int = None,
-            total_flag: bool = False
-    ) -> int:
-        if total_flag:
-            return sum(
-                amount * self.products[product]
-                for product, amount in product_s.items()
-            )
-        total = float(amount) * self.products[product_s]
-        return int(total) if total.is_integer() else total
+    def calculate_check(self, product_s: dict, amount: int = None) -> int:
+        if amount:
+            total = float(amount) * self.products[product_s]
+            return int(total) if total.is_integer() else total
+        return sum(
+            amount * self.products[product]
+            for product, amount in product_s.items()
+        )
 
     def purchase_with_receipt(self, visitor: str, products: dict) -> int:
         time_now = datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S")

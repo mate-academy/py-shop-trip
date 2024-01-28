@@ -3,6 +3,9 @@ from app.shop import Shop
 
 
 class Customer:
+    home = None
+    in_shop = None
+
     def __init__(self, customer_info: dict, car: Car) -> None:
         self.name = customer_info.get("name")
         self.product_list = customer_info.get("product_cart")
@@ -12,7 +15,7 @@ class Customer:
 
     def choose_shop(self, shops: list) -> Shop | None:
         total_expenses = [
-            round(shop.calculate_check(self.product_list, total_flag=True)
+            round(shop.calculate_check(self.product_list)
                   + self.car.get_fuel_cost(self.location, shop.location), 2)
             for shop in shops
         ]
@@ -28,24 +31,25 @@ class Customer:
             return shops[index]
         return None
 
-    def drives_to(self, shop: Shop) -> None:
-        home_gps = self.location
-        shop_gps = shop.location
+    def drive_to(self, shop: Shop) -> None:
+        self.home = self.location
+        self.in_shop = shop
 
         print(f"{self.name} rides to {shop.name}\n")
 
-        self.location = shop_gps
-        shop_expenses = shop.purchase_with_receipt(
+        self.location = shop.location
+
+    def buy_products(self) -> None:
+        shop_expenses = self.in_shop.purchase_with_receipt(
             self.name,
             self.product_list
         )
-        self.money -= (
-            self.car.get_fuel_cost(home_gps, shop_gps)
-            + shop_expenses
-        )
+        self.money -= shop_expenses
 
+    def return_home(self) -> None:
         print(f"{self.name} rides home")
-        self.location = home_gps
+        self.money -= self.car.get_fuel_cost(self.location, self.home)
+        self.location = self.home
 
     def check_wallet(self) -> None:
         print(f"{self.name} now has {self.money} dollars\n")
