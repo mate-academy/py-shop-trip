@@ -31,7 +31,7 @@ def shop_trip() -> None:
             print(f"{customer.name}'s trip "
                   f"to the {shop.name} costs {cost_trip:.2f}")
 
-            if customer.money >= cost_trip < min_cost:
+            if customer.money >= cost_trip and cost_trip < min_cost:
                 min_cost = cost_trip
                 cheapest_shop = shop
 
