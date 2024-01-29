@@ -15,7 +15,7 @@ class Shop():
         print("You have bought:")
         total_cost = 0
         for product, qty in products.items():
-            sum_product: float = self.products[product] * qty
+            sum_product = float(self.products[product]) * qty
             if sum_product.is_integer():
                 sum_product = int(sum_product)
             total_cost += sum_product
