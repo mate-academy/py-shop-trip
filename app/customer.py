@@ -33,7 +33,7 @@ class Customer:
                   f"to make a purchase in any shop")
             return
         self.best_shop = {"link": shops[index_shop], "cost": cost_shop}
-        print(f"{self.name} rides to {self.best_shop["link"].name}\n")
+        print(f"""{self.name} rides to {self.best_shop["link"].name}\n""")
 
     def distance(self, shop: Shop) -> float:
         return ((self.location[0] - shop.location[0]) ** 2
