@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from datetime import datetime
+import datetime
 
 
 @dataclass
@@ -9,7 +9,7 @@ class Shop():
     products: dict
 
     def purhase(self, customer_name: str, products: dict) -> float:
-        current_datetime = datetime.now().strftime("%d/%m/%Y %H:%M:%S")
+        current_datetime = datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S")
         print(f"Date: {current_datetime}")
         print(f"Thanks, {customer_name}, for your purchase!")
         print("You have bought:")
