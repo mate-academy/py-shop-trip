@@ -14,12 +14,11 @@ class Customer:
     car: Car
 
     def make_purchase(self, shop: Shop) -> int | float:
-        total_purchase = 0
-        for product, price in shop.products.items():
-            if product in self.product_cart:
-                product_cost = price * self.product_cart[product]
-                total_purchase += product_cost
-        return total_purchase
+        return sum(
+            price * self.product_cart[product]
+            for product, price in shop.products.items()
+            if product in self.product_cart
+        )
 
     def find_cheapest_shop(
             self,
