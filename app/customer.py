@@ -1,4 +1,3 @@
-from __future__ import annotations
 from app.car import Car
 from app.shop import Shop
 from dataclasses import dataclass
@@ -47,17 +46,16 @@ class Customer:
                 cheapest_shop = shop
 
         if cheapest_shop:
-            print(f"{self.name} rides to {cheapest_shop.name}")
-            print()
+            print(f"{self.name} rides to {cheapest_shop.name}\n")
+
             self.make_purchase(cheapest_shop)
             date = (datetime(
                 2021, 4, 1, 12, 33, 41
             ).strftime("%m/%d/%Y %H:%M:%S"))
-            print(f"Date: "
-                  f"{date}"
+            print(f"Date: {date}\n"
+                  f"Thanks, {self.name}, for your purchase!\n"
+                  f"You have bought:"
                   )
-            print(f"Thanks, {self.name}, for your purchase!")
-            print("You have bought:")
             for product, price in cheapest_shop.products.items():
                 total_price = price * self.product_cart[product]
                 total_price = (
@@ -66,13 +64,13 @@ class Customer:
                 )
                 print(f"{self.product_cart[product]} "
                       f"{product}s for {total_price} dollars")
-            print(f"Total cost is {self.make_purchase(cheapest_shop)} dollars")
-            print("See you again!")
-            print()
-            print(f"{self.name} rides home")
+            print(f"Total cost is "
+                  f"{self.make_purchase(cheapest_shop)} dollars\n"
+                  f"See you again!\n\n"
+                  f"{self.name} rides home"
+                  )
             self.money -= min_cost
-            print(f"{self.name} now has {round(self.money, 2)} dollars")
-            print()
+            print(f"{self.name} now has {round(self.money, 2)} dollars\n")
 
         else:
             print(f"{self.name} doesn't have enough money "

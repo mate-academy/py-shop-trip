@@ -1,4 +1,4 @@
-from math import sqrt
+from math import dist
 from dataclasses import dataclass
 
 
@@ -13,8 +13,7 @@ class Car:
             end_point: list[int],
             fuel_price: float
     ) -> float:
-        distance = sqrt((start_point[0] - end_point[0]) ** 2
-                        + (start_point[1] - end_point[1]) ** 2)
+        distance = dist(start_point, end_point)
         fuel_needed = (distance / 100) * self.fuel_consumption
         total_cost = fuel_needed * fuel_price
         return total_cost

@@ -9,7 +9,7 @@ def shop_trip() -> None:
         with open("app/config.json", "r") as file:
             config = json.load(file)
     except FileNotFoundError:
-        print("No Such File!")
+        raise
 
     customers_data = config.get("customers")
     customers = [
@@ -18,21 +18,14 @@ def shop_trip() -> None:
             product_cart=customer_data.get("product_cart"),
             location=customer_data.get("location"),
             money=customer_data.get("money"),
-            car=Car(
-                brand=customer_data.get("car").get("brand"),
-                fuel_consumption=customer_data.get("car").get
-                ("fuel_consumption")
-            )
+            car=Car(**customer_data.get("car")
+                    )
         ) for customer_data in customers_data
     ]
 
     shops_data = config.get("shops")
 
-    shops = [Shop(
-        name=shop.get("name"),
-        location=shop.get("location"),
-        products=shop.get("products")
-    ) for shop in shops_data]
+    shops = [Shop(**shop) for shop in shops_data]
 
     fuel_price = config.get("FUEL_PRICE")
 
