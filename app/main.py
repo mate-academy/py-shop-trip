@@ -2,7 +2,7 @@ from app.information_unpacker import unpacker
 
 
 def shop_trip() -> None:
-    customers, shops, fuel_price = unpacker("D:/py-shop-trip/app/config.json")
+    customers, shops, fuel_price = unpacker("app/config.json")
     for customer in customers:
         print(f"{customer.name} has {customer.money} dollars")
         cost_trip = [shops[0], 100]
