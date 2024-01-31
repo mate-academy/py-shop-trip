@@ -50,9 +50,9 @@ class Customer:
             print(f"{self.name} rides to {cheapest_shop.name}")
             print()
             self.make_purchase(cheapest_shop)
-            date = datetime(
+            date = (datetime(
                 2021, 4, 1, 12, 33, 41
-            ).strftime("%m/%d/%Y %H:%M:%S")
+            ).strftime("%m/%d/%Y %H:%M:%S"))
             print(f"Date: "
                   f"{date}"
                   )
