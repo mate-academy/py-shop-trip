@@ -38,8 +38,10 @@ class Customer:
                 fuel_price
             )
             total_cost = round(trip_to_shop * 2, 2) + self.make_purchase(shop)
-            print(f"{self.name}'s trip to the "
-                  f"{shop.name} costs {round(total_cost, 2)}")
+            print(
+                f"{self.name}'s trip to the "
+                f"{shop.name} costs {round(total_cost, 2)}"
+            )
 
             if total_cost <= min_cost and total_cost <= self.money:
                 min_cost = total_cost
@@ -52,27 +54,33 @@ class Customer:
             date = (datetime(
                 2021, 4, 1, 12, 33, 41
             ).strftime("%m/%d/%Y %H:%M:%S"))
-            print(f"Date: {date}\n"
-                  f"Thanks, {self.name}, for your purchase!\n"
-                  f"You have bought:"
-                  )
+            print(
+                f"Date: {date}\n"
+                f"Thanks, {self.name}, for your purchase!\n"
+                f"You have bought:"
+            )
             for product, price in cheapest_shop.products.items():
                 total_price = price * self.product_cart[product]
                 total_price = (
                     int(total_price) if total_price == int(total_price)
                     else float(total_price)
                 )
-                print(f"{self.product_cart[product]} "
-                      f"{product}s for {total_price} dollars")
-            print(f"Total cost is "
-                  f"{self.make_purchase(cheapest_shop)} dollars\n"
-                  f"See you again!\n\n"
-                  f"{self.name} rides home"
-                  )
+                print(
+                    f"{self.product_cart[product]} "
+                    f"{product}s for {total_price} dollars"
+                )
+            print(
+                f"Total cost is "
+                f"{self.make_purchase(cheapest_shop)} dollars\n"
+                f"See you again!\n\n"
+                f"{self.name} rides home"
+            )
             self.money -= min_cost
             print(f"{self.name} now has {round(self.money, 2)} dollars\n")
 
         else:
-            print(f"{self.name} doesn't have enough money "
-                  f"to make a purchase in any shop")
+            print(
+                f"{self.name} doesn't have enough money "
+                f"to make a purchase in any shop"
+            )
         return cheapest_shop
