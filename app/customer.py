@@ -60,8 +60,10 @@ class Customer:
             print("You have bought:")
             for product, price in cheapest_shop.products.items():
                 total_price = price * self.product_cart[product]
-                total_price = (int(total_price) if total_price.is_integer()
-                               else float(total_price))
+                total_price = (
+                    int(total_price) if total_price == int(total_price)
+                    else float(total_price)
+                )
                 print(f"{self.product_cart[product]} "
                       f"{product}s for {total_price} dollars")
             print(f"Total cost is {self.make_purchase(cheapest_shop)} dollars")
