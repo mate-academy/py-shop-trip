@@ -50,11 +50,10 @@ class Customer:
             print(f"{self.name} rides to {cheapest_shop.name}")
             print()
             self.make_purchase(cheapest_shop)
-            print(
-                f"Date: {datetime(
-                    2021, 4, 1, 12, 33, 41
-                ).strftime("%m/%d/%Y %H:%M:%S")
-                }"
+            print(f"Date: {datetime(
+                2021, 4, 1, 12, 33, 41
+            ).strftime("%m/%d/%Y %H:%M:%S")
+            }"
             )
             print(f"Thanks, {self.name}, for your purchase!")
             print("You have bought:")
