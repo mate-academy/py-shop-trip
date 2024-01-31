@@ -10,29 +10,17 @@ def read_file(file_name: str, mode: str = "r") -> dict:
         fuel_price = content["FUEL_PRICE"]
         customers = content["customers"]
         shops = content["shops"]
-        customers_instances = []
-        shops_instances = []
-
-        for customer in customers:
-            new_customer = Customer(
+        customers_instances = [
+            Customer(
                 customer["name"],
                 customer["product_cart"],
                 customer["location"],
                 customer["money"],
-                Car(
-                    customer["car"]["brand"],
-                    customer["car"]["fuel_consumption"]
-                )
+                Car(**customer["car"])
             )
-            customers_instances.append(new_customer)
-
-        for shop in shops:
-            new_shop = Shop(
-                shop["name"],
-                shop["location"],
-                shop["products"]
-            )
-            shops_instances.append(new_shop)
+            for customer in customers
+        ]
+        shops_instances = [Shop(**shop) for shop in shops]
 
     return {
         "fuel_price": fuel_price,

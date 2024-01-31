@@ -38,10 +38,11 @@ class Customer:
               f"{self.name} now has {self.money} dollars\n")
 
     def find_distance_to_shop(self, shop_location: list[int]) -> float:
-        return math.sqrt(
-            ((shop_location[0] - self.location[0]) ** 2)
-            + ((shop_location[1] - self.location[1]) ** 2)
-        )
+        return math.dist(shop_location, self.location)
+        # return math.sqrt(
+        #     ((shop_location[0] - self.location[0]) ** 2)
+        #     + ((shop_location[1] - self.location[1]) ** 2)
+        # )
 
     def calculate_fuel_price(self, distance: float) -> float:
         return (
