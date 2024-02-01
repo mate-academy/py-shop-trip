@@ -32,7 +32,7 @@ def go_shopping(customer: Customer, selected_shop: Shop) -> None:
     customer.check_wallet()
 
 
-def plan_shop_trip(customer: Customer, shops: Shop) -> Shop | None:
+def plan_shop_trip(customer: Customer, shops: list) -> Shop | None:
     print(f"{customer.name} has {customer.money} dollars")
     selected_shop = customer.choose_shop_out_of(shops)
 
