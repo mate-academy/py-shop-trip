@@ -16,8 +16,8 @@ class Shop:
     def purchase(self, customer: Customer) -> None:
         current_date = datetime.datetime.now()
         print(f'Date: {current_date.strftime("%d/%m/%Y %H:%M:%S")}')
-        print(f"Thanks, {customer.name}, for your purchase!\n"
-              f"You have bought:")  # noqa
+        print(f"Thanks, {customer.name}, for your purchase!")
+        print("You have bought:")
         total_cost = 0
         for product, quantity in customer.product_cart.items():
             cost = quantity * self.products[product]

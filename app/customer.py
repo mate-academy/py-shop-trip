@@ -10,7 +10,8 @@ class Customer:
             product_cart: dict,
             location: list,
             money: int,
-            car: Car) -> None:
+            car: Car
+    ) -> None:
         self.name = name
         self.product_cart = product_cart
         self.location = location
