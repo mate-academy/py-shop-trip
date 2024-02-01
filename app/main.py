@@ -17,4 +17,8 @@ def shop_trip() -> None:
             if min_cost > cost:
                 min_cost = cost
                 chosen_shop = shop
-        customer.compare_the_money_and_trip_cost(min_cost, chosen_shop, fuel_price)
+        customer.money_comparison_and_shopping(
+            min_cost,
+            chosen_shop,
+            fuel_price
+        )

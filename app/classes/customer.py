@@ -41,7 +41,7 @@ class Customer:
             f"dollars\n"
         )
 
-    def compare_the_money_and_trip_cost(
+    def money_comparison_and_shopping(
             self,
             min_trip_cost: int | float,
             shop: Shop,
