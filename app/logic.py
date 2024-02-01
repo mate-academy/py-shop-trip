@@ -34,9 +34,8 @@ def go_shopping(customer: Customer, selected_shop: Shop) -> None:
 
 def plan_shop_trip(customer: Customer, shops: list) -> Shop | None:
     print(f"{customer.name} has {customer.money} dollars")
-    selected_shop = customer.choose_shop_out_of(shops)
 
-    if selected_shop:
+    if selected_shop := customer.choose_shop_out_of(shops):
         return selected_shop
 
     print(
