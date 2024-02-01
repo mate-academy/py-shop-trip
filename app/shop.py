@@ -17,7 +17,7 @@ class Shop:
             for product, amount in products.items()
         )
 
-    def purchase_with_receipt(self, visitor: str, products: dict) -> int:
+    def purchase(self, visitor: str, products: dict) -> int:
         time_now = datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S")
         print(f"Date: {time_now}")
         print(f"Thanks, {visitor}, for your purchase!")

@@ -21,10 +21,10 @@ class Customer:
             for shop in shops
         ]
 
-        for i in range(len(total_expenses)):
+        for shop_id in range(len(total_expenses)):
             print(
-                f"{self.name}'s trip to the {shops[i].name} "
-                f"costs {total_expenses[i]}"
+                f"{self.name}'s trip to the {shops[shop_id].name} "
+                f"costs {total_expenses[shop_id]}"
             )
 
         if min(total_expenses) <= self.money:
@@ -38,7 +38,7 @@ class Customer:
         self.in_shop = shop
 
     def buy_products(self) -> None:
-        shop_expenses = self.in_shop.purchase_with_receipt(
+        shop_expenses = self.in_shop.purchase(
             self.name,
             self.product_list
         )

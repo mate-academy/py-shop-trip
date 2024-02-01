@@ -23,3 +23,23 @@ def prepare_for_shop_trip() -> tuple:
     ]
 
     return customers_list, shops_list
+
+
+def go_shopping(customer: Customer, selected_shop: Shop) -> None:
+    customer.drive_to(selected_shop)
+    customer.buy_products()
+    customer.return_home()
+    customer.check_wallet()
+
+
+def plan_shop_trip(customer: Customer, shops: Shop) -> Shop | None:
+    print(f"{customer.name} has {customer.money} dollars")
+    selected_shop = customer.choose_shop_out_of(shops)
+
+    if selected_shop:
+        return selected_shop
+
+    print(
+        f"{customer.name} doesn't have enough money "
+        "to make a purchase in any shop"
+    )
