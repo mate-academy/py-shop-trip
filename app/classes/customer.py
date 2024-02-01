@@ -40,3 +40,17 @@ class Customer:
             f"{self.money - self.calculate_trip_cost(shop, fuel_price)} "
             f"dollars\n"
         )
+
+    def compare_the_money_and_trip_cost(
+            self,
+            min_trip_cost: int | float,
+            shop: Shop,
+            fuel_price: float
+    ) -> None:
+        if self.money < min_trip_cost:
+            print(
+                f"{self.name} doesn't have enough money "
+                f"to make a purchase in any shop"
+            )
+        else:
+            self.ride_for_products(shop, fuel_price)

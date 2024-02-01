@@ -18,10 +18,13 @@ class Shop:
             customer_cart: dict
     ) -> str:
         date = datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S")
-        receipt = (f"Date: {date}\n"
-                   f"Thanks, {customer_name}, for your purchase!\n"
-                   f"You have bought:\n")
+        receipt = (
+            f"Date: {date}\n"
+            f"Thanks, {customer_name}, for your purchase!\n"
+            f"You have bought:\n"
+        )
         total_sum = 0
+
         for product, amount in customer_cart.items():
             if product in self.products:
                 cost = amount * self.products[product]
@@ -29,6 +32,9 @@ class Shop:
                     cost = int(cost)
                 total_sum += cost
                 receipt += f"{amount} {product + 's'} for {cost} dollars\n"
-        receipt += (f"Total cost is {total_sum} dollars\n"
-                    "See you again!")
+
+        receipt += (
+            f"Total cost is {total_sum} dollars\n"
+            "See you again!"
+        )
         return receipt
