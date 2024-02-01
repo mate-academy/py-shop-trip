@@ -31,6 +31,12 @@ class Customer:
         )
         return round(fuel_cost + cost_of_products, 2)
 
+    def trip_to_the_shop_info(self, shop: Shop, fuel_price: float) -> None:
+        print(
+            f"{self.name}'s trip to the {shop.name} "
+            f"costs {self.calculate_trip_cost(shop, fuel_price)}"
+        )
+
     def ride_for_products(self, shop: Shop, fuel_price: float) -> None:
         print(f"{self.name} rides to {shop.name}\n")
         print(shop.print_receipt(self.name, self.product_cart) + "\n")

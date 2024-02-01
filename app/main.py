@@ -10,10 +10,7 @@ def shop_trip() -> None:
 
         for shop in shops:
             cost = customer.calculate_trip_cost(shop, fuel_price)
-            print(
-                f"{customer.name}'s trip to the {shop.name} "
-                f"costs {customer.calculate_trip_cost(shop, fuel_price)}"
-            )
+            customer.trip_to_the_shop_info(shop, fuel_price)
             if min_cost > cost:
                 min_cost = cost
                 chosen_shop = shop
