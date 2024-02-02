@@ -1,10 +1,13 @@
+import datetime
 from decimal import Decimal
 from app.customer import Customer
 from app.shop import Shop
 
 
 def shopping_in_the_store(customer: Customer, shop: Shop) -> None:
-    print("Date: 04/01/2021 12:33:41")
+    current_datetime = datetime.datetime.now()
+    formatted_datetime = current_datetime.strftime("Date: %d/%m/%Y %H:%M:%S")
+    print(formatted_datetime)
     print(f"Thanks, {customer.name}, for your purchase!")
     amount_of_milk = customer.product_cart["milk"]
     amount_of_bread = customer.product_cart["bread"]
