@@ -14,8 +14,6 @@ class Customer:
         self.location = location
         self.money = money
         self.car = car
-        self.min_trip_cost = float("inf")
-        self.shop_choice = None
 
     def calculate_distance(self, shop: Shop) -> float:
         return ((self.location[0] - shop.location[0]) ** 2
@@ -35,10 +33,18 @@ class Customer:
         cart_total = self.calculate_cart_total(shop)
         return round(fuel_cost + cart_total, 2)
 
-    def trip_choice(self, shop: Shop, fuel_price: float) -> None:
-        trip_cost = self.trip_cost(shop, fuel_price)
-        print(f"{self.name}'s trip to the "
-              f"{shop.name} costs {trip_cost}")
-        if trip_cost < self.min_trip_cost:
-            self.min_trip_cost = trip_cost
-            self.shop_choice = shop
+    def find_cheapest_trip(self,
+                           shops: list[Shop],
+                           fuel_price: float) -> tuple:
+        min_trip_cost = float("inf")
+        shop_choice = shops[0]
+
+        for shop in shops:
+            trip_cost = self.trip_cost(shop, fuel_price)
+            print(f"{self.name}'s trip to the "
+                  f"{shop.name} costs {trip_cost}")
+            if trip_cost < min_trip_cost:
+                min_trip_cost = trip_cost
+                shop_choice = shop
+
+        return shop_choice, min_trip_cost
