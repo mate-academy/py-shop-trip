@@ -43,7 +43,7 @@ class Customer:
             + math.pow(self.location[1] - shop.location[1], 2)
         )
         money_for_fuel = (
-                (distance * self.car.fuel_consumption / 100) * 2 * fuel_price
+            (distance * self.car.fuel_consumption / 100) * 2 * fuel_price
         )
         return round(money_for_fuel, 2)
 
