@@ -13,8 +13,8 @@ def shopping_in_the_store(customer: Customer, shop: Shop) -> None:
                                  * shop.products["bread"])))
     butter_cost = Decimal(str(customer.product_cart["butter"]
                               * shop.products["butter"]))
-    print(f"You have bought:\n"
-          f"{customer.product_cart["milk"]} {keys_only[0]}s"
+    print("You have bought:")
+    print(f"{customer.product_cart["milk"]} {keys_only[0]}s"
           f" for {milk_cost} dollars\n"
           f"{customer.product_cart["bread"]} {keys_only[1]}s"
           f" for {bread_cost} dollars\n"
