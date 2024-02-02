@@ -2,8 +2,9 @@ import json
 from app.classes.customer import Customer
 from app.classes.shop import Shop
 
+CONST = "app/config.json"
 
-with open("app/config.json", "r") as file:
+with open(CONST, "r") as file:
     data = json.load(file)
 
 

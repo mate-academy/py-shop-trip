@@ -1,6 +1,6 @@
+from math import sqrt
 from app.classes.car import Car
 from app.classes.shop import Shop
-from math import sqrt
 
 
 class Customer:
