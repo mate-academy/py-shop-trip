@@ -12,14 +12,14 @@ def prepare_for_shop_trip() -> tuple:
 
     data_dict = json.loads(json_str)
 
-    customers_list = [
+    customers_instances = [
         Customer(customer, Car(data_dict["FUEL_PRICE"], customer["car"]))
         for customer in data_dict["customers"]
     ]
 
-    shops_list = [
+    shops_instances = [
         Shop(shop)
         for shop in data_dict["shops"]
     ]
 
-    return customers_list, shops_list
+    return customers_instances, shops_instances

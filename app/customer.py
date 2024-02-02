@@ -15,20 +15,20 @@ class Customer:
         self.in_shop = None
 
     def choose_shop_out_of(self, shops: list) -> Shop | None:
-        total_expenses = [
+        total_trip_costs = [
             round(shop.calculate_total_check(self.product_list)
                   + self.car.get_fuel_cost(self.location, shop.location), 2)
             for shop in shops
         ]
 
-        for i in range(len(total_expenses)):
+        for i in range(len(total_trip_costs)):
             print(
                 f"{self.name}'s trip to the {shops[i].name} "
-                f"costs {total_expenses[i]}"
+                f"costs {total_trip_costs[i]}"
             )
 
-        if min(total_expenses) <= self.money:
-            index = total_expenses.index(min(total_expenses))
+        if min(total_trip_costs) <= self.money:
+            index = total_trip_costs.index(min(total_trip_costs))
             return shops[index]
         return None
 
