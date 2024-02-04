@@ -26,3 +26,7 @@ class Shop:
             print(f"{quantity} {product}s for {cost} dollars")
             total_cost += cost
         print(f"Total cost is {total_cost} dollars\nSee you again!\n")
+
+    def total_cost_trip(self, customer: Customer, fuel_price: float) -> float:
+        return round((customer.road_cost(self.location, fuel_price)
+                      * 2 + self.cost_cart(customer.product_cart)), 2)

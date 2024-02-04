@@ -1,23 +1,23 @@
-from app.information_unpacker import unpacker
+from app.information_unpacker import unpacking
 
 
 def shop_trip() -> None:
-    customers, shops, fuel_price = unpacker("app/config.json")
+    customers, shops, fuel_price = unpacking("app/config.json")
     for customer in customers:
         print(f"{customer.name} has {customer.money} dollars")
         cost_trips = [
-            [
-                shop, round((customer.road_cost(shop.location, fuel_price)
-                             * 2 + shop.cost_cart(customer.product_cart)), 2)
-            ]
+            (
+                shop, shop.total_cost_trip(customer, fuel_price)
+            )
             for shop in shops
         ]
-        cheap_trip = cost_trips[0]
+        cheap_trip = None
         for cost_trip in cost_trips:
             print(f"{customer.name}'s trip to "
                   f"the {cost_trip[0].name} costs {cost_trip[1]}")
             cheap_trip = (cost_trip
-                          if cost_trip[1] < cheap_trip[1] else cheap_trip)
+                          if cheap_trip is None or cost_trip[1] < cheap_trip[1]
+                          else cheap_trip)
         if customer.money < cheap_trip[1]:
             print(f"{customer.name} doesn't have enough"
                   f" money to make a purchase in any shop")

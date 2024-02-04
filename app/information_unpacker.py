@@ -5,7 +5,7 @@ from app.shop import Shop
 from app.customer import Customer
 
 
-def unpacker(information_file: str) -> tuple:
+def unpacking(information_file: str) -> tuple:
     with open(information_file, "r") as config:
         data = json.load(config)
     customers = [
