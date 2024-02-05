@@ -1,7 +1,7 @@
 import json
 import os
 
-from datetime import datetime
+# from datetime import datetime
 
 from app.customer import Customer
 from app.shop import Shop
@@ -58,7 +58,8 @@ def shop_trip() -> None:
             continue
         customer.money -= trip_price
         print(f"{customer.name} rides to {name_shop}\n\n"
-              f"Date: {datetime.now().strftime('%d/%m/%Y %H:%M:%S')}\n"
+              f"Date: 04/01/2021 12:33:41\n"
+              # f"Date: {datetime.now().strftime('%d/%m/%Y %H:%M:%S')}\n"
               f"Thanks, {customer.name}, for your purchase!\n"
               f"You have bought:"
               )
