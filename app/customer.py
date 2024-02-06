@@ -16,6 +16,7 @@ class Customer:
         self.customer_location = location
         self.money = money
         self.car = car
+        self.customer_home_location = location
 
     def customers_wallet(self) -> None:
         print(f"{self.customer_name} has {self.money} dollars")
@@ -23,7 +24,7 @@ class Customer:
     def customer_shop_trip(
             self,
             shops: list[Shops],
-            fuel_price: float
+            fuel_price: float,
     ) -> None:
 
         shop_to_ride = None
@@ -59,6 +60,7 @@ class Customer:
 
         if self.money >= min_price:
             print(f"{self.customer_name} rides to {shop_to_ride.shop_name}\n")
+            self.customer_location = shop_to_ride.shop_location
             Shops.receipt(
                 self=shop_to_ride,
                 customer_product_cart=self.product_cart,
@@ -66,6 +68,7 @@ class Customer:
             )
             self.money = self.money - min_price
             Car.go_home(self.customer_name, self.money)
+            self.customer_location = self.customer_home_location
         else:
             print(f"{self.customer_name} doesn't have enough money "
                   f"to make a purchase in any shop")
