@@ -1,7 +1,7 @@
 import datetime
 
 
-class Shops:
+class Shop:
     def __init__(
             self,
             name: str,
@@ -34,7 +34,7 @@ class Shops:
         return [
             (f"{product_count} {product_name}s for "
              f"{self.format_price(self.products[product_name]*product_count)}"
-             f" dollars")
+             " dollars")
             for product_name, product_count in customer_product_cart.items()
         ]
 
@@ -43,12 +43,12 @@ class Shops:
         list_of_products = self.return_products_info(customer_product_cart)
 
         formatted_date = datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S")
-        print(f"Date: {formatted_date}")
-        print(f"Thanks, {customer_name}, for your purchase!")
-        print("You have bought:")
+        print(f"Date: {formatted_date}\n"
+              f"Thanks, {customer_name}, for your purchase!\n"
+              f"You have bought:")
         for product in list_of_products:
             print(product)
-        print(f"Total cost is "
+        print("Total cost is "
               f"{self.count_price_for_products(customer_product_cart)}"
-              f" dollars")
-        print("See you again!\n")
+              " dollars\n"
+              "See you again!\n")

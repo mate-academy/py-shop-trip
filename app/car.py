@@ -25,5 +25,5 @@ class Car:
             customer_name: str,
             customer_money: int | float
     ) -> None:
-        print(f"{customer_name} rides home")
-        print(f"{customer_name} now has {customer_money} dollars\n")
+        print(f"{customer_name} rides home\n"
+              f"{customer_name} now has {customer_money} dollars\n")
