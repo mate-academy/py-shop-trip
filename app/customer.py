@@ -54,12 +54,12 @@ class Customer(ParseJsonMixin):
         now = datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S")
         if not self.chosen_shop:
             print(f"{self.name} doesn't have enough "
-                  f"money to make a purchase in any shop")
+                  "money to make a purchase in any shop")
             return
 
         print(f"Date: {now}\n"
               f"Thanks, {self.name}, for your purchase!\n"
-              f"You have bought:")
+              "You have bought:")
 
         total_cost = 0
         for name in self.product_cart.keys():
@@ -76,4 +76,4 @@ class Customer(ParseJsonMixin):
 
         print(f"{self.name} now has "
               f"{self.money - self.full_cost[self.chosen_shop.name]} "
-              f"dollars\n")
+              "dollars\n")
