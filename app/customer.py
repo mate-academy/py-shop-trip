@@ -38,11 +38,10 @@ class Customer:
             self,
             shops_products: dict,
     ) -> float:
-        total_cost = 0
-        for product, quantity in self.product_cart.items():
-            cost_of_product = quantity * shops_products[product]
-            total_cost += cost_of_product
-        return total_cost
+        return sum(
+            quantity * shops_products[product]
+            for product, quantity in self.product_cart.items()
+        )
 
     def calculate_total_expenses(
             self,

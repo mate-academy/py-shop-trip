@@ -20,8 +20,8 @@ def show_trip_info(
                   f"You have bought:")
             for product, price in shop.products.items():
                 product_price = customer.product_cart[product] * price
-                if product_price == 3.0:
-                    product_price = 3
+                if str(product_price)[-1] == "0":
+                    product_price = int(product_price)
                 print(f"{customer.product_cart[product]} {product}s for "
                       f"{product_price} dollars")
             products_cost = customer.cost_of_all_products_to_buy(shop.products)
