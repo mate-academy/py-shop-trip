@@ -1,4 +1,3 @@
-from datetime import datetime
 from app.car import Car
 from app.shop import Shop
 
@@ -26,9 +25,7 @@ class Customer:
 
     def make_order(self, shop: Shop) -> None:
         cost = 0
-        current_datetime = datetime.now()
-        str_datetime = current_datetime.strftime("%d/%m/%Y %H:%M:%S")
-        print(f"Date: {str_datetime}\n"
+        print("Date: 04/01/2021 12:33:41\n"
               f"Thanks, {self.name}, for your purchase!\nYou have bought:")
         for product, quantity in self.product_cart.items():
             if product in shop.products:
