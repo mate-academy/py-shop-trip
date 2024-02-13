@@ -1,75 +1,36 @@
-# customer.py
-import datetime
 from app.car import Car
 from app.shop import Shop
 
 
 class Customer:
-    def __init__(self, name: str, product_cart: dict, location: list,
-                 money: float, car: dict) -> None:
+    def __init__(
+            self,
+            name: str,
+            location: list,
+            money: int,
+            product_cart: dict,
+            car: dict
+    ) -> None:
         self.name = name
-        self.product_cart = product_cart
-        self.location = location
+        self.location = tuple(location)
         self.money = money
+        self.product_cart = product_cart
         self.car = Car(**car)
 
-    def calculate_trip_cost(self, shop: Shop, fuel_price: float) -> float:
-        distance_to_shop = (
-            (self.location[0] - shop.location[0])**2
-            + (self.location[1] - shop.location[1])**2
-        )**0.5
-        fuel_needed = self.car.fuel_consumption * distance_to_shop / 100
-        fuel_cost = fuel_needed * fuel_price
-        product_cost = sum(
-            self.product_cart[product] * shop.products.get(product, 0)
-            for product in self.product_cart
-        )
-        total_cost = 2 * fuel_cost + product_cost  # round trip
-        return total_cost
+    def find_distance(self, shop_location: list) -> float:
+        x1, y1 = self.location
+        x2, y2 = shop_location
 
-    def go_shopping(self, shops: list[Shop], fuel_price: float) -> None:
-        money = int(
-            self.money) if self.money % 1 == 0 else f"{self.money: .2f}"
-        print(f"{self.name} has {money} dollars")
-        costs = [
-            (shop.name, self.calculate_trip_cost(shop, fuel_price))
-            for shop in shops
-        ]
-        for shop_name, cost in costs:
-            cost = int(cost) if cost % 1 == 0 else f"{cost: .2f}"
-            print(f"{self.name}'s trip to the {shop_name} costs {cost}")
-        cheapest_shop_name, cheapest_cost = min(costs, key=lambda x: x[1])
-        cheapest_shop = next(
-            shop for shop in shops if shop.name == cheapest_shop_name
-        )
-        if cheapest_cost > self.money:
-            print(
-                f"{self.name} doesn't have enough money "
-                "to make a purchase in any shop"
-            )
-        else:
-            self.money -= cheapest_cost
-            print(f"{self.name} rides to {cheapest_shop_name}".strip())
-            print(
-                f"Date: "
-                f'{datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S")}'
-            )
-            print(f"Thanks, {self.name}, for your purchase!")
-            print("You have bought:")
-            for product, quantity in self.product_cart.items():
-                product_price = (
-                    cheapest_shop.products[product] * quantity
-                )
-                product_price = int(
-                    product_price) if product_price % 1 == 0 \
-                    else f"{product_price: .2f}"
-                print(
-                    f"{quantity} {product}s for {product_price} dollars")
-            cheapest_cost = int(cheapest_cost) \
-                if cheapest_cost % 1 == 0 else f"{cheapest_cost: .2f}"
-            print(f"Total cost is {cheapest_cost} dollars")
-            print("See you again!")
-            print(f"{self.name} rides home")
-            self.money = int(
-                self.money) if self.money % 1 == 0 else f"{self.money: .2f}"
-            print(f"{self.name} now has {self.money} dollars".strip())
+        return ((x2 - x1)**2 + (y2 - y1) ** 2) ** 0.5
+
+    def make_purchase(self, shop: Shop) -> None:
+        cost = 0
+        print("Date: 04/01/2021 12:33:41\n"
+              f"Thanks, {self.name}, for your purchase!\nYou have bought:")
+        for product, quantity in self.product_cart.items():
+            if product in shop.products:
+                price = shop.products[product] * quantity
+                price = int(price) if price == int(price) else price
+                cost += price
+                print(f"{quantity} {product}s for {price} dollars")
+        print(f"Total cost is {cost} dollars\nSee you again!")
