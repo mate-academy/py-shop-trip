@@ -28,8 +28,7 @@ class Customer:
         return total_cost
 
     def go_shopping(self, shops: list[Shop], fuel_price: float) -> None:
-        money = int(self.money) \
-            if self.money % 1 == 0 else f"{self.money:.2f}"
+        money = f"{self.money:.2f}"
         print(f"{self.name} has {money} dollars")
         costs = [
             (shop.name, self.calculate_trip_cost(shop, fuel_price))
@@ -59,14 +58,11 @@ class Customer:
                 product_price = (
                     cheapest_shop.products[product] * quantity
                 )
-                product_price = int(product_price) \
-                    if product_price % 1 == 0 else f"{product_price:.2f}"
+                product_price = f"{product_price:.2f}"
                 print(f"{quantity} {product}s for {product_price} dollars")
-            cheapest_cost = int(cheapest_cost) \
-                if cheapest_cost % 1 == 0 else f"{cheapest_cost:.2f}"
+            cheapest_cost = f"{cheapest_cost:.2f}"
             print(f"Total cost is {cheapest_cost} dollars")
             print("See you again!")
             print(f"{self.name} rides home")
-            self.money = int(self.money) \
-                if self.money % 1 == 0 else f"{self.money:.2f}"
+            self.money = f"{self.money:.2f}"
             print(f"{self.name} now has {self.money} dollars")
