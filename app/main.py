@@ -42,7 +42,7 @@ def shop_trip() -> None:
                 smaller_shop = shop_name
         if smaller_price < customer.money:
             customer.money -= smaller_price
-            print(f"{customer.name} rides to {smaller_shop}")
+            print(f"{customer.name} rides to {smaller_shop}\n")
             dict_of_shops[smaller_shop].return_receipt(customer.name,
                                                        customer.product_cart)
             print(f"{customer.name} rides home")

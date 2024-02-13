@@ -1,3 +1,6 @@
+import datetime
+
+
 class Shop:
     def __init__(self,
                  name: str,
@@ -17,17 +20,17 @@ class Shop:
                 + amound_of_butter * self.product_prices["butter"])
 
     def return_receipt(self, customer_name: str, shoping_cart: dict) -> None:
+        formated_time = datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S")
         total_cost = self.get_price_for_shoping_cart(shoping_cart)
-        milk_price = shoping_cart["milk"] * self.product_prices["milk"]
-        bread_price = int(shoping_cart["bread"] * self.product_prices["bread"])
-        butter_price = shoping_cart["butter"] * self.product_prices["butter"]
-        receipt = f"""
-Date: 04/01/2021 12:33:41
-Thanks, {customer_name}, for your purchase!
-You have bought:
-{shoping_cart["milk"]} milks for {milk_price} dollars
-{shoping_cart["bread"]} breads for {bread_price} dollars
-{shoping_cart["butter"]} butters for {butter_price} dollars
-Total cost is {total_cost} dollars
-See you again!\n"""
-        print(receipt)
+        print(f"Date: {formated_time}")
+        print(f"Thanks, {customer_name}, for your purchase!")
+        print("You have bought:")
+        for product_name in shoping_cart.keys():
+            product_price = (shoping_cart[product_name]
+                             * self.product_prices[product_name])
+            if product_price % 1 == 0:
+                product_price = int(product_price)
+            print(f"{shoping_cart[product_name]} {product_name}s"
+                  f" for {product_price} dollars")
+        print(f"Total cost is {total_cost} dollars")
+        print("See you again!\n")
