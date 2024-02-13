@@ -6,12 +6,10 @@ class Car:
     brand: str
     fuel_consumption: float
 
-    def fuel_price_calculate(
-            self,
-            fuel_price: float,
-            cust_location: list[int],
-            shop_location: list[int]
-    ) -> float:
-        distance = ((cust_location[0] - shop_location[0]) ** 2
-                    + (cust_location[1] - shop_location[1])) ** 0.5
+    def fuel_cost_calculate(self,
+                            start_location: list[int],
+                            end_location: list[int],
+                            fuel_price: float) -> float:
+        distance = ((start_location[0] - end_location[0]) ** 2
+                    + (start_location[1] - end_location[1]) ** 2) ** 0.5
         return (self.fuel_consumption / 100) * distance * fuel_price
