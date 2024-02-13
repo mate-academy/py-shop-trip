@@ -8,7 +8,7 @@ class Shop:
         self.location = Location(*location)
         self.products_price = ProductCart(**products)
 
-    def cost_in_store(self, customer: "Customer", fuel_cost: float) -> float:
+    def cost_in_store(self, customer: object, fuel_cost: float) -> float:
         result_price = fuel_cost
         shop_prod = self.products_price.products
         cust_cart = customer.product_cart.products
