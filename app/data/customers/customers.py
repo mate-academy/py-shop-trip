@@ -31,7 +31,7 @@ class Customer:
                    + (shop_loc[1] - cust_loc[1]) ** 2) ** 0.5)
 
     def sales_receipt(self, cheapest_shop: Shop) -> None:
-        date = datetime.datetime.now().strftime('%m/%d/%Y %H:%M:%S')
+        date = datetime.datetime.now().strftime("%m/%d/%Y %H:%M:%S")
         print(f"{self.name} rides to {cheapest_shop.name}\n\n"
               f"Date: {date}\n"
               f"Thanks, {self.name}, for your purchase!\n"
