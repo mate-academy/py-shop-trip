@@ -1,5 +1,3 @@
-from typing import Any
-
 from app.data.location import Location
 from app.data.product_cart import ProductCart
 
@@ -10,7 +8,7 @@ class Shop:
         self.location = Location(*location)
         self.products_price = ProductCart(**products)
 
-    def cost_in_store(self, customer: Any, fuel_cost: Any) -> float:
+    def cost_in_store(self, customer: "Customer", fuel_cost: float) -> float:
         result_price = fuel_cost
         shop_prod = self.products_price.products
         cust_cart = customer.product_cart.products
