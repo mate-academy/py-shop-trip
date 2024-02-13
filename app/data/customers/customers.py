@@ -31,9 +31,8 @@ class Customer:
                    + (shop_loc[1] - cust_loc[1]) ** 2) ** 0.5)
 
     def sales_receipt(self, cheapest_shop: Shop) -> None:
-        date = datetime(2021, 4, 1, 12, 33, 41)
         print(f"{self.name} rides to {cheapest_shop.name}\n\n"
-              f"Date: {date.strftime('%m/%d/%Y %H:%M:%S')}\n"
+              f"Date: {datetime.now().strftime('%m/%d/%Y %H:%M:%S')}\n"
               f"Thanks, {self.name}, for your purchase!\n"
               f"You have bought:")
         price: int = 0
