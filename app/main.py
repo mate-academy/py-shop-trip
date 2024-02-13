@@ -1,5 +1,6 @@
 import os
 import json
+
 from app.shop import Shop
 from app.customer import Customer
 
@@ -22,7 +23,7 @@ def shop_trip() -> None:
 
         for shop in shops:
             distance = customer.find_distance(shop.location)
-            fuel_cost = customer.car.cost_trip(distance, fuel_price)
+            fuel_cost = customer.car.calculate_fuel_cost(distance, fuel_price)
             product_cost = shop.calculate_product_cost(customer.product_cart)
 
             total_cost = fuel_cost * 2 + product_cost
