@@ -51,7 +51,7 @@ class Customer:
             print(f"{self.name} rides to {cheapest_shop_name}")
             print(
                 f"Date: "
-                f"{datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S")}"
+                f"{datetime.datetime.now().strftime('%d/%m/%Y %H:%M:%S')}"
             )
             print(f"Thanks, {self.name}, for your purchase!")
             print("You have bought:")
