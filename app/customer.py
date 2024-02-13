@@ -29,14 +29,15 @@ class Customer:
 
     def go_shopping(self, shops: list[Shop], fuel_price: float) -> None:
         money = int(self.money) \
-            if self.money.is_integer() else f"{self.money: .2f}"
+            if isinstance(self.money, int) or self.money.is_integer() \
+            else f"{self.money:.2f}"
         print(f"{self.name} has {money} dollars")
         costs = [
             (shop.name, self.calculate_trip_cost(shop, fuel_price))
             for shop in shops
         ]
         for shop_name, cost in costs:
-            print(f"{self.name}'s trip to the {shop_name} costs {cost: .2f}")
+            print(f"{self.name}'s trip to the {shop_name} costs {cost:.2f}")
         cheapest_shop_name, cheapest_cost = min(costs, key=lambda x: x[1])
         cheapest_shop = next(
             shop for shop in shops if shop.name == cheapest_shop_name
@@ -60,13 +61,14 @@ class Customer:
                     cheapest_shop.products[product] * quantity
                 )
                 product_price = int(product_price) \
-                    if product_price.is_integer() else f"{product_price: .2f}"
+                    if product_price.is_integer() else f"{product_price:.2f}"
                 print(f"{quantity} {product}s for {product_price} dollars")
             cheapest_cost = int(cheapest_cost) \
-                if cheapest_cost.is_integer() else f"{cheapest_cost: .2f}"
+                if cheapest_cost.is_integer() else f"{cheapest_cost:.2f}"
             print(f"Total cost is {cheapest_cost} dollars")
             print("See you again!")
             print(f"{self.name} rides home")
             self.money = int(self.money) \
-                if self.money.is_integer() else f"{self.money: .2f}"
+                if isinstance(self.money, int) or self.money.is_integer() \
+                else f"{self.money:.2f}"
             print(f"{self.name} now has {self.money} dollars")
