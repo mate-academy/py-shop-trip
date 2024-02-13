@@ -32,7 +32,7 @@ class Customer:
 
     def sales_receipt(self, cheapest_shop: Shop) -> None:
         print(f"{self.name} rides to {cheapest_shop.name}\n\n"
-              f"Date: {datetime.now().strftime('%m/%d/%Y %H:%M:%S')}\n"
+              f"Date: {datetime.datetime.now().strftime('%m/%d/%Y %H:%M:%S')}\n"
               f"Thanks, {self.name}, for your purchase!\n"
               f"You have bought:")
         price: int = 0
