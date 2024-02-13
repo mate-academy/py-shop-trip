@@ -48,7 +48,7 @@ class Customer:
             )
         else:
             self.money -= cheapest_cost
-            print(f"{self.name} rides to {cheapest_shop_name}")
+            print(f"{self.name} rides to {cheapest_shop_name}".strip())
             print(
                 f"Date: "
                 f'{datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S")}'
@@ -66,4 +66,4 @@ class Customer:
             print("See you again!")
             print(f"{self.name} rides home")
             self.money = int(self.money) if self.money % 1 == 0 else f"{self.money:.2f}"
-            print(f"{self.name} now has {self.money} dollars")
+            print(f"{self.name} now has {self.money} dollars".strip())
