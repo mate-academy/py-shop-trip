@@ -1,5 +1,5 @@
 import math
-from shop import Shop
+from app.shop import Shop
 
 
 class Customer:
