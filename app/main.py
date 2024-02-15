@@ -32,7 +32,8 @@ def shop_trip():
         shops.append(shop)
 
     for customer in customers:
-        print(f"\n{customer.name} has {customer.money} dollars")
+        # print(f"\n{customer.name} has {customer.money} dollars")
+        print(f"{customer.name} has {customer.money} dollars")
         min_trip_cost = float('inf')
         selected_shop = None
 
@@ -45,8 +46,8 @@ def shop_trip():
             total_trip_cost = fuel_cost_to_shop + product_cost + fuel_cost_to_home
             print(f"{customer.name}'s trip to the {shop.name} costs {round(total_trip_cost, 2)}")
 
-
-            if isclose(total_trip_cost, min_trip_cost) and total_trip_cost <= customer.money:
+            # if isclose(total_trip_cost, min_trip_cost) and total_trip_cost <= customer.money:
+            if total_trip_cost < min_trip_cost and total_trip_cost <= customer.money:
                 min_trip_cost = total_trip_cost
                 selected_shop = shop
 
@@ -55,7 +56,8 @@ def shop_trip():
             customer.purchase_receipt(selected_shop.name, selected_shop.products)
             print(f"{customer.name} rides home")
             customer.money -= min_trip_cost
-            print(f"{customer.name} now has {round(customer.money, 2)} dollars")
+            # print(f"{customer.name} now has {round(customer.money, 2)} dollars")
+            print(f"{customer.name} now has {round(customer.money, 2)} dollars\n")
 
         else:
             print(f"{customer.name} doesn't have enough money to make a purchase in any shop")
