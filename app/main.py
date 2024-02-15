@@ -5,14 +5,13 @@ from app.customer import Customer
 from app.shop import Shop
 
 
-
-def shop_trip():
+def shop_trip() -> None:
     with open("config.json", "r") as file:
         config = json.load(file)
-    fuel_price = config['FUEL_PRICE']
+    fuel_price = config["FUEL_PRICE"]
 
     customers = []
-    for customer in config['customers']:
+    for customer in config["customers"]:
         customers.append(Customer(
             customer["name"],
             customer["product_cart"],
@@ -22,7 +21,7 @@ def shop_trip():
         )
 
     shops = []
-    for shop in config['shops']:
+    for shop in config["shops"]:
         shops.append(Shop(
             shop["name"],
             shop["location"],
@@ -33,16 +32,21 @@ def shop_trip():
         print(f"{customer.name} has {customer.money} dollars")
         costs = {}
         for shop in shops:
-            cost_trip = Customer.calculate_cost_trip(customer, shop, fuel_price)
+            cost_trip = (
+                Customer.calculate_cost_trip(customer, shop, fuel_price))
             costs[shop] = cost_trip
-            print(f"{customer.name}'s trip to the {shop.name} costs {cost_trip}")
+            print(
+                f"{customer.name}'s trip to the {shop.name} costs {cost_trip}"
+            )
         chosen_shop = min(costs, key=costs.get)
         if customer.money < (costs[chosen_shop]):
-            print (f"{customer.name} doesn't have enough money to make a purchase in any shop")
+            print(f"{customer.name} doesn't have enough "
+                  f"money to make a purchase in any shop")
         else:
             print(f"{customer.name} rides to {chosen_shop.name}\n")
 
-            current_date = datetime.datetime.now().strftime("%Y/%m/%d %H:%M:%S")
+            current_date = (
+                datetime.datetime.now().strftime("%Y/%m/%d %H:%M:%S"))
             print(f"Date: {current_date}")
             print(f"Thanks, {customer.name}, for your purchase!\n"
                   "You have bought:")
@@ -56,11 +60,3 @@ def shop_trip():
                   "See you again!\n\n"
                   f"{customer.name} rides home\n"
                   f"{customer.name} now has {money_left} dollars")
-
-
-
-
-shop_trip()
-
-
-

@@ -17,12 +17,18 @@ class Customer:
         self.money = money
         self.car = car
 
-    def calculate_cost_trip(self, shop: Shop, fuel_price) -> float | int:
-        distance = math.sqrt((shop.location[0] - self.location[0])**2 + (shop.location[1] - self.location[1])**2)
-        fuel_cost = distance * fuel_price * self.car["fuel_consumption"] / 100 * 2
+    def calculate_cost_trip(
+            self,
+            shop: Shop,
+            fuel_price: float | int
+    ) -> float | int:
+        distance = math.sqrt((shop.location[0] - self.location[0])**2
+                             + (shop.location[1] - self.location[1])**2)
+        fuel_cost = (
+            distance * fuel_price * self.car["fuel_consumption"] / 100 * 2)
         products_cost = 0
         for product, value in self.product_cart.items():
-            products_cost += self.product_cart[product] * shop.products[product]
+            products_cost += (
+                self.product_cart[product] * shop.products[product])
         cost_trip = fuel_cost + products_cost
         return round(cost_trip, 2)
-
