@@ -46,17 +46,20 @@ def shop_trip() -> None:
             print(f"{customer.name} rides to {chosen_shop.name}\n")
 
             current_date = (
-                datetime.datetime.now().strftime("%Y/%m/%d %H:%M:%S"))
+                datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S"))
             print(f"Date: {current_date}")
             print(f"Thanks, {customer.name}, for your purchase!\n"
                   "You have bought:")
             total_cost = 0
             for product, amount in customer.product_cart.items():
                 price = amount * chosen_shop.products[product]
+                if float(price) == int(price):
+                    price = int(price)
                 total_cost += price
                 print(f"{amount} {product}s for {price} dollars")
             money_left = customer.money - (costs[chosen_shop])
             print(f"Total cost is {total_cost} dollars\n"
                   "See you again!\n\n"
                   f"{customer.name} rides home\n"
-                  f"{customer.name} now has {money_left} dollars")
+                  f"{customer.name} now has {money_left} dollars\n")
+
