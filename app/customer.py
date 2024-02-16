@@ -4,8 +4,8 @@ from app.car import Car
 class Customer:
     def __init__(self,
                  name: str,
-                 product_cart: dict,
-                 location: list,
+                 product_cart: dict[str, int],
+                 location: list[int],
                  money: int,
                  car: dict) -> None:
         self.name = name
