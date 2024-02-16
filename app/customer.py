@@ -1,4 +1,5 @@
 import math
+
 from app.shop import Shop
 
 
@@ -26,9 +27,8 @@ class Customer:
                              + (shop.location[1] - self.location[1])**2)
         fuel_cost = (
             distance * fuel_price * self.car["fuel_consumption"] / 100 * 2)
-        products_cost = 0
-        for product, value in self.product_cart.items():
-            products_cost += (
-                self.product_cart[product] * shop.products[product])
+        products_cost = sum(
+            self.product_cart[product] * shop.products[product]
+            for product in self.product_cart)
         cost_trip = fuel_cost + products_cost
         return round(cost_trip, 2)
