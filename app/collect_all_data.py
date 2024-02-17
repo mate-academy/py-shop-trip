@@ -77,7 +77,7 @@ def print_receipt(customer: Customer, shop: Shop) -> None:
     for product, quantity in customer.product_cart.items():
         product_cost = quantity * shop.products[product]
         total_cost += product_cost
-        if product_cost.is_integer():
+        if int(product_cost) == product_cost:
             product_cost = int(product_cost)
         print(f"{quantity} {product}s for {product_cost} dollars")
     print(f"Total cost is {total_cost} dollars")
