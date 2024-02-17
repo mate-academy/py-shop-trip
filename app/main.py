@@ -16,16 +16,15 @@ def shop_trip() -> None:
             print(f"{customer.name}'s trip to the "
                   f"{shop.name} costs {trip_cost}")
 
-        best_trip = find_best_trip(customer)
-        if customer.money >= calculate_cost_of_trip(customer, best_trip):
-            print(f"{customer.name} rides to {best_trip.name}")
-            print_receipt(customer, best_trip)
+        trip = find_best_trip(customer)
+        if customer.money >= calculate_cost_of_trip(customer, trip):
+            print(f"{customer.name} rides to {trip.name}")
+            print_receipt(customer, trip)
             print(f"\n{customer.name} rides home")
             print(
                 f"{customer.name} now has "
-                f"{customer.money - calculate_cost_of_trip(
-                    customer, best_trip
-                )} dollars\n"
+                f"{customer.money - calculate_cost_of_trip(customer, trip)}"
+                f" dollars\n"
             )
         else:
             print(f"{customer.name} doesn't have enough money "
