@@ -46,10 +46,11 @@ def calculate_cost_of_trip(
         + (customer.location[1] - shop.location[1]) ** 2
     )
     fuel_cost = round(
-        2 *
-        distance *
-        customer.car.fuel_consumption /
-        100 * info_from_file["FUEL_PRICE"], 2
+        2
+        * distance
+        * customer.car.fuel_consumption
+        / 100
+        * info_from_file["FUEL_PRICE"], 2
     )
     cart_cost = 0
     for product_name, product_cost in customer.product_cart.items():
@@ -67,7 +68,7 @@ def find_best_trip(customer: Customer) -> Shop:
             return shop
 
 
-def print_receipt(customer, shop: Shop) -> None:
+def print_receipt(customer: Customer, shop: Shop) -> None:
     current_time = "04/01/2021 12:33:41"
     print(f"\nDate: {current_time}")
     print(f"Thanks, {customer.name}, for your purchase!")
