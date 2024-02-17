@@ -23,9 +23,9 @@ def shop_trip() -> None:
             print(f"\n{customer.name} rides home")
             print(
                 f"{customer.name} now has "
-                f"{customer.money 
-                   - calculate_cost_of_trip(customer, find_best_trip(customer)
-                                            )} dollars\n"
+                f"{customer.money - calculate_cost_of_trip(
+                    customer, find_best_trip(customer)
+                )} dollars\n"
             )
 
         else:
