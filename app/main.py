@@ -1,15 +1,15 @@
 import json
-from app.car import CarClass
-from app.customer import CustomerClass
-from app.shop import ShopClass
+from app.car import Car
+from app.customer import Customer
+from app.shop import Shop
 
 
 def shop_trip() -> None:
     with open("app/config.json", "rb") as file:
         data = json.load(file)
-        CarClass.FUEL_PRICE = data["FUEL_PRICE"]
-        customers = [CustomerClass(customer) for customer in data["customers"]]
-        shops = [ShopClass(shop) for shop in data["shops"]]
+        Car.FUEL_PRICE = data["FUEL_PRICE"]
+        customers = [Customer(customer) for customer in data["customers"]]
+        shops = [Shop(shop) for shop in data["shops"]]
 
         for customer in customers:
 

@@ -1,22 +1,22 @@
 import math
-from app.car import CarClass
-from app.shop import ShopClass, TripCalculation
+from app.car import Car
+from app.shop import Shop, TripCalculation
 
 
-class CustomerClass:
+class Customer:
     def __init__(self, customer: dict) -> None:
         self.name = customer["name"]
         self.product_cart = customer["product_cart"]
         self.location = customer["location"]
         self.money = customer["money"]
-        self.car = CarClass(customer["car"])
+        self.car = Car(customer["car"])
 
-    def trip_fuel_cost(self, shop: ShopClass) -> float:
+    def trip_fuel_cost(self, shop: Shop) -> float:
         return round((self.car.fuel_consumption / 100)
                      * math.dist(self.location, shop.location)
                      * self.car.FUEL_PRICE * 2, 2)
 
-    def shopping(self, shop: ShopClass) -> TripCalculation:
+    def shopping(self, shop: Shop) -> TripCalculation:
         total = 0
         transactions_list = []
         for product_name, amount in self.product_cart.items():

@@ -1,4 +1,4 @@
-class ShopClass:
+class Shop:
     def __init__(self, data: dict) -> None:
         self.name = data["name"]
         self.location = data["location"]
@@ -8,7 +8,7 @@ class ShopClass:
 class TripCalculation:
     def __init__(
             self,
-            name: ShopClass,
+            name: Shop,
             total: float,
             whole_trip_cost: float,
             transactions_list: list[str]
