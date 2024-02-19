@@ -24,8 +24,7 @@ class Shop:
             product_cost = value * self.products.get(product)
             print(
                 f"{value} {product}s for "
-                f"{str(product_cost).rstrip("0").rstrip(".")} dollars"
-            )
+                f"{str(product_cost).rstrip("0").rstrip(".")} dollars")
             products_cost += product_cost
         print(f"Total cost is {products_cost} dollars")
         print("See you again!\n")
