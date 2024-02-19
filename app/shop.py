@@ -14,10 +14,10 @@ class Shop:
         ) ** 0.5
 
     def calculate_products_cost(self, product_cart: dict) -> float:
-        products_cost = 0
-        for product, value in product_cart.items():
-            products_cost += value * self.products.get(product)
-        return products_cost
+        return sum(
+            value * self.products.get(product)
+            for product, value in product_cart.items()
+        )
 
     def make_purchase(self, name: str, product_cart: dict) -> None:
         print("\nDate: 04/01/2021 12:33:41")

@@ -6,7 +6,7 @@ from app.car import Car
 from app.shop import Shop
 
 
-def data_config() -> float | dict:
+def data_config() -> tuple:
     project_dir = path.dirname(path.dirname(path.abspath(__file__)))
     config_file = path.join(project_dir, "app/config.json")
 
@@ -15,9 +15,8 @@ def data_config() -> float | dict:
 
     fuel_price = config.get("FUEL_PRICE")
 
-    customers = {}
-    for customer in config.get("customers"):
-        customers[customer.get("name")] = Customer(
+    customers = {
+        customer.get("name"): Customer(
             customer.get("name"),
             customer.get("product_cart"),
             customer.get("location"),
@@ -26,13 +25,15 @@ def data_config() -> float | dict:
                 customer.get("car").get("brand"),
                 customer.get("car").get("fuel_consumption")
             )
-        )
+        ) for customer in config.get("customers")
+    }
 
-    shops = {}
-    for shop in config.get("shops"):
-        shops[shop.get("name")] = Shop(
+    shops = {
+        shop.get("name"): Shop(
             shop.get("name"),
             shop.get("location"),
             shop.get("products")
-        )
+        ) for shop in config.get("shops")
+    }
+
     return fuel_price, customers, shops
