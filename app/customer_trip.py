@@ -22,7 +22,8 @@ class Trip:
             name = customer["name"]
             best_cost = []
             totals_of_shop = []
-            print(f"""{name} has {customer["money"]} dollars""")
+            money = customer["money"]
+            print(f"""{name} has {money} dollars""")
 
             # Loop of shop data.
             for index, shop in enumerate(data["shops"]):
@@ -48,7 +49,7 @@ class Trip:
                       f"""costs{total_eval: .2f}""")
 
             # Check the possibility to perform purchase for all customer.
-            if (customer["money"] < best_cost[0]
+            if (money < best_cost[0]
                     + Costs.check_money(
                         customer["product_cart"],
                         data["shops"][best_cost[1]]["products"])):
@@ -85,5 +86,5 @@ class Trip:
                       f"{product_cost} dollars")
             print(f"Total cost is {total_cost} dollars\nSee you again!\n")
             print(f"{name} rides home\n{name} now has"
-                  f"{(customer["money"] - best_price): .2f}"
+                  f"{(money - best_price): .2f}"
                   f" dollars\n")
