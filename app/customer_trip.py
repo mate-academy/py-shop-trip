@@ -71,7 +71,7 @@ class Trip:
 
             # Loop for each product inside "product cart".
             total_cost = 0
-            index_of_shop = best_cost[1]
+            best_price = totals_of_shop[best_cost[1]]
             for index, product in enumerate(
                     list(customer["product_cart"].items())
             ):
@@ -85,5 +85,5 @@ class Trip:
                       f"{product_cost} dollars")
             print(f"Total cost is {total_cost} dollars\nSee you again!\n")
             print(f"{name} rides home\n{name} now has"
-                  f"{(customer["money"] - totals_of_shop[index_of_shop]): .2f}"
+                  f"{(customer["money"] - best_price): .2f}"
                   f" dollars\n")
