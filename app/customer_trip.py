@@ -56,7 +56,8 @@ class Trip:
                       f" purchase in any shop")
                 return
             else:
-                print(f"{name} rides to {data["shops"][best_cost[1]]["name"]}")
+                shop_name = data["shops"][best_cost[1]]["name"]
+                print(f"{name} rides to {shop_name}")
                 customer["location"] = data["shops"][best_cost[1]]["location"]
 
             date = datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S")
