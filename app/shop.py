@@ -1,4 +1,3 @@
-# from datetime import datetime
 from dataclasses import dataclass
 
 
@@ -21,8 +20,6 @@ class Shop:
         return products_cost
 
     def make_purchase(self, name: str, product_cart: dict) -> None:
-        # current_date = datetime.now().strftime("%d/%m/%Y %H:%M:%S")
-        # print(f"\nDate: {current_date}")
         print("\nDate: 04/01/2021 12:33:41")
         print(f"Thanks, {name}, for your purchase!")
         print("You have bought:")
@@ -31,7 +28,7 @@ class Shop:
             product_cost = value * self.products.get(product)
             print(
                 f"{value} {product}s for "
-                f"{str(product_cost).rstrip('0').rstrip('.')} dollars"
+                f"{str(product_cost).rstrip("0").rstrip(".")} dollars"
             )
             products_cost += product_cost
         print(f"Total cost is {products_cost} dollars")
