@@ -46,20 +46,20 @@ def shop_trip() -> None:
             )
 
             trip_price = (
-                    (
-                            customer.car.fuel_consumption
-                            * customer.car.fuel_price
-                            * trip_distance / 100
-                    ) * 2
+                (
+                    customer.car.fuel_consumption
+                    * customer.car.fuel_price
+                    * trip_distance / 100
+                ) * 2
             )
             total_milk_cost = (
-                    customer.product_cart["milk"] * shop.products["milk"]
+                customer.product_cart["milk"] * shop.products["milk"]
             )
             total_bread_cost = (
-                    customer.product_cart["bread"] * shop.products["bread"]
+                customer.product_cart["bread"] * shop.products["bread"]
             )
             total_butter_cost = (
-                    customer.product_cart["butter"] * shop.products["butter"]
+                customer.product_cart["butter"] * shop.products["butter"]
             )
             trip_instances.append(
                 Trip(
@@ -72,8 +72,8 @@ def shop_trip() -> None:
             )
 
         if not Customer.customer_chose_shop(
-                customer=customer,
-                trip_instances=trip_instances
+            customer=customer,
+            trip_instances=trip_instances
         ):
             continue
 
