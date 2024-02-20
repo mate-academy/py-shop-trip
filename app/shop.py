@@ -53,6 +53,8 @@ class Shop:
     def iter_products(self, shop_data: tuple[list],
                       list_prod: list,
                       ) -> None:
+        name = self.customer["name"]
+        money = self.customer["money"]
         shop_index = shop_data[1][1]
         total_cost = 0
         best_price = shop_data[0][shop_index]
@@ -68,7 +70,7 @@ class Shop:
             print(f"{product[1]} {list_prod[index]} for "
                   f"{product_cost} dollars")
         print(f"Total cost is {total_cost} dollars\nSee you again!\n")
-        print(f"{self.customer["name"]} rides "
-              f"home\n{self.customer["name"]} now has"
-              f"{(self.customer["money"] - best_price): .2f}"
+        print(f"{name} rides "
+              f"home\n{name} now has"
+              f"{(money - best_price): .2f}"
               f" dollars\n")
