@@ -1,10 +1,12 @@
 import json
-from math import dist
 import datetime
-from app.costs import Costs
+from app.shop import Shop
 
 
 class Trip:
+    def __init__(self, data: dict) -> None:
+        self.data = data
+
     @staticmethod
     def open_file(file_name: str) -> dict:
         with open(file_name, "r") as j_son:
@@ -16,75 +18,48 @@ class Trip:
         return [element + "s" for element in data]
 
     @staticmethod
-    def customer_trip(data: dict) -> None:
+    def print_date(customer: dict) -> None:
+        date = datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S")
+        print(f"\nDate: {date}\nThanks, {customer["name"]}, "
+              f"for your purchase!\nYou have bought:")
+
+    def check_perf_purchase(self, customer: dict,
+                            shop_data: tuple,
+                            ) -> bool:
+        shop_index = shop_data[1][1]
+        if (customer["money"] < shop_data[1][1]
+                + Shop.check_money(
+                    customer["product_cart"],
+                    self.data["shops"][shop_data[1][1]]["products"])):
+            print(f"{customer["name"]} doesn't have enough money to make a"
+                  f" purchase in any shop")
+            return False
+        else:
+            shop_name = self.data["shops"][shop_data[1][1]]["name"]
+            print(f"{customer["name"]} rides to {shop_name}")
+            customer["location"] = self.data["shops"][shop_index]["location"]
+            return True
+
+    def customer_trip(self) -> None:
         # Loop of customers data.
-        for customer in data["customers"]:
-            name = customer["name"]
-            best_cost = []
-            totals_of_shop = []
-            money = customer["money"]
-            print(f"""{name} has {money} dollars""")
+        for customer in self.data["customers"]:
+            print(f"""{customer["name"]} has {customer["money"]} dollars""")
 
             # Loop of shop data.
-            for index, shop in enumerate(data["shops"]):
-                fuel_cons = customer["car"]["fuel_consumption"]
-                distance = dist(tuple(customer["location"]),
-                                tuple(shop["location"]))
-                cost_trip = Costs.cost_of_trip(distance,
-                                               fuel_cons,
-                                               data["FUEL_PRICE"])
-                total_eval = (cost_trip * 2
-                              + Costs.check_money(customer["product_cart"],
-                                                  shop["products"]))
-                totals_of_shop.append(total_eval)
-
-                # Check best prise considering car trip.
-                if index == 0:
-                    best_cost.append(total_eval)
-                    best_cost.append(index)
-                elif total_eval < best_cost[0]:
-                    best_cost[0] = total_eval
-                    best_cost[1] = index
-                print(f"""{name}'s trip to the {shop["name"]} """
-                      f"""costs{total_eval: .2f}""")
+            shop_data = Shop(self.data,
+                             customer,
+                             self.data["FUEL_PRICE"]).iter_shops()
 
             # Check the possibility to perform purchase for all customer.
-            if (money < best_cost[0]
-                    + Costs.check_money(
-                        customer["product_cart"],
-                        data["shops"][best_cost[1]]["products"])):
-                print(f"{name} doesn't have enough money to make a"
-                      f" purchase in any shop")
+            if not self.check_perf_purchase(customer, shop_data):
                 return
-            else:
-                shop_name = data["shops"][best_cost[1]]["name"]
-                print(f"{name} rides to {shop_name}")
-                customer["location"] = data["shops"][best_cost[1]]["location"]
-
-            date = datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S")
-            print(f"\nDate: {date}\nThanks, {name}, "
-                  f"for your purchase!\nYou have bought:")
+            Trip.print_date(customer)
 
             # Convert to plural the list of "product cart".
             list_prod = Trip.transform_in_plural(
-                list(customer["product_cart"].keys())
-            )
+                list(customer["product_cart"].keys()))
 
             # Loop for each product inside "product cart".
-            total_cost = 0
-            best_price = totals_of_shop[best_cost[1]]
-            for index, product in enumerate(
-                    list(customer["product_cart"].items())
-            ):
-                s_product = data["shops"][best_cost[1]]["products"][product[0]]
-                product_cost = (product[1] * s_product)
-                total_cost += product_cost
-                if (isinstance(product_cost, float)
-                        and str(product_cost).split(".")[1] == "0"):
-                    product_cost = int(product_cost)
-                print(f"{product[1]} {list_prod[index]} for "
-                      f"{product_cost} dollars")
-            print(f"Total cost is {total_cost} dollars\nSee you again!\n")
-            print(f"{name} rides home\n{name} now has"
-                  f"{(money - best_price): .2f}"
-                  f" dollars\n")
+            Shop(self.data,
+                 customer,
+                 self.data["FUEL_PRICE"]).iter_products(shop_data, list_prod)
