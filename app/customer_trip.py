@@ -22,7 +22,8 @@ class Customer:
         name = customer["name"]
         date = datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S")
         print(
-            f"\nDate: {date}\nThanks, {name}, " f"for your purchase!\nYou have bought:"
+            f"\nDate: {date}\nThanks, {name}, "
+            f"for your purchase!\nYou have bought:"
         )
 
     def check_perf_purchase(
@@ -33,10 +34,12 @@ class Customer:
         name = customer["name"]
         shop_index = shop_data[1][1]
         if customer["money"] < shop_data[1][0] + Shop.check_money(
-            customer["product_cart"], self.data["shops"][shop_index]["products"]
+            customer["product_cart"],
+            self.data["shops"][shop_index]["products"]
         ):
             print(
-                f"{name} doesn't have enough money to make a" f" purchase in any shop"
+                f"{name} doesn't have enough money to make a "
+                f"purchase in any shop"
             )
             return False
         else:
@@ -53,9 +56,9 @@ class Customer:
             print(f"{name} has {money} dollars")
 
             # Loop of shop data.
-            shop_data = Shop(self.data, customer, self.data["FUEL_PRICE"]).iter_shops(
-                name
-            )
+            shop_data = Shop(self.data,
+                             customer,
+                             self.data["FUEL_PRICE"]).iter_shops(name)
 
             # Check the possibility to perform purchase for all customer.
             if not self.check_perf_purchase(customer, shop_data):
