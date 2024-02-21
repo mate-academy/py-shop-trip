@@ -67,6 +67,6 @@ class Shop:
                 product_cost = int(product_cost)
             print(f"{product[1]} {list_prod[index]} for "
                   f"{product_cost} dollars")
-        print(f"Total cost is {total_cost} dollars\nSee you again!\n")
-        print(f"{name} rides home\n"
+        print(f"Total cost is {total_cost} dollars\nSee you again!\n"
+              f"\n{name} rides home\n"
               f"{name} now has{(money - best_price): .2f} dollars\n")
