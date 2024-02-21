@@ -21,20 +21,23 @@ class Customer:
     def print_date(customer: dict) -> None:
         name = customer["name"]
         date = datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S")
-        print(f"\nDate: {date}\nThanks, {name}, "
-              f"for your purchase!\nYou have bought:")
+        print(
+            f"\nDate: {date}\nThanks, {name}, " f"for your purchase!\nYou have bought:"
+        )
 
-    def check_perf_purchase(self, customer: dict,
-                            shop_data: tuple,
-                            ) -> bool:
+    def check_perf_purchase(
+        self,
+        customer: dict,
+        shop_data: tuple,
+    ) -> bool:
         name = customer["name"]
         shop_index = shop_data[1][1]
-        if (customer["money"] < shop_data[1][0]
-                + Shop.check_money(
-                    customer["product_cart"],
-                    self.data["shops"][shop_index]["products"])):
-            print(f"{name} doesn't have enough money to make a"
-                  f" purchase in any shop")
+        if customer["money"] < shop_data[1][0] + Shop.check_money(
+            customer["product_cart"], self.data["shops"][shop_index]["products"]
+        ):
+            print(
+                f"{name} doesn't have enough money to make a" f" purchase in any shop"
+            )
             return False
         else:
             shop_name = self.data["shops"][shop_index]["name"]
@@ -50,9 +53,9 @@ class Customer:
             print(f"{name} has {money} dollars")
 
             # Loop of shop data.
-            shop_data = Shop(self.data,
-                             customer,
-                             self.data["FUEL_PRICE"]).iter_shops()
+            shop_data = Shop(self.data, customer, self.data["FUEL_PRICE"]).iter_shops(
+                name
+            )
 
             # Check the possibility to perform purchase for all customer.
             if not self.check_perf_purchase(customer, shop_data):
@@ -61,9 +64,10 @@ class Customer:
 
             # Convert to plural the list of "product cart".
             list_prod = Customer.transform_in_plural(
-                list(customer["product_cart"].keys()))
+                list(customer["product_cart"].keys())
+            )
 
             # Loop for each product inside "product cart".
-            Shop(self.data,
-                 customer,
-                 self.data["FUEL_PRICE"]).iter_products(shop_data, list_prod)
+            Shop(self.data, customer, self.data["FUEL_PRICE"]).iter_products(
+                shop_data, list_prod
+            )
