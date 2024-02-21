@@ -40,7 +40,7 @@ class Shop:
             )
             totals_of_shop.append(total_eval)
 
-            # Check best prise considering car trip.
+            # Check best prise considering car trip:
             if index == 0:
                 minimal_price = total_eval
                 best_shop = index

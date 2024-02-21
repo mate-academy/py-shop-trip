@@ -49,7 +49,7 @@ class Customer:
             return True
 
     def customer_trip(self) -> None:
-        # Loop of customers data.
+        # Loop of customers data:
         for customer in self.data["customers"]:
             name = customer["name"]
             money = customer["money"]
@@ -60,17 +60,17 @@ class Customer:
                              customer,
                              self.data["FUEL_PRICE"]).iter_shops(name)
 
-            # Check the possibility to perform purchase for all customer.
+            # Check the possibility to perform purchase for all customer:
             if not self.check_perf_purchase(customer, shop_data):
                 return
             Customer.print_date(customer)
 
-            # Convert to plural the list of "product cart".
+            # Convert to plural the list of "product cart":
             list_prod = Customer.transform_in_plural(
                 list(customer["product_cart"].keys())
             )
 
-            # Loop for each product inside "product cart".
+            # Loop for each product inside "product cart":
             Shop(self.data, customer, self.data["FUEL_PRICE"]).iter_products(
                 shop_data, list_prod
             )
