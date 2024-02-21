@@ -19,8 +19,8 @@ class Shop:
     @staticmethod
     def check_money(customer_cart: dict,
                     shop_price: dict) -> int | float:
-        return sum([customer_cart[element] * shop_price[element]
-                    for element in customer_cart])
+        return sum(customer_cart[element] * shop_price[element]
+                   for element in customer_cart)
 
     def iter_shops(self) -> tuple:
         totals_of_shop = []
@@ -44,8 +44,8 @@ class Shop:
             elif total_eval < minimal_price:
                 minimal_price = total_eval
                 best_shop = index
-            print(f"""{self.customer["name"]}'s trip to the {shop["name"]} """
-                  f"""costs{total_eval: .2f}""")
+            print(f"{self.customer["name"]}'s trip to the {shop["name"]} "
+                  f"costs{total_eval: .2f}")
         return totals_of_shop, (minimal_price, best_shop)
 
     def iter_products(self, shop_data: tuple[list],
@@ -68,7 +68,5 @@ class Shop:
             print(f"{product[1]} {list_prod[index]} for "
                   f"{product_cost} dollars")
         print(f"Total cost is {total_cost} dollars\nSee you again!\n")
-        print(f"{name} rides "
-              f"home\n{name} now has"
-              f"{(money - best_price): .2f}"
-              f" dollars\n")
+        print(f"{name} rides home\n"
+              f"{name} now has{(money - best_price): .2f} dollars\n")

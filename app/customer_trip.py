@@ -47,7 +47,7 @@ class Customer:
         for customer in self.data["customers"]:
             name = customer["name"]
             money = customer["money"]
-            print(f"""{name} has {money} dollars""")
+            print(f"{name} has {money} dollars")
 
             # Loop of shop data.
             shop_data = Shop(self.data,
