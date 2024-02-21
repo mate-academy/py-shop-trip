@@ -33,6 +33,9 @@ class Car:
             destination: list,
             name_destination: str
     ) -> list:
-        print(f"{customer_name} rides to {name_destination}")
+        if name_destination == "home":
+            print(f"{customer_name} rides {name_destination}")
+        else:
+            print(f"{customer_name} rides to {name_destination}")
 
         return destination

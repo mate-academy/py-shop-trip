@@ -1,5 +1,3 @@
-from typing import Tuple
-
 from app.car import Car
 from app.shop import Shop
 
@@ -20,8 +18,10 @@ class Customer:
 
         Customer.all_customers.append(self)
 
-    def choice_cheap_shoping(self, shops: list[Shop]) -> tuple[Shop, float] | \
-                                                         tuple[None, None]:
+    def choice_cheap_shoping(
+            self,
+            shops: list[Shop]
+    ) -> tuple[Shop, float] | tuple[None, None]:
         print(f"{self.name} has {self.money} dollars")
         trip_options = {}
 
@@ -50,5 +50,5 @@ class Customer:
     def remaining_money(self, total_cost: float) -> None:
         remaining_money = self.money - total_cost
         print(
-            f"{self.name} now has {remaining_money} dollar{'s' if remaining_money == 1 else 's'}\n")
-
+            f"{self.name} now has {remaining_money} "
+            f"dollar{'s' if remaining_money == 1 else 's'}\n")

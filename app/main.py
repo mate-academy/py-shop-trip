@@ -43,6 +43,3 @@ def shop_trip():
             )
 
             customer.remaining_money(total_spent)
-
-
-shop_trip()
