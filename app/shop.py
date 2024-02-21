@@ -19,14 +19,12 @@ class Shop:
     @staticmethod
     def check_money(customer_cart: dict,
                     shop_price: dict) -> int | float:
-        _sum = 0
-        for element in customer_cart:
-            _sum += customer_cart[element] * shop_price[element]
-        return _sum
+        return sum([customer_cart[element] * shop_price[element]
+                    for element in customer_cart])
 
     def iter_shops(self) -> tuple:
         totals_of_shop = []
-        best_cost = []
+        minimal_price, best_shop = None, None
         for index, shop in enumerate(self.data["shops"]):
             fuel_cons = self.customer["car"]["fuel_consumption"]
             distance = dist(tuple(self.customer["location"]),
@@ -41,14 +39,14 @@ class Shop:
 
             # Check best prise considering car trip.
             if index == 0:
-                best_cost.append(total_eval)
-                best_cost.append(index)
-            elif total_eval < best_cost[0]:
-                best_cost[0] = total_eval
-                best_cost[1] = index
+                minimal_price = total_eval
+                best_shop = index
+            elif total_eval < minimal_price:
+                minimal_price = total_eval
+                best_shop = index
             print(f"""{self.customer["name"]}'s trip to the {shop["name"]} """
                   f"""costs{total_eval: .2f}""")
-        return totals_of_shop, best_cost
+        return totals_of_shop, (minimal_price, best_shop)
 
     def iter_products(self, shop_data: tuple[list],
                       list_prod: list,

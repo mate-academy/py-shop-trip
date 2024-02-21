@@ -1,5 +1,5 @@
-from app.customer_trip import Trip
+from app.customer_trip import Customer
 
 
 def shop_trip() -> None:
-    Trip(Trip.open_file("app/config.json")).customer_trip()
+    Customer(Customer.open_file("app/config.json")).customer_trip()

@@ -3,7 +3,7 @@ import datetime
 from app.shop import Shop
 
 
-class Trip:
+class Customer:
     def __init__(self, data: dict) -> None:
         self.data = data
 
@@ -57,10 +57,10 @@ class Trip:
             # Check the possibility to perform purchase for all customer.
             if not self.check_perf_purchase(customer, shop_data):
                 return
-            Trip.print_date(customer)
+            Customer.print_date(customer)
 
             # Convert to plural the list of "product cart".
-            list_prod = Trip.transform_in_plural(
+            list_prod = Customer.transform_in_plural(
                 list(customer["product_cart"].keys()))
 
             # Loop for each product inside "product cart".
