@@ -46,14 +46,10 @@ class Customer:
         total_cost = 0
         for product, count in self.product_cart.items():
             product_cost = suitable_shop.products[product] * count
+            if product_cost - int(product_cost) == 0:
+                product_cost = int(product_cost)
             total_cost += product_cost
-            print(f"{count} {product}s for "
-                  f"{
-                  product_cost
-                  if product_cost - int(product_cost) != 0
-                  else int(product_cost)
-                  } "
-                  f"dollars")
+            print(f"{count} {product}s for {product_cost} dollars")
         print(f"Total cost is {total_cost} dollars")
         print(f"See you again!\n\n{self.name} rides home")
 
