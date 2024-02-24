@@ -57,8 +57,8 @@ class Trip:
         customer_instances: list,
         shop_instances: list
     ) -> None:
-        Customer = import_module("app.customer").Customer
-        Shop = import_module("app.shop").Shop
+        class_customer = import_module("app.customer").Customer
+        class_shop = import_module("app.shop").Shop
 
         for customer in customer_instances:
             trip_instances = []
@@ -95,18 +95,18 @@ class Trip:
                     )
                 )
 
-            if not Customer.customer_chose_shop(
+            if not class_customer.customer_chose_shop(
                 customer=customer,
                 trip_instances=trip_instances
             ):
                 continue
 
-            Shop.shop_receipt(
+            class_shop.shop_receipt(
                 customer=customer,
                 trip_instances=trip_instances
             )
 
-            Customer.customer_rides_home(
+            class_customer.customer_rides_home(
                 customer=customer,
                 trip_instances=trip_instances
             )

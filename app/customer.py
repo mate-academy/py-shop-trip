@@ -1,5 +1,5 @@
 from __future__ import annotations
-from typing import List
+from typing import List, Tuple, Callable
 
 from app.car import Car
 from app.trip import Trip
@@ -22,10 +22,11 @@ class Customer:
         self.car = car
 
     @staticmethod
-    def customers_home_location():
+    def customers_home_location(
+    ) -> Tuple[Callable[[List[int]], None], Callable[[], List[int]]]:
         home_location = []
 
-        def add_location(location: list):
+        def add_location(location: list) -> None:
             home_location.clear()
             home_location.append(location)
 
