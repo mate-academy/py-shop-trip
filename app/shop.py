@@ -1,7 +1,7 @@
 class Shop:
 
     def __init__(
-            self, name: str, location: list, products_price: dict
+            self, name: str, location: list[int], products_price: dict
     ) -> None:
         self.name = name
         self.location = location
