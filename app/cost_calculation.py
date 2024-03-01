@@ -37,9 +37,9 @@ def get_receipt(
         customer: Customer,
         shop: Shop
 ) -> None:
-    print((f"Date: {datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S")}\n"
+    print(f"Date: {datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S")}\n"
            f"Thanks, {customer.name}, for your purchase!\n"
-           f"You have bought:"))
+           f"You have bought:")
 
     for product, number in customer.product_cart.items():
         products_cost = number * shop.product_cart[product]
