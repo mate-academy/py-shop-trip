@@ -10,11 +10,9 @@ def chose_shop(
     print(f"{customer.name} has {customer.money} dollars")
 
     trip_cost_list = [
-        round(
-            get_fuel_cost(customer, shop.location)
-            + get_product_cost(customer, shop)
-            + get_fuel_cost(customer, customer.home_location),
-            2)
+        get_fuel_cost(customer, shop.location)
+        + get_product_cost(customer, shop)
+        + get_fuel_cost(customer, customer.home_location)
         for shop in shops
     ]
 
