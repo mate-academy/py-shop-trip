@@ -37,7 +37,8 @@ def get_receipt(
         customer: Customer,
         shop: Shop
 ) -> None:
-    print(f"Date: {datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S")}\n"
+    formatted_date = datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S")
+    print(f"Date: {formatted_date}\n"
           f"Thanks, {customer.name}, for your purchase!\n"
           f"You have bought:")
 
