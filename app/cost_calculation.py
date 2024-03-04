@@ -44,10 +44,10 @@ def choose_shop(
         for shop in shops
     ]
 
-    for i in range(len(trip_cost_list)):
+    for shop_index in range(len(trip_cost_list)):
         print(
-            f"{customer.name}'s trip to the {shops[i].name} "
-            f"costs {round(trip_cost_list[i], 2)}"
+            f"{customer.name}'s trip to the {shops[shop_index].name} "
+            f"costs {round(trip_cost_list[shop_index], 2)}"
         )
 
     if min(trip_cost_list) <= customer.money:

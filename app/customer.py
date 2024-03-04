@@ -1,5 +1,4 @@
 from app.car import Car
-from app.data_loading import configs
 
 
 class Customer:
@@ -9,6 +8,7 @@ class Customer:
             product_cart: dict,
             location: list,
             money: int | float,
+            fuel_price: float,
             car: Car
     ) -> None:
         self.name = name
@@ -17,18 +17,22 @@ class Customer:
         self.home_location = location
         self.money = money
         self.best_shop = None
-        self.fuel_price = configs["FUEL_PRICE"]
+        self.fuel_price = fuel_price
         self.car = car
 
 
-customers = []
+def create_customers(configs: dict) -> list[Customer]:
+    customers = []
+    fuel_price = configs["FUEL_PRICE"]
+    for customer in configs["customers"]:
+        customer = Customer(
+            customer["name"],
+            customer["product_cart"],
+            customer["location"],
+            customer["money"],
+            fuel_price,
+            Car(**customer["car"])
+        )
+        customers.append(customer)
 
-for customer in configs["customers"]:
-    customer = Customer(
-        customer["name"],
-        customer["product_cart"],
-        customer["location"],
-        customer["money"],
-        Car(**customer["car"])
-    )
-    customers.append(customer)
+    return customers
