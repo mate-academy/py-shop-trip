@@ -48,8 +48,8 @@ class Shop:
         )
 
         for product, cost in cheapest_trip.total_products_cost.items():
-            print(f'{customer.product_cart[product]} {product}s for '
-                  f'{self.convert_to_int_if_possible(cost)} dollars')
+            print(f"{customer.product_cart[product]} {product}s for "
+                  f"{self.convert_to_int_if_possible(cost)} dollars")
 
         print(
             f"Total cost is {cheapest_trip.total_product_price} dollars\n"
