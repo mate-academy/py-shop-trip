@@ -1,5 +1,23 @@
+from app.data_loading import configs
+
+
 class Shop:
-    def __init__(self, data: dict) -> None:
-        self.name = data.get("name")
-        self.location = data.get("location", [])
-        self.product_cart = data.get("products", {})
+    def __init__(
+            self,
+            name: str,
+            location: list,
+            product_cart: dict
+    ) -> None:
+        self.name = name
+        self.location = location
+        self.product_cart = product_cart
+
+
+shops = []
+for shop in configs["shops"]:
+    shop = Shop(
+        shop["name"],
+        shop["location"],
+        shop["products"]
+    )
+    shops.append(shop)
