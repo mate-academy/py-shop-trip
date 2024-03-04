@@ -1,12 +1,14 @@
 from app.open_file_config import OpenFileConfig
-from app.trip import Trip
 
 
 def shop_trip() -> None:
-    customer_instances, shop_instances = OpenFileConfig.take_data_from_config(
+    opened_file_config = OpenFileConfig.open_file_config(
         "app/config.json"
     )
-    Trip.choose_shop_and_go_to_trip(
-        customer_instances=customer_instances,
-        shop_instances=shop_instances
+    customer_instances, shop_instances = OpenFileConfig.creation_instances(
+        opened_file_config
     )
+    for customer in customer_instances:
+        customer.choose_shop_and_go_to_trip(
+            shop_instances=shop_instances
+        )
