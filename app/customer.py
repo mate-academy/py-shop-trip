@@ -50,7 +50,7 @@ class Customer:
         for product in shop.products:
             product_amount = self.product_cart[product.name]
             product_cost = product.price * product_amount
-            if product_cost.is_integer():
+            if product_cost == int(product_cost):
                 product_cost = int(product_cost)
 
             total += product_cost
