@@ -36,9 +36,9 @@ def shop_trip() -> None:
             money_for_all = (money_for_trip.get_cost_trip()
                              + money_for_products.get_cheapest_shop())
             money_for_all = round(money_for_all, 2)
-            print(f""
-                  f"{name}'s trip to the "
-                  f"{shop_name} costs {money_for_all}")
+            print(
+                f"{name}'s trip to the {shop_name} costs {money_for_all}"
+            )
             if (money_for_all < min_expenses
                     and customer_money > money_for_all):
                 min_expenses = money_for_all
@@ -46,13 +46,15 @@ def shop_trip() -> None:
                 product = shop["products"]
 
         if not name_of_shop:
-            print(f""
-                  f"{name} doesn't have enough "
-                  f"money to make a purchase in any shop")
+            print(
+                f"{name} doesn't have enough money "
+                f"to make a purchase in any shop"
+            )
         else:
             print(f"{name} rides to {name_of_shop}\n")
-            print(f"Date: "
-                  f"{datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S")}")
+            print("Date: "
+                  + datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S")
+                  )
             buy = Customer(name, customer["product_cart"], product)
             buy.buying_products()
             print(f"{name} rides home")
