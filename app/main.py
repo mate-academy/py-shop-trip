@@ -6,7 +6,7 @@ from app.customer import Customer
 
 
 def shop_trip() -> None:
-    with open("config.json") as file:
+    with open("app/config.json") as file:
         date = json.load(file)
         fuel_price_date = date["FUEL_PRICE"]
         customers_date = date["customers"]
