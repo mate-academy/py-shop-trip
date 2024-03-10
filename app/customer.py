@@ -9,7 +9,6 @@ class Customer:
 
     def buying_products(self) -> str:
         total = 0
-        amount = 0
 
         print(f"Thanks, {self.name}, for your purchase!")
         print("You have bought:")
