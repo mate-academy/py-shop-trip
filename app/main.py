@@ -6,7 +6,7 @@ from app.customer import Customer
 
 
 def shop_trip() -> None:
-    with open("app/config.json") as file:
+    with open("config.json") as file:
         date = json.load(file)
         fuel_price_date = date["FUEL_PRICE"]
         customers_date = date["customers"]
@@ -16,26 +16,25 @@ def shop_trip() -> None:
         name = customer["name"]
         customer_money = customer["money"]
         print(f"{name} has {customer_money} dollars")
-        first_point = customer["location"]
+        initial_location = customer["location"]
         fuel_consumption = customer["car"]["fuel_consumption"]
         product_cart = customer["product_cart"]
+        car = Car(initial_location, fuel_price_date, fuel_consumption)
         min_expenses = float("inf")
         name_of_shop = ""
 
         for shop in shops_date:
-            second_point = shop["location"]
+            destination_location = shop["location"]
             product_shop = shop["products"]
             shop_name = shop["name"]
-            money_for_trip = Car(
-                first_point,
-                second_point,
-                fuel_price_date,
-                fuel_consumption
+
+            date_of_shop = Shop(
+                product_shop,
+                product_cart,
+                destination_location
             )
-            money_for_products = Shop(product_shop, product_cart)
-            money_for_all = (money_for_trip.get_cost_trip()
-                             + money_for_products.get_cheapest_shop())
-            money_for_all = round(money_for_all, 2)
+            money_for_all = date_of_shop.get_cheapest_shop(car)
+
             print(
                 f"{name}'s trip to the {shop_name} costs {money_for_all}"
             )
@@ -52,6 +51,7 @@ def shop_trip() -> None:
             )
         else:
             print(f"{name} rides to {name_of_shop}\n")
+            initial_location, destination_location = destination_location, initial_location
             print("Date: "
                   + datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S")
                   )
