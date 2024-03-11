@@ -6,7 +6,7 @@ from app.customer import Customer
 
 
 def shop_trip() -> None:
-    with open("config.json") as file:
+    with open("app/config.json") as file:
         date = json.load(file)
         fuel_price_date = date["FUEL_PRICE"]
         customers_date = date["customers"]
@@ -51,7 +51,8 @@ def shop_trip() -> None:
             )
         else:
             print(f"{name} rides to {name_of_shop}\n")
-            initial_location, destination_location = destination_location, initial_location
+            initial_location, destination_location \
+                = destination_location, initial_location
             print("Date: "
                   + datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S")
                   )
