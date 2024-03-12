@@ -29,14 +29,11 @@ class Shop:
         for product, quantity in customer.product_cart.items():
             product_price = self.products[product] * quantity
             product_price_float = float(product_price)
-            if product in ["milk", "bread"]:
-                price_str = ((f""
-                             f"{int(product_price_float)}")
-                             if product_price_float.is_integer()
-                             else f"{product_price_float:.1f}"
-                             )
-            else:
-                price_str = f"{product_price_float:.1f}"
+            price_str = ((f""
+                         f"{int(product_price_float)}")
+                         if product_price_float.is_integer()
+                         else f"{product_price_float:.1f}"
+                         )
             print(f"{quantity} {product}s for {price_str} dollars")
         total_cost_float = float(total_cost)
         total_cost_str = (f"{total_cost:.1f}"
