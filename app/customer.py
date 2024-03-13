@@ -1,30 +1,73 @@
+import math
+import datetime
+
 from app.car import Car
 from app.shop import Shop
-from app.utils import calculate_distance
 
 
 class Customer:
     def __init__(
             self,
             name: str,
-            product_cart: dict,
-            location: tuple,
-            money: float,
+            products: dict,
+            location: list[int],
+            money: int,
             car: Car
     ) -> None:
         self.name = name
-        self.product_cart = product_cart
+        self.products = products
         self.location = location
         self.money = money
         self.car = car
 
-    def calculate_trip_cost(self, shop: Shop, fuel_price: float) -> float:
-        distance_to_shop = calculate_distance(self.location, shop.location)
-        fuel_cost_to_shop = self.car.calculate_fuel_cost(distance_to_shop, fuel_price)
-        total_product_cost = sum(shop.products[item] * quantity for item, quantity in self.product_cart.items())
-        distance_to_home = calculate_distance(shop.location, self.location)
-        fuel_cost_to_home = self.car.calculate_fuel_cost(distance_to_home, fuel_price)
-        return fuel_cost_to_shop + total_product_cost + fuel_cost_to_home
+    def define_shop(self, shops: list[Shop], fuel_price: float) -> Shop | None:
 
-    def update_location(self, new_location: tuple) -> None:
-        self.location = new_location
+        print(f"{self.name} has {self.money} dollars")
+
+        cheapest_trip_cost = 0
+        selected_shop: Shop | None = None
+
+        for shop in shops:
+            fuel_cost = (math.dist(self.location, shop.location)
+                         * self.car.fuel_consumption / 100 * fuel_price)
+            products_cost = sum(
+                product_value * shop.products.get(product, 0)
+                for product, product_value in self.products.items()
+            )
+            trip_cost = round(fuel_cost * 2 + products_cost, 2)
+            print(f"{self.name}'s trip to the "
+                  f"{shop.name} costs {trip_cost}")
+
+            if not cheapest_trip_cost or trip_cost < cheapest_trip_cost:
+                cheapest_trip_cost = trip_cost
+                selected_shop = shop
+
+        if cheapest_trip_cost > self.money:
+            print(f"{self.name} doesn't have enough money "
+                  f"to make a purchase in any shop")
+            return
+
+        self.money -= cheapest_trip_cost
+        print(f"{self.name} rides to {selected_shop.name}\n")
+        return selected_shop
+
+    def make_purchase(self, selected_shop: Shop) -> None:
+        formatted_date = datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S")
+        print(f"Date: {formatted_date}")
+        print(f"Thanks, {self.name}, for your purchase!")
+        print("You have bought:")
+
+        total_cost = 0
+        for product, quantity in self.products.items():
+            product_price = selected_shop.products.get(product, 0)
+            cost = product_price * quantity
+            if isinstance(cost, (int, float)) and float(cost).is_integer():
+                cost = int(cost)
+            total_cost += cost
+            print(f"{quantity} {product}s for {cost} dollars")
+        print(f"Total cost is {total_cost} dollars")
+        print("See you again!\n")
+
+    def ride_home(self) -> None:
+        print(f"{self.name} rides home")
+        print(f"{self.name} now has {round(self.money, 2)} dollars\n")
