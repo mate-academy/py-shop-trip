@@ -20,7 +20,7 @@ class Shop:
         print("You have bought:")
         for product, quantity in customer.product_cart.items():
             price = self.products.get(product) * quantity
-            price = int(price) if price.is_integer() else price
+            price = int(price) if isinstance(price, float) and price.is_integer() else price
             print(f"{quantity} {product}s for {price} dollars")
 
         print(f"Total cost is "
