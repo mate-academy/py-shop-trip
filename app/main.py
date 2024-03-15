@@ -1,7 +1,7 @@
 import json
 from app.customer import Customer
 from app.shop import Shop
-import app.helping_tool as helping_tool
+from app.helping_tool import trip_and_shop_price
 
 
 def shop_trip() -> None:
@@ -16,16 +16,15 @@ def shop_trip() -> None:
         cheaper_shop_name = None
 
         for shop in shops:
-            print(f"{customer.name}'s trip to the {shop.name} costs "
-                  f"{helping_tool.trip_and_shop_price(
-                      shop, customer, fuel_price)}")
+            print(f"{customer.name}'s trip to the {shop.name} "
+                  f"costs {trip_and_shop_price(shop, customer, fuel_price)}")
             if cheaper_shop is None:
-                cheaper_shop = helping_tool.trip_and_shop_price(
+                cheaper_shop = trip_and_shop_price(
                     shop, customer, fuel_price)
                 cheaper_shop_name = shop
-            elif cheaper_shop > helping_tool.trip_and_shop_price(
+            elif cheaper_shop > trip_and_shop_price(
                     shop, customer, fuel_price):
-                cheaper_shop = helping_tool.trip_and_shop_price(
+                cheaper_shop = trip_and_shop_price(
                     shop, customer, fuel_price)
                 cheaper_shop_name = shop
         if cheaper_shop > customer.money:
