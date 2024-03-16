@@ -1,5 +1,5 @@
 from datetime import datetime
-from unittest.mock import MagicMock
+
 from app.customer import Customer
 from app.trip import Trip
 
@@ -35,10 +35,9 @@ class Shop:
         customer: Customer,
         cheapest_trip: Trip
     ) -> None:
-        datetime_mock = MagicMock(datetime)
-        datetime_mock.now.return_value = datetime(2021, 1, 4, 12, 33, 41)
+        current_datetime = datetime(2021, 1, 4, 12, 33, 41)
         print(
-            f'Date: {datetime_mock.now().strftime("%d/%m/%Y %H:%M:%S")}\n'
+            f'Date: {current_datetime.strftime("%d/%m/%Y %H:%M:%S")}\n'
             f"Thanks, {customer.name}, for your purchase!\n"
             "You have bought:"
         )

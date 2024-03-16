@@ -1,4 +1,5 @@
 from __future__ import annotations
+
 from app.car import Car
 from app.trip import Trip
 
