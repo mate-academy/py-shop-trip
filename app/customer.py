@@ -23,5 +23,5 @@ class Customer:
                 total_cost += (shop.products[product] * self.products[product])
         return round(total_cost, 2)
 
-    def update_location(self, new_location: list) -> None:
-        self.location = new_location
+    def update_location(self, new_location: list) -> str:
+        return f"{new_location}"

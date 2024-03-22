@@ -1,15 +1,16 @@
 from datetime import datetime
+from app.customer import Customer
 
 
 class Shop:
     def __init__(self, name: str,
-                 location: list,
+                 location: list[int],
                  products: dict) -> None:
         self.name = name
         self.location = location
         self.products = products
 
-    def print_purchase_receipt(self, customer: object) -> None:
+    def print_purchase_receipt(self, customer: Customer) -> None:
         product_sum = 0
         now = datetime.strptime("04/01/2021 12:33:41", "%d/%m/%Y %H:%M:%S")
         print(f"""Date: {now.strftime("%d/%m/%Y %H:%M:%S")}""")
@@ -29,4 +30,5 @@ class Shop:
                   f"{product}s for {prices} dollars")
 
         print(f"Total cost is {product_sum} dollars\n" "See you again!\n")
+        customer.update_location(customer.location)
         print(f"{customer.name} rides home")
