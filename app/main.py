@@ -1,10 +1,9 @@
 import json
 import os
 
-from app.Person import Person
-from app.Coordinate2D import Coordinate2D
-from app.Car import Car
-from app.Shop import Shop
+from app.person import Person
+from app.car import Car
+from app.shop import Shop
 
 
 def shop_trip() -> None:
@@ -23,7 +22,7 @@ def shop_trip() -> None:
             (
                 customer.get("name"),
                 customer.get("product_cart"),
-                Coordinate2D(customer.get("location")),
+                customer.get("location"),
                 customer.get("money"),
                 Car(dict_car.get("brand"), dict_car.get("fuel_consumption"))
             )
@@ -35,7 +34,7 @@ def shop_trip() -> None:
             (
                 shop.get("name"),
                 shop.get("products"),
-                Coordinate2D(shop.get("location")),
+                shop.get("location"),
             )
         )
 

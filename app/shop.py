@@ -1,14 +1,12 @@
 import datetime
 
-from app.Coordinate2D import Coordinate2D
-
 
 class Shop:
     def __init__(
             self,
             name: str,
             product_prices_list: dict[str: int],
-            coordinates: Coordinate2D
+            coordinates: list[int]
     ) -> None:
 
         if not Shop.check_if_prices_correct(product_prices_list):
@@ -61,8 +59,8 @@ class Shop:
 
         print(f"Total cost is "
               f"{round(self.calculate_cart_cost(customer_product_cart), 2)}"
-              f" dollars")
-        print("See you again!")
+              f" dollars\nSee you again!"
+              )
 
     @staticmethod
     def check_if_prices_correct(prices: dict[str: int]) -> bool:

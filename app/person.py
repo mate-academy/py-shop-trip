@@ -1,6 +1,7 @@
-from app.Shop import Shop
-from app.Coordinate2D import Coordinate2D
-from app import Car
+import math
+
+from app.shop import Shop
+from app.car import Car
 
 
 class Person:
@@ -8,7 +9,7 @@ class Person:
             self,
             name: str,
             product_cart: dict[str: int],
-            coordinates: Coordinate2D,
+            coordinates: list[int],
             money: float,
             car: Car
     ) -> None:
@@ -19,13 +20,9 @@ class Person:
         self.money = money
         self.car = car
 
-    def calculate_trip_price(
-            self,
-            shop: Shop,
-            fuel_price: float
-    ) -> float:
+    def calculate_trip_price(self, shop: Shop, fuel_price: float) -> float:
 
-        total_distance = (self.coordinates.distance_to(shop.coordinates) * 2)
+        total_distance = (math.dist(self.coordinates, shop.coordinates) * 2)
         fuel_need = self.car.fuel_need(total_distance)
         total_products_cost = shop.calculate_cart_cost(self.product_cart)
         total_price = round(fuel_need * fuel_price + total_products_cost, 2)
@@ -54,11 +51,7 @@ class Person:
             return True
         return False
 
-    def market_trip(
-            self,
-            markets: list[Shop],
-            fuel_price: float
-    ) -> None:
+    def market_trip(self, markets: list[Shop], fuel_price: float) -> None:
 
         print(f"{self.name} has {self.money} dollars")
 
