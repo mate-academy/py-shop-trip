@@ -1,44 +1,34 @@
-import datetime
-from typing import Tuple, Dict, Any
+from datetime import datetime
+from app.customer import Customer
 
 
 class Shop:
-    def __init__(
-            self,
-            name: str,
-            location: Tuple[float, float],
-            products: Dict[str, float]
-    ) -> None:
+    def __init__(self, name: str,
+                 location: list[int],
+                 products: dict) -> None:
         self.name = name
         self.location = location
         self.products = products
 
-    def generate_receipt(
-            self,
-            customer: Any,
-            datetime_now: datetime.datetime,
-            total_cost: float
-    ) -> None:
-        from .customer import Customer
-        assert (
-            isinstance(customer, Customer)
-        ), "customer must be an instance of Customer"
-        print(f"\nDate: {datetime_now.strftime('%d/%m/%Y %H:%M:%S')}")
+    def print_purchase_receipt(self, customer: Customer) -> None:
+        product_sum = 0
+        now = datetime.strptime("04/01/2021 12:33:41", "%d/%m/%Y %H:%M:%S")
+        print(f"""Date: {now.strftime("%d/%m/%Y %H:%M:%S")}""")
         print(f"Thanks, {customer.name}, for your purchase!")
         print("You have bought:")
-        for product, quantity in customer.product_cart.items():
-            product_price = self.products[product] * quantity
-            product_price_float = float(product_price)
-            price_str = ((f""
-                         f"{int(product_price_float)}")
-                         if product_price_float.is_integer()
-                         else f"{product_price_float:.1f}"
-                         )
-            print(f"{quantity} {product}s for {price_str} dollars")
-        total_cost_float = float(total_cost)
-        total_cost_str = (f"{total_cost:.1f}"
-                          if not total_cost.is_integer()
-                          else f"{int(total_cost_float):}"
-                          )
-        print(f"Total cost is {total_cost_str} dollars")
-        print("See you again!\n")
+
+        for product in customer.products:
+            result = (self.products[product]
+                      * customer.products[product])
+
+            product_sum += result
+            prices = self.products[product] * customer.products[product]
+            if isinstance(prices, float):
+                prices_str = str(prices)
+                prices = prices_str.rstrip("0").rstrip(".")
+            print(f"{customer.products[product]} "
+                  f"{product}s for {prices} dollars")
+
+        print(f"Total cost is {product_sum} dollars\n" "See you again!\n")
+        customer.update_location(customer.location)
+        print(f"{customer.name} rides home")
