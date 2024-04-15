@@ -1,5 +1,5 @@
-from app.car.car import Car
-from app.shop.shop import Shop
+from app.car import Car
+from app.shop import Shop
 from math import sqrt
 
 
