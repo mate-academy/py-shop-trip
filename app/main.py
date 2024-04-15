@@ -28,8 +28,8 @@ def shop_trip() -> None:
             print(f"{customer.name} rides to {trip_min_cost[1]}\n")
             customer.location = trip_min_cost[0].location
             trip_min_cost[0].print_check(customer.name, customer.product_cart)
-            print(f"{customer.name} rides home")
-            print(f"{customer.name} now has "
+            print(f"{customer.name} rides home\n"
+                  f"{customer.name} now has "
                   f"{round(customer.money - trip_min_cost[2], 2)} dollars\n")
             customer.location = home
         else:
