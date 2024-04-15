@@ -14,7 +14,7 @@ class Shop:
     def print_check(self, name: str, cart: dict) -> None:
         total_costs = 0
         test_date = datetime(2021, 1, 4, 12, 33, 41)
-        print(f"Date: {test_date.strftime("%d/%m/%Y %H:%M:%S")}")
+        print(f"Date: {test_date.strftime('%d/%m/%Y %H:%M:%S')}")
         print(f"Thanks, {name}, for your purchase!")
         print("You have bought:")
         for product, amount in cart.items():
