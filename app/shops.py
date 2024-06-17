@@ -26,6 +26,8 @@ class Shop:
 
     @staticmethod
     def format_price(price: float) -> int | float:
+        if isinstance(price, int):
+            return price
         return int(price) if price.is_integer() else float(price)
 
     def give_purchase_receipt(
