@@ -18,11 +18,11 @@ class Shop:
             self,
             product_cart: dict
     ) -> float:
-        total_sum = 0
-        for product in product_cart:
-            total_sum += product_cart[product] * self.products[product]
 
-        return total_sum
+        return sum(
+            product_cart[product] * self.products[product]
+            for product in product_cart
+        )
 
     @staticmethod
     def format_price(price: float) -> int | float:
