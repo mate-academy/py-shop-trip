@@ -33,7 +33,7 @@ class Shop:
             client: Customer
     ) -> None:
         print(f"\nDate: "
-              f"{datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S")}")
+              f'{datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S")}')
         print(f"Thanks, {client.name}, for your purchase!\nYou have bought:")
         for product in client.product_cart:
             current_product = (client.product_cart[product]
