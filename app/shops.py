@@ -24,6 +24,10 @@ class Shop:
 
         return total_sum
 
+    @staticmethod
+    def format_price(price: float) -> int | float:
+        return int(price) if price.is_integer() else float(price)
+
     def give_purchase_receipt(
             self,
             client: Customer
@@ -35,9 +39,9 @@ class Shop:
             current_product = (client.product_cart[product]
                                * self.products[product])
             print(f"{client.product_cart[product]} {product}s "
-                  f"for {int(current_product)
-                  if current_product.is_integer()
-                  else float(current_product)} dollars")
+                  f"for "
+                  f"{self.format_price(current_product)} "
+                  f"dollars")
         print(f"Total cost is "
               f"{self.calculate_cost_for_products(client.product_cart)} "
               f"dollars\nSee you again!")
