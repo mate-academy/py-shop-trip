@@ -26,7 +26,7 @@ class Shop:
     def get_check(self, customer: "Customer") -> None:
         total_cost = 0
         print(
-            f"Date: {datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S")}\n"
+            f"Date: {datetime.datetime.now().strftime('%d/%m/%Y %H:%M:%S')}\n"
             f"Thanks, {customer.name}, for your purchase!\n"
             f"You have bought:"
         )
