@@ -38,7 +38,7 @@ class Customer:
                 + (shop.location[1] - self.start_location[1]) ** 2
             )
             fuel_cost = (
-                distance * self.car.one_km_consumption() * fuel_price
+                distance * self.car.get_one_km_consumption() * fuel_price
             ) * 2
             products_cost = 0
             for product, count in self.product_cart.items():
@@ -73,7 +73,7 @@ class Customer:
     @classmethod
     def create_customers(cls, customers_config: list) -> list:
         return [
-            Customer(
+            cls(
                 name=customer["name"],
                 product_cart=customer["product_cart"],
                 location=customer["location"],

@@ -7,5 +7,5 @@ class Car:
         self.brand = brand
         self.fuel_consumption = fuel_consumption
 
-    def one_km_consumption(self) -> float:
+    def get_one_km_consumption(self) -> float:
         return self.fuel_consumption / 100

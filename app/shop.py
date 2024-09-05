@@ -19,7 +19,7 @@ class Shop:
     @classmethod
     def create_shops(cls, shops_config: list) -> list:
         return [
-            Shop(
+            cls(
                 name=shop["name"],
                 location=shop["location"],
                 products=shop["products"]

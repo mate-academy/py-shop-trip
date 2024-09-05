@@ -24,4 +24,5 @@ def shop_trip() -> None:
             )
 
 
-shop_trip()
+if __name__ == '__main__':
+    shop_trip()
