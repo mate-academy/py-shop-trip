@@ -1,3 +1,3 @@
-from .car import Car #noqa
-from .customer import Customer #noqa
-from .shop import Shop #noqa
+from .car import Car  # noqa: F401
+from .customer import Customer  # noqa: F401
+from .shop import Shop  # noqa: F401

@@ -4,6 +4,7 @@ import math
 
 from app.classes import Car
 
+
 @dataclass
 class Customer:
     name: str
@@ -12,13 +13,16 @@ class Customer:
     money: int
     car: Car
 
+    def print_info(self) -> None:
+        print(f"{self.name} has {self.money} dollars")
+
     def calculate_distance_to_shop(
             self,
             shop_location: list[int]
     ) -> float:
         return math.sqrt(
-            (self.location[0] - shop_location[0])**2 +
-            (self.location[1] - shop_location[1])**2
+            (self.location[0] - shop_location[0])**2
+            + (self.location[1] - shop_location[1])**2
         )
 
     def calculate_cost_shopping(self, shop: object, fuel_price: float) -> str:
@@ -30,3 +34,16 @@ class Customer:
         )
         total_price = round((way_cost * 2 + product_cost), 2)
         return total_price
+
+    def back_home(self, shops: list, fuel_price: float) -> None:
+        if not self.is_enough_money:
+            return
+        current_shop = None
+        for shop in shops:
+            if self.shop == shop.name:
+                current_shop = shop
+        distance = self.calculate_distance_to_shop(current_shop.location)
+        way_cost = self.car.calculate_cost_way(distance, fuel_price)
+        self.spent_money += round((way_cost * 2), 2)
+        print(f"{self.name} rides home\n"
+              f"{self.name} now has {round((self.money - self.spent_money), 2)} dollars\n")
