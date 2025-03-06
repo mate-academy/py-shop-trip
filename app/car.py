@@ -6,12 +6,7 @@ class Car:
     brand: str
     fuel_consumption: float
 
-    def trip_cost(self, distance, fuel_prise):
+    def trip_cost(self, distance: float, fuel_prise: float) -> float:
         return round(self.fuel_consumption / 100
-                * distance
-                * fuel_prise, 2)
-
-
-if __name__ == "__main__":
-    car = Car("BMW", 9.1)
-    print(car.trip_cost(10.154, 5))
+                     * distance
+                     * fuel_prise, 2)

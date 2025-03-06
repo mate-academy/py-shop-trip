@@ -6,7 +6,7 @@ from app.car import Car
 from app.shop import Shop
 
 
-def shop_trip():
+def shop_trip() -> None:
     with open("config.json", "r") as f:
         config = json.load(f)
     customers = []
@@ -38,12 +38,14 @@ def shop_trip():
             products_cost = 0
             for product in ("milk", "bread", "butter"):
                 products_cost += (customer.product_cart[product]
-                                 * shop.product_cart[product])
+                                  * shop.product_cart[product])
             shop_distance = shop.shop_distance(customer.location)
-            trip_cost = customer.car.trip_cost(shop_distance, config["FUEL_PRICE"])
+            trip_cost = customer.car.trip_cost(shop_distance,
+                                               config["FUEL_PRICE"])
             trip_cost = round(products_cost + trip_cost, 2)
 
-            print(f"{customer.name}'s trip to the {shop.name} costs {trip_cost}")
+            print(f"{customer.name}'s trip to the "
+                  f"{shop.name} costs {trip_cost}")
 
             if trip_cost < number:
                 number = trip_cost
@@ -54,14 +56,16 @@ def shop_trip():
             print(f"{customer.name} rides to {shop_name}\n")
             print(f"Date: {datetime.now().strftime('%d/%m/%y %H:%M:%S')}")
             print(f"Thanks, {customer.name}, for your purchase!")
-            print(f"You have bought:")
+            print("You have bought:")
 
             products_cost = 0
             for shop in shops:
                 if shop.name == shop_name:
                     for product in ("milk", "bread", "butter"):
-                        product_cost = shop.product_cart[product] * customer.product_cart[product]
-                        print(f"{customer.product_cart[product]} milks for {product_cost} dollars")
+                        product_cost = (shop.product_cart[product]
+                                        * customer.product_cart[product])
+                        print(f"{customer.product_cart[product]} "
+                              f"milks for {product_cost} dollars")
                         products_cost += product_cost
 
             print(f"Total cost is {products_cost} dollars")
@@ -70,8 +74,8 @@ def shop_trip():
             print(f"{customer.name} now has {customer.money} dollars\n")
 
         else:
-            print(f"{customer.name} doesn't have enough money to make a purchase in any shop")
-
+            print(f"{customer.name} doesn't have enough "
+                  f"money to make a purchase in any shop")
 
 
 if __name__ == "__main__":
