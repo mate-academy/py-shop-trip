@@ -7,7 +7,7 @@ from app.shop import Shop
 
 
 def shop_trip() -> None:
-    with open("config.json", "r") as f:
+    with open("app/config.json", "r") as f:
         config = json.load(f)
     customers = []
     for customer in config["customers"]:
@@ -42,7 +42,7 @@ def shop_trip() -> None:
             shop_distance = shop.shop_distance(customer.location)
             trip_cost = customer.car.trip_cost(shop_distance,
                                                config["FUEL_PRICE"])
-            trip_cost = round(products_cost + trip_cost, 2)
+            trip_cost = products_cost + round(trip_cost * 2, 2)
 
             print(f"{customer.name}'s trip to the "
                   f"{shop.name} costs {trip_cost}")
@@ -53,8 +53,9 @@ def shop_trip() -> None:
 
         customer.money = round(customer.money - number, 2)
         if customer.money >= 0:
+            now_time = datetime(2021, 1, 4, 12, 33, 41)
             print(f"{customer.name} rides to {shop_name}\n")
-            print(f"Date: {datetime.now().strftime('%d/%m/%y %H:%M:%S')}")
+            print(f"Date: {now_time.strftime('%d/%m/%Y %H:%M:%S')}")
             print(f"Thanks, {customer.name}, for your purchase!")
             print("You have bought:")
 
@@ -64,9 +65,11 @@ def shop_trip() -> None:
                     for product in ("milk", "bread", "butter"):
                         product_cost = (shop.product_cart[product]
                                         * customer.product_cart[product])
-                        print(f"{customer.product_cart[product]} "
-                              f"milks for {product_cost} dollars")
                         products_cost += product_cost
+                        if round(product_cost) == product_cost:
+                            product_cost = round(product_cost)
+                        print(f"{customer.product_cart[product]} "
+                              f"{product}s for {product_cost} dollars")
 
             print(f"Total cost is {products_cost} dollars")
             print("See you again!\n")

@@ -8,6 +8,6 @@ class Shop:
     product_cart: dict[str: float]
 
     def shop_distance(self, location: list[float, float]) -> float:
-        a_distance = (self.location[0] + location[0]) ** 2
-        b_distance = (self.location[1] + location[1]) ** 2
+        a_distance = (location[0] - self.location[0]) ** 2
+        b_distance = (location[1] - self.location[1]) ** 2
         return (a_distance + b_distance) ** 0.5
