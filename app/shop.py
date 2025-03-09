@@ -32,7 +32,7 @@ class Shop:
         for product, quantity in customer.product_cart.items():
             cost = quantity * self.products[product]
             print(f"{quantity} {product}s for"
-                  f" {int(cost) if cost.is_integer() else cost} "
+                  f" {int(cost) if isinstance(cost, float) and cost.is_integer() else cost} "
                   f"dollars")
             total_cost += cost
 
