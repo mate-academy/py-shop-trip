@@ -31,9 +31,13 @@ class Shop:
 
         for product, quantity in customer.product_cart.items():
             cost = quantity * self.products[product]
-            print(f"{quantity} {product}s for"
-                  f" {int(cost) if isinstance(cost, float) and cost.is_integer() else cost} "
-                  f"dollars")
+
+            is_whole_number = isinstance(cost, float) and cost.is_integer()
+            cost_text = int(cost) if is_whole_number else cost
+            print(
+                f"{quantity} {product}s for {cost_text} dollars"
+            )
+
             total_cost += cost
 
         print(f"Total cost is {total_cost} dollars")
