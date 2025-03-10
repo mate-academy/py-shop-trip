@@ -1,4 +1,4 @@
-from math import dist
+from math import sqrt
 
 
 class Car:
@@ -20,7 +20,8 @@ class Car:
             customer_location: list,
             shop_location: list
     ) -> int | float:
-        return dist(customer_location, shop_location)
+        return sqrt((customer_location[0] - shop_location[0])
+                    ** 2 + (customer_location[1] - shop_location[1]) ** 2)
 
     def calculate_fuel_cost(
             self,
