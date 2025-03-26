@@ -1,3 +1,4 @@
+from __future__ import annotations
 import datetime
 
 
@@ -7,7 +8,7 @@ class Shop:
         self.location = location
         self.products = products
 
-    def cashiers_check(self, customer: "Customer") -> None:
+    def cashiers_check(self, customer: "Customer") -> None:  # noqa: F821
         customer.location = self.location
         date_now = datetime.datetime.now()
         print(f"Date: {date_now.strftime('%d/%m/%Y %H:%M:%S')}")
