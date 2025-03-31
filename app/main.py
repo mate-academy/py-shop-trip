@@ -1,5 +1,6 @@
 import os
 import json
+from datetime import datetime
 from app.customer import Customer
 from app.shop import Shop
 
@@ -41,7 +42,8 @@ def shop_trip() -> None:
         print(f"{customer.name} rides to {best_shop.name}\n")
         customer.location = best_shop.location
 
-        print("Date: 04/01/2021 12:33:41")
+        date = datetime(2021, 1, 4, 12, 33, 41)
+        print(date.strftime("Date: %d/%m/%Y %H:%M:%S"))
         print(f"Thanks, {customer.name}, for your purchase!")
         best_shop.buy(customer.product_cart)
 
