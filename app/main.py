@@ -14,7 +14,7 @@ def shop_trip() -> None:
 
     for cust in customers:
         print(f"{cust.name} has {cust.money} dollars")
-        all_expenses = {}
+        all_expenses = []
         for i in range(len(shops)):
             pay_for_trip = cust.pay_for_trip_and_groceries(
                 shops[i],
@@ -22,10 +22,11 @@ def shop_trip() -> None:
             )
             print(f"{cust.name}'s trip "
                   f"to the {shops[i].name} costs {pay_for_trip}")
-            all_expenses[pay_for_trip] = i
-        min_price = min(all_expenses)
+            all_expenses.append((pay_for_trip, i))
+        min_price, min_index = min(all_expenses, key=lambda x: x[0])
+
         if cust.have_enough_money(min_price):
-            shop = shops[all_expenses[min_price]]
+            shop = shops[min_index]
             print(f"{cust.name} rides to {shop.name}")
             cust.print_check(shop)
             print(f"{cust.name} rides home")
