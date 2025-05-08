@@ -19,7 +19,7 @@ class Shop:
         print("You have bought:")
         for item, quantity in cart.items():
             if item in self.products:
-                price = self.products[item] * quantity
+                price = float(self.products[item]) * quantity
                 print(f"{quantity} {item}s "
                       f"for {int(price) if price.is_integer() else price}"
                       f" dollars")
