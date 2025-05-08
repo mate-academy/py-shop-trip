@@ -48,7 +48,7 @@ def shop_trip() -> None:
     # Create customer objects from config
     customers = []
     for customer_data in config["customers"]:
-        car_data = customer_data.pop("car")
+        car_data = customer_data["car"]
         car = Car(
             brand=car_data["brand"],
             fuel_consumption=car_data["fuel_consumption"],
