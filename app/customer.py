@@ -1,3 +1,6 @@
+from app.shop import Shop
+
+
 class Customer:
     def __init__(
             self,
@@ -13,5 +16,6 @@ class Customer:
         self.money = money
         self.car = car
 
-    def __sub__(self, other) -> float:
-        return ((self.location[0] - other.location[0]) ** 2 + (self.location[1] - other.location[1]) ** 2) ** 0.5
+    def __sub__(self, other: Shop) -> float:
+        return ((self.location[0] - other.location[0]) ** 2
+                + (self.location[1] - other.location[1]) ** 2) ** 0.5
