@@ -38,7 +38,7 @@ class Shop:
         list_price = []
         for key in key_list_customer:
             result = product_list_customer[key] * self.products[key]
-            if result.is_integer():
+            if float(result).is_integer():
                 result = int(result)
             else:
                 result = result
