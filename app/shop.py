@@ -28,7 +28,6 @@ class Shop:
             name: str,
             product_list_customer: dict
     ) -> None:
-        """второй блок"""
         key_list_customer = [key for key in product_list_customer]
         date = datetime.datetime.now()
         formatted_date = date.strftime("%d/%m/%Y %H:%M:%S")
