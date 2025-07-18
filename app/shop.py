@@ -2,7 +2,6 @@ from __future__ import annotations
 import datetime
 
 from app.location import Location
-from app.customer import Customer
 
 
 class Shop:
@@ -51,12 +50,12 @@ class Shop:
             cost += price
         return (cost, products_to_buy)
 
-    def print_purchase(self, customer: Customer) -> None:
-        total, products_to_buy = self.calculate_cost(customer.product_cart)
+    def print_purchase(self, customer_name: str, product_cart: dict) -> None:
+        total, products_to_buy = self.calculate_cost(product_cart)
 
         print()
         print(f"Date: {datetime.datetime.now():%d/%m/%Y %H:%M:%S}")
-        print(f"Thanks, {customer.name}, for your purchase!")
+        print(f"Thanks, {customer_name}, for your purchase!")
         print("You have bought:")
         for product, purchase in products_to_buy.items():
             formated_price = f'{purchase["price"]:.2f}'.rstrip("0").rstrip(".")
