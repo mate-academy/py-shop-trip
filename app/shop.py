@@ -35,10 +35,16 @@ class Shop:
             products=data.get("products", {})
         )
 
+    def all_products_present(self, product_cart: dict) -> bool:
+        return set(self.products.keys()).issubset(set(product_cart.keys()))
+
     def calculate_cost(
         self,
         product_cart: dict
     ) -> tuple[float, dict]:
+        if not self.all_products_present(product_cart):
+            return float("inf"), {}
+
         cost = 0.0
         products_to_buy = {}
         for product in product_cart:
@@ -48,7 +54,7 @@ class Shop:
                 "price": price
             }
             cost += price
-        return (cost, products_to_buy)
+        return cost, products_to_buy
 
     def print_purchase(self, customer_name: str, product_cart: dict) -> None:
         total, products_to_buy = self.calculate_cost(product_cart)
