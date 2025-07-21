@@ -60,6 +60,7 @@ def shop_trip() -> None:
                     product_cost = (customer.product_cart[product]
                                     * shop.products[product])
                     check_amount += product_cost
+                    product_cost = float(product_cost)
                     if product_cost.is_integer():
                         print(f"{customer.product_cart[product]} {product}s "
                               f"for {int(product_cost)} dollars")
@@ -67,6 +68,7 @@ def shop_trip() -> None:
                         print(f"{customer.product_cart[product]} {product}s "
                               f"for {product_cost} dollars")
 
+                check_amount = float(check_amount)
                 if check_amount.is_integer():
                     print(f"Total cost is {int(check_amount)} dollars")
                 else:
