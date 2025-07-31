@@ -44,7 +44,7 @@ class Customer:
                                                fuel_price), 2))
 
     def calculate_cheapest_trip(self, shops: list[Shop],
-                                fuel_price: float) -> (float, Shop):
+                                fuel_price: float) -> (Shop, float):
         print(f"{self.name} has {self.money} dollars")
         cheapest_shop_price = float("inf")
         current_shop = None
