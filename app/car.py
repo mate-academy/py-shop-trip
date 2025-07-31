@@ -5,4 +5,4 @@ class Car:
 
     def calculate_price_of_trip(self, distance: float,
                                 fuel_price: float) -> float:
-        return round(distance * self.fuel_consumption / 100 * fuel_price, 2)
+        return round(distance * self.fuel_consumption / 100 * fuel_price * 2, 2)

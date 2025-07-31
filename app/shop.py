@@ -21,8 +21,12 @@ class Shop:
 
         return shops
 
+    @staticmethod
+    def format_price(price) -> str:
+        return str(int(price)) if price == int(price) else f"{price:.1f}"
+
     def print_receipt(self, customer: "Customer") -> None:
-        print(datetime.datetime.now().strftime("%d/%m/%Y, %H:%M:%S"))
+        print("Date:", datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S"))
         print(f"Thanks, {customer.name}, for your purchase!")
         print("You have bought:")
         _sum = 0
@@ -30,7 +34,7 @@ class Shop:
             total_price_for_product = (customer.product_cart[product]
                                        * self.products[product])
             _sum += total_price_for_product
-            print(f"{self.products[product]} {product}s for "
-                  f"{total_price_for_product} dollars")
+            print(f"{customer.product_cart[product]} {product}s for "
+                  f"{self.format_price(total_price_for_product)} dollars")
         print(f"Total cost is {_sum} dollars")
         print("See you again!\n")

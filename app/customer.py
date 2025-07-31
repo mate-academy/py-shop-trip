@@ -14,19 +14,16 @@ class Customer:
 
     @classmethod
     def from_dict(cls, data: dict) -> list["Customer"]:
-        customers = []
-        for customer in data:
-            customers.append(
+        return [
                 cls(
                     customer["name"],
                     customer["product_cart"],
                     customer["location"],
                     customer["money"],
                     Car(customer["car"]["brand"],
-                        customer["car"]["fuel_consumption"]))
-            )
-
-        return customers
+                        customer["car"]["fuel_consumption"])
+                ) for customer in data
+        ]
 
     def calculate_distance(self, shop: Shop) -> float:
         return round(((shop.location[0] - self.location[0]) ** 2
@@ -66,7 +63,8 @@ class Customer:
         if self.money >= shop_price:
             print(f"{self.name} rides to {shop.name}\n")
             self.location = shop.location
-            self.money -= shop_price
+            self.money = round(self.money - shop_price, 2)
+
             return True
 
         print(f"{self.name} doesn't have enough money"
