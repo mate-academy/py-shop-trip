@@ -1,32 +1,31 @@
-from datetime import datetime
+import datetime
 from typing import Dict, Tuple
+from app.customer import Customer
 
 
 class Shop:
-    def __init__(
-            self, name: str, location: Tuple[int, int],
-            products: Dict[str, float]
-    ) -> None:
+    def __init__(self, name: str,
+                 location: Tuple[int, int],
+                 products: Dict[str, float]) -> None:
         self.name = name
         self.location = location
         self.products = products
 
-    def sell(self, product: str, quantity: int) -> float:
-        if product not in self.products:
-            print(f"{product} is not available in {self.name}")
-            return 0.0
+    def has_all_products(self, cart: Dict[str, int]) -> bool:
+        return all(product in self.products for product in cart)
 
-        price = self.products[product]
-        cost = price * quantity
-        print(f"{quantity} {product}s for {cost:.1f} dollars")
-        return cost
+    def print_receipt(self, customer: Customer, fuel_price: float) -> None:
+        now = datetime.datetime.now()
+        print(f"Date: {now.strftime("%m/%d/%Y %H:%M:%S")}")
+        print(f"Thanks, {customer.name}, for your purchase!")
+        print("You have bought:")
 
-    def checkout(self, cart: Dict[str, int]) -> float:
         total = 0.0
-        for product, quantity in cart.items():
-            total += self.sell(product, quantity)
-        print(f"Total cost is {total:.1f} dollars")
-        return total
+        for product, quantity in customer.product_cart.items():
+            if product in self.products:
+                cost = self.products[product] * quantity
+                total += cost
+                print(f"{quantity} {product}s for {cost:.1f} dollars")
 
-    def print_receipt(self) -> None:
-        print(f"Date: {datetime.now().strftime('%d/%m/%Y %H:%M:%S')}")
+        print(f"Total cost is {total:.1f} dollars")
+        print("See you again!\n")
