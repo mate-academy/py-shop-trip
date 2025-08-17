@@ -14,9 +14,10 @@ class Shop:
     def has_all_products(self, cart: Dict[str, int]) -> bool:
         return all(product in self.products for product in cart)
 
-    def print_receipt(self, customer: Customer, fuel_price: float) -> None:
+    def print_receipt(self, customer: "Customer", fuel_price: float) -> None:
+        import datetime
         now = datetime.datetime.now()
-        print(f"Date: {now.strftime("%m/%d/%Y %H:%M:%S")}")
+        print(f"Date: {now.strftime('%m/%d/%Y %H:%M:%S')}")
         print(f"Thanks, {customer.name}, for your purchase!")
         print("You have bought:")
 
@@ -25,7 +26,7 @@ class Shop:
             if product in self.products:
                 cost = self.products[product] * quantity
                 total += cost
-                print(f"{quantity} {product}s for {cost:.1f} dollars")
+                print(f"{quantity} {product}s for {cost:.2f} dollars")  # <-- зміна тут
 
-        print(f"Total cost is {total:.1f} dollars")
+        print(f"Total cost is {total:.2f} dollars")  # <-- і тут
         print("See you again!\n")
