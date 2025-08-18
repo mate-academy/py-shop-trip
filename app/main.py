@@ -17,17 +17,15 @@ def shop_trip() -> None:
     shops = [Shop(data) for data in config["shops"]]
 
     for customer in customers:
-        money_str = f"{customer.money:.2f}".rstrip('0').rstrip('.')
+        money_str = f"{customer.money:.2f}".rstrip("0").rstrip(".")
 
         print(f"{customer.name} has {money_str} dollars")
 
         affordable_shops = []
         for shop in shops:
             can_afford, cost = customer.can_afford_trip(shop)
-            cost_str = f"{cost:.2f}".rstrip('0').rstrip('.')
-            print(
-                f"{customer.name}'s trip to the {shop.name} costs {cost_str}"
-            )
+            cost_str = f"{cost:.2f}".rstrip("0").rstrip(".")
+            print(f"{customer.name}'s trip to the {shop.name} costs {cost_str}")
             if can_afford:
                 affordable_shops.append((shop, cost))
         if affordable_shops:

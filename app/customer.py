@@ -58,9 +58,9 @@ class Customer:
         for product, quantity in self.product_cart.items():
             price = shop.products[product]
             cost = quantity * price
-            cost_str = f"{cost:.2f}".rstrip('0').rstrip('.')
+            cost_str = f"{cost:.2f}".rstrip("0").rstrip(".")
             print(f"{quantity} {product}s for {cost_str} dollars")
-        total_str = f"{product_cost:.2f}".rstrip('0').rstrip('.')
+        total_str = f"{product_cost:.2f}".rstrip("0").rstrip(".")
 
         print(f"Total cost is {total_str} dollars")
         print("See you again!")
@@ -70,6 +70,6 @@ class Customer:
         print(f"{self.name} rides home")
         self.money -= total_cost
         self.money = round(self.money, 2)
-        money_str = f"{self.money:.2f}".rstrip('0').rstrip('.')
+        money_str = f"{self.money:.2f}".rstrip("0").rstrip(".")
         print(f"{self.name} now has {money_str} dollars")
         print()
