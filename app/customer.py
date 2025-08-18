@@ -58,15 +58,10 @@ class Customer:
         for product, quantity in self.product_cart.items():
             price = shop.products[product]
             cost = quantity * price
-            if cost.is_integer():
-                cost_str = str(int(cost))
-            else:
-                cost_str = str(cost)
+            cost_str = f"{cost:.2f}".rstrip('0').rstrip('.')
             print(f"{quantity} {product}s for {cost_str} dollars")
-        if product_cost.is_integer():
-            total_str = str(int(product_cost))
-        else:
-            total_str = str(round(product_cost, 2))
+        total_str = f"{product_cost:.2f}".rstrip('0').rstrip('.')
+
         print(f"Total cost is {total_str} dollars")
         print("See you again!")
 
@@ -75,9 +70,6 @@ class Customer:
         print(f"{self.name} rides home")
         self.money -= total_cost
         self.money = round(self.money, 2)
-        if self.money.is_integer():
-            money_str = str(int(self.money))
-        else:
-            money_str = str(round(self.money, 2))
+        money_str = f"{self.money:.2f}".rstrip('0').rstrip('.')
         print(f"{self.name} now has {money_str} dollars")
         print()

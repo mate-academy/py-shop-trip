@@ -17,19 +17,14 @@ def shop_trip() -> None:
     shops = [Shop(data) for data in config["shops"]]
 
     for customer in customers:
-        if customer.money.is_integer():
-            money_str = str(int(customer.money))
-        else:
-            money_str = str(round(customer.money, 2))
+        money_str = f"{customer.money:.2f}".rstrip('0').rstrip('.')
+
         print(f"{customer.name} has {money_str} dollars")
 
         affordable_shops = []
         for shop in shops:
             can_afford, cost = customer.can_afford_trip(shop)
-            if cost.is_integer():
-                cost_str = str(int(cost))
-            else:
-                cost_str = str(round(cost, 2))
+            cost_str = f"{cost:.2f}".rstrip('0').rstrip('.')
             print(
                 f"{customer.name}'s trip to the {shop.name} costs {cost_str}"
             )
