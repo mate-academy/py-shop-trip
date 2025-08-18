@@ -25,7 +25,9 @@ def shop_trip() -> None:
         for shop in shops:
             can_afford, cost = customer.can_afford_trip(shop)
             cost_str = f"{cost:.2f}".rstrip("0").rstrip(".")
-            print(f"{customer.name}'s trip to the {shop.name} costs {cost_str}")
+            print(
+                f"{customer.name}'s trip to the {shop.name} costs {cost_str}"
+            )
             if can_afford:
                 affordable_shops.append((shop, cost))
         if affordable_shops:
