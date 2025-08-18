@@ -5,7 +5,7 @@ from app.customer import Customer
 from app.shop import Shop
 
 
-def shop_trip():
+def shop_trip() -> None:
     base_dir = os.path.dirname(__file__)
     config_path = os.path.join(base_dir, "config.json")
 
