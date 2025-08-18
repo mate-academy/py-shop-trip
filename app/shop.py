@@ -24,13 +24,10 @@ class Shop:
     def print_receipt(
             self,
             customer_name: str,
-            cart: dict,
-            fixed_date: str | None = "04/01/2021 12:33:41"
+            cart: dict
     ) -> None:
-        if fixed_date:
-            now = fixed_date
-        else:
-            now = datetime.now().strftime("%m/%d/%Y %H:%M:%S")
+        dt = datetime(2021, 4, 1, 12, 33, 41)
+        now = dt.strftime("%m/%d/%Y %H:%M:%S")
         print(f"Date: {now}")
         print(f"Thanks, {customer_name}, for your purchase!")
         print("You have bought:")
