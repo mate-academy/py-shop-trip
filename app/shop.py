@@ -13,12 +13,12 @@ class Shop:
         self.products = products
 
     def calculate_cart_cost(self, cart: dict) -> float:
-        total = 0
+        total = 0.0
         for product, qty in cart.items():
-            if product in self.products:
-                total += self.products[product] * qty
-            else:
+            price = self.products.get(product)
+            if price is None:
                 return float("inf")
+            total += price * qty
         return total
 
     def print_receipt(
