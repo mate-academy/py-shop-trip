@@ -24,7 +24,8 @@ def parse_info_from_json() -> tuple[float, list[Customer], list[Shop]]:
         )
         cust = Customer(
             name=record["name"],
-            product_cart={k: int(v) for k, v in record["product_cart"].items()},
+            product_cart={k: int(v) for k, v in
+                          record["product_cart"].items()},
             location=[(record["location"][0]), (record["location"][1])],
             money=record["money"],
             car=car,
