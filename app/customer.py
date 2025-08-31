@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from app.car import Car
 from app.shop import Shop
 from app.utils import count_distance_between_locations, shop_cart_cost
@@ -11,6 +13,7 @@ class Customer:
         self.location = location
         self.money = money
         self.car = car
+        self.home_location = self.location
 
     def __str__(self) -> str:
         return f"{self.name} has {self.money} dollars"
@@ -28,14 +31,14 @@ class Customer:
 
     def ride_to_shop(self, shop: Shop) -> None:
         self.location = shop.location
-        print("Date: 04/01/2021 12:33:41")
+        print(f"Date: {datetime.now().strftime('%m/%d/%Y %H:%M:%S')}")
         print(f"Thanks, {self.name}, for your purchase!")
         print("You have bought:")
         total_cost = 0.0
         for product, qty in self.product_cart.items():
             cost = shop.products[product] * qty
-            print(f"{qty} {product}s for {cost:g} dollars")
+            print(f"{qty} {product}s for {cost:.2f} dollars")
             total_cost += cost
-        print(f"Total cost is {total_cost} dollars")
+        print(f"Total cost is {total_cost:.2f} dollars")
         print("See you again!")
         print("")

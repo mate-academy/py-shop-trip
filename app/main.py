@@ -7,9 +7,11 @@ def shop_trip() -> None:
         print(customer)
         costs_per_shop = {}
         for shop in shops:
+            if not all(k in shop.products for k in customer.product_cart):
+                continue
             shop_costs = customer.total_cost_for_shop(shop, fuel_price)
             print(f"{customer.name}'s trip to the {shop.name} "
-                  f"costs {shop_costs}")
+                  f"costs {shop_costs:.2f}")
             costs_per_shop[shop.name] = shop_costs
         min_shop_name = min(costs_per_shop, key=costs_per_shop.get)
         if customer.money < costs_per_shop[min_shop_name]:
@@ -23,5 +25,6 @@ def shop_trip() -> None:
         customer.ride_to_shop(min_shop_obj)
         customer.money -= costs_per_shop.get(min_shop_name)
         print(f"{customer.name} rides home")
-        print(f"{customer.name} now has {customer.money} dollars")
+        print(f"{customer.name} now has {customer.money:.2f} dollars")
+        customer.location = customer.home_location
         print("")
