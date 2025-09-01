@@ -13,6 +13,11 @@ def shop_trip() -> None:
             print(f"{customer.name}'s trip to the {shop.name} "
                   f"costs {shop_costs:.2f}")
             costs_per_shop[shop.name] = shop_costs
+        if not costs_per_shop:
+            print(f"{customer.name} cannot make a purchase in any shop "
+                  f"(missing products everywhere)")
+            print("")
+            continue
         min_shop_name = min(costs_per_shop, key=costs_per_shop.get)
         if customer.money < costs_per_shop[min_shop_name]:
             print(f"{customer.name} doesn't have enough money to make "
