@@ -60,6 +60,7 @@ def shop_trip() -> None:
             f"Thanks, {client.name}, for your purchase\n"
             f"You have bought: \n"
         )
+
         for key, value in client.product_cart.items():
             print(f"{value} {key} "
                   f"for {shop.products[key] * client.product_cart[key]} "
