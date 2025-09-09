@@ -40,7 +40,7 @@ def shop_trip() -> None:
 
         # *** check ***
         print(
-            f"Date: {datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S")}\n"
+            f"Date: {datetime.datetime.now().strftime('%d/%m/%Y %H:%M:%S')}\n"
             f"Thanks, {client.name}, for your purchase!\n"
             f"You have bought: "
         )
