@@ -2,7 +2,7 @@ import json
 import datetime
 from decimal import Decimal, getcontext
 from app.shop import Shop
-from app.car import Car
+from app.customer import Customer
 
 
 def shop_trip() -> None:
@@ -19,7 +19,7 @@ def shop_trip() -> None:
         dict_of_client["shops"].update({shop_data["name"]: Shop(**shop_data)})
 
     for customer_data in config["customers"]:
-        dict_of_client["customers"].update({customer_data["name"]: Car(**customer_data)})
+        dict_of_client["customers"].update({customer_data["name"]: Customer(**customer_data)})
 
     two_places = Decimal('0.01')
 
