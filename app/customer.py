@@ -6,8 +6,8 @@ class Customer:
     def __init__(
         self,
         name: str,
-        product_cart: list[str],
-        location: list[int],
+        product_cart: list[str, int],
+        location: list[float],
         money: float,
         car: Car
     ) -> None:

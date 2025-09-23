@@ -1,5 +1,5 @@
 from __future__ import annotations
-from datetime import datetime
+import datetime
 from customer import Customer
 from shop import Shop
 
@@ -9,7 +9,7 @@ def print_receipt(
     shop: Shop,
     products_cost: float
 ) -> None:
-    now = datetime.now().strftime("%m/%d/%Y %H:%M:%S")
+    now = datetime.datetime.now().strftime("%m/%d/%Y %H:%M:%S")
 
     print()
     print(f"Date: {now}")
