@@ -7,8 +7,8 @@ from receipt import print_receipt
 from shop import Shop
 
 
-def distance_km(a: list[float], b: list[float]) -> float:
-    return math.hypot(b[0] - a[0], b[1] - a[1])
+def distance_km(point1: list[float], point2: list[float]) -> float:
+    return math.hypot(point2[0] - point1[0], point2[1] - point1[1])
 
 
 def products_cost(
@@ -42,27 +42,27 @@ def shop_trip() -> None:
     fuel_price = float(cfg["FUEL_PRICE"])
 
     customers: list[Customer] = []
-    for c in cfg["customers"]:
+    for customer_data in cfg["customers"]:
         customers.append(
             Customer(
-                name=c["name"],
+                name=customer_data["name"],
                 product_cart={k: int(v) for k, v in c["product_cart"].items()},
-                location=[float(c["location"][0]), float(c["location"][1])],
-                money=float(c["money"]),
+                location=[float(customer_data["location"][0]), float(customer_data["location"][1])],
+                money=float(customer_data["money"]),
                 car=Car(
-                    brand=c["car"]["brand"],
-                    fuel_consumption=float(c["car"]["fuel_consumption"]),
+                    brand=customer_data["car"]["brand"],
+                    fuel_consumption=float(customer_data["car"]["fuel_consumption"]),
                 ),
             )
         )
 
     shops: list[Shop] = []
-    for s in cfg["shops"]:
+    for shop_data in cfg["shops"]:
         shops.append(
             Shop(
-                name=s["name"],
-                location=[float(s["location"][0]), float(s["location"][1])],
-                products={k: float(v) for k, v in s["products"].items()},
+                name=shop_data["name"],
+                location=[float(s["location"][0]), float(shop_data["location"][1])],
+                products={k: float(v) for k, v in shop_data["products"].items()},
             )
         )
 

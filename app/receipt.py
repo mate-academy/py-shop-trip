@@ -4,7 +4,11 @@ from customer import Customer
 from shop import Shop
 
 
-def print_receipt(customer: Customer, shop: Shop, products_cost: float) -> None:
+def print_receipt(
+    customer: Customer,
+    shop: Shop,
+    products_cost: float
+) -> None:
     now = datetime.now().strftime("%m/%d/%Y %H:%M:%S")
 
     print()
