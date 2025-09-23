@@ -44,7 +44,10 @@ def shop_trip() -> None:
                     float(shop_data["location"][0]),
                     float(shop_data["location"][1]),
                 ],
-                products={k: float(v) for k, v in shop_data["products"].items()},
+                products={
+                    k: float(v)
+                    for k, v in shop_data["products"].items()
+                },
             )
         )
 
