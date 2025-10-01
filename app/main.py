@@ -4,7 +4,8 @@ from .car import Car
 from .customer import Customer
 from .shop import Shop
 
-def shop_trip():
+
+def shop_trip() -> None:
     # Загружаем данные
     config_path = Path(__file__).parent / "config.json"
     with open(config_path, "r", encoding="utf-8") as f:
@@ -47,4 +48,7 @@ def shop_trip():
             print(f"{cust.name} rides home")
             print(f"{cust.name} now has {cust.money} dollars")
         else:
-            print(f"{cust.name} doesn't have enough money to make a purchase in any shop")
+            print(
+                f"{cust.name} doesn't have enough money "
+                "to make a purchase in any shop"
+            )

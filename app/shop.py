@@ -2,6 +2,7 @@ from dataclasses import dataclass
 from typing import Dict, List
 from datetime import datetime
 
+
 @dataclass
 class Shop:
     name: str

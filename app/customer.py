@@ -1,8 +1,10 @@
 from dataclasses import dataclass
-from typing import Dict, List
 from math import dist
+from typing import Dict, List
+
 from .car import Car
 from .shop import Shop
+
 
 @dataclass
 class Customer:
@@ -13,7 +15,7 @@ class Customer:
     car: Car
     home: List[int] = None
 
-    def __post_init__(self):
+    def __post_init__(self) -> None:
         # сохраняем "дом" (начальные координаты)
         self.home = list(self.location)
 
@@ -26,8 +28,8 @@ class Customer:
         products = shop.calculate_cart_price(self.product_cart)
         return round(fuel_to_shop + products + fuel_home, 2)
 
-    def ride_to_shop(self, shop: Shop):
+    def ride_to_shop(self, shop: Shop) -> None:
         self.location = list(shop.location)
 
-    def ride_home(self):
+    def ride_home(self) -> None:
         self.location = list(self.home)
