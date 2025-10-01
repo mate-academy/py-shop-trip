@@ -17,7 +17,8 @@ class Shop:
 
     def print_receipt(self, customer_name: str, cart: Dict[str, int]) -> None:
         print(
-            f"\nDate: {datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S")}"
+            "\nDate: "
+            f"""{datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S")}"""
         )
         print(f"Thanks, {customer_name}, for your purchase!")
         print("You have bought:")
