@@ -45,15 +45,14 @@ def shop_trip() -> None:
         print(f"{customer.name} has {customer.money} dollars")
         costs = []
         for shop in shops:
+            _cart_price = shop.calculate_cart_price(customer.product_cart)
+            if _cart_price is None:
+                continue
             distance_km = dist(customer.location, shop.location)
             fuel_cost = (
                 customer.car.calculate_fuel_cost(distance_km, fuel_price)
             )
-            trip_cost = (
-                2 * fuel_cost
-                + shop.calculate_cart_price(customer.product_cart)
-            )
-
+            trip_cost = 2 * fuel_cost + _cart_price
             rounded_trip_cost = round(trip_cost, 2)
             print(
                 f"{customer.name}'s trip to the {shop.name} "

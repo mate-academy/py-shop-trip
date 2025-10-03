@@ -12,12 +12,12 @@ class Shop:
     location: List[int]
     products: Dict[str, float]
 
-    def calculate_cart_price(self, cart: Dict[str, int]) -> float:
+    def calculate_cart_price(self, cart: Dict[str, int]) -> float | None:
         total = 0.0
         for product, quantity in cart.items():
             price = self.products.get(product)
             if price is None:
-                raise KeyError(f"There isn't any {product}s in {self.name}.")
+                return None
             total += quantity * price
         return int(total) if total == int(total) else total
 
