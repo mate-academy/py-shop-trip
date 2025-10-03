@@ -3,6 +3,8 @@ import datetime
 from dataclasses import dataclass
 from typing import List, Dict
 
+from app.customer import Customer
+
 
 @dataclass
 class Shop:
@@ -19,7 +21,7 @@ class Shop:
             total += quantity * price
         return int(total) if total == int(total) else total
 
-    def print_receipt(self, customer: "Customer") -> float:
+    def print_receipt(self, customer: Customer) -> float:
         print("Date:", datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S"))
         print(f"Thanks, {customer.name}, for your purchase!")
         print("You have bought:")
