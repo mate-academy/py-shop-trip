@@ -18,12 +18,9 @@ def shop_trip() -> None:
                 data = json.load(f)
                 break
 
-    fuel_price = data.get("FUEL_PRICE")
-    _customers = data.get("customers")
-    _shops = data.get("shops")
-
-    if None in [fuel_price, _customers, _shops]:
-        raise KeyError
+    fuel_price = data["FUEL_PRICE"]
+    _customers = data["customers"]
+    _shops = data["shops"]
 
     shops: list[Shop] = []
     for _shop in _shops:
