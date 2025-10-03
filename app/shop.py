@@ -1,33 +1,38 @@
+import datetime
+
 from dataclasses import dataclass
-from typing import Dict, List
-from datetime import datetime
+from typing import List, Dict
 
 
 @dataclass
 class Shop:
     name: str
-    location: List[int]  # [x, y]
-    products: Dict[str, float]  # название -> цена
+    location: List[int]
+    products: Dict[str, float]
 
     def calculate_cart_price(self, cart: Dict[str, int]) -> float:
-        """Посчитать стоимость корзины товаров в этом магазине."""
         total = 0.0
         for product, quantity in cart.items():
             price = self.products.get(product)
             if price is None:
-                raise ValueError(f"{self.name} не продаёт {product}")
-            total += price * quantity
-        return total
+                raise KeyError(f"There isn't any {product}s in {self.name}.")
+            total += quantity * price
+        return int(total) if total == int(total) else total
 
-    def print_receipt(self, customer_name: str, cart: Dict[str, int]) -> None:
-        """Вывод чека после покупки."""
-        print(f"\nDate: {datetime.now().strftime('%m/%d/%Y %H:%M:%S')}")
-        print(f"Thanks, {customer_name}, for your purchase!")
+    def print_receipt(self, customer: "Customer") -> float:
+        print("Date:", datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S"))
+        print(f"Thanks, {customer.name}, for your purchase!")
         print("You have bought:")
         total = 0.0
-        for product, qty in cart.items():
-            cost = self.products[product] * qty
+        for product in customer.product_cart:
+            price_for_one_product = self.products[product]
+            quantity = customer.product_cart[product]
+            cost = quantity * price_for_one_product
+            if cost == int(cost):
+                cost = int(cost)
+            print(f"{quantity} {product}s for {cost} dollars")
             total += cost
-            print(f"{qty} {product}s for {cost} dollars")
-        print(f"Total cost is {round(total, 2)} dollars")
-        print("See you again!")
+        total = round(total, 2)
+        print(f"Total cost is {total} dollars")
+        print("See you again!\n")
+        return total
