@@ -112,12 +112,12 @@ class Customer:
                 only_butter_cost = (shop_object.products["butter"]
                                     * customer.product_cart["butter"])
 
-                print(f'{customer.product_cart["milk"]} milks '
-                      f'for {Customer.fmt(only_milk_cost)} dollars')
-                print(f'{customer.product_cart["bread"]} breads '
-                      f'for {Customer.fmt(only_bread_cost)} dollars')
-                print(f'{customer.product_cart["butter"]} butters '
-                      f'for {Customer.fmt(only_butter_cost)} dollars')
+                print(f"{customer.product_cart["milk"]} milks "
+                      f"for {Customer.fmt(only_milk_cost)} dollars")
+                print(f"{customer.product_cart["bread"]} breads "
+                      f"for {Customer.fmt(only_bread_cost)} dollars")
+                print(f"{customer.product_cart["butter"]} butters "
+                      f"for {Customer.fmt(only_butter_cost)} dollars")
                 print(f"Total cost is "
                       f"{sum_products_price.normalize()} dollars")
                 print("See you again!")
