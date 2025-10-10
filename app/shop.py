@@ -1,5 +1,4 @@
 import datetime
-
 from dataclasses import dataclass
 from typing import List, Dict
 
@@ -19,7 +18,7 @@ class Shop:
             if price is None:
                 return None
             total += quantity * price
-        return int(total) if total == int(total) else total
+        return round(total) if total == round(total) else round(total, 2)
 
     def print_receipt(self, customer: Customer) -> float:
         print("Date:", datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S"))

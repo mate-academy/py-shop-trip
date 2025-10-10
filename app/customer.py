@@ -13,7 +13,7 @@ class Customer:
     car: Car
 
     def __post_init__(self) -> None:
-        self.home = self.location
+        self.home = self.location.copy()
 
     def change_location(self, new_location: List[int]) -> None:
         self.location = new_location

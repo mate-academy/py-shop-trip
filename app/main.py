@@ -1,22 +1,25 @@
 import json
 import os
-
 from math import dist
 
+from app.car import Car
 from app.customer import Customer
 from app.shop import Shop
-from app.car import Car
 
 
 def shop_trip() -> None:
-    for dirpath, dirnames, filenemas in os.walk("/"):
-        if "config.json" in filenemas:
+    data = None
+    for dirpath, dirnames, filenames in os.walk("/"):
+        if "config.json" in filenames:
             path_to_file = os.path.abspath(
                 os.path.join(dirpath, "config.json")
             )
             with open(path_to_file, "r") as f:
                 data = json.load(f)
                 break
+
+    if data is None:
+        raise FileNotFoundError("config.json not found")
 
     fuel_price = data["FUEL_PRICE"]
     _customers = data["customers"]
@@ -43,23 +46,24 @@ def shop_trip() -> None:
             )
         )
         print(f"{customer.name} has {customer.money} dollars")
-        costs = []
+        available = []
         for shop in shops:
-            _cart_price = shop.calculate_cart_price(customer.product_cart)
-            if _cart_price is None:
+            cart_price = shop.calculate_cart_price(customer.product_cart)
+            if cart_price is None:
                 continue
             distance_km = dist(customer.location, shop.location)
             fuel_cost = (
                 customer.car.calculate_fuel_cost(distance_km, fuel_price)
             )
-            trip_cost = 2 * fuel_cost + _cart_price
+            trip_cost = 2 * fuel_cost + cart_price
             rounded_trip_cost = round(trip_cost, 2)
             print(
                 f"{customer.name}'s trip to the {shop.name} "
                 f"costs {rounded_trip_cost}"
             )
-            costs.append(rounded_trip_cost)
+            available.append((shop, rounded_trip_cost))
 
+        costs = [cost[1] for cost in available]
         if customer.money >= min(costs):
             min_index = costs.index(min(costs))
             target_shop: Shop = shops[min_index]
@@ -69,7 +73,7 @@ def shop_trip() -> None:
             print(f"{customer.name} rides home")
             customer.change_location(customer.home)
             remaining_money = customer.money - min(costs)
-            print(f"{customer.name} now has {remaining_money} dollars\n")
+            print(f"{customer.name} now has {remaining_money:.2f} dollars\n")
         else:
             print(
                 f"{customer.name} doesn't have enough money "
