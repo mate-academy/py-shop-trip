@@ -8,18 +8,10 @@ from app.shop import Shop
 
 
 def shop_trip() -> None:
-    data = None
-    for dirpath, dirnames, filenames in os.walk("/"):
-        if "config.json" in filenames:
-            path_to_file = os.path.abspath(
-                os.path.join(dirpath, "config.json")
-            )
-            with open(path_to_file, "r") as f:
-                data = json.load(f)
-                break
+    config_path = os.path.join(os.path.dirname(__file__), "config.json")
 
-    if data is None:
-        raise FileNotFoundError("config.json not found")
+    with open(config_path, "r") as f:
+        data = json.load(f)
 
     fuel_price = data["FUEL_PRICE"]
     _customers = data["customers"]
@@ -73,7 +65,7 @@ def shop_trip() -> None:
             print(f"{customer.name} rides home")
             customer.change_location(customer.home)
             remaining_money = customer.money - min(costs)
-            print(f"{customer.name} now has {remaining_money:.2f} dollars\n")
+            print(f"{customer.name} now has {remaining_money} dollars\n")
         else:
             print(
                 f"{customer.name} doesn't have enough money "
