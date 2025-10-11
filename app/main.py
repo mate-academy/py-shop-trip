@@ -48,12 +48,15 @@ def shop_trip() -> None:
                 customer.car.calculate_fuel_cost(distance_km, fuel_price)
             )
             trip_cost = 2 * fuel_cost + cart_price
-            rounded_trip_cost = round(trip_cost, 2)
             print(
                 f"{customer.name}'s trip to the {shop.name} "
-                f"costs {rounded_trip_cost}"
+                f"costs {round(trip_cost, 2)}"
             )
-            available.append((shop, rounded_trip_cost))
+            available.append((shop, trip_cost))
+
+        if not available:
+            print("No shop is suitable for shop trip")
+            return
 
         costs = [cost[1] for cost in available]
         if customer.money >= min(costs):
@@ -65,7 +68,10 @@ def shop_trip() -> None:
             print(f"{customer.name} rides home")
             customer.change_location(customer.home)
             remaining_money = customer.money - min(costs)
-            print(f"{customer.name} now has {remaining_money} dollars\n")
+            customer.money = remaining_money
+            print(
+                f"{customer.name} now has {round(customer.money, 2)} dollars\n"
+            )
         else:
             print(
                 f"{customer.name} doesn't have enough money "

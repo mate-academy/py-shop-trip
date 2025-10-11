@@ -18,7 +18,7 @@ class Shop:
             if price is None:
                 return None
             total += quantity * price
-        return round(total) if total == round(total) else round(total, 2)
+        return total
 
     def print_receipt(self, customer: Customer) -> float:
         print("Date:", datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S"))
@@ -29,11 +29,11 @@ class Shop:
             price_for_one_product = self.products[product]
             quantity = customer.product_cart[product]
             cost = quantity * price_for_one_product
-            if cost == int(cost):
-                cost = int(cost)
-            print(f"{quantity} {product}s for {cost} dollars")
+            if cost == round(cost):
+                print(f"{quantity} {product}s for {round(cost)} dollars")
+            else:
+                print(f"{quantity} {product}s for {round(cost, 2)} dollars")
             total += cost
-        total = round(total, 2)
-        print(f"Total cost is {total} dollars")
+        print(f"Total cost is {round(total, 2)} dollars")
         print("See you again!\n")
         return total
