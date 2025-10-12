@@ -36,9 +36,7 @@ class Shop:
             sum_ += customer_cart[product] * self.products[product]
 
         print(
-            f"Date: {
-                datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S")
-            }\n"
+            f"Date: {datetime.datetime.now().strftime('%d/%m/%Y %H:%M:%S')}\n"
             f"Thanks, {customer_name}, for your purchase!\n"
             f"You have bought:\n"
             f"{check}"
