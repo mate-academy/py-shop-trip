@@ -8,5 +8,4 @@ class Car:
         return fuel_needed * fuel_price
 
     def __str__(self) -> str:
-        return f"({self.brand} consumption {self.fuel_consumption}L \\ 100km )"
-    
+        return f"({self.brand} consumption {self.fuel_consumption}L \\ 100km)"

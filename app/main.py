@@ -68,7 +68,8 @@ def shop_trip() -> None:
             customer.location = start_location
 
             print(f"\n{customer.name} rides home")
-            print(f"{customer.name} now has {round(customer.money, 2)} dollars\n")
+            print(f"{customer.name} "
+                  f"now has {round(customer.money, 2)} dollars\n")
         else:
             print(f"{customer.name} doesn't have enough "
                   f"money to make a purchase in any shop")
