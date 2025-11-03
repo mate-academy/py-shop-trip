@@ -1,7 +1,6 @@
 from dataclasses import dataclass
 from typing import List, Dict
 import math
-from datetime import datetime
 from .car import Car
 from .shop import Shop
 
@@ -14,14 +13,12 @@ class Customer:
     money: float
     car: Car
 
-
     def calculate_distance_to_shop(self, shop: "Shop") -> float:
         """
         Calculate the distance to the shop.
         """
         return math.sqrt((self.location[0] - shop.location[0]) ** 2
                          + (self.location[1] - shop.location[1]) ** 2)
-
 
     def calculate_trip_cost(self, shop: "Shop", fuel_price: float) -> float:
         """
@@ -37,5 +34,3 @@ class Customer:
         total_cost = shopping_cost + fuel_cost
 
         return total_cost
-
-

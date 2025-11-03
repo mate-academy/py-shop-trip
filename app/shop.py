@@ -1,6 +1,5 @@
 from dataclasses import dataclass
 from typing import List, Dict
-from datetime import datetime
 
 
 @dataclass
@@ -11,7 +10,7 @@ class Shop:
 
     def calculate_cart_cost(self, cart: Dict[str, int]) -> float:
         """
-        Calculate the total cost of the cart. If a product is not in the shop's product list, it will be ignored.
+        Calculate the total cost of the cart.
         """
         total_cost = 0
         for product, quantity in cart.items():
@@ -21,12 +20,9 @@ class Shop:
 
     def print_check(self, customer_name: str, cart: Dict[str, int]) -> None:
         """
-        Print the check for the cart. If a product is not in the shop's product list, it will be ignored.
+        Print the check for the cart.
         """
-        from datetime import datetime
 
-        # data i powitanie
-        # print(f"{datetime.now().strftime('%Y-%m-%d %H:%M:%S')}"),
         print(f"Thanks, {customer_name}, for your purchase!"),
         print("You have bought:"),
 
@@ -41,7 +37,3 @@ class Shop:
         total_cost = self.calculate_cart_cost(cart)
         print(f"Total cost is {total_cost} dollars")
         print("See you again!")
-
-
-
-
