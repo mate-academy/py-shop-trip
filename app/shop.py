@@ -35,5 +35,5 @@ class Shop:
 
         # suma całkowita
         total_cost = self.calculate_cart_cost(cart)
-        print(f"Total cost is {total_cost} dollars")
+        print(f"Total cost is {round(total_cost, 2)} dollars")
         print("See you again!")
