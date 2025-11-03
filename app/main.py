@@ -32,45 +32,43 @@ def shop_trip() -> None:
         )
     ) for c in config["customers"]]
 
-    for c in customers:
+    for customer in customers:
         # line with customer's money
-        print(f"{c.name} has {round(c.money, 2)} dollars")
+        print(f"{customer.name} has {round(customer.money, 2)} dollars")
 
         total_cost = []
         # compute and print trip costs
         # (note: include "the " before shop name)
         for shop in shops:
-            raw_cost = c.calculate_trip_cost(shop, fuel_price=config["FUEL_PRICE"])
+            raw_cost = (customer.calculate_trip_cost
+                        (shop, fuel_price=config["FUEL_PRICE"]))
             cost = round(raw_cost, 2)
-            print(f"{c.name}'s trip to the {shop.name} costs {cost}")
+            print(f"{customer.name}'s trip to the {shop.name} costs {cost}")
             total_cost.append((shop, cost))
 
         # choose cheapest
         cheapest_shop, cheapest_cost = min(total_cost, key=lambda x: x[1])
 
-        if c.money >= cheapest_cost:
+        if customer.money >= cheapest_cost:
             # rides to (NO "the" here) — test expects
             # "Bob rides to Outskirts Shop"
-            print(f"{c.name} rides to {cheapest_shop.name}\n")
+            print(f"{customer.name} rides to {cheapest_shop.name}\n")
 
             # go to shop, print receipt with fixed date format
-            start_location = c.location.copy()
-            c.location = cheapest_shop.location
+            start_location = customer.location.copy()
+            customer.location = cheapest_shop.location
 
             now = datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S")
 
             print(f"Date: {now}")
-            cheapest_shop.print_check(c.name, c.cart)
+            cheapest_shop.print_check(customer.name, customer.cart)
 
             # subtract cost and return home
-            c.money -= cheapest_cost
-            c.location = start_location
+            customer.money -= cheapest_cost
+            customer.location = start_location
 
-            print(f"\n{c.name} rides home")
-            print(f"{c.name} now has {round(c.money, 2)} dollars\n")
+            print(f"\n{customer.name} rides home")
+            print(f"{customer.name} now has {round(customer.money, 2)} dollars\n")
         else:
-            print(f"{c.name} doesn't have enough "
+            print(f"{customer.name} doesn't have enough "
                   f"money to make a purchase in any shop")
-
-#  if __name__ == "__main__":
-#    shop_trip()
