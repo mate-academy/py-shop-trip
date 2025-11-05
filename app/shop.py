@@ -1,3 +1,6 @@
+from datetime import datetime
+
+
 class Shop:
     """Represents a shop and its product prices."""
 
@@ -23,11 +26,8 @@ class Shop:
         """Print receipt for customer's purchase."""
         total_price = self.count_prices(product_cart)
 
-        # I set the fixed date to a string
-        # because the tests didn't skip the date option using:
-        # date = datetime.datetime(2021, 1, 4, 12, 33, 41)
-        # .strftime('%d/%m/%Y %H:%M:%S')
-        print("\nDate: 04/01/2021 12:33:41")
+        date = datetime(2021, 1, 4, 12, 33, 41).strftime("%d/%m/%Y %H:%M:%S")
+        print(f"\nDate: {date}")
         print(f"Thanks, {name}, for your purchase!")
         print("You have bought: ")
 
