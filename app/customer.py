@@ -138,4 +138,3 @@ class Customer(Generic[T]):
 
         self.location = self.decision.origin
         print(f"{self.name} rides home")
-

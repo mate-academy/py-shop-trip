@@ -88,8 +88,9 @@ class Shop(Generic[T]):
         :type shopping_log: str
         """
         pay(shopping_cost)
+        purchase_date = datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S")
         print("".join([
-            f"Date: {datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S")}\n",
+            f"Date: {purchase_date}\n",
             f"Thanks, {customer_name}, for your purchase!\n",
             "You have bought:",
             f"\n{shopping_log}",
