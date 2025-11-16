@@ -58,9 +58,11 @@ class Shop(Generic[T]):
             prod_cost = prod_amount * prod_price
 
             total_cost += prod_cost
+
+            plural = "s" if prod_amount > 1 else ""
             shopping_log += "".join((
                 f"{prod_amount} ",
-                f"{field.name}{"s" if prod_amount > 1 else ""} ",
+                f"{field.name}{plural} ",
                 f"for {prod_cost.normalize()} dollars\n"
             ))
 

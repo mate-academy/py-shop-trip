@@ -111,7 +111,7 @@ class Customer(Generic[T]):
         message = [
             self.name,
             "has",
-            f"{self.money.quantize(Decimal("0.01")).normalize()}",
+            str(self.money.quantize(Decimal("0.01")).normalize()),
             "dollars"
         ]
         if (

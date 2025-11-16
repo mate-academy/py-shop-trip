@@ -49,5 +49,5 @@ class Car:
         :rtype: Decimal
         """
         return (
-                self.fuel_consumption / 100 * fuel_price * distance
+            self.fuel_consumption / 100 * fuel_price * distance
         )

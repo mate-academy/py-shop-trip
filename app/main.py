@@ -11,7 +11,3 @@ def shop_trip() -> None:
     file_json_path = "app/config.json"
     with open(file_json_path, "r") as data:
         ShopTrip(data=json.load(data)).run_event()
-
-
-if __name__ == "__main__":
-    shop_trip()
