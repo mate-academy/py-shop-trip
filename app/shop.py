@@ -35,7 +35,7 @@ class Shop:
         for product, quantity in product_cart.items():
             if product in self.products:
                 price = self.products[product] * quantity
-                if price.is_integer():
+                if isinstance(price, int) or price.is_integer():
                     price = int(price)
                 print(f"{quantity} {product}s for {price} dollars")
 
