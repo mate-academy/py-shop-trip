@@ -1,4 +1,5 @@
 import datetime
+from app.utils import format_number
 
 
 class Shop:
@@ -32,13 +33,14 @@ class Shop:
 
         print(f"Thanks, {customer_name}, for your purchase!")
         print("You have bought:")
+        total_cost = 0
         for product, quantity in product_cart.items():
             if product in self.products:
                 price = self.products[product] * quantity
+                total_cost += price
                 if isinstance(price, int) or price.is_integer():
                     price = int(price)
                 print(f"{quantity} {product}s for {price} dollars")
 
-        total_cost = self.purchase_cost(product_cart)
-        print(f"Total cost is {total_cost} dollars")
+        print(f"Total cost is {format_number(total_cost)} dollars")
         print("See you again!")
