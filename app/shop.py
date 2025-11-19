@@ -26,18 +26,17 @@ class Shop:
 
     def proceed_purchase(
         self, customer_name: str,
-        product_cart: dict[str, int]
+        product_cart: dict[str, int],
+        total_cost: float
     ) -> None:
         datestamp = datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S")
         print(f"Date: {datestamp}")
 
         print(f"Thanks, {customer_name}, for your purchase!")
         print("You have bought:")
-        total_cost = 0
         for product, quantity in product_cart.items():
             if product in self.products:
                 price = self.products[product] * quantity
-                total_cost += price
                 if isinstance(price, int) or price.is_integer():
                     price = int(price)
                 print(f"{quantity} {product}s for {price} dollars")
