@@ -35,6 +35,8 @@ def shop_trip() -> None:
                 shop,
                 fuel_price
             )
+            print(
+                f"{customer.name}'s trip to the {shop.name} costs {current_trip_cost:.2f}")
 
             if current_trip_cost < cheapest_trip_cost:
                 cheapest_trip_cost = current_trip_cost
