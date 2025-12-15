@@ -1,52 +1,80 @@
 import json
-
-from app.gas_station import GasStation
+from app.shop import Shop
 from app.car import Car
 from app.customer import Customer
-from app.shop import Shop
 
 
 def shop_trip() -> None:
-    with open("app/config.json", "r") as file:
-        date = json.load(file)
-        gas_station = GasStation(date["FUEL_PRICE"])
-        customers_date = date["customers"]
-        shops_date = date["shops"]
-
-    for customer in customers_date:
-        customer = Customer(
-            name=customer["name"],
-            product_cart=customer["product_cart"],
-            location=customer["location"],
-            money=customer["money"],
-            car=Car(
-                customer["car"]["brand"],
-                customer["car"]["fuel_consumption"]
-            )
-        )
+    with (open("app/config.json", "r")
+          as file_json):
+        data = json.load(file_json)
+    fuel_price = data["FUEL_PRICE"]
+    customers = [Customer(customer["name"],
+                          customer["product_cart"],
+                          customer["location"],
+                          customer["money"],
+                          Car(customer["car"]["brand"],
+                              customer["car"]["fuel_consumption"],
+                              customer["location"],
+                              )
+                          )
+                 for customer
+                 in data["customers"]
+                 ]
+    shops = [Shop(shop["name"],
+                  shop["location"],
+                  shop["products"], )
+             for shop
+             in data["shops"]
+             ]
+    for customer in customers:
         print(f"{customer.name} has {customer.money} dollars")
+        road_shop = []
+        for shop in shops:
+            full_price = round(customer.car.price_trip(shop.location,
+                                                       fuel_price)
+                               + shop.purchase_price(customer)
+                               + customer.car.price_trip(customer.location_h,
+                                                         fuel_price), 2)
+            if road_shop:
+                if road_shop[0] > full_price:
+                    road_shop = [full_price, shop]
+            else:
+                road_shop = [full_price, shop]
+            print(f"{customer.name}'s trip to the "
+                  f"{shop.name} costs {full_price}")
+        if road_shop[0] <= customer.money:
+            print(f"{customer.name} rides to {road_shop[1].name}\n")
+            now = "04/01/2021 12:33:41"
+            customer.buy(road_shop[0])
+            print(f"Date: {now}")
+            print(f"Thanks, {customer.name}, for your purchase!")
+            print("You have bought:")
+            for product in customer.product_cart:
+                if product in road_shop[1].products:
+                    prt1 = (road_shop[1].products[product]
+                            * customer.product_cart[product])
+                    prt = (int(road_shop[1].products[product]
+                               * customer.product_cart[product])
+                           if road_shop[1].products[product]
+                           * customer.product_cart[product]
+                           == int(road_shop[1].products[product]
+                                  * customer.product_cart[product])
+                           else prt1)
+                    print(
+                        f"{customer.product_cart[product]} {product}s for "
+                        f"{prt} "
+                        f"dollars")
+            print(f"Total cost is {road_shop[1].purchase_price(customer)} "
+                  f"dollars")
+            print("See you again!\n")
+            print(f"{customer.name} rides home")
+            print(f"{customer.name} now has {round(customer.money, 2)} "
+                  f"dollars")
+            print()
+        else:
+            print(f"{customer.name} "
+                  f"doesn't have enough money to make a purchase in any shop")
 
-        # Calculate the cost of the trip to each shop
-        costs = {}
-        for shop in shops_date:
-            shop = Shop(**shop)
-            cost = customer.costs_for_trip_to_shop(shop, gas_station.price)
-            costs[cost] = shop
-            print(f"{customer}'s trip to the {shop} costs {cost}")
 
-        if not customer.enough_money(min(costs)):
-            break
-        cheapest_shop = costs[min(costs)]
-        print(
-            f"{customer} rides to {cheapest_shop}\n\n"
-            f"Date: 04/01/2021 12:33:41\n"
-            f"Thanks, {customer}, for your purchase!\n"
-            f"{customer.get_receipts(cheapest_shop)}\n\n"
-            f"{customer} rides home\n"
-            f"{customer} now has "
-            f"{customer.calculate_wallet(min(costs))} dollars\n"
-        )
-
-
-if __name__ == "__main__":
-    shop_trip()
+shop_trip()
