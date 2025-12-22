@@ -18,7 +18,6 @@ def calc(shop_info: list, buyers_info: list) -> str:
             price_products[costs] = shop
             string += (f"{buyers.name}'s trip to the"
                        f" {shop.name} costs {costs:.2f}\n")
-
         cheaper_trip = min(price_products)
         if cheaper_trip < buyers.money:
 

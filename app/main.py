@@ -26,6 +26,7 @@ def shop_trip() -> None:
             shops.append(ShopInfo(shop["name"],
                                   shop["location"],
                                   shop["products"]))
-
+        if not shops or not buyers:
+            return
     result = calc(shops, buyers)
     print(result)
