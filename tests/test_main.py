@@ -27,10 +27,10 @@ Bob rides to Outskirts Shop
 Date: 04/01/2021 12:33:41
 Thanks, Bob, for your purchase!
 You have bought:
-4 milks for 12 dollars
-2 breads for 2 dollars
-5 butters for 12.5 dollars
-Total cost is 26.5 dollars
+4 milks for 12.00 dollars
+2 breads for 2.00 dollars
+5 butters for 12.50 dollars
+Total cost is 26.50 dollars
 See you again!
 
 Bob rides home
@@ -45,10 +45,10 @@ Alex rides to Shop '24/7'
 Date: 04/01/2021 12:33:41
 Thanks, Alex, for your purchase!
 You have bought:
-2 milks for 4 dollars
-2 breads for 3 dollars
-2 butters for 6.4 dollars
-Total cost is 13.4 dollars
+2 milks for 4.00 dollars
+2 breads for 3.00 dollars
+2 butters for 6.40 dollars
+Total cost is 13.40 dollars
 See you again!
 
 Alex rides home
