@@ -29,3 +29,4 @@ def shop_trip() -> None:
 
     result = calc(shops, buyers)
     print(result)
+shop_trip()

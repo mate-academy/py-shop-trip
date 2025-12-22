@@ -5,7 +5,7 @@ def calc(shop_info: list, buyers_info: list) -> str:
     string = ""
     for buyers in buyers_info:
         price_products = {}
-        if len(string) > 0:
+        if string:
             string += "\n\n"
         string += f"{buyers.name} has {buyers.money} dollars\n"
 
@@ -17,7 +17,7 @@ def calc(shop_info: list, buyers_info: list) -> str:
                      + distance_shop * buyers.car.fuel_price_per_km * 2)
             price_products[costs] = shop
             string += (f"{buyers.name}'s trip to the"
-                       f" {shop.name} costs {round(costs, 2)}\n")
+                       f" {shop.name} costs {costs:.2f}\n")
 
         cheaper_trip = min(price_products)
         if cheaper_trip < buyers.money:
@@ -32,16 +32,18 @@ def calc(shop_info: list, buyers_info: list) -> str:
             home = buyers.location
             buyers.location = price_products[cheaper_trip].location
             for key, value in buyers.product_cart.items():
-                price_product += (value
-                                  * price_products[cheaper_trip].product[key])
-                shop = price_products[cheaper_trip]
+                # price_product += (value
+                #                   * price_products[cheaper_trip].product[key])
+                shops = price_products[cheaper_trip]
+                price = value * shops.product[key]
+                price_product += price
                 string += (f"{value} {key}s for"
-                           f" {value * shop.product[key]:g} dollars\n")
+                           f" {int(price) if price % 1 == 0 else price:.2f} dollars\n")
 
-            string += (f"Total cost is {round(price_product, 2)}"
+            string += (f"Total cost is {price_product:.2f}"
                        f" dollars\nSee you again!\n\n{buyers.name}"
                        f" rides home\n{buyers.name} now has"
-                       f" {round(buyers.money - cheaper_trip, 2)} dollars")
+                       f" {buyers.money - cheaper_trip:.2f} dollars")
             buyers.location = home
 
         else:
