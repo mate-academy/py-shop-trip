@@ -32,13 +32,11 @@ def calc(shop_info: list, buyers_info: list) -> str:
             home = buyers.location
             buyers.location = price_products[cheaper_trip].location
             for key, value in buyers.product_cart.items():
-                # price_product += (value
-                #                   * price_products[cheaper_trip].product[key])
                 shops = price_products[cheaper_trip]
                 price = value * shops.product[key]
                 price_product += price
                 string += (f"{value} {key}s for"
-                           f" {int(price) if price % 1 == 0 else price:.2f} dollars\n")
+                           f" {price:.2f} dollars\n")
 
             string += (f"Total cost is {price_product:.2f}"
                        f" dollars\nSee you again!\n\n{buyers.name}"
