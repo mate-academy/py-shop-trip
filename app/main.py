@@ -34,6 +34,7 @@ def shop_trip() -> None:
         chosen_shop = min(shop_cost_dict, key=shop_cost_dict.get)
         if customer.money >= shop_cost_dict[chosen_shop]:
             print(f"{customer.name} rides to {chosen_shop.name}")
+            customer.location = chosen_shop.location
             shopping(customer, chosen_shop)
             print(f"{customer.name} rides home")
             money_last = round(

@@ -1,4 +1,4 @@
-from datetime import datetime
+import datetime
 
 from app.trip_calculations import calculate_distance, calculate_gas_price
 from app.customer import Customer
@@ -24,10 +24,9 @@ def estimate_total_cost(
 
 
 def shopping(customer: Customer, shop: Shop) -> None:
-    dt = datetime(2021, 1, 4, 12, 33, 41)
+    dt = datetime.datetime.now()
 
-    formatted_dt = dt.strftime("%d/%m/%Y %H:%M:%S")
-    print(f"Date: {formatted_dt}")
+    print(f"Date: {dt}")
 
     print(f"Thanks, {customer.name}, for your purchase!")
     print("You have bought:")
