@@ -12,11 +12,11 @@ def estimate_total_cost(
 
     total_price = 0
     distance = calculate_distance(customer.location, shop.location)
-    gas_price = calculate_gas_price(
+    one_way_fuel_cost = calculate_gas_price(
         gas_price,
         customer.car["fuel_consumption"],
         distance)
-    total_price += gas_price * 2
+    total_price += one_way_fuel_cost * 2
     for product, amount in customer.product_cart.items():
         price = shop.products[product]
         total_price += amount * price
@@ -40,7 +40,7 @@ def shopping(customer: Customer, shop: Shop) -> None:
             if cost.is_integer():
                 display_cost = int(cost)
             else:
-                display_cost = cost
+                display_cost = round(cost, 2)
         if isinstance(cost, int):
             display_cost = cost
 
