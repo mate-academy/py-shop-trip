@@ -68,5 +68,7 @@ class Customer:
         self.money -= lowest_total
         self.location = home_location
 
-        print(f"{self.name} rides home")
-        print(f"{self.name} now has {round(self.money, 2)} dollars\n")
+        print(
+            f"{self.name} rides home\n{self.name} "
+            f"now has {round(self.money, 2)} dollars\n"
+        )
