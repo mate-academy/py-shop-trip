@@ -16,17 +16,16 @@ def shop_trip() -> None:
         product_cost = 0
         for shop in shop_list:
             product_cost = 0
-            destination = math.sqrt((shop.location[0] -
-                                     customer.location[0])**2 +
-                                     (shop.location[1] -
-                                     customer.location[1])**2)
-            fuel_cost = (destination / 100 *
-                        customer.car.fuel_consumption *
-                        fuel_price * 2)
+            first_point = (shop.location[0] - customer.location[0])**2
+            second_point = (shop.location[1] - customer.location[1])**2
+            destination = math.sqrt(first_point + second_point)
+            fuel_consumption = customer.car.fuel_consumption
+            fuel_cost = (destination / 100 * fuel_consumption * fuel_price * 2)
 
             for product in shop.products_provides:
-                product_cost += (shop.products_provides[product] *
-                                 customer.products_to_buy[product])
+                shop_product = shop.products_provides[product]
+                customer_product = customer.products_to_buy[product]
+                product_cost += (shop_product * customer_product)
 
             trip_cost = round(product_cost + fuel_cost, 2)
             print(f"{customer.name}'s trip to the {shop.name} "
@@ -37,22 +36,23 @@ def shop_trip() -> None:
         shop_to_go = trip_costs[cheapest_trip]
         if customer.money > cheapest_trip:
             print(f"{customer.name} rides to {shop_to_go.name}\n")
-            print("Date: " +
-                  str(datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S")))
+            current_date = datetime.datetime.now()
+            print("Date: " + str(current_date.strftime("%d/%m/%Y %H:%M:%S")))
             print(f"Thanks, {customer.name}, for your purchase!")
-            print(f"You have bought:")
+            print("You have bought:")
             product_cost = 0
             for product in shop_to_go.products_provides:
-                product_cost += (shop_to_go.products_provides[product] *
-                                 customer.products_to_buy[product])
+                shop_product = shop_to_go.products_provides[product]
+                customer_product = customer.products_to_buy[product]
+                product_cost += (shop_product * customer_product)
                 print(f"{customer.products_to_buy[product]} {product}s for "
-                      f"{(customer.products_to_buy[product] *
-                           shop_to_go.products_provides[product]):g} dollars")
+                      f"{(customer_product * shop_product):g} dollars")
 
             print(f"Total cost is {product_cost} dollars")
             print("See you again!\n")
             print(f"{customer.name} rides home")
-            print(f"{customer.name} now has {customer.money - cheapest_trip} dollars\n")
+            print(f"{customer.name} now has"
+                  f" {customer.money - cheapest_trip} dollars\n")
 
         else:
             print(f"{customer.name} doesn't have "
@@ -85,5 +85,3 @@ def initialize_json() -> tuple:
             shop["products"],
         ))
     return fuel_price, customer_list, shop_list
-
-shop_trip()
