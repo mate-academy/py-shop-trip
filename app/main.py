@@ -1,6 +1,5 @@
 import datetime
 
-import json
 import math
 
 from app.file_handler import product_price, initialize_json
@@ -25,10 +24,10 @@ def shop_trip() -> None:
             trip_cost = round(product_cost + fuel_cost, 2)
             print(f"{customer.name}'s trip to the {shop.name} "
                   f"costs {trip_cost: .2f}")
-            trip_costs[trip_cost] = shop
+            trip_costs[trip_cost] = (shop, product_cost)
 
         cheapest_trip = min(trip_costs.keys())
-        shop_to_go = trip_costs[cheapest_trip]
+        shop_to_go, product_cost = trip_costs[cheapest_trip]
         if customer.money >= cheapest_trip:
             print(f"{customer.name} rides to {shop_to_go.name}\n")
             customer.location = shop_to_go.location
@@ -36,9 +35,7 @@ def shop_trip() -> None:
             print("Date: " + str(current_date.strftime("%d/%m/%Y %H:%M:%S")))
             print(f"Thanks, {customer.name}, for your purchase!")
             print("You have bought:")
-            product_cost = 0
             for product in customer.products_to_buy:
-                product_cost += product_price(shop_to_go, customer, product)
                 shop_product = shop_to_go.products_provides[product]
                 customer_product = customer.products_to_buy[product]
                 print(f"{customer.products_to_buy[product]} {product}s for "
@@ -53,6 +50,3 @@ def shop_trip() -> None:
         else:
             print(f"{customer.name} doesn't have "
                   f"enough money to make a purchase in any shop")
-
-
-shop_trip()

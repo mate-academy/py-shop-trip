@@ -5,7 +5,10 @@ from app.customer import Customer
 from app.shop import Shop
 
 
-def product_price(shop_to_go, customer, product) -> float | int:
+def product_price(
+        shop_to_go: Shop,
+        customer: Customer,
+        product: str) -> float | int:
     shop_product = shop_to_go.products_provides[product]
     customer_product = customer.products_to_buy[product]
     product_cost = (shop_product * customer_product)
@@ -13,7 +16,7 @@ def product_price(shop_to_go, customer, product) -> float | int:
 
 
 def initialize_json() -> tuple:
-    with open("app\config.json", "r") as config_file:
+    with open("config.json", "r") as config_file:
         config = json.load(config_file)
 
     fuel_price = config["FUEL_PRICE"]
