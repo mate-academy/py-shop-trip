@@ -16,7 +16,7 @@ def product_price(
 
 
 def initialize_json() -> tuple:
-    with open("config.json", "r") as config_file:
+    with open("app/config.json", "r") as config_file:
         config = json.load(config_file)
 
     fuel_price = config["FUEL_PRICE"]
