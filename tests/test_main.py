@@ -6,7 +6,6 @@ from unittest.mock import MagicMock
 
 from app.main import shop_trip
 
-
 def test_shop_trip_output(monkeypatch):
     datetime_mock = MagicMock(wrap=datetime.datetime)
     datetime_mock.now.return_value = datetime.datetime(2021, 1, 4, 12, 33, 41)
