@@ -3,22 +3,23 @@ import datetime
 from contextlib import redirect_stdout
 from io import StringIO
 from unittest.mock import MagicMock
+from typing import Any
 
 from app.main import shop_trip
 
 
-def test_shop_trip_output(monkeypatch):
+def test_shop_trip_output(monkeypatch: Any) -> None:
     datetime_mock = MagicMock(wrap=datetime.datetime)
-    datetime_mock.now.return_value = datetime.datetime(2021, 1, 4, 12, 33, 41)
-    monkeypatch.setattr(datetime, "datetime", datetime_mock)
+    datetime_mock.now.return_value = datetime.datetime(2021, 4, 1, 12, 33, 41)
+    monkeypatch.setattr("app.customer.datetime", datetime_mock)
 
-    f = StringIO()
+    output_buffer = StringIO()
 
-    with redirect_stdout(f):
+    with redirect_stdout(output_buffer):
         shop_trip()
 
-    output = f.getvalue()
-    out = '''Bob has 55 dollars
+    output = output_buffer.getvalue()
+    out = """Bob has 55 dollars
 Bob's trip to the Outskirts Shop costs 28.21
 Bob's trip to the Shop '24/7' costs 31.48
 Bob's trip to the Central Shop costs 39.28
@@ -59,6 +60,5 @@ Monica's trip to the Outskirts Shop costs 15.65
 Monica's trip to the Shop '24/7' costs 16.84
 Monica's trip to the Central Shop costs 22.58
 Monica doesn't have enough money to make a purchase in any shop
-'''
+"""
     assert output == out
-
