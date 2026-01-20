@@ -147,4 +147,4 @@ Distance between customer and shop is a distance between their locations in km.
 Round printed value to two decimal places.
 
 
-### Note: Check your code using this [checklist](checklist.md) before pushing your solution.
+### Note: Check your code using this [checklist](../checklist.md) before pushing your solution.
