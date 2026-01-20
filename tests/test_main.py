@@ -3,8 +3,8 @@ import datetime
 from contextlib import redirect_stdout
 from io import StringIO
 from unittest.mock import MagicMock
-
 from app.main import shop_trip
+
 
 
 def test_shop_trip_output(monkeypatch):
@@ -60,5 +60,5 @@ Monica's trip to the Shop '24/7' costs 16.84
 Monica's trip to the Central Shop costs 22.58
 Monica doesn't have enough money to make a purchase in any shop
 '''
-    assert output == out
 
+    assert output == out
