@@ -8,9 +8,9 @@ trip for the products.
 There is `config.json` file that contains:
 - `FUEL_PRICE` - Price for 1 liter of fuel in dollars.
 - `customers` - list of dictionaries with information about each customer.
-- `shops` - list of dictionaries with information about each shop in the city. 
+- `shops` - list of dictionaries with information about each shop in the city.
 
-You have information about 
+You have information about
 
 Customers:
 - name
@@ -18,8 +18,8 @@ Customers:
 - location
 - money
 - car
-  - brand
-  - volume of fuel consumption for 100 kilometers.
+    - brand
+    - volume of fuel consumption for 100 kilometers.
 
 Shops:
 - name
@@ -27,7 +27,7 @@ Shops:
 - products that shop provides
 
 Write `shop_trip` function that doesn't take any argument,
-where customers calculate how 
+where customers calculate how
 much will cost trip for the products in every shop and pick
 the cheapest one and ride there if they have enough money.
 When the customer arrives at the shop his location should equal to
@@ -35,7 +35,7 @@ shop location. After customer buys products, shop prints purchase
 receipt using current time. After the shop he arrives home and
 counts the remaining money.
 
-The cost of the trip consists of three parts: the fuel cost to get 
+The cost of the trip consists of three parts: the fuel cost to get
 to the shop, cost of all products to buy, the fuel cost to get home.
 
 For example, let's say now is 04/01/2021 12:33:41:
@@ -143,7 +143,7 @@ You design application architecture by yourself, but there are some rules:
 </details>
 
 
-Distance between customer and shop is a distance between their locations in km. 
+Distance between customer and shop is a distance between their locations in km.
 Round printed value to two decimal places.
 
 
