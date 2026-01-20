@@ -60,5 +60,6 @@ Monica's trip to the Shop '24/7' costs 16.84
 Monica's trip to the Central Shop costs 22.58
 Monica doesn't have enough money to make a purchase in any shop
 '''
+
     assert output == out
 
