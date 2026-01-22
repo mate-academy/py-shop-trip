@@ -9,7 +9,8 @@ from app.main import shop_trip
 
 def test_shop_trip_output(monkeypatch):
     datetime_mock = MagicMock(wrap=datetime.datetime)
-    datetime_mock.now.return_value = datetime.datetime(2021, 1, 4, 12, 33, 41)
+    fixed_date = datetime.datetime(2021, 1, 4, 12, 33, 41)
+    datetime_mock.today.return_value = fixed_date
     monkeypatch.setattr(datetime, "datetime", datetime_mock)
 
     f = StringIO()
