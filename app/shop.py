@@ -12,7 +12,7 @@ class Shop:
     def calculate_products_price(self, product_cart: dict[str, int]) -> float:
         """Рахує суму товарів у кошику клієнта за цінами цього магазину."""
         return sum(
-            self.products[item]* amount for item,
+            self.products[item] * amount for item,
             amount in product_cart.items()
         )
 
