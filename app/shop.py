@@ -12,10 +12,14 @@ class Shop:
     def calculate_products_price(self, product_cart: dict[str, int]) -> float:
         """Рахує суму товарів у кошику клієнта за цінами цього магазину."""
         return sum(
-            self.products[item] * amount for item, amount in product_cart.items()
+            self.products[item]* amount for item,
+            amount in product_cart.items()
         )
 
-    def print_receipt(self, customer_name: str, product_cart: dict[str, int]) -> None:
+    def print_receipt(
+            self, customer_name: str,
+            product_cart: dict[str, int]
+    ) -> None:
         current_time = datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S")
         print(f"Date: {current_time}")
         print(f"Thanks, {customer_name}, for your purchase!")

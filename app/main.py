@@ -53,7 +53,8 @@ def shop_trip() -> None:
             print(f"{person.name} now has {person.money:.2f} dollars\n")
         else:
             print(
-                f"{person.name} doesn't have enough money to make a purchase in any shop"
+                f"{person.name} doesn't have"
+                f"enough money to make a purchase in any shop"
             )
 
 
