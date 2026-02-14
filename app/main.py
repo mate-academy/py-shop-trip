@@ -78,4 +78,3 @@ def shop_trip() -> None:
                 f"{customer_obj.name} now has "
                 f"{customer_obj.money:.2f} dollars"
             )
-
