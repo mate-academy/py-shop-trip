@@ -74,4 +74,8 @@ def shop_trip() -> None:
 
         if customer_obj.go_to_shop(best_shop, fuel_price):
             print(f"{customer_obj.name} rides home")
-            print(f"{customer_obj.name} now has {customer_obj.money:.2f} dollars")
+            print(
+                f"{customer_obj.name} now has "
+                f"{customer_obj.money:.2f} dollars"
+            )
+
