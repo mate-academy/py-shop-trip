@@ -10,57 +10,68 @@ def shop_trip() -> None:
     base_dir = os.path.dirname(__file__)
     config_path = os.path.join(base_dir, "config.json")
 
-    with open(config_path, "r", encoding="utf-8") as f:
-        config = json.load(f)
+    with open(config_path, "r", encoding="utf-8") as file_obj:
+        config = json.load(file_obj)
 
     fuel_price = float(config["FUEL_PRICE"])
 
     shops = []
-    for s in config["shops"]:
-        shops.append(Shop(s["name"], s["location"], s["products"]))
+    for shop_data in config["shops"]:
+        shop_obj = Shop(
+            shop_data["name"],
+            shop_data["location"],
+            shop_data["products"],
+        )
+        shops.append(shop_obj)
 
     customers_data = config["customers"]
 
-    for idx, c in enumerate(customers_data):
-        if idx > 0:
+    for index, customer_data in enumerate(customers_data):
+        if index > 0:
             print()
 
-        car_data = c["car"]
-        car = Car(car_data["brand"], car_data["fuel_consumption"])
-        customer = Customer(
-            c["name"],
-            c["location"],
-            c["money"],
-            c["product_cart"],
-            car,
+        car_data = customer_data["car"]
+        car_obj = Car(car_data["brand"], car_data["fuel_consumption"])
+
+        customer_obj = Customer(
+            customer_data["name"],
+            customer_data["location"],
+            customer_data["money"],
+            customer_data["product_cart"],
+            car_obj,
         )
 
-        print(f"{customer.name} has {int(customer.money)} dollars")
+        print(f"{customer_obj.name} has {int(customer_obj.money)} dollars")
 
-        costs = []
-        for shop in shops:
-            cost = customer.evaluate_shop(shop, fuel_price)
-            if cost is None:
+        trip_costs = []
+        for shop_obj in shops:
+            total_cost = customer_obj.evaluate_shop(shop_obj, fuel_price)
+            if total_cost is None:
                 continue
-            print(f"{customer.name}'s trip to the {shop.name} costs {cost:.2f}")
-            costs.append((cost, shop))
 
-        affordable = [(cost, shop) for cost, shop in costs if cost <= customer.money]
+            print(
+                f"{customer_obj.name}'s trip to the {shop_obj.name} "
+                f"costs {total_cost:.2f}"
+            )
+            trip_costs.append((total_cost, shop_obj))
+
+        affordable = [
+            (cost, shop_obj)
+            for cost, shop_obj in trip_costs
+            if cost <= customer_obj.money
+        ]
         if not affordable:
             print(
-                f"{customer.name} doesn't have enough money to make a purchase in any "
-                "shop"
+                f"{customer_obj.name} doesn't have enough money to make a "
+                "purchase in any shop"
             )
             continue
 
-        affordable.sort(key=lambda x: x[0])
+        affordable.sort(key=lambda pair: pair[0])
         _, best_shop = affordable[0]
 
-        print(f"{customer.name} rides to {best_shop.name}")
+        print(f"{customer_obj.name} rides to {best_shop.name}")
 
-        success = customer.go_to_shop(best_shop, fuel_price)
-        if success:
-            print(f"{customer.name} rides home")
-            print(f"{customer.name} now has {customer.money:.2f} dollars")
-
-    shop_trip()
+        if customer_obj.go_to_shop(best_shop, fuel_price):
+            print(f"{customer_obj.name} rides home")
+            print(f"{customer_obj.name} now has {customer_obj.money:.2f} dollars")
