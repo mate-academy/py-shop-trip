@@ -3,12 +3,11 @@ import math
 from typing import Any, Optional
 
 
-def fmt_money(x: float) -> str:
-    """Return '3' instead of '3.0', keep '12.5' as '12.5'."""
-    x = float(x)
-    if x.is_integer():
-        return str(int(x))
-    return str(x)
+def format_money(amount: float) -> str:
+    amount = float(amount)
+    if amount.is_integer():
+        return str(int(amount))
+    return str(amount)
 
 
 class Shop:
@@ -23,12 +22,12 @@ class Shop:
         return math.hypot(x2 - x1, y2 - y1)
 
     def products_cost(self, cart: dict) -> Optional[float]:
-        total = 0.0
-        for prod, qty in cart.items():
-            if prod not in self.products:
+        total_cost = 0.0
+        for product_name, quantity in cart.items():
+            if product_name not in self.products:
                 return None
-            total += self.products[prod] * qty
-        return total
+            total_cost += self.products[product_name] * quantity
+        return total_cost
 
     def print_receipt(self, customer_name: str, cart: dict) -> None:
         now = datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S")
@@ -37,14 +36,18 @@ class Shop:
         print(f"Thanks, {customer_name}, for your purchase!")
         print("You have bought:")
 
-        total = 0.0
-        for prod, qty in cart.items():
-            price = self.products[prod]
-            cost = qty * price
-            total += cost
-            suffix = "s" if qty > 1 else ""
-            print(f"{qty} {prod}{suffix} for {fmt_money(cost)} dollars")
+        total_cost = 0.0
+        for product_name, quantity in cart.items():
+            price = self.products[product_name]
+            cost = quantity * price
+            total_cost += cost
 
-        print(f"Total cost is {fmt_money(total)} dollars")
+            suffix = "s" if quantity > 1 else ""
+            print(
+                f"{quantity} {product_name}{suffix} "
+                f"for {format_money(cost)} dollars"
+            )
+
+        print(f"Total cost is {format_money(total_cost)} dollars")
         print("See you again!")
         print()
