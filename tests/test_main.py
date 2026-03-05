@@ -8,9 +8,12 @@ from app.main import shop_trip
 
 
 def test_shop_trip_output(monkeypatch):
-    datetime_mock = MagicMock(wrap=datetime.datetime)
-    datetime_mock.now.return_value = datetime.datetime(2021, 1, 4, 12, 33, 41)
-    monkeypatch.setattr(datetime, "datetime", datetime_mock)
+    class MockDatetime(datetime.datetime):
+        @classmethod
+        def now(cls):
+            return datetime.datetime(2021, 1, 4, 12, 33, 41)
+
+    monkeypatch.setattr(datetime, "datetime", MockDatetime)
 
     f = StringIO()
 
