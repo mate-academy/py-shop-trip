@@ -2,6 +2,7 @@ import math
 
 from app.car import Car
 from app.shop import Shop
+from app.utils import format_money
 
 
 class Customer:
@@ -43,7 +44,4 @@ class Customer:
 
         self.money -= total_cost
 
-        money_str = int(self.money) \
-            if self.money % 1 == 0 \
-            else round(self.money, 2)
-        print(f"{self.name} now has {money_str} dollars")
+        print(f"{self.name} now has {format_money(self.money)} dollars")

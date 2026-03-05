@@ -3,6 +3,7 @@ import os
 
 from app.customer import Customer
 from app.shop import Shop
+from app.utils import format_money
 
 
 def shop_trip() -> None:
@@ -36,10 +37,8 @@ def shop_trip() -> None:
     ]
 
     for i, customer in enumerate(customers):
-        money_str = int(customer.money) \
-            if customer.money % 1 == 0 \
-            else round(customer.money, 2)
-        print(f"{customer.name} has {money_str} dollars")
+        print(f"{customer.name} has "
+              f"{format_money(customer.money)} dollars")
 
         cheapest_shop = None
         lowest_cost = float("inf")
