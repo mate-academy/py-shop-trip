@@ -22,7 +22,7 @@ class Customer:
         x2, y2 = shop.location
         return math.dist([x1, y1], [x2, y2])
 
-    def trip_cost(self, shop, fuel_price: float) -> float:
+    def trip_cost(self, shop: "Shop", fuel_price: float) -> float:
         dist = self.distance_to(shop)
         fuel_to_and_back = self.car.fuel_cost(dist, fuel_price) * 2
         products_cost = shop.calculate_cart_cost(self.cart)
@@ -31,7 +31,7 @@ class Customer:
     def can_afford(self, cost: float) -> bool:
         return self.money >= cost
 
-    def go_to(self, shop) -> None:
+    def go_to(self, shop: "Shop") -> None:
         print(f"{self.name} rides to {shop.name}")
         self.location = shop.location[:]
 

@@ -20,7 +20,7 @@ class Shop:
 
     def print_receipt(
             self,
-            customer,
+            customer: "Customer",
             cart: dict,
             total_cost: float
     ) -> None:
@@ -30,8 +30,7 @@ class Shop:
         print("You have bought:")
         for prod, qty in cart.items():
             price =round(self.products[prod] * qty, 2)
-            price_str = f"{price:.2f}".rstrip("0").rstrip(".")
-            print(f"{qty} {prod}s for {price_str} dollars")
+            print(f"{qty} {prod}s for {price} dollars")
 
         print(f"Total cost is {total_cost:.2f} dollars")
         print("See you again!\n")
