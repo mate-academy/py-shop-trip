@@ -49,7 +49,7 @@ class Customer:
                 price += cost
         return price
 
-    def full_price(self, shop: Shop) -> list:
+    def full_price(self, shop: Shop) -> float:
         fuel_price = self.fuel_price_calculation(
             distance=self.distance_calculation(shop),
             fuel_consumption=self.car["fuel_consumption"],
