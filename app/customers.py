@@ -1,4 +1,5 @@
 import math
+from decimal import Decimal, ROUND_DOWN
 from app.info import full_info
 from app.shop import Shop
 
@@ -55,18 +56,18 @@ class Customer:
             fuel_price=self.FUEL_PRICE
         )
         shop_price = self.shopping_price(shop)
-        full_price = round(fuel_price + shop_price, 2)
-        return full_price
+        full_price = Decimal(fuel_price) + Decimal(shop_price)
+        total = full_price.quantize(Decimal("0.01"), rounding=ROUND_DOWN)
+        return float(total)
 
     def go_to_shop(self, shop: Shop) -> str:
         self.money -= self.full_price(shop)
-        return f"{self.name}'s trip to {shop.name}."
+        return f"{self.name} rides to {shop.name}"
 
     def go_home(self) -> str:
-        return (f""
-                f"{self.name} rides home\n"
+        return (f"{self.name} rides home\n"
                 f"{self.name} now has {self.money} dollars\n"
-                f"")
+                )
 
 
 def customers_to_class(json_file: str) -> list[Customer]:

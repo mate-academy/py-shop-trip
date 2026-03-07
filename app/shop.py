@@ -1,4 +1,4 @@
-from datetime import datetime
+import datetime
 from app.info import full_info
 
 
@@ -14,7 +14,7 @@ class Shop:
         self.products = products
 
     def shop_receipt(self, name: str, product_carts: dict) -> str:
-        now = datetime.now().strftime("%m/%d/%Y %H:%M:%S")
+        now = datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S")
         total_cost = 0
         print(f""
               f"\n"
@@ -27,7 +27,7 @@ class Shop:
             cost += self.products[key] * value
             print(f"{value} {key}s for {cost} dollars")
             total_cost += cost
-        return f"Total cost is {total_cost} dollars\nSee you again!\n"
+        return f"Total cost is {total_cost} dollars\nSee you again!"
 
 
 def shop_to_class(json_file: str) -> list[Shop]:
