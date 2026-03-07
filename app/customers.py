@@ -1,5 +1,4 @@
 import math
-from decimal import Decimal, getcontext, ROUND_DOWN
 from app.info import full_info
 from app.shop import Shop
 
@@ -7,28 +6,39 @@ from app.shop import Shop
 class Customer:
     FUEL_PRICE = full_info("config.json")["FUEL_PRICE"]
 
-    def __init__(self,
+    def __init__(
+            self,
             name: str,
             product_cart: dict[str, int],
             location: list[int, int],
             money: int | float,
             car: dict
-        ) -> None:
+    ) -> None:
         self.name = name
         self.product_cart = product_cart
         self.location = location
         self.money = money
         self.car = car
 
-
-    def distance_calculation(self, other: Shop) -> Decimal:
-        distance = round(math.sqrt((self.location[0] - other.location[0]) ** 2 + (self.location[1] - other.location[1]) ** 2), 2)
+    def distance_calculation(self, other: Shop) -> float:
+        distance = round(
+            math.sqrt(
+                (
+                    self.location[0] - other.location[0]
+                )
+                ** 2 + (self.location[1] - other.location[1]) ** 2),
+            2
+        )
         return distance
 
-    def fuel_price_calculation(self, distance, fuel_consumption, fuel_price):
+    def fuel_price_calculation(
+            self,
+            distance: float,
+            fuel_consumption: float,
+            fuel_price: float
+    ) -> None:
         cost = ((distance / 100) * fuel_consumption * fuel_price) * 2
         return cost
-
 
     def shopping_price(self, shop: Shop) -> int | float:
         price = 0
@@ -48,15 +58,18 @@ class Customer:
         full_price = round(fuel_price + shop_price, 2)
         return full_price
 
-    def go_to_shop(self, shop: Shop):
+    def go_to_shop(self, shop: Shop) -> str:
         self.money -= self.full_price(shop)
         return f"{self.name}'s trip to {shop.name}."
 
-    def go_home(self):
-        return f"{self.name} rides home\n{self.name} now has {self.money} dollars\n"
+    def go_home(self) -> str:
+        return (f""
+                f"{self.name} rides home\n"
+                f"{self.name} now has {self.money} dollars\n"
+                f"")
 
 
-def customers_to_class(json_file) -> list[Customer]:
+def customers_to_class(json_file: str) -> list[Customer]:
     info = full_info(json_file)
     customers_list = []
     for customer in info["customers"]:
@@ -64,7 +77,7 @@ def customers_to_class(json_file) -> list[Customer]:
             name=customer["name"],
             product_cart=customer["product_cart"],
             location=customer["location"],
-            money = customer["money"],
+            money=customer["money"],
             car=customer["car"],
         )
         customers_list.append(person)
