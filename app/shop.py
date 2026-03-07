@@ -23,11 +23,10 @@ class Shop:
               f"\nYou have bought:"
               f"")
         for key, value in product_carts.items():
-            cost = 0
-            cost += self.products[key] * value
+            cost = self.products[key] * value
             print(f"{value} {key}s for {cost} dollars")
             total_cost += cost
-        return f"Total cost is {total_cost} dollars\nSee you again!"
+        print(f"Total cost is {total_cost} dollars\nSee you again!")
 
 
 def shop_to_class(json_file: str) -> list[Shop]:

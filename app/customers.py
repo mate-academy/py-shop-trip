@@ -37,7 +37,7 @@ class Customer:
             distance: float,
             fuel_consumption: float,
             fuel_price: float
-    ) -> None:
+    ) -> float:
         cost = ((distance / 100) * fuel_consumption * fuel_price) * 2
         return cost
 
@@ -61,13 +61,15 @@ class Customer:
         return float(total)
 
     def go_to_shop(self, shop: Shop) -> str:
+        self.location = shop.location
         self.money -= self.full_price(shop)
         return f"{self.name} rides to {shop.name}"
 
     def go_home(self) -> str:
-        return (f"{self.name} rides home\n"
-                f"{self.name} now has {self.money} dollars\n"
-                )
+        print(
+            f"{self.name} rides home\n"
+            f"{self.name} now has {self.money} dollars\n"
+            f"")
 
 
 def customers_to_class(json_file: str) -> list[Customer]:
