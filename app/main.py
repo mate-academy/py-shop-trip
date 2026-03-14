@@ -6,12 +6,12 @@ from app.shop import Shop
 from app.customer import Customer
 
 
-def shop_trip():
+def shop_trip() -> None:
     config_path = os.path.join(os.path.dirname(__file__), "config.json")
     with open(config_path) as json_file:
         data = json.load(json_file)
 
-    FUEL_PRICE = data["FUEL_PRICE"]
+    fuel_price = data["FUEL_PRICE"]
     shops = []
     customers = []
     now = datetime.datetime.now()
@@ -45,8 +45,12 @@ def shop_trip():
         shop_prices = {}
 
         for shop in shops:
-            total_cost = round(customer.total_cost_calculation(FUEL_PRICE, shop), 2)
-            print(f"{customer.name}'s trip to the {shop.name} costs {total_cost}")
+            total_cost = round(
+                customer.total_cost_calculation(fuel_price, shop), 2
+            )
+
+            print(f"{customer.name}'s trip to the "
+                  f"{shop.name} costs {total_cost}")
             shop_prices[shop] = total_cost
 
         min_price_shop = min(shop_prices, key=lambda x: shop_prices[x])
@@ -68,16 +72,19 @@ def shop_trip():
                       f"{price} dollars")
 
             print(f"Total cost is "
-                  f"{min_price_shop.cart_cost_calculation(customer.product_cart)} "
-                  f"dollars")
+                  f"{min_price_shop.cart_cost_calculation(
+                      customer.product_cart)} dollars")
+
             print("See you again!\n")
 
             print(f"{customer.name} rides home")
             customer.location = customer_location
             customer.money -= shop_prices[min_price_shop]
-            print(f"{customer.name} now has {round(customer.money, 2)} dollars")
+            print(f"{customer.name} now has "
+                  f"{round(customer.money, 2)} dollars")
         else:
-            print(f"{customer.name} doesn't have enough money to make a purchase in any shop")
+            print(f"{customer.name} doesn't have enough money "
+                  f"to make a purchase in any shop")
 
 
 if __name__ == "__main__":
