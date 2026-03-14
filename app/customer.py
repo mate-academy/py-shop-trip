@@ -25,10 +25,10 @@ class Customer:
             shop: Shop
     ) -> float | int:
 
-        amount = math.sqrt(
+        distance = math.sqrt(
             (shop.location[0] - self.location[0])**2
             + (shop.location[1] - self.location[1])**2
         )
 
-        distance = (self.car.fuel_calculation(amount, fuel_price)) * 2
-        return shop.cart_cost_calculation(self.product_cart) + distance
+        fuel_cost = (self.car.fuel_calculation(distance, fuel_price)) * 2
+        return shop.cart_cost_calculation(self.product_cart) + fuel_cost

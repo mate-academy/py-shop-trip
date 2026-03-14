@@ -65,8 +65,7 @@ def shop_trip() -> None:
             print("You have bought:")
 
             for product, quantity in customer.product_cart.items():
-                value = quantity * min_price_shop.products[product]
-                price = int(value) if value % 1 == 0 else value
+                price = round(quantity * min_price_shop.products[product], 2)
 
                 print(f"{quantity} {product}s for "
                       f"{price} dollars")
