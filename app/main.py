@@ -14,8 +14,6 @@ def shop_trip() -> None:
     fuel_price = data["FUEL_PRICE"]
     shops = []
     customers = []
-    now = datetime.datetime.now()
-    now = now.strftime("%d/%m/%Y %H:%M:%S")
 
     for shop in data["shops"]:
         shops.append(
@@ -54,6 +52,8 @@ def shop_trip() -> None:
             shop_prices[shop] = total_cost
 
         min_price_shop = min(shop_prices, key=lambda x: shop_prices[x])
+        now = datetime.datetime.now()
+        now = now.strftime("%d/%m/%Y %H:%M:%S")
 
         if shop_prices[min_price_shop] <= customer.money:
             print(f"{customer.name} rides to {min_price_shop.name}\n")

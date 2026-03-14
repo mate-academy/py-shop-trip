@@ -30,6 +30,5 @@ class Customer:
             + (shop.location[1] - self.location[1])**2
         )
 
-        return (self.car.fuel_calculation(amount, fuel_price)
-                + shop.cart_cost_calculation(self.product_cart)
-                + self.car.fuel_calculation(amount, fuel_price))
+        distance = (self.car.fuel_calculation(amount, fuel_price)) * 2
+        return shop.cart_cost_calculation(self.product_cart) + distance

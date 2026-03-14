@@ -19,6 +19,6 @@ class Shop:
 
         for key, value in product_cart.items():
             if key in self.products:
-                result += value * self.products[key]
+                result += round(value * self.products[key], 2)
 
-        return round(result, 2)
+        return result
