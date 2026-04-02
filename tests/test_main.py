@@ -39,7 +39,7 @@ Bob now has 26.79 dollars
 Alex has 41 dollars
 Alex's trip to the Outskirts Shop costs 17.14
 Alex's trip to the Shop '24/7' costs 15.95
-Alex's trip to the Central Shop costs 17.98
+Alex's trip to the Central Shop costs 17.97
 Alex rides to Shop '24/7'
 
 Date: 04/01/2021 12:33:41
