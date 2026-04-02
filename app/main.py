@@ -2,7 +2,7 @@ import json
 from typing import Any, Dict, List
 import os
 from app.customer import Customer
-from app.shop import Shop
+from app.shop import Shop, format_money  # import format_money
 
 
 def shop_trip() -> None:
@@ -19,11 +19,7 @@ def shop_trip() -> None:
     customers: List[Customer] = [Customer(c) for c in config["customers"]]
 
     for customer in customers:
-        if customer.money.is_integer():
-            money_str = f"{int(customer.money)}"
-        else:
-            money_str = f"{customer.money:.2f}"
-
+        money_str = format_money(customer.money)
         print(f"{customer.name} has {money_str} dollars")
 
         shop = customer.choose_shop(shops, fuel_price)
@@ -31,5 +27,5 @@ def shop_trip() -> None:
         if shop:
             customer.ride_and_buy(shop, fuel_price)
         else:
-            print(f"{customer.name} doesn't "
-                  f"have enough money to make a purchase in any shop")
+            print(f"{customer.name} doesn't have enough money "
+                  f"to make a purchase in any shop")

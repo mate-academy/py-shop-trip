@@ -47,17 +47,7 @@ class Customer:
         return cheapest["shop"]
 
     def ride_and_buy(self, shop: Shop, fuel_price: float) -> None:
-        trip_to_shop = distance(self.location, shop.location)
-        trip_home = distance(shop.location, self.home)
-
-        fuel_cost_trip = self.car.fuel_cost(trip_to_shop
-                                            + trip_home, fuel_price)
-        product_cost = shop.total_cost(self.product_cart).quantize(
-            Decimal("0.01"), ROUND_HALF_UP
-        )
-        total_cost = (fuel_cost_trip + product_cost).quantize(
-            Decimal("0.01"), ROUND_HALF_UP
-        )
+        total_cost = Decimal(str(self.trip_cost(shop, fuel_price)))
 
         print(f"{self.name} rides to {shop.name}")
 
@@ -68,9 +58,8 @@ class Customer:
         self.location = self.home[:]
 
         self.money = float(
-            (Decimal(str(self.money)) - total_cost).quantize(
-                Decimal("0.01"), ROUND_HALF_UP
-            )
+            (Decimal(str(self.money)) - total_cost
+             ).quantize(Decimal("0.01"), ROUND_HALF_UP)
         )
 
         print(f"{self.name} now has {format_money(self.money)} dollars\n")
