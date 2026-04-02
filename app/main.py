@@ -1,3 +1,35 @@
-def shop_trip():
-    # write your code here
-    pass
+import json
+from typing import Any, Dict, List
+import os
+from app.customer import Customer
+from app.shop import Shop
+
+
+def shop_trip() -> None:
+    config_path = os.path.join(os.path.dirname(__file__), "config.json")
+
+    with open(config_path, "r") as file:
+        config: Dict[str, Any] = json.load(file)
+
+    fuel_price: float = config["FUEL_PRICE"]
+    shops: List[Shop] = [
+        Shop(s["name"], s["location"], s["products"])
+        for s in config["shops"]
+    ]
+    customers: List[Customer] = [Customer(c) for c in config["customers"]]
+
+    for customer in customers:
+        if customer.money.is_integer():
+            money_str = f"{int(customer.money)}"
+        else:
+            money_str = f"{customer.money:.2f}"
+
+        print(f"{customer.name} has {money_str} dollars")
+
+        shop = customer.choose_shop(shops, fuel_price)
+
+        if shop:
+            customer.ride_and_buy(shop, fuel_price)
+        else:
+            print(f"{customer.name} doesn't "
+                  f"have enough money to make a purchase in any shop")
