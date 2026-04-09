@@ -1,30 +1,40 @@
 import math
+from app.сustomers import Customers
 
 
 class Calculate:
-    def __init__(self, customer, shops):
+    def __init__(self, customer: Customers, shops: dict) -> None:
         self.customer = customer
         self.shops = shops
 
-    def calculate_products(self, list_shops):
+    def calculate_products(self, shops: dict) -> dict:
         calculated_list = {}
-        for name, shop in list_shops.items():
-            for product in self.product_cart:
+        for name, shop in shops.items():
+            for product in self.customer.product_cart:
                 if product in shop.products:
-                    calculated_list[name] = {product: shop.products[product] * self.product_cart[product] for
-                                             product in shop.products}
+                    calculated_list[name] = {
+                        product: shop.products[product]
+                        * self.customer.product_cart[product]
+                        for product in shop.products
+                    }
         return calculated_list
 
-    def calculate_road(self, list_shops, fuel):
+    def calculate_road(self, shops: dict, fuel: int) -> dict:
         calculated_list = {}
-        for name, shop in list_shops.items():
-            calculated_list[name] = (((self.distance(shop.location) * 2) / 100) * self.car["fuel_consumption"]) * fuel
+        for name, shop in shops.items():
+            road = self.distance(shop.location)
+            calculated_list[name] = ((((road * 2) / 100)
+                                     * self.customer.car["fuel_consumption"])
+                                     * fuel)
         return calculated_list
 
-    def distance(self, shop_location):
-        return math.sqrt((shop_location[0] - self.location[0]) ** 2 + (shop_location[1] - self.location[1]) ** 2)
+    def distance(self, shop_location: list) -> float:
+        return math.sqrt((shop_location[0]
+                          - self.customer.location[0]) ** 2
+                         + (shop_location[1]
+                            - self.customer.location[1]) ** 2)
 
-    def total(self, products, road):
+    def total(self, products: dict, road: dict) -> dict:
         total = {}
         for name, value in products.items():
             total[name] = round((sum(value.values()) + road[name]), 2)
