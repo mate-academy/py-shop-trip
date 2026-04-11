@@ -33,6 +33,7 @@ def shop_trip() -> None:
                   f"to the {shop.name} costs {shop_total_price}")
 
         if customer.money >= customer.shop_lowest_price:
+            customer.location = customer.bargain_shop.location
             customer.money -= customer.shop_lowest_price
             print(f"{customer.name} rides to {customer.bargain_shop.name}\n")
             print("Date:",
@@ -52,7 +53,7 @@ def shop_trip() -> None:
                   f"{customer.shop_lowest_product_price} dollars")
             print("See you again!\n")
             print(f"{customer.name} rides home")
-            print(f"{customer.name} now has {customer.money} dollars\n")
+            print(f"{customer.name} now has {customer.money:.2f} dollars\n")
         else:
             print(f"{customer.name} doesn't have enough money "
                   f"to make a purchase in any shop")
