@@ -15,6 +15,7 @@ class Customer:
         self.name = name
         self.product_cart = Product(**product_cart)
         self.location = Location(*location)
+        self.home = Location(*location)
         self.money = money
         self.car = Car(**car)
         self.shop_lowest_price = None

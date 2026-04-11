@@ -37,6 +37,7 @@ def shop_trip() -> None:
             customer.bargain_shop.buy(customer)
             print(f"{customer.name} rides home")
             print(f"{customer.name} now has {customer.money:.2f} dollars\n")
+            customer.location = customer.home
         else:
             print(f"{customer.name} doesn't have enough money "
                   f"to make a purchase in any shop")
