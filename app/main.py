@@ -1,4 +1,3 @@
-import datetime
 import json
 
 from app.customer import Customer
@@ -35,23 +34,7 @@ def shop_trip() -> None:
         if customer.money >= customer.shop_lowest_price:
             customer.location = customer.bargain_shop.location
             customer.money -= customer.shop_lowest_price
-            print(f"{customer.name} rides to {customer.bargain_shop.name}\n")
-            print("Date:",
-                  datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S"))
-            print(f"Thanks, {customer.name}, for your purchase!")
-            print("You have bought:")
-            print(f"{customer.product_cart.milk} milks for "
-                  f"{customer.product_cart.price_for_milks(
-                      customer.bargain_shop.products)} dollars")
-            print(f"{customer.product_cart.bread} breads for "
-                  f"{customer.product_cart.price_for_breads(
-                      customer.bargain_shop.products)} dollars")
-            print(f"{customer.product_cart.butter} butters for "
-                  f"{customer.product_cart.price_for_butters(
-                      customer.bargain_shop.products)} dollars")
-            print(f"Total cost is "
-                  f"{customer.shop_lowest_product_price} dollars")
-            print("See you again!\n")
+            customer.bargain_shop.buy(customer)
             print(f"{customer.name} rides home")
             print(f"{customer.name} now has {customer.money:.2f} dollars\n")
         else:
