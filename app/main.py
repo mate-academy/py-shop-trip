@@ -1,11 +1,18 @@
 import json
+import os
+
 
 from app.customer import Customer
 from app.shop import Shop
 
 
+current_path = os.getcwd()
+if "app" not in current_path:
+    os.chdir("app")
+
+
 def shop_trip() -> None:
-    with open("app/config.json") as config_file:
+    with open("config.json") as config_file:
         config_info = json.load(config_file)
 
     customers_list = [Customer(**customer)
