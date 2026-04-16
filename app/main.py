@@ -9,6 +9,9 @@ from app.calculate import Calculate
 def shop_trip() -> None:
     with open("app/config.json", "r") as config:
         trip = json.load(config)
+    if not trip["customers"] or not trip["shops"] or not trip["FUEL_PRICE"]:
+        print("No correct data in json")
+        return
     customers = create_customers(trip["customers"])
     shops = create_stores(trip["shops"])
     for name, customer in customers.items():
@@ -30,9 +33,9 @@ def shop_trip() -> None:
             print(f"Thanks, {name}, for your purchase!")
             print("You have bought:")
             for product in calculated_product_list[best_shop]:
-                price = calculated_product_list[best_shop][product]
+                best_price = calculated_product_list[best_shop][product]
                 print(f"{customer.product_cart[product]} {product}s "
-                      f"for {price:g} dollars")
+                      f"for {best_price:g} dollars")
             sum_products = sum(calculated_product_list[best_shop].values())
             print(f"Total cost is {sum_products} dollars")
             print("See you again!\n")

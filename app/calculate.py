@@ -13,9 +13,9 @@ class Calculate:
             for product in self.customer.product_cart:
                 if product in shop.products:
                     calculated_list[name] = {
-                        product: shop.products[product]
-                        * self.customer.product_cart[product]
-                        for product in shop.products
+                        item: shop.products[item]
+                        * self.customer.product_cart[item]
+                        for item in shop.products
                     }
         return calculated_list
 
