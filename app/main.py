@@ -5,11 +5,13 @@ from app.customer import Customer
 from app.shop import Shop
 
 
-def calculate_distance(a, b):
-    return math.sqrt((a[0] - b[0]) ** 2 + (a[1] - b[1]) ** 2)
+def calculate_distance(point1: list, point2: list) -> float:
+    return math.sqrt(
+        (point1[0] - point2[0]) ** 2
+        + (point1[1] - point2[1]) ** 2)
 
 
-def shop_trip():
+def shop_trip() -> None:
     with open("app/config.json", "r") as config_file:
         config = json.load(config_file)
 
@@ -23,15 +25,24 @@ def shop_trip():
         shops_cost = {}
 
         for shop in shops:
-            distance_to_shop = calculate_distance(customer.location, shop.location)
-            distance_back_home = calculate_distance(shop.location, customer.home_location)
+            distance_to_shop = calculate_distance(
+                customer.location,
+                shop.location)
+            distance_back_home = calculate_distance(
+                shop.location,
+                customer.home_location)
 
-            fuel_cost = (customer.car.fuel_consumed(distance_to_shop) + customer.car.fuel_consumed(distance_back_home)) * fuel_price
-            products_cost = shop.calculate_cart(customer.product_cart)["total_cost"]
+            fuel_cost = ((customer.car.fuel_consumed(distance_to_shop)
+                         + customer.car.fuel_consumed(distance_back_home))
+                         * fuel_price)
+            products_cost = shop.calculate_cart(
+                customer.product_cart
+            )["total_cost"]
             total_cost = fuel_cost + products_cost
 
             shops_cost[shop] = total_cost
-            print(f"{customer.name}'s trip to the {shop.name} costs {round(total_cost, 2)}")
+            print(f"{customer.name}'s trip to "
+                  f"the {shop.name} costs {round(total_cost, 2)}")
 
         cheapest_shop = min(shops_cost, key=shops_cost.get)
         cost = shops_cost[cheapest_shop]
@@ -45,7 +56,9 @@ def shop_trip():
             customer.return_home()
             print()
             print(f"{customer.name} rides home")
-            print(f"{customer.name} now has {round(customer.money, 2)} dollars")
+            print(f"{customer.name} now "
+                  f"has {round(customer.money, 2)} dollars")
             print()
         else:
-            print(f"{customer.name} doesn't have enough money to make a purchase in any shop")
+            print(f"{customer.name} doesn't have "
+                  f"enough money to make a purchase in any shop")

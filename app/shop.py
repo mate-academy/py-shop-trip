@@ -37,9 +37,10 @@ class Shop:
         }
 
     def make_receipt(self, name: str, products_cart: dict) -> None:
-        print(f"Date: {
-        datetime.datetime.now().strftime('%d/%m/%Y %H:%M:%S')
-        }")
+        print(f"Date: "
+              f"{datetime.datetime.now().strftime(
+                  '%d/%m/%Y %H:%M:%S'
+              )}")
         print(f"Thanks, {name}, for your purchase!")
         print("You have bought:")
         calculated = self.calculate_cart(products_cart)
