@@ -67,8 +67,8 @@
             "name": "Central Shop",
             "location": [0, 0],
             "products": {
-                "milk": 3,
-                "bread": 2,
+                "milk": 3.0,
+                "bread": 2.0,
                 "butter": 3.5
             }
         }
