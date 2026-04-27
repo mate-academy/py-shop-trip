@@ -9,8 +9,8 @@ with open(config_path, "r") as f:
 
 shop_lists = data["shops"]
 shop_dicts = {key: info for key, info in enumerate(shop_lists)}
-shop_product_carts = {key: info["products"] for key, info in shop_dicts.items()}
-
-
-if __name__ == "__main__":
-    print(shop_product_carts)
+shop_product_carts = {
+    key: info["products"]
+    for key, info
+    in shop_dicts.items()
+}

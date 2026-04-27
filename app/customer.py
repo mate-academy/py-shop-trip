@@ -8,7 +8,11 @@ with open(config_path, "r") as f:
 
 customers_lists = data["customers"]
 customers_dicts = {key: info for key, info in enumerate(customers_lists)}
-product_carts = {i: value["product_cart"] for i, value in customers_dicts.items()}
+product_carts = {
+    i: value["product_cart"]
+    for i, value
+    in customers_dicts.items()
+}
 
 
 if __name__ == "__main__":
