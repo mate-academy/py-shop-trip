@@ -22,6 +22,6 @@ def navigator(customer_key: int, shop_key: int) -> float:
     shop_location = shop_dicts[shop_key]["location"]
 
     return math.sqrt(
-        (shop_location[0] - customer_location[0]) ** 2 +
-        (shop_location[1] - customer_location[1]) ** 2
+        (shop_location[0] - customer_location[0]) ** 2
+        + (shop_location[1] - customer_location[1]) ** 2
     )
