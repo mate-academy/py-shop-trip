@@ -1,16 +1,12 @@
-import os
-import json
+from app.config_loader import load_config
 
 
-config_path = os.path.join(os.path.dirname(__file__), "config.json")
-with open(config_path, "r") as f:
-    data = json.load(f)
-
+data = load_config()
 
 shop_lists = data["shops"]
 shop_dicts = {key: info for key, info in enumerate(shop_lists)}
+
 shop_product_carts = {
     key: info["products"]
-    for key, info
-    in shop_dicts.items()
+    for key, info in shop_dicts.items()
 }

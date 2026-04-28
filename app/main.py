@@ -7,34 +7,34 @@ from app.car import customers_cars, navigator, fuel_price
 
 def shop_trip() -> None:
     for customer_id, customer in customers_dicts.items():
-        chipest_trip = [0, 0, 1000]
+        cheapest_trip = [0, 0, float("inf")]
 
         print(f"{customer['name']} has {customer['money']} dollars")
 
         for shop, shop_products in shop_product_carts.items():
-            backet = 0
+            basket = 0
             for product, number in customer["product_cart"].items():
-                backet += shop_products[product] * number
+                basket += shop_products[product] * number
 
             fuel_loss = customers_cars[customer_id]["fuel_consumption"]
             distance = navigator(customer_id, shop)
-            trip_cost = (distance * fuel_loss / 100 * fuel_price) * 2 + backet
+            trip_cost = (distance * fuel_loss / 100 * fuel_price) * 2 + basket
 
             print(f"{customer['name']}'s trip to the "
                   f"{shop_dicts[shop]['name']} costs "
                   f"{round(trip_cost, 2)}")
 
-            if trip_cost < chipest_trip[2]:
-                chipest_trip[0] = customer_id
-                chipest_trip[1] = shop
-                chipest_trip[2] = trip_cost
+            if trip_cost < cheapest_trip[2]:
+                cheapest_trip[0] = customer_id
+                cheapest_trip[1] = shop
+                cheapest_trip[2] = trip_cost
 
-        if customer["money"] < chipest_trip[2]:
+        if customer["money"] < cheapest_trip[2]:
             print(f"{customer['name']} doesn't have "
                   f"enough money to make a purchase "
                   f"in any shop")
         else:
-            shop_id = chipest_trip[1]
+            shop_id = cheapest_trip[1]
             print(f"{customer['name']} rides to "
                   f"{shop_dicts[shop_id]['name']}\n")
 
@@ -59,5 +59,5 @@ def shop_trip() -> None:
             print("See you again!\n")
             print(f"{customer['name']} rides home")
 
-            remaining = round(customer["money"] - chipest_trip[2], 2)
+            remaining = round(customer["money"] - cheapest_trip[2], 2)
             print(f"{customer['name']} now has {remaining} dollars\n")
