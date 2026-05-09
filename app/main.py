@@ -1,5 +1,5 @@
 import json
-from datetime import datetime
+import datetime
 
 from app.shop import Shop
 from app.customer import Customer
@@ -48,7 +48,7 @@ def shop_trip() -> None:
             break
         print(f"{customer.name} rides to {shop_name.name}\n")
         customer.location = shop_name.location
-        print("Date:", datetime.now().strftime("%d/%m/%Y %H:%M:%S"))
+        print("Date:", datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S"))
         print(f"Thanks, {customer.name}, for your purchase!\nYou have bought:")
         purchase_coast = 0
         for product_name, quantity in customer.product_cart.items():
