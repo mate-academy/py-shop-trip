@@ -9,7 +9,7 @@ def shop_trip() -> None:
     shops = []
     customers = []
 
-    with open("config.json", "r") as file:
+    with open("app\\config.json", "r") as file:
         json_data = json.load(file)
 
     fuel_price = json_data["FUEL_PRICE"]
