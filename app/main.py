@@ -47,8 +47,8 @@ def shop_trip() -> None:
                   f"to make a purchase in any shop")
             break
         print(f"{customer.name} rides to {shop_name.name}\n")
-        print("Date:",
-              datetime(2021, 1, 4, 12, 33, 41).strftime("%d/%m/%Y %H:%M:%S"))
+        customer.location = shop_name.location
+        print("Date:", datetime.now().strftime("%d/%m/%Y %H:%M:%S"))
         print(f"Thanks, {customer.name}, for your purchase!\nYou have bought:")
         purchase_coast = 0
         for product_name, quantity in customer.product_cart.items():
