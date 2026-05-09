@@ -1,5 +1,7 @@
 import json
 import datetime
+from pathlib import Path
+
 
 from app.shop import Shop
 from app.customer import Customer
@@ -9,7 +11,7 @@ def shop_trip() -> None:
     shops = []
     customers = []
 
-    with open("app\\config.json", "r") as file:
+    with open(Path("config.json").resolve(), "r") as file:
         json_data = json.load(file)
 
     fuel_price = json_data["FUEL_PRICE"]
@@ -45,7 +47,7 @@ def shop_trip() -> None:
         if customer.money < total_coast:
             print(f"{customer.name} doesn't have enough money "
                   f"to make a purchase in any shop")
-            break
+            continue
         print(f"{customer.name} rides to {shop_name.name}\n")
         customer.location = shop_name.location
         print("Date:", datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S"))
