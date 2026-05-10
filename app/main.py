@@ -1,7 +1,6 @@
 import json
 import datetime
 from pathlib import Path
-import os
 
 
 from app.shop import Shop
