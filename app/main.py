@@ -21,7 +21,7 @@ def shop_trip() -> None:
         for shop_name, road_cost in total_cost.items():
             print(
                 f"{customer.name}'s trip to the "
-                f"{shop_name} costs {total_cost[shop_name]}"
+                f"{shop_name} costs {round(total_cost[shop_name], 2)}"
             )
         if customer.money < min_cost_trip:
             print(
