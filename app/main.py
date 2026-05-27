@@ -17,12 +17,11 @@ def shop_trip() -> None:
         total_cost, min_cost_trip, chipest_shop_inst = customer.get_choice(
             shops, fuel_price
         )
-        customer_cart = chipest_shop_inst.buy_products(customer)
         print(f"{customer.name} has {customer.money} dollars")
         for shop_name, road_cost in total_cost.items():
             print(
                 f"{customer.name}'s trip to the "
-                f"{shop_name} costs {road_cost}"
+                f"{shop_name} costs {total_cost[shop_name]}"
             )
         if customer.money < min_cost_trip:
             print(
@@ -30,6 +29,7 @@ def shop_trip() -> None:
                 f"enough money to make a purchase in any shop"
             )
             continue
+        customer_cart = chipest_shop_inst.buy_products(customer)
         print(f"{customer.name} rides to {chipest_shop_inst.name}")
         home_location = customer.location
         customer.location = chipest_shop_inst.location
@@ -46,14 +46,14 @@ def shop_trip() -> None:
             )
         print(
             f"Total cost is "
-            f"{round(min_cost_trip - cost_to_road[chipest_shop_inst.name], 1)}"
+            f"{round(min_cost_trip - cost_to_road[chipest_shop_inst.name], 2)}"
             f" dollars"
         )
         print("See you again!\n")
         print(f"{customer.name} rides home")
         customer.location = home_location
         customer.money -= min_cost_trip
-        print(f"{customer.name} now has {customer.money} dollars")
+        print(f"{customer.name} now has {round(customer.money, 2)} dollars")
         print()
 
 
