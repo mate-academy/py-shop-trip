@@ -1,6 +1,11 @@
 import json
-import math
 import datetime
+
+
+from app.models.car import Car
+from app.models.customer import Customer
+from app.models.shop import Shop
+from app.utils.distance import distance
 
 
 def shop_trip() -> None:
@@ -9,61 +14,80 @@ def shop_trip() -> None:
 
     fuel_price = config["FUEL_PRICE"]
 
-    def distance(
-            loc1: tuple[float, float],
-            loc2: tuple[float, float]
-    ) -> float:
-        return math.sqrt((loc1[0] - loc2[0]) ** 2 + (loc1[1] - loc2[1]) ** 2)
+    shops: list[Shop] = [
+        Shop(
+            name=shop["name"],
+            location=shop["location"],
+            products=shop["products"],
+        )
+        for shop in config["shops"]
+    ]
 
-    for customer in config["customers"]:
-        name = customer["name"]
-        location = customer["location"]
-        money = customer["money"]
-        fuel_consumption = customer["car"]["fuel_consumption"]
-        product_cart = customer["product_cart"]
+    customers: list[Customer] = []
+    for customer_data in config["customers"]:
+        car = Car(fuel_consumption=customer_data["car"]["fuel_consumption"])
+        customer = Customer(
+            name=customer_data["name"],
+            location=customer_data["location"],
+            money=customer_data["money"],
+            car=car,
+            product_cart=customer_data["product_cart"],
+        )
+        customers.append(customer)
 
-        print(f"{name} has {money} dollars")
+    for customer in customers:
+        print(f"{customer.name} has {customer.money} dollars")
 
-        trip_costs = []
-        for shop in config["shops"]:
-            shop_name = shop["name"]
-            shop_location = shop["location"]
-            products = shop["products"]
+        trip_costs: list[tuple[float, Shop]] = []
 
-            dist_to_shop = distance(location, shop_location)
-            dist_home = distance(shop_location, location)
+        for shop in shops:
+            dist_to_shop = distance(customer.location, shop.location)
+            dist_home = distance(shop.location, customer.location)
 
-            fuel_to_shop = (dist_to_shop / 100) * fuel_consumption * fuel_price
-            fuel_home = (dist_home / 100) * fuel_consumption * fuel_price
+            fuel_to_shop = (
+                (dist_to_shop / 100)
+                * customer.car.fuel_consumption
+                * fuel_price
+            )
+
+            fuel_home = (
+                (dist_home / 100)
+                * customer.car.fuel_consumption
+                * fuel_price
+            )
 
             products_cost = sum(
-                products[p] * q for p,
-                q in product_cart.items() if p in products
+                shop.products[p] * q
+                for p, q in customer.product_cart.items()
+                if p in shop.products
             )
 
             total_cost = round(fuel_to_shop + fuel_home + products_cost, 2)
             trip_costs.append((total_cost, shop))
-            print(f"{name}'s trip to the {shop_name} costs {total_cost}")
+            print(
+                f"{customer.name}'s trip to the {shop.name} "
+                f"costs {total_cost}"
+            )
 
         cheapest_cost, cheapest_shop = min(trip_costs, key=lambda x: x[0])
 
-        if cheapest_cost > money:
+        if cheapest_cost > customer.money:
             print(
-                f"{name} doesn't have enough money to make a purchase "
-                f"in any shop"
+                f"{customer.name} doesn't have enough money "
+                f"to make a purchase in any shop"
             )
             continue
 
-        print(f"{name} rides to {cheapest_shop['name']}")
+        print(f"{customer.name} rides to {cheapest_shop.name}")
         print()
         now = datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S")
         print(f"Date: {now}")
-        print(f"Thanks, {name}, for your purchase!")
+        print(f"Thanks, {customer.name}, for your purchase!")
         print("You have bought:")
 
-        total_products_cost = 0
-        for product, qty in product_cart.items():
-            price = cheapest_shop["products"][product] * qty
+        total_products_cost = 0.0
+        for product, qty in customer.product_cart.items():
+            price = cheapest_shop.products[product] * qty
             total_products_cost += price
             price_str = int(price) if price.is_integer() else price
             print(f"{qty} {product}s for {price_str} dollars")
@@ -71,8 +95,8 @@ def shop_trip() -> None:
         print(f"Total cost is {total_products_cost} dollars")
         print("See you again!")
         print()
-        print(f"{name} rides home")
+        print(f"{customer.name} rides home")
 
-        remaining_money = round(money - cheapest_cost, 2)
-        print(f"{name} now has {remaining_money} dollars")
+        remaining_money = round(customer.money - cheapest_cost, 2)
+        print(f"{customer.name} now has {remaining_money} dollars")
         print()
