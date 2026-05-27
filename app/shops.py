@@ -22,6 +22,6 @@ class Shop:
             count_products = customer.product_cart[product]
             for_one_pos = count_products * price
             if for_one_pos == int(for_one_pos):
-                for_one_pos = int(for_one_pos)d
+                for_one_pos = int(for_one_pos)
             cart[product] = (count_products, for_one_pos)
         return cart
