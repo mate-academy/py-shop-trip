@@ -71,6 +71,8 @@ def shop_trip() -> None:
 
         cheapest_cost, cheapest_shop = min(trip_costs, key=lambda x: x[0])
 
+        customer.location = cheapest_shop.location
+
         if cheapest_cost > customer.money:
             print(
                 f"{customer.name} doesn't have enough money "
