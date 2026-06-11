@@ -21,14 +21,7 @@ def shop_trip() -> None:
         )
         for customer in customers_data
     ]
-    shops = [
-        Shop(
-            shop["name"],
-            shop["location"],
-            shop["products"],
-        )
-        for shop in shops_data
-    ]
+    shops = [Shop(**shop) for shop in shops_data]
     for customer in customers:
         customer_name = customer.name
         print(f"{customer_name} has {customer.money} dollars")

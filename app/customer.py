@@ -1,4 +1,4 @@
-from math import sqrt
+from math import dist
 from typing import TYPE_CHECKING
 
 from app.car import Car
@@ -24,13 +24,9 @@ class Customer:
         self.car = car
 
     def dist_to_location(self, location: list[int]) -> float:
-        return sqrt(
-            (location[0] - self.location[0]) ** 2
-            + (location[1] - self.location[1]) ** 2
-        )
+        return dist(location, self.location)
 
     def get_trip_cost(self, shop: Shop, fuel_cost: float) -> float:
-        # fuel = consumption/100 * 2*dist * fuel_price
         fuel_cost = (self.car.fuel_consumption / 100
                      * 2 * self.dist_to_location(shop.location)
                      * fuel_cost)
@@ -45,6 +41,6 @@ class Customer:
     def ride(self, shop: Shop) -> None:
         print(f"{self.name} rides to {shop.name}\n")
         self.location = shop.location
-        print(shop.get_purchase_receipt(self))
-        print(f"{self.name} rides home")
+        print(f"{shop.get_purchase_receipt(self)}\n"
+              f"{self.name} rides home")
         self.location = self.home_location
