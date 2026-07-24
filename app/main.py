@@ -43,7 +43,10 @@ def shop_trip() -> None:
                       f"to make a purchase in any shop")
             else:
                 print(f"{customer.name} rides to {cheapest_shop.name}\n")
+                home_location = customer.location
+                customer.location = cheapest_shop.location
                 cheapest_shop.print_receipt(customer)
                 customer.money -= trip_cost
                 print(f"{customer.name} rides home")
+                customer.location = home_location
                 print(f"{customer.name} now has {customer.money} dollars\n")
