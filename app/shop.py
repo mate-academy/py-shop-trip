@@ -30,7 +30,7 @@ class Shop:
 
         print(f"\nDate: {current_time}")
         print(f"Thanks, {customer_name}, for your purchase!")
-        print("You have bought: ")
+        print("You have bought:")
 
         for product, amount in product_cart.items():
             cost = self.products[product] * amount
