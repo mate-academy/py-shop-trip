@@ -7,7 +7,11 @@ from app.shop import Shop
 
 def shop_trip() -> None:
     """Send every customer to the cheapest shop they can afford."""
-    config_path = os.path.join(os.path.dirname(__file__), "config.json")
+    app_dir = os.path.dirname(os.path.abspath(__file__))
+    config_path = os.path.join(app_dir, "config.json")
+
+    if not os.path.exists(config_path):
+        config_path = os.path.join(os.path.dirname(app_dir), "config.json")
 
     with open(config_path, "r") as file:
         config = json.load(file)
@@ -18,5 +22,8 @@ def shop_trip() -> None:
         for customer_data in config["customers"]
     ]
 
-    for customer in customers:
+    for index, customer in enumerate(customers):
+        if index:
+            print()
+
         customer.make_trip(shops, config["FUEL_PRICE"])

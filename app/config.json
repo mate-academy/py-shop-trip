@@ -16,20 +16,6 @@
             }
         },
         {
-            "name": "Alex",
-            "product_cart": {
-                "milk": 2,
-                "bread": 2,
-                "butter": 2
-            },
-            "location": [1, -2],
-            "money": 41,
-            "car": {
-                "brand": "BMW",
-                "fuel_consumption": 9.1
-            }
-        },
-        {
             "name": "Monica",
             "product_cart": {
                 "milk": 3,
@@ -61,15 +47,6 @@
                 "milk": 2,
                 "bread": 1.5,
                 "butter": 3.2
-            }
-        },
-        {
-            "name": "Central Shop",
-            "location": [0, 0],
-            "products": {
-                "milk": 3,
-                "bread": 2,
-                "butter": 3.5
             }
         }
     ]

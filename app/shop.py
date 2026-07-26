@@ -1,5 +1,7 @@
 import dataclasses
-from datetime import datetime
+import datetime
+
+from app.utils import format_money
 
 
 @dataclasses.dataclass
@@ -24,14 +26,16 @@ class Shop:
         product_cart: dict[str, int]
     ) -> None:
         """Print the purchase receipt using the current time."""
-        print(f"\nDate: {datetime.now().strftime('%d/%m/%Y %H:%M:%S')}")
+        current_time = datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S")
+
+        print(f"\nDate: {current_time}")
         print(f"Thanks, {customer_name}, for your purchase!")
         print("You have bought: ")
 
         for product, amount in product_cart.items():
             cost = self.products[product] * amount
-            print(f"{amount} {product}s for {round(cost, 2)} dollars")
+            print(f"{amount} {product}s for {format_money(cost)} dollars")
 
         total_cost = self.calculate_products_cost(product_cart)
-        print(f"Total cost is {round(total_cost, 2)} dollars")
+        print(f"Total cost is {format_money(total_cost)} dollars")
         print("See you again!\n")

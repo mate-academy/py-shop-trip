@@ -3,6 +3,7 @@ import math
 
 from app.car import Car
 from app.shop import Shop
+from app.utils import format_money
 
 
 @dataclasses.dataclass
@@ -33,7 +34,7 @@ class Customer:
 
     def make_trip(self, shops: list[Shop], fuel_price: float) -> None:
         """Choose the cheapest shop and go there if there is enough money."""
-        print(f"{self.name} has {self.money} dollars")
+        print(f"{self.name} has {format_money(self.money)} dollars")
 
         trips = [
             (shop, self.calculate_trip_cost(shop, fuel_price))
@@ -43,7 +44,7 @@ class Customer:
         for shop, trip_cost in trips:
             print(
                 f"{self.name}'s trip to the {shop.name} "
-                f"costs {round(trip_cost, 2)}"
+                f"costs {format_money(trip_cost)}"
             )
 
         cheapest_shop, cheapest_cost = min(trips, key=lambda trip: trip[1])
@@ -51,7 +52,7 @@ class Customer:
         if cheapest_cost > self.money:
             print(
                 f"{self.name} doesn't have enough money "
-                f"to make a purchase in any shop\n"
+                f"to make a purchase in any shop"
             )
             return
 
@@ -63,5 +64,5 @@ class Customer:
 
         print(f"{self.name} rides home")
         self.location = home_location
-        self.money = round(self.money - cheapest_cost, 2)
-        print(f"{self.name} now has {self.money} dollars\n")
+        self.money -= cheapest_cost
+        print(f"{self.name} now has {format_money(self.money)} dollars")
