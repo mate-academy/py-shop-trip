@@ -23,15 +23,18 @@ class Shop:
         current_date = datetime.datetime.now()
         formatted_date = current_date.strftime("%d/%m/%Y %H:%M:%S")
         print(f"Date: {formatted_date}")
-        print(f"Thanks, {customer_name}, for your purchase!\nYou have bought:")
+        print(f"Thanks, {customer_name}, for your purchase!")
+        print("You have bought:")
         for product in product_cart:
             product_cost = product_cart[product] * self.products[product]
 
             if float(product_cost).is_integer():
                 product_cost = int(product_cost)
+            plural_suffix = "s" if product_cart[product] != 1 else ""
             print(
-                f'{product_cart[product]} {product.strip('"')}s for '
+                f"{product_cart[product]} {product}{plural_suffix} for "
                 f"{product_cost} dollars"
             )
-        print(f"Total cost is {total_cost} dollars\nSee you again!")
+        print(f"Total cost is {total_cost} dollars")
+        print("See you again!")
         print("")
