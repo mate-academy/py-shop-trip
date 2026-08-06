@@ -69,4 +69,4 @@ class Customer:
         )
         print(f"{self.name} rides home")
         self.location = self.home_location
-        print(f"{self.name} now has {self.money} dollars\n")
+        print(f"{self.name} now has {self.money:.2f} dollars\n")

@@ -8,7 +8,7 @@ from app.shop import Shop
 def shop_trip() -> None:
     with open("app/config.json", "r") as config_file:
         data = json.load(config_file)
-    Car.FUEL_PRICE = data.get("FUEL_PRICE", 0.0)
+    Car.set_fuel_price(data.get("FUEL_PRICE", 0.0))
     customers = [
         Customer.from_dict(customer) for customer in data.get("customers", [])
     ]
