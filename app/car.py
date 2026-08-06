@@ -1,10 +1,10 @@
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 from typing import ClassVar
 
 
 @dataclass
 class Car:
-    FUEL_PRICE: ClassVar[float] = field()
+    FUEL_PRICE: ClassVar[float] = 0.0
     brand: str
     fuel_consumption: float
 
