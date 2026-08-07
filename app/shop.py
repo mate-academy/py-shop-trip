@@ -12,7 +12,7 @@ class Shop:
         self.location = shop_data["location"]
         self.products = shop_data["products"]
 
-    def calculate_products_cost(self, customer: "Customer") -> int | float:
+    def calculate_products_cost(self, customer: Customer) -> int | float:
         total_price = 0
         for product, amount in customer.product_cart.items():
             product_cost = amount * self.products[product]
@@ -20,7 +20,7 @@ class Shop:
 
         return total_price
 
-    def print_receipt(self, customer: "Customer") -> None:
+    def print_receipt(self, customer: Customer) -> None:
         current_time = datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S")
         print(
             f"Date: {current_time}\n"
