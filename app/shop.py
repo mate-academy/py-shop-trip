@@ -26,7 +26,8 @@ class Shop:
               f"Thanks, {name}, for your purchase!\n"
               f"You have bought:")
         for key, value in product_cart.items():
-            print(f"{value} {key}s for {purchase_dict[key]:g} dollars")
+            if key in purchase_dict:
+                print(f"{value} {key}s for {purchase_dict[key]:g} dollars")
         print(f"Total cost is "
               f"{self.count_total_cost_of_products(product_cart)} dollars\n"
               f"See you again!\n")
