@@ -6,10 +6,10 @@ class Shop:
         self.name = data["name"]
         self.location = data["location"]
         self.products = data["products"]
-        self.today_date = datetime.datetime(2021, 4, 1, 12, 33, 41)
+        self.today_date = datetime.datetime.now()
 
     def buy_products(self, name: str, customer_products: dict) -> None:
-        print(f"Date: {self.today_date.strftime('%m/%d/%Y %H:%M:%S')}\n"
+        print(f"Date: {self.today_date.strftime('%d/%m/%Y %H:%M:%S')}\n"
               f"Thanks, {name}, for your purchase!\n"
               f"You have bought:")
 
