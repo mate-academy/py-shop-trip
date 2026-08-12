@@ -17,7 +17,7 @@ class Customer:
             if product in shop.products:
                 products_price += count * shop.products[product]
             else:
-                return - 1
+                return -1
         car_trip_price = self.car.count_trip(
             fuel_price, self.current_location, shop.location
         )
