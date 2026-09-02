@@ -50,6 +50,7 @@ def shop_trip() -> None:
             home_location = customer.location.copy()
             customer.location = shop_to_visit.location
             visit_time = datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S")
+            customer.money -= cheapest_price
             print(f"{customer.name} rides to {shop_to_visit.name}\n")
             print(f"Date: {visit_time}\n"
                   f"Thanks, {customer.name}, for your purchase!\n"
@@ -67,7 +68,7 @@ def shop_trip() -> None:
                   f"\n"
                   f"{customer.name} rides home\n"
                   f"{customer.name} now has "
-                  f"{customer.money - cheapest_price:.2f} dollars\n")
+                  f"{customer.money:.2f} dollars\n")
             customer.location = home_location
         else:
             print(f"{customer.name} doesn't have enough money "

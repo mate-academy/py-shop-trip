@@ -2,8 +2,10 @@ import json
 import math
 
 
-def distance_between_locations(cus_loc: list, shop_loc: list) -> float:
-    return math.hypot(shop_loc[0] - cus_loc[0], shop_loc[1] - cus_loc[1])
+def distance_between_locations(customer_location: list,
+                               shop_location: list) -> float:
+    return math.hypot(shop_location[0] - customer_location[0],
+                      shop_location[1] - customer_location[1])
 
 
 def price_for_trip(distance: float,
