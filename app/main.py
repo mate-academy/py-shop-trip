@@ -4,7 +4,7 @@ from app.customer import Customer
 from app.shop import Shop
 
 
-def shop_trip():
+def shop_trip() -> None:
     with open("app/config.json") as file:
         file_data = json.load(file)
 
