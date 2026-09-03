@@ -22,7 +22,7 @@ class Shop:
 
     def calculate_product_cart_price(self, product_cart: dict) -> float | int:
         result = 0
-        for key, value in product_cart.items():
+        for key in product_cart.keys():
             result += product_cart[key] * self.products[key]
         return result
 
