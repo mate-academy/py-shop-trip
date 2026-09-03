@@ -19,8 +19,8 @@ def shop_trip() -> None:
         if total_cost < customer.money:
             customer.money -= total_cost
             print(f"{customer.name} rides to {best_shop.name}\n")
-            customer.location, home_location = (best_shop.location,
-                                                customer.location)
+            home_location = customer.location
+            customer.location = best_shop.location
             customer.print_receipt(best_shop)
             print(f"{customer.name} rides home")
             customer.location = home_location
