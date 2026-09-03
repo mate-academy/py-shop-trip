@@ -10,4 +10,3 @@ class Customer:
     money: int
     location: list[int]
     car: Car
-
