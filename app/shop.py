@@ -5,4 +5,4 @@ from dataclasses import dataclass
 class Shop:
     name: str
     location: list[int]
-    products: dict[str, int]
+    products: dict[str, float]
