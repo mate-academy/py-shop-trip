@@ -4,7 +4,7 @@ import math
 
 from app.car import Car
 from app.customer import Customer
-from app.helpers import format_float
+from app.helpers import format_float, format_money
 from app.shop import Shop
 
 
@@ -24,6 +24,8 @@ def shop_trip() -> None:
 
         total_price_per_shop = {}
         product_cost_per_shop = {}
+        c_loc = customer.location
+        s_loc = None
         for shop in shops:
             c_loc = customer.location
             s_loc = shop.location
@@ -42,7 +44,7 @@ def shop_trip() -> None:
 
             full_cost = fuel_both_ways + product_cost
             print(f"{customer.name}'s trip to the "
-                  f"{shop.name} costs {full_cost:.2f}")
+                  f"{shop.name} costs {format_money(full_cost)}")
             total_price_per_shop[shop.name] = full_cost
 
         cheapest_shop = min(total_price_per_shop.values())
@@ -56,7 +58,9 @@ def shop_trip() -> None:
             (k for k, v in total_price_per_shop.items() if v == cheapest_shop)
         )
         shop = next((s for s in shops if s.name == shop_name))
+        s_loc = shop.location
         print(f"{customer.name} rides to {shop.name}\n")
+        customer.location = s_loc
 
         print(f"Date: {datetime.datetime.now().strftime('%d/%m/%Y %H:%M:%S')}")
         print(f"Thanks, {customer.name}, for your purchase!\nYou have bought:")
@@ -65,12 +69,15 @@ def shop_trip() -> None:
                 f"{quantities} {item}s for "
                 f"{format_float(quantities * shop.products[item])} dollars"
             )
-        print(f"Total cost is {product_cost_per_shop[shop.name]:.1f} dollars")
+        print(f"Total cost is "
+              f"{format_money(product_cost_per_shop[shop.name])} dollars")
         print("See you again!\n")
 
         customer.money -= cheapest_shop
         print(f"{customer.name} rides home")
-        print(f"{customer.name} now has {customer.money:.2f} dollars\n")
+        customer.location = c_loc
+        print(f"{customer.name} now has "
+              f"{format_money(customer.money)} dollars\n")
 
 
 if __name__ == "__main__":
