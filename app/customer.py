@@ -1,6 +1,5 @@
 class Customer:
-
-    def __init__(self, customer: dict):
+    def __init__(self, customer: dict) -> None:
         self.customer = customer
         self.name = customer["name"]
         self.product_cart = customer["product_cart"]
@@ -8,12 +7,14 @@ class Customer:
         self.money = customer["money"]
         self.car = customer["car"]
 
-    def can_afford(self, some_money):
-        return some_money <= self.money
+    def can_afford(self, some_money: float) -> bool:
+        return self.money >= some_money
 
-
-    def get_location(self):
+    def get_location(self) -> list:
         return self.location
 
-    def get_product_cart(self):
+    def get_product_cart(self) -> list:
         return self.product_cart
+
+    def set_location(self, new_location: list) -> None:
+        self.location = new_location
