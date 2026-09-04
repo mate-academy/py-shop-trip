@@ -7,13 +7,13 @@ class Customer:
         self.money = customer["money"]
         self.car = customer["car"]
 
-    def can_afford(self, some_money: float) -> bool:
+    def can_afford(self, some_money: float | int) -> bool:
         return self.money >= some_money
 
     def get_location(self) -> list:
         return self.location
 
-    def get_product_cart(self) -> list:
+    def get_product_cart(self) -> dict:
         return self.product_cart
 
     def set_location(self, new_location: list) -> None:
