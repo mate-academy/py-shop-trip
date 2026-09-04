@@ -30,6 +30,7 @@ def shop_trip() -> None:
             shop_ = Shop(shop)
             distance = shop_.calculate_distance(customer_obj.get_location())
 
+            # Розрахунок дороги туди й назад
             way_cost = car_obj.calculate_fuel_price(fuel_price, distance) * 2
             product_cart = customer_obj.get_product_cart()
             item_costs, sum_cost = shop_.calculate_products_cost(product_cart)
@@ -46,15 +47,16 @@ def shop_trip() -> None:
             print(f"{customer_obj.name}'s trip to "
                   f"the {shop_.name} costs {total_cost:.2f}")
 
-        if customer_obj.can_afford(min_total_cost):
+        if (min_total_cost is not None
+                and customer_obj.can_afford(min_total_cost)):
             print(f"{customer_obj.name} rides to {min_shop_name}")
 
             customer_obj.set_location(min_shop_location)
             date = datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S")
 
             print(f"\nDate: {date}")
-            print(f"Thanks, {customer_obj.name}, "
-                  f"for your purchase!\nYou have bought:")
+            print(f"Thanks, {customer_obj.name}, for your purchase!\n"
+                  f"You have bought:")
 
             for product, quantity in customer_obj.get_product_cart().items():
                 plural_name = f"{product}s" if not product.endswith("s") \
@@ -70,5 +72,5 @@ def shop_trip() -> None:
             print(f"{customer_obj.name} rides home\n"
                   f"{customer_obj.name} now has {res} dollars")
         else:
-            print(f"{customer_obj.name} "
-                  f"doesn't have enough money to make a purchase in any shop")
+            print(f"{customer_obj.name} doesn't "
+                  f"have enough money to make a purchase in any shop")
