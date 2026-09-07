@@ -30,7 +30,6 @@ def shop_trip() -> None:
             shop_ = Shop(shop)
             distance = shop_.calculate_distance(customer_obj.get_location())
 
-            # Розрахунок дороги туди й назад
             way_cost = car_obj.calculate_fuel_price(fuel_price, distance) * 2
             product_cart = customer_obj.get_product_cart()
             item_costs, sum_cost = shop_.calculate_products_cost(product_cart)
@@ -70,7 +69,7 @@ def shop_trip() -> None:
             customer_obj.set_location(home_location)
             res = round(customer_obj.money - min_total_cost, 2)
             print(f"{customer_obj.name} rides home\n"
-                  f"{customer_obj.name} now has {res} dollars")
+                  f"{customer_obj.name} now has {res} dollars\n")
         else:
             print(f"{customer_obj.name} doesn't "
                   f"have enough money to make a purchase in any shop")
