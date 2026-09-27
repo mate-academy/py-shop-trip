@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 import math
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from typing import TYPE_CHECKING
 
 from app.car import Car
@@ -17,6 +17,11 @@ class Customer:
     location: list[int]
     money: float | int
     car: Car
+    home_location: list[int] = field(init=False)
+
+    def __post_init__(self) -> None:
+        """Викликається автоматично одразу після __init__"""
+        self.home_location = self.location.copy()
 
     @classmethod
     def from_dict(cls, data: dict) -> Customer:
@@ -30,10 +35,10 @@ class Customer:
             car=car
         )
 
-    def distance_to_shop(self, shop_location: list[int]) -> float:
+    def distance_to_shop(self, destination_location: list[int]) -> float:
         """Counting distance to shop and home"""
         cust_x, cust_y = self.location
-        shop_x, shop_y = shop_location
+        shop_x, shop_y = destination_location
         distance = math.sqrt(
             (cust_x - shop_x) ** 2 + (cust_y - shop_y) ** 2
         ) * 2
@@ -112,10 +117,12 @@ class Customer:
         best_shop = self.find_min_trip_cost(shops, fuel_price)
         trip_cost = costs[best_shop.name]
         print(f"{self.name} rides to {best_shop.name}\n")
+        self.location = best_shop.location
 
         best_shop.print_receipt(self)
 
         print(f"\n{self.name} rides home")
+        self.location = self.home_location
 
         self.money = round(self.money - trip_cost, 2)
         currency_left = "dollars" if self.money != 1 else "dollar"

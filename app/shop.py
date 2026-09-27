@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-import datetime as dt
+import datetime
 from dataclasses import dataclass
 from typing import TYPE_CHECKING
 
@@ -35,7 +35,7 @@ class Shop:
 
     def print_receipt(self, customer: Customer) -> None:
         """Create receipt with customer items and prices"""
-        date_now = dt.datetime.now().strftime("%d/%m/%Y %H:%M:%S")
+        date_now = datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S")
 
         items_lines = [
             self.format_receipt_item(product, number)
