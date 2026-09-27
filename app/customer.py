@@ -97,7 +97,7 @@ class Customer:
             fuel_price: int | float
     ) -> None:
         """Printing trips info messages"""
-        currency = "dollars" if self.money != 1 else "dollar"
+        currency = "dollar" if self.money == 1 else "dollars"
         print(f"{self.name} has {self.money} {currency}")
 
         costs = self.trips_cost(shops, fuel_price)
@@ -125,5 +125,5 @@ class Customer:
         self.location = self.home_location
 
         self.money = round(self.money - trip_cost, 2)
-        currency_left = "dollars" if self.money != 1 else "dollar"
+        currency_left = "dollar" if self.money == 1 else "dollars"
         print(f"{self.name} now has {self.money} {currency_left}\n")
