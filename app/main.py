@@ -6,7 +6,7 @@ from shop import Shop
 
 
 def shop_trip() -> None:
-    with open("config.json") as file:
+    with open("config.json", "r") as file:
         config = json.load(file)
 
     fuel_price = config["FUEL_PRICE"]
@@ -15,18 +15,20 @@ def shop_trip() -> None:
         Shop(
             shop["name"],
             shop["location"],
-            shop["products"]
+            shop["products"],
         )
         for shop in config["shops"]
     ]
 
     for customer_data in config["customers"]:
         customer = Customer(
-            customer_data["name"],
-            customer_data["product_cart"],
-            customer_data["location"],
-            customer_data["money"],
-            Car(
+            name=customer_data["name"],
+            product_cart=customer_data[
+                "product_cart"
+            ],
+            location=customer_data["location"],
+            money=customer_data["money"],
+            car=Car(
                 customer_data["car"]["brand"],
                 customer_data["car"][
                     "fuel_consumption"
@@ -35,8 +37,8 @@ def shop_trip() -> None:
         )
 
         print(
-            f"{customer.name} "
-            f"has {customer.money} dollars"
+            f"{customer.name} has "
+            f"{customer.money} dollars"
         )
 
         cheapest_shop = None
@@ -47,42 +49,43 @@ def shop_trip() -> None:
                 shop.location
             )
 
-            fuel_cost = (
-                customer.car.trip_cost(
-                    distance * 2,
-                    fuel_price
-                )
+            fuel_cost = customer.car.trip_cost(
+                distance * 2,
+                fuel_price,
             )
 
-            purchases_cost = (
+            products_cost = (
                 shop.products_cost(
                     customer.product_cart
                 )
             )
 
-            trip_cost = (
+            total_cost = (
                 fuel_cost
-                + purchases_cost
+                + products_cost
             )
 
             print(
-                f"{customer.name}'s trip "
-                f"to the {shop.name} "
-                f"costs {trip_cost:.2f}"
+                f"{customer.name}'s trip to "
+                f"the {shop.name} costs "
+                f"{total_cost:.2f}"
             )
 
             if (
                 cheapest_cost is None
-                or trip_cost < cheapest_cost
+                or total_cost < cheapest_cost
             ):
-                cheapest_cost = trip_cost
+                cheapest_cost = total_cost
                 cheapest_shop = shop
 
-        if customer.money < cheapest_cost:
+        if (
+            cheapest_cost is None
+            or customer.money < cheapest_cost
+        ):
             print(
-                f"{customer.name} "
-                f"doesn't have enough money "
-                f"to make a purchase in any shop"
+                f"{customer.name} doesn't "
+                f"have enough money to make "
+                f"a purchase in any shop"
             )
             continue
 
@@ -91,30 +94,38 @@ def shop_trip() -> None:
             f"{cheapest_shop.name}"
         )
 
+        home_location = customer.location.copy()
+
         customer.location = (
             cheapest_shop.location
         )
 
-        purchase_cost = (
+        products_cost = (
             cheapest_shop.print_receipt(
                 customer.name,
-                customer.product_cart
+                customer.product_cart,
             )
         )
 
-        distance = customer.distance_to(
-            [12, -2]
+        distance_home = (
+            customer.distance_to(
+                home_location
+            )
         )
 
-        fuel_cost = customer.car.trip_cost(
-            distance,
-            fuel_price
+        return_fuel_cost = (
+            customer.car.trip_cost(
+                distance_home,
+                fuel_price,
+            )
         )
 
         customer.money -= (
-            purchase_cost
-            + fuel_cost
+            products_cost
+            + return_fuel_cost
         )
+
+        customer.location = home_location
 
         print(
             f"{customer.name} rides home"
