@@ -1,19 +1,22 @@
-from datetime import datetime
+import datetime
 
 
 class Shop:
     def __init__(
         self,
         name: str,
-        location: list,
-        products: dict
+        location: list[float],
+        products: dict,
     ) -> None:
         self.name = name
         self.location = location
         self.products = products
 
-    def products_cost(self, cart: dict) -> float:
-        total = 0
+    def products_cost(
+        self,
+        cart: dict,
+    ) -> float:
+        total = 0.0
 
         for product, amount in cart.items():
             total += self.products[product] * amount
@@ -23,14 +26,16 @@ class Shop:
     def print_receipt(
         self,
         customer_name: str,
-        cart: dict
+        cart: dict,
     ) -> float:
-        total = 0
+        total = 0.0
 
         print()
         print(
-            f"Date: "
-            f"{datetime.now().strftime('%m/%d/%Y %H:%M:%S')}"
+            "Date:",
+            datetime.datetime.now().strftime(
+                "%d/%m/%Y %H:%M:%S"
+            ),
         )
         print(
             f"Thanks, {customer_name}, for your purchase!"
@@ -46,7 +51,9 @@ class Shop:
                 f"for {cost} dollars"
             )
 
-        print(f"Total cost is {total} dollars")
+        print(
+            f"Total cost is {total} dollars"
+        )
         print("See you again!")
         print()
 
