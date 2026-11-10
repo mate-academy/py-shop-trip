@@ -36,9 +36,9 @@ def evaluate_shopping_options(
         money: int | float,
         fuel_price: int | float
 ) -> tuple[dict[str, int | float], Shop | None, int | float]:
+
     costs_for_possible_shops = {}
     lowest_total_cost_shop = None
-    money_after_purchase = 0
     current_cheapest_cost = float("inf")
 
     for shop in shops:
@@ -58,10 +58,15 @@ def evaluate_shopping_options(
 
         if shopping_and_trip_cost < current_cheapest_cost:
             current_cheapest_cost = shopping_and_trip_cost
-            money_after_purchase = money - current_cheapest_cost
 
             if money >= current_cheapest_cost:
                 lowest_total_cost_shop = shop
+
+    money_after_purchase = (
+        money - current_cheapest_cost
+        if current_cheapest_cost != float("inf")
+        else money
+    )
 
     return (
         costs_for_possible_shops,
