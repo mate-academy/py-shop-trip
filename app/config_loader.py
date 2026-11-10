@@ -11,7 +11,6 @@ class ConfigLoader:
         config_path = Path(__file__).parent / "config.json"
         self.customers: list[Customer]
         self.shops: list[Shop]
-        self.car: list[Car]
         self.fuel_price: float
 
         with config_path.open("r", encoding="utf-8") as file_in:

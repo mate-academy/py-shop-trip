@@ -38,6 +38,3 @@ def shop_trip() -> None:
         print(f"{customer_result.customer.name} rides home")
         print(f"{customer_result.customer.name} now "
               f"has {customer_result.money_after_purchase} dollars\n")
-
-
-shop_trip()

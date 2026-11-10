@@ -16,7 +16,7 @@ def calculate_customer_purchase_receipt(
     for product, quantity in customer.product_cart.items():
         product_price = choosen_shop.products.get(product, 0)
 
-        if product_price is None:
+        if product_price == 0:
             continue
 
         product_cost = quantity * product_price
