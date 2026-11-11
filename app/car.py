@@ -3,13 +3,12 @@ import math
 
 class Car:
 
-    def __init__(self, brand: str, fuel_consuption_100_km: float) -> None:
+    def __init__(self, brand: str, fuel_consumption_100_km: float) -> None:
         self.brand = brand
-        self.fuel_consumption_100_km = fuel_consuption_100_km
+        self.fuel_consumption_100_km = fuel_consumption_100_km
 
     def fuel_price_per_trip(self, distance: float, fuel_price: float) -> float:
-        return (((distance * 2) * self.fuel_consumption_100_km / 100)
-                * fuel_price)
+        return (distance * self.fuel_consumption_100_km / 100) * fuel_price
 
     @staticmethod
     def calculate_distance(initial_position: list[float],

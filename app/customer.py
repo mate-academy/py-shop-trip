@@ -23,7 +23,7 @@ class Customer:
             return None
         distance = self.car.calculate_distance(self.current_location,
                                                shop.location)
-        fuel_cost = self.car.fuel_price_per_trip(distance, fuel_price)
+        fuel_cost = self.car.fuel_price_per_trip(distance, fuel_price) * 2
         products_cost = shop.calculate_price_of_products(self.product_cart)
         return fuel_cost + products_cost
 
