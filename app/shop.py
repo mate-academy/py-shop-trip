@@ -29,11 +29,12 @@ class Shop:
         total = 0
         for product, quantity in product_cart.items():
             unit_price = self.products_and_prices[product]
-            product_total = quantity * unit_price
+            product_total = round(quantity * unit_price, 2)
             total += product_total
             print(
                 f"{quantity} {product}s for "
-                f"{round(product_total, 2)} dollars"
+                f"{product_total:g} dollars"
             )
-        print(f"Total cost is {round(total, 2)} dollars")
+        total = round(total, 2)
+        print(f"Total cost is {total:g} dollars")
         print("See you again!")
