@@ -33,7 +33,7 @@ class Shop:
             total += product_total
             print(
                 f"{quantity} {product}s for "
-                f"{product_total:g} dollars"
+                f"{round(product_total, 2)} dollars"
             )
-        print(f"Total cost is {total:g} dollars")
+        print(f"Total cost is {round(total, 2)} dollars")
         print("See you again!")

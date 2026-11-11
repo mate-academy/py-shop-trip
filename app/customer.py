@@ -28,7 +28,7 @@ class Customer:
         return fuel_cost + products_cost
 
     def find_cheapest_shop(self, shops: list[Shop],
-                           fuel_price: float) -> list[Shop]:
+                           fuel_price: float) -> tuple[Shop, float] | None:
         shop_options = []
         for shop in shops:
             trip_cost = self.calculate_trip_cost(shop, fuel_price)
