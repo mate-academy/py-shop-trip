@@ -31,5 +31,5 @@ class Shop:
         print("You have bought:")
         for product, count in product_cart.items():
             print(f"{count} {product}s for {product_costs[product]:g} dollars")
-        print(f"Total cost is {total_cost} dollars")
+        print(f"Total cost is {total_cost:.2f} dollars")
         print("See you again!\n")
