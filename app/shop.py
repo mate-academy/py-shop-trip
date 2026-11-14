@@ -1,35 +1,51 @@
+from __future__ import annotations
+
 import datetime
 from dataclasses import dataclass
+from typing import TYPE_CHECKING
+
+from app.utils import format_amount
+
+if TYPE_CHECKING:
+    from app.customer import Customer
 
 
-@dataclass
+@dataclass(slots=True)
 class Shop:
     name: str
     location: list[int]
     products: dict[str, float]
 
-    def has_products(self, product_cart: dict) -> bool:
+    @classmethod
+    def from_dict(cls, shop_data: dict) -> Shop:
+        return cls(
+            shop_data["name"],
+            shop_data["location"],
+            shop_data["products"],
+        )
+
+    def has_products(self, product_cart: dict[str, int]) -> bool:
         return all(product in self.products for product in product_cart)
 
-    def calculate_products_cost(self, product_cart: dict) -> tuple:
-        product_costs = {
-            product: self.products[product] * count
+    def calculate_products_cost(self, product_cart: dict[str, int]) -> float:
+        return sum(
+            self.products[product] * count
             for product, count in product_cart.items()
-        }
-        total_cost = sum(product_costs.values())
-        return product_costs, total_cost
+        )
 
-    def print_receipt(
-        self,
-        product_cart: dict,
-        product_costs: dict,
-        total_cost: float,
-        customer_name: str,
-    ) -> None:
-        print(f"Date: {datetime.datetime.now():%d/%m/%Y %H:%M:%S}")
-        print(f"Thanks, {customer_name}, for your purchase!")
-        print("You have bought:")
-        for product, count in product_cart.items():
-            print(f"{count} {product}s for {product_costs[product]:g} dollars")
-        print(f"Total cost is {total_cost} dollars")
-        print("See you again!\n")
+    def create_receipt(self, customer: Customer) -> str:
+        total_cost = self.calculate_products_cost(customer.product_cart)
+
+        lines = [
+            f"Date: {datetime.datetime.now():%d/%m/%Y %H:%M:%S}",
+            f"Thanks, {customer.name}, for your purchase!",
+            "You have bought:",
+        ]
+        for product, amount in customer.product_cart.items():
+            price = self.products[product] * amount
+            lines.append(
+                f"{amount} {product}s for {format_amount(price)} dollars"
+            )
+        lines.append(f"Total cost is {format_amount(total_cost)} dollars")
+        lines.append("See you again!")
+        return "\n".join(lines)
