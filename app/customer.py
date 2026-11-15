@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import math
 from dataclasses import dataclass, field
 from typing import TYPE_CHECKING
 
@@ -29,17 +30,11 @@ class Customer:
             customer_data["product_cart"],
             customer_data["location"],
             customer_data["money"],
-            Car(
-                customer_data["car"]["brand"],
-                customer_data["car"]["fuel_consumption"],
-            ),
+            Car(**customer_data["car"]),
         )
 
     def distance_to_shop(self, shop: Shop) -> float:
-        return (
-            (self.location[0] - shop.location[0]) ** 2
-            + (self.location[1] - shop.location[1]) ** 2
-        ) ** 0.5
+        return math.dist(self.location, shop.location)
 
     def calculate_trip_cost(self, shop: Shop, fuel_price: float) -> float:
         return shop.calculate_products_cost(
