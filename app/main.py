@@ -1,5 +1,4 @@
 import json
-import datetime
 from app.customer import Customer
 from app.shop import Shop
 from app.car import Car
@@ -20,8 +19,10 @@ def shop_trip() -> None:
         for index, customer in enumerate(customer_list):
             # make a Customer instance
             person = Customer(customer["name"], customer["money"],
-                              customer["product_cart"], customer["location"])
+                              customer["product_cart"], customer["location"],
+                              customer["car"])
             print(person)
+            original_location = person.location
 
             # make a Car instance
             car = Car(customer["car"]["fuel_consumption"])
@@ -34,7 +35,7 @@ def shop_trip() -> None:
                 distance_to_store = shop.calculate_distance(person.location)
                 fuel_cost = car.cost_to_drive(distance_to_store, fuel_price)
                 total_product_cost = shop.calculate_total_price(
-                    person.list_of_products())
+                    person.products)
                 shopping_trip_cost = round(
                     ((fuel_cost * 2) + total_product_cost), 2)
                 print(f"{person.name}'s trip to the {shop.name} "
@@ -48,11 +49,9 @@ def shop_trip() -> None:
             if person.money >= min_cost:
                 print(f"{person.name} rides to {cheapest_store.name}")
                 person.location = cheapest_store.location
-                time = datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S")
-                print()
-                print(f"Date: {time}")
                 cheapest_store.print_purchased_products(person)
-                remaining_money = person.money - selected_trip_cost
+                person.location = original_location
+                remaining_money = round((person.money - selected_trip_cost), 2)
                 print(f"{person.name} now has {remaining_money} dollars")
                 if index < len(customer_list) - 1:
                     print()
