@@ -5,7 +5,7 @@ from app.car import Car
 
 
 def shop_trip() -> None:
-    with (open("config.json", "r") as file):
+    with open("config.json", "r") as file:
         # load file into dictionary
         shopping_dict = json.load(file)
         fuel_price = shopping_dict["FUEL_PRICE"]
@@ -34,8 +34,8 @@ def shop_trip() -> None:
             for shop in shop_list:
                 distance_to_store = shop.calculate_distance(person.location)
                 fuel_cost = car.cost_to_drive(distance_to_store, fuel_price)
-                total_product_cost = shop.calculate_total_price(
-                    person.products)
+                total_product_cost = person.calculate_total_price(
+                    shop.products)
                 shopping_trip_cost = round(
                     ((fuel_cost * 2) + total_product_cost), 2)
                 print(f"{person.name}'s trip to the {shop.name} "

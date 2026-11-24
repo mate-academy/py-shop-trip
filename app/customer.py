@@ -9,3 +9,8 @@ class Customer:
 
     def __str__(self) -> str:
         return f"{self.name} has {self.money} dollars"
+
+    def calculate_total_price(self, other: dict) -> float:
+        result = [self.products[product] * other[product] for
+                  product in self.products.keys()]
+        return sum(result)

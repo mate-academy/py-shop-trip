@@ -14,11 +14,6 @@ class Shop:
                               ** 2 + (other[1] - self.location[1]) ** 2))
         return distance
 
-    def calculate_total_price(self, other: dict) -> float:
-        result = [self.products[product] * other[product] for
-                  product in self.products.keys()]
-        return sum(result)
-
     def print_purchased_products(self, customer: "Customer") -> None:
         time = datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S")
         print()
@@ -26,8 +21,8 @@ class Shop:
         print(f"Thanks, {customer.name}, for your purchase!")
         print("You have bought:")
         total = 0.0
-        for key, value in self.products.items():
-            total_price = float(value * customer.products[key])
+        for key, value in customer.products.items():
+            total_price = float(value * self.products[key])
             total += total_price
             print(f"{customer.products[key]} {key}s for "
                   f"{total_price:g} dollars")
